@@ -4,15 +4,15 @@
 
 ## Alunos integrantes da equipe
 
-* [Lucas Picinin Campos Lutti]
-* [Nome completo do aluno 2]
-* [Nome completo do aluno 3]
-* [Nome completo do aluno 4]
+* Gabriel de Souza
+* Gabriel de Lima Souza
+* Lucas Picinin Campos Lutti
+* Nikolas Augusoto Vieira Louret
 
 ## Professores responsáveis
 
-* [Nome completo do professor 1]
-* [Nome completo do professor 2]
+* Eveline Alonso Veloso
+* Juliana Amaral Baroni de Carvalho
 
 ## Instruções de utilização
 
