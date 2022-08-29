@@ -1,10 +1,16 @@
+import { Link, Outlet } from 'react-router-dom'
 import './App.css'
 
 function App() {
 
   return (
     <div className="App">
-      <h2>Atelier Picinin</h2>
+      <nav id="navBar">
+        <Link to={"/"}>Home</Link>
+        <Link to={"/cadastrarProduto"}>CadastrarProduto</Link>
+      </nav>
+      
+      <Outlet/>
     </div>
   )
 }
