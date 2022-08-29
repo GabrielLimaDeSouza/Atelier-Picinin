@@ -1,0 +1,56 @@
+body{
+    padding: 0 !important;
+    margin: 0 !important
+}
+
+.body{
+
+    margin: 0;
+    padding: 0 10%;
+}
+.CadastrarProdutoTitulo{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 40px;
+}
+
+.nomeDoProduto{
+    display: flex;
+    justify-content: center;
+}
+
+.descricaoDoProduto{
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
+}
+
+.sabores{
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
+}
+
+.preco{
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
+    
+}
+
+.imgProduto{
+    display: flex;
+    padding-top: 10px;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.botoes{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 50px;
+}
+
+textarea{
+    width: 300px;
+}
