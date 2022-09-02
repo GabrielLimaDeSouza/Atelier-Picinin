@@ -1,15 +1,18 @@
-.color{
+.color {
     background-color: rgb(76, 74, 74);
+    position: fixed;
     margin: 0 !important;
     bottom: 0;
     width: 100%;
 }
-.color p{
+
+.color p {
     margin: 0 !important;
     width: 100%;
 }
+
 @media (min-width: 600px) {
-    .color{
+    .color {
 
         bottom: 0;
     }

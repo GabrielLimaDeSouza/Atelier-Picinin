@@ -1,0 +1,14 @@
+.div-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.logo {
+    font-size: 20px;
+}
+
+ul {
+    list-style: none;
+}

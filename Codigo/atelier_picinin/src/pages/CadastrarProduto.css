@@ -1,56 +1,67 @@
-body{
-    padding: 0 !important;
-    margin: 0 !important
-}
-
-.body{
-
-    margin: 0;
-    padding: 0 10%;
-}
-.CadastrarProdutoTitulo{
+.body {
     display: flex;
-    justify-content: center;
-    padding-bottom: 40px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
 
-.nomeDoProduto{
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+.btn-primary {
+    font-size: 14px;
+    border-radius: 70px;
+    width: 170px;
+    margin-left: 60%;
+}
+
+/** Estilos de tabela **/
+
+table {
+    width: 80%;
+    text-align: center;
+    font-size: 14px;
+}
+
+span {
+    font-weight: bolder;
+}
+
+td {
+    border-bottom: 1px solid black;
+    padding: 20px;
+}
+
+.btnLixeira {
+    border: none;
+    background-color: white;
+    font-size: 20px;
+}
+
+/** Estilos de formulário (modal) **/
+
+form {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.descricaoDoProduto{
-    display: flex;
-    padding-top: 20px;
-    justify-content: center;
+form input,
+form label {
+    width: 80%;
+    margin-bottom: 5px;
 }
 
-.sabores{
-    display: flex;
-    padding-top: 20px;
-    justify-content: center;
+.btnMais {
+    font-size: 20px;
+    border: none;
+    background-color: white;
 }
 
-.preco{
-    display: flex;
-    padding-top: 20px;
-    justify-content: center;
-    
-}
-
-.imgProduto{
-    display: flex;
-    padding-top: 10px;
-    justify-content: center;
-    padding-top: 20px;
-}
-
-.botoes{
-    display: flex;
-    justify-content: space-around;
-    padding-top: 50px;
-}
-
-textarea{
-    width: 300px;
+.btn-warning {
+    margin-top: 20px;
 }
