@@ -1,12 +1,12 @@
-import Sequelize, { STRING } from 'sequelize'
+const {Sequelize} = require ('sequelize')
 const sequelize = new Sequelize('atelier', 'root', '12345', {
     host: "localhost",
     dialect: 'mysql'
 })
 
-const Produtos = sequelize.define('produtos', {
+const Produto = sequelize.define('produto', {
     NomeProduto: {
-        type: STRING,
+        type: Sequelize.STRING,
         primaryKey: true,
         allowNull: false,
       },
@@ -16,4 +16,5 @@ const Produtos = sequelize.define('produtos', {
       },
 })
 
-//Produtos.sync({force:true})
+module.exports = Produto
+//Produto.sync({force:true})

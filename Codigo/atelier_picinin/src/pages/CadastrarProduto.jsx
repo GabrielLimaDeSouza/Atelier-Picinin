@@ -4,6 +4,15 @@ import './CadastrarProduto.css'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BiTrash } from 'react-icons/bi'
 
+
+const db = require('../backend/db');
+const Produto = require("../backend/Produto")
+function cadastrar (){
+    Produto.create({
+        NomeProduto: "Joao",
+        DescricaoProduto: "Tese"
+    })
+}
 const CadastrarProduto = () => {
     return (
         <div className="body">
@@ -36,7 +45,7 @@ const CadastrarProduto = () => {
                                 <input type="file" name="foto2" id="foto2" />
                                 <label htmlFor="foto3">Terceira foto:</label>
                                 <input type="file" name="foto3" id="foto3" />
-                                <button type="submit" class="btn btn-warning ">Cadastrar</button>
+                                <button type="button" class="btn btn-warning " id='cadastrar' onClick={cadastrar} >Cadastrar</button>
                             </form>
                         </div>
                     </div>
