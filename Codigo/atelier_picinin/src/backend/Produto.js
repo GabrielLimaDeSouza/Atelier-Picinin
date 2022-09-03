@@ -4,7 +4,7 @@ const sequelize = new Sequelize('atelier', 'root', '12345', {
     dialect: 'mysql'
 })
 
-const Produto = sequelize.define('produto', {
+const Produtos = sequelize.define('produtos', {
     NomeProduto: {
         type: STRING,
         primaryKey: true,
@@ -16,4 +16,4 @@ const Produto = sequelize.define('produto', {
       },
 })
 
-Produto.sync({force:true})
+//Produtos.sync({force:true})
