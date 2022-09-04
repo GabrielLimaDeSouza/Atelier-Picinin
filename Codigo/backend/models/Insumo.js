@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
 const Insumo = mongoose.model('Insumo', {
-    idInsumo: Number,
-    nome: String,
+    name: String,
     quantidadeMin: Number,
     emEstoque: Number,
     validade: Date,
