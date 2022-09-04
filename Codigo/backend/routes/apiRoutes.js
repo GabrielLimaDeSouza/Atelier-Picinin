@@ -13,4 +13,8 @@ router.get('/viewAllInventory', controller.viewAllInventory)
 router.get('/viewInventoryById', controller.viewInventoryById)
 
 router.post('/inventoryResgister', controller.inventoryResgister)
+
+router.patch('/updateInventory', controller.updateInventory)
+
+router.delete('/deleteInventory', controller.deleteInventory)
 module.exports = router

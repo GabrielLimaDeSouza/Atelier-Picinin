@@ -27,7 +27,28 @@ module.exports = {
         }
     },
     async updateInventory (req, res) {
+        const id = req.query.id
+        const { name, quantidadeMin, emEstoque, validade } = req.body
 
+        const insumo = {
+            name,
+            quantidadeMin,
+            emEstoque,
+            validade
+        }
+
+        try {
+            const updatedInventory = await Insumo.updateOne({ _id: id }, insumo)
+
+            if(updatedInventory.matchedCount === 0){
+                res.status(422).json({ message: "Insumo não encontrado" })
+                return
+            }
+
+            res.status(200).json(insumo)
+        } catch (error) {
+            res.status(500).json({ error: error })
+        }
     },
     async viewAllInventory (req, res) {
         try {
@@ -39,12 +60,35 @@ module.exports = {
         }
     },
     async viewInventoryById (req, res) {
-        // try {
-        //     const inventory = await Insumo.findById()
+        const id = req.query.id
+        const inventoryById = await Insumo.findById(id)
 
-        //     res.status(200).json(inventory)
-        // } catch (error) {
-        //     res.status(500).json({ error: error })
-        // }
+        if(!inventoryById) {
+            res.status(422).json({ message: "Insumo não encontrado" })
+            return 
+        }
+
+        try {
+            res.status(200).json(inventoryById)
+        } catch (error) {
+            res.status(500).json({ error: error })
+        }
+    },
+    async deleteInventory (req, res) {
+        const id = req.query.id
+        const inventoryById = await Insumo.findById(id)
+
+        if(!inventoryById) {
+            res.status(422).json({ message: "Insumo não encontrado" })
+            return 
+        }
+
+        try {
+            await Insumo.deleteOne({ _id: id })
+
+            res.status(200).json({ message: "Insumo apagado com sucesso" })
+        } catch (error) {
+            res.status(500).json({ error: error })
+        }
     }
  }
