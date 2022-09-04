@@ -1,0 +1,12 @@
+{
+  "name": "api-atelier",
+  "scripts": {
+    "start": "nodemon app.js localhost 3000"
+  },
+  "proxy": "http://localhost:3000/",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "sequelize": "^6.21.4"
+  }
+}
