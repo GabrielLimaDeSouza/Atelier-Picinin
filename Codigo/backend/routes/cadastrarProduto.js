@@ -1,11 +1,27 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
-
+const Produto = require('../models/Produto')
 // Controlers
 
-router.get('/cadastrarProduto', (req, res) => {
-    res.json({"message": "Teste da rota do produto"})
+router.post('/produto', async (req, res) => {
+    
+    const{nomeProduto, descricaoProduto} = req.body
+    
+    const produto = {
+        nomeProduto,
+        descricaoProduto
+    }
+
+    try{
+
+        await Produto.create(produto)
+
+        res.status(201).json({message: 'Produto cadastrado'})
+
+    }catch(error){
+        res.status(500).json({error: error})
+    }
 })
 
 
