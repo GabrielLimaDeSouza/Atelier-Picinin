@@ -8,7 +8,7 @@ import Cabecalho from './components/Cabecalho'
 function App() {
   const [teste, setTest] = useState([]);
 
-  fetch("http://localhost:3000/", {
+  fetch("http://localhost:3000/api/", {
     method: "GET",
     headers: {
       'Content-Type': 'application/json'
