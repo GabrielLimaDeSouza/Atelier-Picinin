@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const mongoose = require('mongoose')
 const apiRoutes = require("./routes/apiRoutes")
+const cadastrarProdutoRoute = require ("./routes/cadastrarProduto")
 
 // middlewares para leitura de JSON
 app.use(
@@ -15,7 +16,7 @@ app.use(express.json())
 
 // rotas
 app.use('/api', apiRoutes);
-
+app.use('/cadastrarProduto', cadastrarProdutoRoute);
 // Porta do app
 const DB_USER = "atelier-picinin"
 const DB_PASSWORD = encodeURIComponent("A7B6wTCOKZreWxed")
