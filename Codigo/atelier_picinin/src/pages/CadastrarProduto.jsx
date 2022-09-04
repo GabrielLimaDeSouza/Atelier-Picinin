@@ -36,7 +36,7 @@ const CadastrarProduto = () => {
                                 <input type="file" name="foto2" id="foto2" />
                                 <label htmlFor="foto3">Terceira foto:</label>
                                 <input type="file" name="foto3" id="foto3" />
-                                <button type="submit" class="btn btn-warning ">Cadastrar</button>
+                                <button type="submit" class="btn btn-warning " id='cadastrar' onClick={cadastrar} >Cadastrar</button>
                             </form>
                         </div>
                     </div>
