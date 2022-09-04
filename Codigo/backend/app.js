@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const cors = require("cors");
+const mongoose = require('mongoose')
 
 // middlewares para leitura de JSON
-
 app.use(
     express.urlencoded({
         extended: true
@@ -19,4 +19,12 @@ app.get('/', (req, res) => {
 })
 
 // Porta do app
-app.listen(3000)
+const DB_USER = "atelier-picinin"
+const DB_PASSWORD = encodeURIComponent("A7B6wTCOKZreWxed")
+const DB_STRING = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@atelier.unn2ute.mongodb.net/?retryWrites=true&w=majority`
+
+mongoose.connect(DB_STRING).then(() => {
+    console.log("Banco de dados conectado")
+    console.log("Servidor conectado")
+    app.listen(3000)
+}).catch(err => console.error(err))
