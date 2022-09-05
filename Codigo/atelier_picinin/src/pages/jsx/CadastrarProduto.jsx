@@ -1,5 +1,4 @@
-
-import './CadastrarProduto.css'
+import '../css/CadastrarProduto.css'
 
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BiTrash } from 'react-icons/bi'
@@ -43,27 +42,29 @@ const CadastrarProduto = () => {
                 </div>
             </div>
             <table>
-                <tr>
+                <thead>
                     <td><span>PRODUTO</span></td>
                     <td><span>SABOR</span></td>
                     <td><span>PREÇO</span></td>
                     <td><span>PEDIDO MÍNIMO</span></td>
                     <td></td>
-                </tr>
-                <tr>
-                    <td>Suspiro</td>
-                    <td>Leite Ninho</td>
-                    <td>150</td>
-                    <td>5</td>
-                    <td><button className='btnLixeira'><BiTrash /></button></td>
-                </tr>
-                <tr>
-                    <td>Suspiro</td>
-                    <td>Morango</td>
-                    <td>40</td>
-                    <td>10</td>
-                    <td><button className='btnLixeira'><BiTrash /></button></td>
-                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Suspiro</td>
+                        <td>Leite Ninho</td>
+                        <td>150</td>
+                        <td>5</td>
+                        <td><button className='btnLixeira'><BiTrash /></button></td>
+                    </tr>
+                    <tr>
+                        <td>Suspiro</td>
+                        <td>Morango</td>
+                        <td>40</td>
+                        <td>10</td>
+                        <td><button className='btnLixeira'><BiTrash /></button></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     )

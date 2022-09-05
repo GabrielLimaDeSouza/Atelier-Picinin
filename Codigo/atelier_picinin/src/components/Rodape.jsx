@@ -1,4 +1,4 @@
-import './Rodape.css'
+import '../pages/css/Rodape.css'
 import { BsInstagram } from "react-icons/bs";
 import { BsWhatsapp } from "react-icons/bs";
 function Rodape() {
