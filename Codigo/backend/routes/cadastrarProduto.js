@@ -1,4 +1,5 @@
 const express = require("express");
+const productsController = require("../controller/productsController");
 const router = express.Router();
 router.use(express.json());
 const productController = require('../controller/productController')

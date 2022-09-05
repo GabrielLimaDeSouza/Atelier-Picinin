@@ -1,0 +1,16 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.btnMais {
+    font-size: 20px;
+    border: none;
+    background-color: white;
+}
+
+.btn-warning {
+    margin-top: 20px;
+}

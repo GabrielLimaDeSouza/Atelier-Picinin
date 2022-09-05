@@ -1,0 +1,12 @@
+div.divInput {
+    width: 100%;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.input, .label {
+    width: 80%;
+    margin: 0 auto 5px;
+}
