@@ -17,7 +17,7 @@ app.use(express.json())
 
 // rotas
 app.use('/api', apiRoutes);
-app.use('/cadastrarProduto', cadastrarProdutoRoute);
+app.use('/products', cadastrarProdutoRoute);
 
 // Acesso ao banco de dados
 const DB_USER = process.env.DB_USER

@@ -22,14 +22,14 @@ function App() {
 
   return (
     <div className="App">
-        <Cabecalho/>
+      <Cabecalho/>
       <Routes>
         <Route path='/' element={ <Home /> }>Home</Route>
         <Route path='/cadastrarProduto' element={ <CadastrarProduto /> }>Cadastrar Produtos</Route>
         <Route path='/estoque' element={ <Estoque /> }>Estoque</Route>
       </Routes>
-        <Outlet/>
-        <Rodape />
+      <Outlet/>
+      <Rodape />
     </div>
   )
 }

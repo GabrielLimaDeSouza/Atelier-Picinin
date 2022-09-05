@@ -2,20 +2,45 @@ import '../css/CadastrarProduto.css'
 
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BiTrash } from 'react-icons/bi'
+import Tables from '../../components/Tables'
+import { useState, useEffect } from 'react'
+import Button from '../../components/Button'
 
 const CadastrarProduto = () => {
+    function deleteProduct(e){
+        const btn = e.target
+        var element = btn.parentNode
+        console.log(element.isEqualNode(tr))
+        // while(element.nodeType != 'tr')
+        //     element = element.parentNode
+        
+        // console.log(element.id)
+    }
+    const arrayHeader = ["PRODUTO", "SABOR", "PREÇO", "PEDIDO MÍNIMO", ""]
+    const [produtos, setProdutos] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:3000/products/viewAllProducts', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json())
+        .then(data => setProdutos(data))
+        .catch(err => console.error(err))
+    })
     return (
         <div className="body">
             <h1 className="title">Cadastro de Produto</h1>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Inserir Novo Produto
             </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Cadastrando Novo Produto</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Cadastrando Novo Produto</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
                             <form id="form">
@@ -35,37 +60,37 @@ const CadastrarProduto = () => {
                                 <input type="file" name="foto2" id="foto2" />
                                 <label htmlFor="foto3">Terceira foto:</label>
                                 <input type="file" name="foto3" id="foto3" />
-                                <button type="submit" class="btn btn-warning " id='cadastrar' >Cadastrar</button>
+                                <button type="submit" className="btn btn-warning " id='cadastrar' >Cadastrar</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
             <table>
-                <thead>
-                    <td><span>PRODUTO</span></td>
-                    <td><span>SABOR</span></td>
-                    <td><span>PREÇO</span></td>
-                    <td><span>PEDIDO MÍNIMO</span></td>
-                    <td></td>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Suspiro</td>
-                        <td>Leite Ninho</td>
-                        <td>150</td>
-                        <td>5</td>
-                        <td><button className='btnLixeira'><BiTrash /></button></td>
-                    </tr>
-                    <tr>
-                        <td>Suspiro</td>
-                        <td>Morango</td>
-                        <td>40</td>
-                        <td>10</td>
-                        <td><button className='btnLixeira'><BiTrash /></button></td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <tr><span>PRODUTO</span></tr>
+                    <tr><span>SABOR</span></tr>
+                    <tr><span>PREÇO</span></tr>
+                    <tr><span>PEDIDO MÍNIMO</span></tr>
+                    <tr></tr>
+                </tr>
+                <tr>
+                    <td>Suspiro</td>
+                    <td>Leite Ninho</td>
+                    <td>150</td>
+                    <td>5</td>
+                    <td><button className='btnLixeira'><BiTrash /></button></td>
+                </tr>
+                <tr>
+                    <td>Suspiro</td>
+                    <td>Morango</td>
+                    <td>40</td>
+                    <td>10</td>
+                    <td><button className='btnLixeira'><BiTrash /></button></td>
+                </tr>
             </table>
+
+            <Tables arrayHeader={arrayHeader} itens={produtos} textButton={<Button type="button" text={<BiTrash />} className="btnLixeira" event={deleteProduct} />} />
         </div>
     )
 }
