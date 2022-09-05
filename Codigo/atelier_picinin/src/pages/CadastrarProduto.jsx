@@ -3,8 +3,39 @@ import './CadastrarProduto.css'
 
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BiTrash } from 'react-icons/bi'
+import { useState, useEffect, useNavigate } from 'react'
+import { useLocation } from 'react-router-dom'
+
+
 
 const CadastrarProduto = () => {
+
+
+    const [teste, setTest] = useState([[]]);
+
+    const location = useLocation
+
+
+    useEffect(() => {
+        setTimeout(() => {
+            fetch('http://localhost:3000/produto', {
+        method: 'GET',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+    }).then((resp)=> resp.json())
+    .then((data)=>{
+        console.log(data)
+        setTest(data)
+        
+    }).catch((err)=>console.log(err))
+        },100)
+    },[])
+
+
+
+    
+
     return (
         <div className="body">
             <h1 className="title">Cadastro de Produto</h1>
@@ -19,17 +50,17 @@ const CadastrarProduto = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form id="form">
+                            <form id="form" method='post' action='http://localhost:3000/produto/'>
                                 <label htmlFor="nome">Nome do Produto:</label>
                                 <input type="text" name="nome" id="nome" />
                                 <label htmlFor="descricao">Descrição do Produto:</label>
                                 <input type="text" name="descricao" id="descricao" />
                                 <label htmlFor="sabores">Sabor:</label>
-                                <input type="text" name="sabores" id="sabores" />
+                                <input type="text" name="sabor" id="sabor" />
                                 <label htmlFor="preco">Preço:</label>
                                 <input type="number" name="preco" id="preco" min="0" />
                                 <label htmlFor="pedidoMinimo">Pedido Mínimo:</label>
-                                <input type="number" name="pedidoMinimo" id="pedidoMinimo" min="0" /><button type="reset" className='btnMais' id="btnMais"><AiOutlinePlus /></button>
+                                <input type="number" name="pedidoMinProduto" id="pedidoMinProduto" min="0" /><button type="reset" className='btnMais' id="btnMais"><AiOutlinePlus /></button>
                                 <label htmlFor="foto1">Foto de capa:</label>
                                 <input type="file" name="foto1" id="foto1" />
                                 <label htmlFor="foto2">Segunda foto:</label>
@@ -42,29 +73,34 @@ const CadastrarProduto = () => {
                     </div>
                 </div>
             </div>
-            <table>
-                <tr>
+            <table id='tabela'>
+                <thead>
                     <td><span>PRODUTO</span></td>
                     <td><span>SABOR</span></td>
                     <td><span>PREÇO</span></td>
                     <td><span>PEDIDO MÍNIMO</span></td>
                     <td></td>
-                </tr>
-                <tr>
-                    <td>Suspiro</td>
-                    <td>Leite Ninho</td>
-                    <td>150</td>
-                    <td>5</td>
-                    <td><button className='btnLixeira'><BiTrash /></button></td>
-                </tr>
-                <tr>
-                    <td>Suspiro</td>
-                    <td>Morango</td>
-                    <td>40</td>
-                    <td>10</td>
-                    <td><button className='btnLixeira'><BiTrash /></button></td>
-                </tr>
-            </table>
+                </thead>
+
+                
+                   
+                {
+                    teste.map(number =>
+                        <tr>
+                            <td>{number.nomeProduto}</td>
+                            <td>{number.saborProduto}</td>
+                            <td>{number.precoProduto}</td>
+                            <td>{number.pedidoMinProduto}</td>
+                            <td></td>
+                        </tr>                
+                    )
+                 }
+                  
+                
+                    
+                
+                
+            </table> 
         </div>
     )
 }

@@ -1,28 +1,11 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
-const Produto = require('../models/Produto')
+const productController = require('../controller/productController')
 // Controlers
 
-router.post('/produto', async (req, res) => {
-    
-    const{nomeProduto, descricaoProduto} = req.body
-    
-    const produto = {
-        nomeProduto,
-        descricaoProduto
-    }
-
-    try{
-
-        await Produto.create(produto)
-
-        res.status(201).json({message: 'Produto cadastrado'})
-
-    }catch(error){
-        res.status(500).json({error: error})
-    }
-})
-
+router.post('/', productController.productRegister)
+router.get('/', productController.productGetAll)
+router.get('/:id', productController.productGetById)
 
 module.exports = router

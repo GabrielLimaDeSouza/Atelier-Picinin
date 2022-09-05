@@ -5,6 +5,7 @@ router.use(express.json());
 // Controllers
 const controller = require('../controller/inventoryController')
 
+
 router.get('/', (req, res) => {
     res.json({"message": "Teste das rotas da api do express"})
 })
