@@ -1,4 +1,4 @@
-const Tables = ({ arrayHeader, itens, textButton}) => {
+const Tables = ({ arrayHeader, itens, arrayProperties, textButton}) => {
     return(
         <>
             <table>
@@ -6,7 +6,7 @@ const Tables = ({ arrayHeader, itens, textButton}) => {
                     <tr>
                         {
                             arrayHeader.map(column => (
-                                <th>{column}</th>
+                                <th key={column}>{column}</th>
                             ))
                         }
                     </tr>
@@ -14,8 +14,8 @@ const Tables = ({ arrayHeader, itens, textButton}) => {
                 <tbody>
                     {
                         itens.map(item => (
-                            <tr id={item._id}>
-                                <td>{item.nomeProduto}</td>
+                            <tr id={item["_id"]} key={item["_id"]}>
+                                <td>{item[arrayProperties[0]]}</td>
                                 <td>Sabor</td>
                                 <td>Preço</td>
                                 <td>PEDIDO MÍNIMO</td>

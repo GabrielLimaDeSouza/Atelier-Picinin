@@ -10,13 +10,17 @@ const CadastrarProduto = () => {
     function deleteProduct(e){
         const btn = e.target
         var element = btn.parentNode
-        console.log(element.isEqualNode(tr))
-        // while(element.nodeType != 'tr')
-        //     element = element.parentNode
-        
-        // console.log(element.id)
+        while(element.id == false)
+            element = element.parentNode
+
     }
-    const arrayHeader = ["PRODUTO", "SABOR", "PREÇO", "PEDIDO MÍNIMO", ""]
+
+    // Array com as colunas do cabeçalhos
+    const arrayHeader = ["PRODUTO", "SABOR", "PREÇO", "PEDIDO MÍNIMO", ""] // [coluna1, coluna2, coluna3...]
+
+    // Array com as propriedade dos objetos
+    const arrayProperties = ["nomeProduto"] // [coluna1, coluna2, coluna3...]
+
     const [produtos, setProdutos] = useState([])
 
     useEffect(() => {
@@ -29,13 +33,14 @@ const CadastrarProduto = () => {
         .then(data => setProdutos(data))
         .catch(err => console.error(err))
     })
+
     return (
         <div className="body">
             <h1 className="title">Cadastro de Produto</h1>
             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Inserir Novo Produto
             </button>
-            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -66,31 +71,16 @@ const CadastrarProduto = () => {
                     </div>
                 </div>
             </div>
-            <table>
-                <tr>
-                    <tr><span>PRODUTO</span></tr>
-                    <tr><span>SABOR</span></tr>
-                    <tr><span>PREÇO</span></tr>
-                    <tr><span>PEDIDO MÍNIMO</span></tr>
-                    <tr></tr>
-                </tr>
-                <tr>
-                    <td>Suspiro</td>
-                    <td>Leite Ninho</td>
-                    <td>150</td>
-                    <td>5</td>
-                    <td><button className='btnLixeira'><BiTrash /></button></td>
-                </tr>
-                <tr>
-                    <td>Suspiro</td>
-                    <td>Morango</td>
-                    <td>40</td>
-                    <td>10</td>
-                    <td><button className='btnLixeira'><BiTrash /></button></td>
-                </tr>
-            </table>
 
-            <Tables arrayHeader={arrayHeader} itens={produtos} textButton={<Button type="button" text={<BiTrash />} className="btnLixeira" event={deleteProduct} />} />
+            <Tables arrayHeader={arrayHeader}
+                itens={produtos}
+                arrayProperties={arrayProperties}
+                textButton={
+                    <Button type="button" text={<BiTrash />}
+                    className="btnLixeira"
+                    event={deleteProduct} />
+                    }
+            />
         </div>
     )
 }
