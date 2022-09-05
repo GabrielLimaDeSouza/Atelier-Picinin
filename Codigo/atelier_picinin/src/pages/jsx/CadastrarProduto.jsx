@@ -5,6 +5,7 @@ import { BiTrash } from 'react-icons/bi'
 import Tables from '../../components/Tables'
 import { useState, useEffect } from 'react'
 import Button from '../../components/Button'
+import Form from '../../components/FormCadastroProdutos'
 
 const CadastrarProduto = () => {
     function deleteProduct(e){
@@ -48,25 +49,7 @@ const CadastrarProduto = () => {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form id="form">
-                                <label htmlFor="nome">Nome do Produto:</label>
-                                <input type="text" name="nome" id="nome" />
-                                <label htmlFor="descricao">Descrição do Produto:</label>
-                                <input type="text" name="descricao" id="descricao" />
-                                <label htmlFor="sabores">Sabor:</label>
-                                <input type="text" name="sabores" id="sabores" />
-                                <label htmlFor="preco">Preço:</label>
-                                <input type="number" name="preco" id="preco" min="0" />
-                                <label htmlFor="pedidoMinimo">Pedido Mínimo:</label>
-                                <input type="number" name="pedidoMinimo" id="pedidoMinimo" min="0" /><button type="reset" className='btnMais' id="btnMais"><AiOutlinePlus /></button>
-                                <label htmlFor="foto1">Foto de capa:</label>
-                                <input type="file" name="foto1" id="foto1" />
-                                <label htmlFor="foto2">Segunda foto:</label>
-                                <input type="file" name="foto2" id="foto2" />
-                                <label htmlFor="foto3">Terceira foto:</label>
-                                <input type="file" name="foto3" id="foto3" />
-                                <button type="submit" className="btn btn-warning " id='cadastrar' >Cadastrar</button>
-                            </form>
+                            <Form id="form" action="" method="" btnText="Cadastrar" classNameButton="cadastrar"/>
                         </div>
                     </div>
                 </div>

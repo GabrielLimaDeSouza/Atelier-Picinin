@@ -1,3 +1,5 @@
+import styles from '../pages/css/css_components/Tables.module.css'
+
 const Tables = ({ arrayHeader, itens, arrayProperties, textButton}) => {
     return(
         <>
