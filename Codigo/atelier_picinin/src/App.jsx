@@ -6,7 +6,7 @@ import Rodape from './components/Rodape'
 import Cabecalho from './components/Cabecalho'
 import CadastrarProduto from './pages/jsx/CadastrarProduto'
 import Home from './pages/jsx/Home'
-import Estoque from './pages/jsx/Estoque'
+import Estoque from './pages/jsx/CadastrarInsumo'
 
 function App() {
   // const [teste, setTest] = useState([]);
