@@ -63,6 +63,36 @@ module.exports = {
         }catch(error){
             res.status(500).json({error: error})
         }
+    },
+    async updateProduct (req, res) {
+        const id = req.params.id
+        const descricaoProduto = req.body.descricaoProduto
+        const nomeProduto = req.body.nomeProduto
+        const saborProduto = req.body.sabor
+        const precoProduto = req.body.precoProduto
+        const pedidoMinProduto = req.body.pedidoMinProduto
+
+        const produto = {
+            nomeProduto,
+            saborProduto,
+            descricaoProduto,
+            precoProduto,
+            pedidoMinProduto
+        }
+
+        console.log(produto)
+        try {
+            const updatedProduto = await Produto.updateOne({ _id: id }, produto)
+
+            if(updatedProduto.matchedCount === 0){
+                res.status(422).json({ message: "produto não encontrado" })
+                return
+            }
+
+            res.status(200).json(produto)
+        } catch (error) {
+            res.status(500).json({ error: error })
+        }
     }
 
 
