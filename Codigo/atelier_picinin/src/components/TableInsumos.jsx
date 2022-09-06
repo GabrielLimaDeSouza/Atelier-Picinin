@@ -1,6 +1,21 @@
+import { useEffect } from 'react'
+import { useState } from 'react'
 import styles from '../pages/css/css_components/Tables.module.css'
 
-const TableIsumo = ({ itens, textButton, data_bs_target, data_bs_toggle}) => {
+const TableIsumo = ({ itens, textButton, trClicada}) => {
+    const [teste, setTest] = useState(false)
+    const [value, setValue] = useState('')
+
+    useEffect(() => {
+        setValue("joaquim")
+    }, [])
+
+    function handleTest(){
+        setTest(!teste)
+    }
+    function handleValue(e){
+        setValue(e.target.value)
+    }
     return(
         <>
             <table>
@@ -18,10 +33,9 @@ const TableIsumo = ({ itens, textButton, data_bs_target, data_bs_toggle}) => {
                     {
                         itens.map(item => (
                             <tr id={item["_id"]} key={item["_id"]}
-                                data-bs-target={data_bs_target}
-                                data-bs-toggle={data_bs_toggle}
+                                onClick={trClicada}
                             >
-                                    <td>{item["name"]}</td>
+                                    <td onClick={handleTest}>{teste ? ( <input onChange={handleValue} type="text" value={ value }></input> ) : ( item["name"] )}</td>
                                     <td>{item["emEstoque"]}</td>
                                     <td>{item["quantidadeMin"]}</td>
                                     { item["validade"] ? ( <td>{ new Date(item["validade"]).toLocaleDateString("pt-BR") }</td> ) : ( <td>-</td> ) }

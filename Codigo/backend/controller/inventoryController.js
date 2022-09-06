@@ -3,10 +3,10 @@ const Insumo = require('../models/Insumo')
 
 module.exports = {
     async inventoryResgister(req, res) {
-        const { name, quantidadeMin, emEstoque, validade } = req.body
+        const { name, emEstoque, quantidadeMin, validade } = req.body
 
-        if(!name && !quantidadeMin && !emEstoque && !validade){
-            res.status(422).json({ error: "Campos obrigatórios" })
+        if(!name && !quantidadeMin && !emEstoque){
+            res.status(422).json({ errr: "Coampos obrigatórios" })
         }
 
         const insumo = {
@@ -15,6 +15,11 @@ module.exports = {
             emEstoque,
             validade,
             status: "OK"
+        }
+
+        for (let atributo in insumo) {
+            if (insumo[atributo] == undefined)
+                insumo[atributo] = null;
         }
 
         try {
