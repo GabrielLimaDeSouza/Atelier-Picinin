@@ -6,7 +6,7 @@ import styles from '../pages/css/css_components/Form.module.css'
 const Form = ({ action, method, id, btnText, classNameButton, onClickEvent, content }) => {
     return (
         <form className={styles.form} action={action} method={method} id={id && (id)}>
-            <Input type="text" name="nome" id="nome" htmlFor="nome" textLabel={"Nome do Produto:"} required={true} value={content.nomeProduto} />
+            <Input type="text" name="nome" id="nome" htmlFor="nome" textLabel={"Nome do Produto:"} required={true} />
             <Input type="text" name="descricao" id="descricao" htmlFor="descricao" textLabel={"Descrição do Produto:"} required={true} />
             <Input type="text" name="sabor" id="sabor" htmlFor="sabor" textLabel={"Sabores:"} required={true} />
             <Input type="number" name="preco" id="preco" min="0" htmlFor="preco" textLabel={"Preço:"} required={true} />
