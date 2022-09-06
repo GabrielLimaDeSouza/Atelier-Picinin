@@ -4,8 +4,10 @@ router.use(express.json());
 const productController = require('../controller/productController')
 // Controlers
 
-router.post('/', productController.productRegister)
-router.get('/', productController.productGetAll)
-router.get('/:id', productController.productGetById)
-router.put('/:id', productController.updateProduct)
+router.post('/registerProduct', productController.productRegister)
+router.get('/getAllProducts', productController.productGetAll)
+router.get('/getProductById/:id', productController.productGetById)
+router.put('/updateProduct/:id', productController.updateProduct)
+router.delete('/deleteProduct/:id', productController.deleteProduct)
+
 module.exports = router

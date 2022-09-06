@@ -1,6 +1,5 @@
 import '../css/CadastrarInsumo.css'
 
-import { AiOutlinePlus } from 'react-icons/ai'
 import { BiTrash } from 'react-icons/bi'
 import Tables from '../../components/TableInsumos'
 import { useState, useEffect } from 'react'
@@ -14,6 +13,7 @@ const CadastrarInsumo = () => {
     const [insumo, setInsumo] = useState({})
 
     function deleteInventory(e){
+        e.preventDefault();
         const btn = e.target
         var element = btn.parentNode
         while(element.id == false)
@@ -50,17 +50,21 @@ const CadastrarInsumo = () => {
             element = element.parentNode
 
         setInsumo(insumos.find(insumo => insumo._id === element.id))
-
-        console.log(insumo)
     }
 
-
+    function handleSubmit(e){
+        e.preventDefault()
+        setMessage("Insumo cadastrado com sucesso!")
+    }
 
     return (
         <div className="body">
             <h1 className="title">Cadastro de Insumos</h1>
             <Button type="button" text="Inserir Novo Insumo" data_bs_toggle="modal" data_bs_target="#modalCadastro" className=""/>
-            <Modal id="modalCadastro" title="Cadastrar novo Insumo" action="http://localhost:3000/api/inventoryResgister"/>
+            
+            <p>{message}</p>
+
+            <Modal id="modalCadastro" title="Cadastrar novo Insumo" action="http://localhost:3000/api/inventoryResgister" onSubmitEvent={handleSubmit}/>
 
             <Tables 
                 itens={insumos}
