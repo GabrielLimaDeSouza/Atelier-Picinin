@@ -17,13 +17,16 @@ const Tables = ({ arrayHeader, itens, arrayProperties, textButton}) => {
                     {
                         itens.map(item => (
                             <tr id={item["_id"]} key={item["_id"]}>
-                                <td>{item[arrayProperties[0]]}</td>
-                                <td>Sabor</td>
-                                <td>Preço</td>
-                                <td>PEDIDO MÍNIMO</td>
-                                {textButton && (
-                                    <td>{textButton}</td>
-                                )}
+                                {
+                                    arrayProperties.map(property => (
+                                        item[property] != null ? ( <td key={property}>{item[property]}</td> )
+                                        : ( <td key={property}>-</td> )
+                                    ))
+                                } {
+                                    textButton && (
+                                        <td>{textButton}</td>
+                                    )
+                                }
                             </tr>
                         ))
                     }
