@@ -4,8 +4,9 @@ import { BiTrash } from 'react-icons/bi'
 import Tables from '../../components/TableInsumos'
 import { useState, useEffect } from 'react'
 import Button from '../../components/Button'
-import Modal from '../../components/ModalInsumos'
+import Modal from '../../components/Modal'
 import React from 'react'
+import Form from '../../components/FormCadastroInsumos'
 
 const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
@@ -57,6 +58,14 @@ const CadastrarInsumo = () => {
         setMessage("Insumo cadastrado com sucesso!")
     }
 
+    const form = <Form id="form"
+                    action="http://localhost:3000/api/inventoryResgister"
+                    method="post"
+                    btnText="Cadastrar"
+                    classNameButton="cadastrar"
+                    insumo={ insumo && (insumo) }
+                    onSubmitEvent={handleSubmit && (handleSubmit)}/>
+    
     return (
         <div className="body">
             <h1 className="title">Cadastro de Insumos</h1>
@@ -64,7 +73,7 @@ const CadastrarInsumo = () => {
             
             <p>{message}</p>
 
-            <Modal id="modalCadastro" title="Cadastrar novo Insumo" action="http://localhost:3000/api/inventoryResgister" onSubmitEvent={handleSubmit}/>
+            <Modal id="modalCadastro" title="Cadastrar novo Insumo" content={form}/>
 
             <Tables 
                 itens={insumos}

@@ -1,6 +1,6 @@
 import Form from './FormCadastroInsumos'
 
-const Modal = ({ id, title, action, insumo, onSubmitEvent }) => {
+const Modal = ({ id, title, content }) => {
     return (
         <>
             <div className="modal fade" id={id} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -11,7 +11,7 @@ const Modal = ({ id, title, action, insumo, onSubmitEvent }) => {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <Form id="form" action={action} method="post" btnText="Cadastrar" classNameButton="cadastrar" insumo={insumo && (insumo) } onSubmitEvent={onSubmitEvent && (onSubmitEvent)}/>
+                            {content}
                         </div>
                     </div>
                 </div>

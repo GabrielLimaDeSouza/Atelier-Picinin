@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import styles from '../pages/css/css_components/Input.module.css'
 
-const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required}) => {
+const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required, value }) => {
     return (
         <div className={styles.divInput}>
             {htmlFor && (
@@ -13,7 +12,9 @@ const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required}
                 name={name}
                 placeholder={placeholder && (placeholder)}
                 min={ min && (min) }
-                required={ required && (required) }>
+                required={ required && (required) }
+                value={value}
+                >
             </input>
         </div>
     )
