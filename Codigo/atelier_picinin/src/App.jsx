@@ -9,17 +9,6 @@ import Home from './pages/jsx/Home'
 import Estoque from './pages/jsx/CadastrarInsumo'
 
 function App() {
-  // const [teste, setTest] = useState([]);
-
-  // fetch("http://localhost:3000/api/", {
-  //   method: "GET",
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   }
-  // }).then((resp) => resp.json())
-  // .then((data) => { setTest(data) })
-  // .catch((err)=> console.log(err))
-
   return (
     <div className="App">
       <Cabecalho/>

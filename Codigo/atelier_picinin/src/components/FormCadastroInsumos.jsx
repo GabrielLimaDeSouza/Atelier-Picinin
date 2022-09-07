@@ -3,7 +3,7 @@ import Button from "./Button"
 
 import styles from '../pages/css/css_components/Form.module.css'
 
-const Form = ({ action, id, btnText, classNameButton, insumo, onSubmitEvent}) => {
+const Form = ({ action, id, btnText, classNameButton, insumo, onSubmitEvent }) => {
     const date = new Date().toISOString().split('T')[0];
     return (
         <form className={styles.form} action={action} method="post" id={id && (id)}>

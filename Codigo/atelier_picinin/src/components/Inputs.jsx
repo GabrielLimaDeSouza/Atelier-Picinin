@@ -13,9 +13,8 @@ const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required,
                 placeholder={placeholder && (placeholder)}
                 min={ min && (min) }
                 required={ required && (required) }
-                value={value}
-                >
-            </input>
+                defaultValue={value}
+            />
         </div>
     )
 }

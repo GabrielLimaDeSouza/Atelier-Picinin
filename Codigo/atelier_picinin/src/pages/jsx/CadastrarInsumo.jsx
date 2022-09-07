@@ -8,17 +8,16 @@ import Modal from '../../components/Modal'
 import React from 'react'
 import Form from '../../components/FormCadastroInsumos'
 
+
 const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
     const [insumos, setInsumos] = useState([])
     const [insumo, setInsumo] = useState({})
+    const [form, setForm] = useState('')
 
     function deleteInventory(e){
-        e.preventDefault();
-        const btn = e.target
-        var element = btn.parentNode
-        while(element.id == false)
-            element = element.parentNode
+        e.preventDefault()
+        idTrClicada(e)
         
         fetch(`http://localhost:3000/api/deleteInventory?id=${element.id}`, {
             method: 'DELETE',
@@ -34,6 +33,19 @@ const CadastrarInsumo = () => {
     }
 
     useEffect(() => {
+        setForm(<Form id="form"
+                    action="http://localhost:3000/api/inventoryResgister"
+                    method="post"
+                    btnText="Cadastrar"
+                    classNameButton="btnCadastrar"
+                    insumo={ insumo && (insumo) }
+                    onSubmitEvent={handleSubmit && (handleSubmit)}
+                />
+        )
+
+    },[insumo])
+
+    useEffect(() => {
         fetch('http://localhost:3000/api/viewAllInventory', {
             method: 'GET',
             headers: {
@@ -44,46 +56,52 @@ const CadastrarInsumo = () => {
         .catch(err => console.error(err))
     })
 
-    function trClicada(e) {
+    function idTrClicada(e) {
         const tr = e.target
         var element = tr.parentNode
         while(element.id == false)
             element = element.parentNode
 
-        setInsumo(insumos.find(insumo => insumo._id === element.id))
+        return element.id
+    }
+
+    function handleEditInventory(e){
+        const id = idTrClicada(e)
+
+        if(insumo)
+            setInsumo(insumos.find(insumo => insumo._id === id))
     }
 
     function handleSubmit(e){
         e.preventDefault()
         setMessage("Insumo cadastrado com sucesso!")
     }
-
-    const form = <Form id="form"
-                    action="http://localhost:3000/api/inventoryResgister"
-                    method="post"
-                    btnText="Cadastrar"
-                    classNameButton="cadastrar"
-                    insumo={ insumo && (insumo) }
-                    onSubmitEvent={handleSubmit && (handleSubmit)}/>
     
     return (
         <div className="body">
-            <h1 className="title">Cadastro de Insumos</h1>
-            <Button type="button" text="Inserir Novo Insumo" data_bs_toggle="modal" data_bs_target="#modalCadastro" className=""/>
-            
-            <p>{message}</p>
+            <div className="titleButton">
+                <h1 className="title">Cadastro de Insumos</h1>
+
+                { message && ( <p>{message}</p> ) }
+
+                <Button type="button" text="Inserir Novo Insumo" data_bs_toggle="modal" data_bs_target="#modalCadastro" className="btnAdd"/>
+            </div>
 
             <Modal id="modalCadastro" title="Cadastrar novo Insumo" content={form}/>
 
+            <Modal id="modalEdit" title="Alterar Dados do Insumo" content={form}/>
+
             <Tables 
                 itens={insumos}
+                idModal="#modalEdit"
+                clickEvent={handleEditInventory}
+                form={form}
                 textButton={
                     <Button type="button" text={<BiTrash />}
-                    className="btnLixeira"
-                    event={deleteInventory} />
+                        className="btnLixeira"
+                        event={deleteInventory}
+                    />
                 }
-                trClicada={trClicada}
-                data_bs_target="#modalUpdate"
             />
         </div>
     )

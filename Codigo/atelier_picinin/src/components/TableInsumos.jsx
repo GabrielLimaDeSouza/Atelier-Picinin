@@ -1,4 +1,6 @@
-const TableIsumo = ({ itens, textButton, trClicada}) => {
+import '../pages/css/css_components/Tables.module.css'
+
+const TableIsumo = ({ itens, textButton, clickEvent, idModal }) => {
     return(
         <>
             <table>
@@ -15,13 +17,13 @@ const TableIsumo = ({ itens, textButton, trClicada}) => {
                 <tbody>
                     {
                         itens.map(item => (
-                            <tr id={item["_id"]} key={item["_id"]} onClick={trClicada} >
-                                    <td onClick={handleTest}>{item["name"]}</td>
-                                    <td>{item["emEstoque"]}</td>
-                                    <td>{item["quantidadeMin"]}</td>
+                            <tr id={item["_id"]} key={item["_id"]} onClick={clickEvent} data-bs-toggle="modal" data-bs-target={idModal} >
+                                    <td>{ item["name"] }</td>
+                                    <td>{ item["emEstoque"] }</td>
+                                    <td>{ item["quantidadeMin"] }</td>
                                     { item["validade"] ? ( <td>{ new Date(item["validade"]).toLocaleDateString("pt-BR") }</td> ) : ( <td>-</td> ) }
-                                    <td>{item["status"]}</td>
-                                    <td>{textButton}</td>
+                                    <td>{ item["status"] }</td>
+                                    <td>{ textButton }</td>
                             </tr>
                         ))
                     }

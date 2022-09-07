@@ -1,20 +1,43 @@
+:root{
+    --verde: rgb(0, 255, 13);
+    --btn-azul: #4939FF;
+    --box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+}
+
 .btnLixeira {
     border: none;
     background-color: white;
     font-size: 20px;
 }
 
-.cadastrar{
+.btnCadastrar{
     border: none;
-    background-color: rgb(0, 255, 13);
+    background-color: var(--verde);
     border-radius: 10px;
     padding: 5px 15px;
     color: white;
     transition: all .2s;
 }
 
-.cadastrar:hover{
-    color: rgb(0, 255, 13);
+.btnCadastrar:hover{
+    color: var(--verde);
     background-color: white;
-    border: 1px solid rgb(0, 255, 13);
+    border: 1px solid var(--verde);
+}
+
+.btnAdd {
+    padding: 5px 15px;
+    background-color: var(--btn-azul);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: all .2s;
+    margin-left: auto;
+
+}
+
+.btnAdd:hover{
+    box-shadow: var(--box-shadow);
+    color: var(--btn-azul);
+    background-color: white;
 }
