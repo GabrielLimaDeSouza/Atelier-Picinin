@@ -2,9 +2,10 @@
     --verde: rgb(0, 255, 13);
     --btn-azul: #4939FF;
     --box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+    --darkGray: rgb(46, 46, 46);
 }
 
-.btnLixeira {
+.btnTrash, .btnEdit {
     border: none;
     background-color: white;
     font-size: 20px;
@@ -23,6 +24,21 @@
     color: var(--verde);
     background-color: white;
     border: 1px solid var(--verde);
+}
+
+.btnBack{
+    border: none;
+    background-color: var(--darkGray);
+    border-radius: 10px;
+    padding: 5px 15px;
+    color: white;
+    transition: all .2s;
+}
+
+.btnBack:hover{
+    color: var(--darkGray);
+    background-color: white;
+    border: 1px solid var(--darkGray);
 }
 
 .btnAdd {

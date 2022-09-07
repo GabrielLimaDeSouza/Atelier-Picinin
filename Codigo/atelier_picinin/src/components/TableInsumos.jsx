@@ -1,6 +1,9 @@
 import '../pages/css/css_components/Tables.module.css'
+import { BiTrash, BiPencil } from 'react-icons/bi'
+import Button from './Button'
+import { Link } from 'react-router-dom'
 
-const TableIsumo = ({ itens, textButton, clickEvent, idModal }) => {
+const TableIsumo = ({ itens, clickEvent, deleteInventory }) => {
     return(
         <>
             <table>
@@ -17,13 +20,25 @@ const TableIsumo = ({ itens, textButton, clickEvent, idModal }) => {
                 <tbody>
                     {
                         itens.map(item => (
-                            <tr id={item["_id"]} key={item["_id"]} onClick={clickEvent} data-bs-toggle="modal" data-bs-target={idModal} >
+                            <tr id={item["_id"]} key={item["_id"]} onClick={clickEvent} >
                                     <td>{ item["name"] }</td>
                                     <td>{ item["emEstoque"] }</td>
                                     <td>{ item["quantidadeMin"] }</td>
                                     { item["validade"] ? ( <td>{ new Date(item["validade"]).toLocaleDateString("pt-BR") }</td> ) : ( <td>-</td> ) }
                                     <td>{ item["status"] }</td>
-                                    <td>{ textButton }</td>
+                                    <td>{ 
+                                        <div className="btnManipulate">
+                                            <Link to={`/estoque/${item["_id"]}`}>
+                                                <Button type="button" text={<BiPencil />}
+                                                        className="btnEdit"
+                                                />
+                                            </Link>
+                                            <Button type="button" text={<BiTrash />}
+                                                    className="btnTrash"
+                                                    event={deleteInventory}
+                                            />
+                                        </div>
+                                    }</td>
                             </tr>
                         ))
                     }

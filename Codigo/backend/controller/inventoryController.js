@@ -42,6 +42,8 @@ module.exports = {
             validade
         }
 
+        console.log(name)
+
         try {
             const updatedInventory = await Insumo.updateOne({ _id: id }, insumo)
 

@@ -77,7 +77,7 @@ const CadastrarProduto = () => {
                                 <td>{number.saborProduto}</td>
                                 <td>{number.precoProduto}</td>
                                 <td>{number.pedidoMinProduto}</td>
-                                <td><Button type="button" text={<BiTrash />} className="btnLixeira" event={deletProduct} /></td>
+                                <td><Button type="button" text={<BiTrash />} className="btnTrash" event={deletProduct} /></td>
                                 <td>
                                     
                                     <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

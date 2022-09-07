@@ -1,18 +1,15 @@
 import '../css/CadastrarInsumo.css'
 
-import { BiTrash } from 'react-icons/bi'
-import Tables from '../../components/TableInsumos'
 import { useState, useEffect } from 'react'
-import Button from '../../components/Button'
+import Tables from '../../components/TableInsumos'
 import Modal from '../../components/Modal'
-import React from 'react'
 import Form from '../../components/FormCadastroInsumos'
+import Button from '../../components/Button'
 
 
 const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
     const [insumos, setInsumos] = useState([])
-    const [insumo, setInsumo] = useState({})
     const [form, setForm] = useState('')
 
     function deleteInventory(e){
@@ -33,19 +30,6 @@ const CadastrarInsumo = () => {
     }
 
     useEffect(() => {
-        setForm(<Form id="form"
-                    action="http://localhost:3000/api/inventoryResgister"
-                    method="post"
-                    btnText="Cadastrar"
-                    classNameButton="btnCadastrar"
-                    insumo={ insumo && (insumo) }
-                    onSubmitEvent={handleSubmit && (handleSubmit)}
-                />
-        )
-
-    },[insumo])
-
-    useEffect(() => {
         fetch('http://localhost:3000/api/viewAllInventory', {
             method: 'GET',
             headers: {
@@ -54,7 +38,15 @@ const CadastrarInsumo = () => {
         }).then(resp => resp.json())
         .then(data => setInsumos(data))
         .catch(err => console.error(err))
-    })
+
+        setForm(<Form id="form"
+                    action="http://localhost:3000/api/inventoryResgister"
+                    btnText="Cadastrar"
+                    classNameButton="btnCadastrar"
+                    linkButton="estoque"
+                />
+        )
+    }, [])
 
     function idTrClicada(e) {
         const tr = e.target
@@ -63,18 +55,6 @@ const CadastrarInsumo = () => {
             element = element.parentNode
 
         return element.id
-    }
-
-    function handleEditInventory(e){
-        const id = idTrClicada(e)
-
-        if(insumo)
-            setInsumo(insumos.find(insumo => insumo._id === id))
-    }
-
-    function handleSubmit(e){
-        e.preventDefault()
-        setMessage("Insumo cadastrado com sucesso!")
     }
     
     return (
@@ -89,19 +69,11 @@ const CadastrarInsumo = () => {
 
             <Modal id="modalCadastro" title="Cadastrar novo Insumo" content={form}/>
 
-            <Modal id="modalEdit" title="Alterar Dados do Insumo" content={form}/>
-
             <Tables 
                 itens={insumos}
-                idModal="#modalEdit"
-                clickEvent={handleEditInventory}
                 form={form}
-                textButton={
-                    <Button type="button" text={<BiTrash />}
-                        className="btnLixeira"
-                        event={deleteInventory}
-                    />
-                }
+                deleteInventory={deleteInventory}
+                buttonEvent={deleteInventory}
             />
         </div>
     )

@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require("cors");
 const mongoose = require('mongoose')
-const apiRoutes = require("./routes/apiRoutes")
+const inventoryRoutes = require("./routes/inventoryRoutes")
 const cadastrarProdutoRoute = require ("./routes/cadastrarProduto")
 require('dotenv').config()
 
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json())
 
 // rotas
-app.use('/api', apiRoutes);
+app.use('/api', inventoryRoutes);
 app.use('/produto', cadastrarProdutoRoute);
 
 // Acesso ao banco de dados
