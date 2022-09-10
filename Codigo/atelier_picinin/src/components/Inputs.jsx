@@ -1,4 +1,4 @@
-import styles from '../pages/css/css_components/Input.module.css'
+import styles from './css_components/Input.module.css'
 
 const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required, value, handleOnChange }) => {
     return (
@@ -13,7 +13,7 @@ const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required,
                 placeholder={placeholder && (placeholder)}
                 min={ min && (min) }
                 required={ required && (required) }
-                value={value}
+                defaultValue={value}
                 onChange={handleOnChange}
             />
         </div>

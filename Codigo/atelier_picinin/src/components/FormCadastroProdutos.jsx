@@ -1,7 +1,7 @@
 import Input from "./Inputs"
 import Button from "./Button"
 
-import styles from '../pages/css/css_components/Form.module.css'
+import styles from './css_components/Form.module.css'
 
 const Form = ({ action, method, id, btnText, classNameButton, onClickEvent, content }) => {
     return (

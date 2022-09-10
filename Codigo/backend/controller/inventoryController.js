@@ -2,11 +2,11 @@
 const Insumo = require('../models/Insumo')
 
 module.exports = {
-    async inventoryResgister(req, res) {
+    async inputRegister(req, res) {
         const { name, emEstoque, quantidadeMin, validade } = req.body
 
         if(!name && !quantidadeMin && !emEstoque){
-            res.status(422).json({ errr: "Coampos obrigatórios" })
+            res.status(422).json({ err: "Campos obrigatórios" })
         }
 
         const insumo = {
@@ -16,6 +16,8 @@ module.exports = {
             validade,
             status: "OK"
         }
+
+        console.log(req.body)
 
         for (let atributo in insumo) {
             if (insumo[atributo] == undefined)
@@ -31,7 +33,7 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     },
-    async updateInventory (req, res) {
+    async updateInput (req, res) {
         const id = req.query.id
         const { name, quantidadeMin, emEstoque, validade } = req.body
 
@@ -42,7 +44,7 @@ module.exports = {
             validade
         }
 
-        console.log(name)
+        console.log(req.body)
 
         try {
             const updatedInventory = await Insumo.updateOne({ _id: id }, insumo)
@@ -57,35 +59,35 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     },
-    async viewAllInventory (req, res) {
+    async viewAllSupplies (req, res) {
         try {
-            const inventory = await Insumo.find()
+            const supplies = await Insumo.find()
 
-            res.status(200).json(inventory)
+            res.status(200).json(supplies)
         } catch (error) {
             res.status(500).json({ error: error })
         }
     },
-    async viewInventoryById (req, res) {
+    async viewInputById (req, res) {
         const id = req.query.id
-        const inventoryById = await Insumo.findById(id)
+        const inputById = await Insumo.findById(id)
 
-        if(!inventoryById) {
+        if(!inputById) {
             res.status(422).json({ message: "Insumo não encontrado" })
             return 
         }
 
         try {
-            res.status(200).json(inventoryById)
+            res.status(200).json(inputById)
         } catch (error) {
             res.status(500).json({ error: error })
         }
     },
-    async deleteInventory (req, res) {
+    async deleteInput (req, res) {
         const id = req.query.id
-        const inventoryById = await Insumo.findById(id)
+        const inputById = await Insumo.findById(id)
 
-        if(!inventoryById) {
+        if(!inputById) {
             res.status(422).json({ message: "Insumo não encontrado" })
             return 
         }

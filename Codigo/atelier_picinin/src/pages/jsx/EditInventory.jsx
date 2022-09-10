@@ -1,15 +1,18 @@
+import '../css/EditInventory.css'
+
 import Form from '../../components/FormCadastroInsumos'
-import Button from '../../components/Button'
+import LinkButton from '../../components/LinkButton'
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const EditInvetory = () => {
     const { id } = useParams()
     const [insumo, setInsumo] = useState({})
     const [insumoCarregado, setInsumoCarregado] = useState(false)
+    const [message, setMessage] = useState('')
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/viewInventoryById?id=${id}`, {
+        fetch(`http://localhost:3000/api/viewInputById?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -17,52 +20,50 @@ const EditInvetory = () => {
         }).then(resp => resp.json())
         .then(data => {
             setInsumo(data)
+
+            insumo.emEstoque = parseInt(insumo.emEstoque)
+            insumo.quantidadeMin = parseInt(insumo.quantidadeMin)
+
             setInsumoCarregado(true)
         })
         .catch(err => console.error(err))
     }, [])
 
-    function editInventory (editedInput){
-        editedInput.emEstoque = parseInt(editedInput.emEstoque)
-        editedInput.quantidadeMin = parseInt(editedInput.quantidadeMin)
-
+    function editInput(editedInput){
         if(editedInput.emEstoque < editedInput.quantidadeMin){
-            console.log("Quantidade Inicial deve ser maior que a Quantidade Mínima")
+            setMessage("Quantidade Inicial deve ser maior que a Quantidade Mínima")
             return false
         }
 
-        fetch(`http://localhost:3000/api/updateInventory?id=${editedInput._id}`, {
+        fetch(`http://localhost:3000/api/updateInput?id=${editedInput._id}`, {
             method: 'PATCH',
-            body: JSON.stringify({name: "Teste"}),
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'aplication/json; charset=UTF-8'
-            }
+                'Content-Type': 'application/json;',
+            },
+            body: JSON.stringify(editedInput),
         }).then(resp => resp.json())
-        .then(data => {
-            setInsumo(data)
-            console.log(JSON.stringify(editedInput))
-        })
+        .then(data => setInsumo(data))
         .catch(err => console.error(err))
     }
 
     return (
         <>
-        {insumoCarregado && (
-            <>
-                <Form id="form"
-                    content={insumo}
-                    handleSubmit={editInventory}
-                    btnText="Cadastrar"
-                    classNameButton="btnCadastrar"
-                    onSubmitEvent={editInventory}
-                    linkButton="estoque"
-                />
-                <Link to="/estoque">
-                    <Button text="Voltar" type="button" className="btnBack"/>
-                </Link>
-            </>
-        )}  
+            { insumoCarregado && (
+                <>
+                    <h2 className="title">Editar Insumo</h2>
+
+                    { message && <Message type="success" message={message} /> }
+
+                    <Form id="form"
+                        content={insumo}
+                        handleSubmit={editInput}
+                        btnText="Alterar"
+                        classNameButton="btnCadastrar"
+                    />
+                    
+                    <LinkButton to="/estoque" text="Voltar" classNameButton="btnBack"/>
+                </>
+            )}  
         </>
     )
 }

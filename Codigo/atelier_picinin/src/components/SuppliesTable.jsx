@@ -1,9 +1,10 @@
-import '../pages/css/css_components/Tables.module.css'
+import './css_components/Tables.module.css'
 import { BiTrash, BiPencil } from 'react-icons/bi'
+import LinkButton from './LinkButton'
 import Button from './Button'
-import { Link } from 'react-router-dom'
 
-const TableIsumo = ({ itens, clickEvent, deleteInventory }) => {
+
+const TableIsumo = ({ itens, clickEvent, deleteInput }) => {
     return(
         <>
             <table>
@@ -28,14 +29,14 @@ const TableIsumo = ({ itens, clickEvent, deleteInventory }) => {
                                     <td>{ item["status"] }</td>
                                     <td>{ 
                                         <div className="btnManipulate">
-                                            <Link to={`/estoque/${item["_id"]}`}>
-                                                <Button type="button" text={<BiPencil />}
-                                                        className="btnEdit"
-                                                />
-                                            </Link>
+                                            <LinkButton to={`/estoque/${item["_id"]}`}
+                                                type="button"
+                                                text={<BiPencil />}
+                                                classNameButton="btnEdit"
+                                            />
                                             <Button type="button" text={<BiTrash />}
                                                     className="btnTrash"
-                                                    event={deleteInventory}
+                                                    onClickEvent={deleteInput}
                                             />
                                         </div>
                                     }</td>

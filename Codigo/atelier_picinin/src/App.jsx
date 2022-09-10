@@ -4,9 +4,10 @@ import './App.css'
 
 import Rodape from './components/Rodape'
 import Cabecalho from './components/Cabecalho'
-import CadastrarProduto from './pages/jsx/CadastrarProduto'
 import Home from './pages/jsx/Home'
-import Estoque from './pages/jsx/CadastrarInsumo'
+import CadastrarProduto from './pages/jsx/CadastrarProduto'
+import Estoque from './pages/jsx/Estoque'
+import CadastrarInsumo from './pages/jsx/CadastrarInsumo'
 import EditInventory from './pages/jsx/EditInventory'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route exact path='/' element={ <Home /> }>Home</Route>
         <Route path='/cadastrarProduto' element={ <CadastrarProduto /> }>Cadastrar Produtos</Route>
         <Route path='/estoque' element={ <Estoque /> }>Estoque</Route>
+        <Route path='/cadastrarInsumo' element={ <CadastrarInsumo /> }></Route>
         <Route path='/estoque/:id' element={ <EditInventory /> }></Route>
       </Routes>
       <Outlet/>

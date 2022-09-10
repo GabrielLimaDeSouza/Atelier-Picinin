@@ -5,25 +5,20 @@ router.use(express.json());
 // Controllers
 const controller = require('../controller/inventoryController')
 
-
-router.get('/', (req, res) => {
-    res.json({"message": "Teste das rotas da api do express"})
-})
-
 //#region rotas CRUD
 
 // Rotas GET
-router.get('/viewAllInventory', controller.viewAllInventory)
-router.get('/viewInventoryById', controller.viewInventoryById)
+router.get('/viewAllSupplies', controller.viewAllSupplies)
+router.get('/viewInputById', controller.viewInputById)
 
 // Rota POST
-router.post('/inventoryResgister', controller.inventoryResgister)
+router.post('/inputRegister', controller.inputRegister)
 
 // Rota PATCH
-router.patch('/updateInventory', controller.updateInventory)
+router.patch('/updateInput', controller.updateInput)
 
 // Rota DELETE
-router.delete('/deleteInventory', controller.deleteInventory)
+router.delete('/deleteInput', controller.deleteInput)
 //#endregion
 
 module.exports = router
