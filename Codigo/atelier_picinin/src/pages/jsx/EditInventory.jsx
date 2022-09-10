@@ -1,14 +1,16 @@
 import '../css/EditInventory.css'
 
 import Form from '../../components/FormCadastroInsumos'
+import Button from '../../components/Button'
 import LinkButton from '../../components/LinkButton'
+import Supplies from '../../components/Supplies'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 const EditInvetory = () => {
     const { id } = useParams()
     const [insumo, setInsumo] = useState({})
-    const [insumoCarregado, setInsumoCarregado] = useState(false)
+    const [editingInput, setEditingInput] = useState(false)
     const [message, setMessage] = useState('')
 
     useEffect(() => {
@@ -20,16 +22,17 @@ const EditInvetory = () => {
         }).then(resp => resp.json())
         .then(data => {
             setInsumo(data)
-
             insumo.emEstoque = parseInt(insumo.emEstoque)
             insumo.quantidadeMin = parseInt(insumo.quantidadeMin)
-
-            setInsumoCarregado(true)
         })
         .catch(err => console.error(err))
     }, [])
 
-    function editInput(editedInput){
+    function toggleInputForm(){
+        setEditingInput(!editingInput)
+    }
+
+    function handleEditInput(editedInput){
         if(editedInput.emEstoque < editedInput.quantidadeMin){
             setMessage("Quantidade Inicial deve ser maior que a Quantidade Mínima")
             return false
@@ -42,28 +45,40 @@ const EditInvetory = () => {
             },
             body: JSON.stringify(editedInput),
         }).then(resp => resp.json())
-        .then(data => setInsumo(data))
+        .then(data => {
+            setInsumo(data)
+            setEditingInput(false)
+        })
         .catch(err => console.error(err))
     }
 
     return (
         <>
-            { insumoCarregado && (
+            { insumo && (
                 <>
-                    <h2 className="title">Editar Insumo</h2>
-
+                    <h2 className="title">Editar {insumo.name}</h2>
+                    
+                    <Button type="button"
+                        text={!editingInput ? 'Editar Insumo' : 'Fechar'}
+                        className="btnBack"
+                        buttonClickEvent={toggleInputForm}
+                    /> 
+                        
                     { message && <Message type="success" message={message} /> }
 
-                    <Form id="form"
-                        content={insumo}
-                        handleSubmit={editInput}
-                        btnText="Alterar"
-                        classNameButton="btnCadastrar"
-                    />
-                    
+                    { !editingInput ? (
+                        <Supplies content={insumo} />
+                    ) : (
+                        <Form id="form"
+                            content={insumo}
+                            handleSubmit={handleEditInput}
+                            btnText="Alterar"
+                            classNameButton="btnCadastrar"
+                        />
+                    )}
                     <LinkButton to="/estoque" text="Voltar" classNameButton="btnBack"/>
                 </>
-            )}  
+            )}
         </>
     )
 }

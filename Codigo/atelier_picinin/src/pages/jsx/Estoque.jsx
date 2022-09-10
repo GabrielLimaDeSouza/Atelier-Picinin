@@ -5,10 +5,13 @@ import LinkButton from '../../components/LinkButton'
 import Message from '../../components/Message'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import Dropdown from '../../components/Dropdown'
 
 const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
     const [insumos, setInsumos] = useState([])
+    const [status, setStatus] = useState([])
+    const [inputTypes, setInputTypes] = useState([])
     const location = useLocation();
 
     if(location.state){
@@ -23,7 +26,24 @@ const CadastrarInsumo = () => {
                 'Content-Type': 'application/json'
             }
         }).then(resp => resp.json())
-        .then(data => setInsumos(data))
+        .then(data => {
+            setInsumos(data)
+
+            let arrayStatus = []
+            let arraySupplies = []
+            
+            data.map(data => {
+                arrayStatus.push(data.status)
+                arraySupplies.push(data.name)
+            })
+
+            arrayStatus = filterDuplicateItemInArray(arrayStatus)
+            arraySupplies = filterDuplicateItemInArray(arraySupplies)
+
+            setInputTypes(arraySupplies)
+
+            setStatus(arrayStatus)
+        })
         .catch(err => console.error(err))
     }, [])
 
@@ -55,6 +75,14 @@ const CadastrarInsumo = () => {
 
         return element.id
     }
+
+    function filterDuplicateItemInArray(array){
+        var newArray = array.filter((item, index) => {
+            return array.indexOf(item) === index;
+        });
+
+        return newArray
+    }
     
     return (
         <div className="body">
@@ -66,9 +94,14 @@ const CadastrarInsumo = () => {
 
             { message && <Message type="success" message={message} /> }
 
-            <Tables 
+            <div className="filters">
+                <Dropdown options={status} textDefault="Selecione um status" />
+            </div>
+
+            <Tables
                 itens={insumos}
-                deleteInput={deleteInput}
+                categorias={inputTypes}
+                buttonClickEvent={deleteInput}
             />
         </div>
     )

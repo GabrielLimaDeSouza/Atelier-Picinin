@@ -36,7 +36,7 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
                 id="quantidade_inicial"
                 min="0"
                 htmlFor="quantidade_inicial"
-                textLabel={"Quantidade Inicial:"}
+                textLabel={"Quantidade em estoque:"}
                 value={insumo.emEstoque}
                 handleOnChange={handleChange}
                 required={true}
@@ -64,7 +64,7 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
                 type="submit"
                 text={btnText}
                 className={classNameButton}
-                onSubmitEvent={submit}
+                buttonSubmitEvent={submit}
             />
         </form>
     )

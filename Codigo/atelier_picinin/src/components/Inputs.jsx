@@ -10,9 +10,9 @@ const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required,
                 type={type}
                 id={id} 
                 name={name}
-                placeholder={placeholder && (placeholder)}
-                min={ min && (min) }
-                required={ required && (required) }
+                placeholder={placeholder}
+                min={min}
+                required={required}
                 defaultValue={value}
                 onChange={handleOnChange}
             />

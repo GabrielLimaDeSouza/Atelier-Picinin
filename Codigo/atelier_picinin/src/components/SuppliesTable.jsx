@@ -1,50 +1,78 @@
-import './css_components/Tables.module.css'
-import { BiTrash, BiPencil } from 'react-icons/bi'
+import styles from './css_components/Tables.module.css'
+
 import LinkButton from './LinkButton'
 import Button from './Button'
+import CollapseElement from './CollapseElement'
+import { BiTrash, BiPencil } from 'react-icons/bi'
+import { useState, useEffect } from 'react'
 
+const TableIsumo = ({ itens, buttonClickEvent, categorias }) => {
+    const initialArray = []
+    for(let i = 0; i < categorias.length; i++)
+        initialArray.push(false)
 
-const TableIsumo = ({ itens, clickEvent, deleteInput }) => {
+    const [dropdown, setDropdown] = useState(initialArray)
+    
+    function teste({ index }) {
+        dropdown[index] = !dropdown[index]
+
+        setDropdown(array => [...array])
+    }
+    
     return(
         <>
-            <table>
-                <thead>
-                    <tr>
-                        <th key="insumo">Insumo</th>
-                        <th key="emEstoque">Em Estoque</th>
-                        <th key="quantidadeMin">Quantidade Mínima</th>
-                        <th key="validade">Validade</th>
-                        <th key="status">Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div className={styles.table}>
+                <div className='bodyTable'>
                     {
-                        itens.map(item => (
-                            <tr id={item["_id"]} key={item["_id"]} onClick={clickEvent} >
-                                    <td>{ item["name"] }</td>
-                                    <td>{ item["emEstoque"] }</td>
-                                    <td>{ item["quantidadeMin"] }</td>
-                                    { item["validade"] ? ( <td>{ new Date(item["validade"]).toLocaleDateString("pt-BR") }</td> ) : ( <td>-</td> ) }
-                                    <td>{ item["status"] }</td>
-                                    <td>{ 
-                                        <div className="btnManipulate">
-                                            <LinkButton to={`/estoque/${item["_id"]}`}
-                                                type="button"
-                                                text={<BiPencil />}
-                                                classNameButton="btnEdit"
-                                            />
-                                            <Button type="button" text={<BiTrash />}
-                                                    className="btnTrash"
-                                                    onClickEvent={deleteInput}
-                                            />
+                        categorias.map((categoria, index) =>
+                            <CollapseElement isOpened={dropdown[index]} buttonClickEvent={() => teste({ index: index })} text={categoria}>
+                                <div className={styles.headerTable}>
+                                    <em key="insumo">Insumo</em>
+                                    <em key="emEstoque">Em Estoque</em>
+                                    <em key="quantidadeMin">Quantidade Mínima</em>
+                                    <em key="validade">Validade</em>
+                                    <em key="status">Status</em>
+                                    <em>.</em>
+                                </div>
+
+                                { itens.map(item => 
+                                    categoria == item.name && (
+                                        <div id={item._id} key={item._id} className={styles.lineTable}>
+                                            <em>{ item.name }</em>
+                                            <em>{ item.emEstoque }</em>
+                                            <em>{ item.quantidadeMin }</em>
+
+                                            { 
+                                                item.validade ? ( 
+                                                    <em>{ new Date(item.validade).toLocaleDateString("pt-BR") }</em>
+                                                ) : ( 
+                                                    <em>-</em> 
+                                                )
+                                            }
+
+                                            <em>{ item.status }</em>
+
+                                            <em>{ 
+                                                <div className="btnManipulate">
+                                                    <LinkButton to={`/estoque/${item["_id"]}`}
+                                                        type="button"
+                                                        text={<BiPencil />}
+                                                        classNameButton="btnEdit"
+                                                    />
+                                                    <Button type="button" text={<BiTrash />}
+                                                            className="btnTrash"
+                                                            buttonClickEvent={buttonClickEvent}
+                                                    />
+                                                </div>
+                                            }</em>
                                         </div>
-                                    }</td>
-                            </tr>
-                        ))
+                                    )
+                                )}
+                            </CollapseElement>
+                        )
                     }
-                </tbody>
-            </table>
+                </div>
+            </div>
         </>
     )
 }

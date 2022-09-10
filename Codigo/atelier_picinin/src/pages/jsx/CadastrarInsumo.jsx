@@ -18,7 +18,7 @@ const CadastrarInsumo = () => {
       body: JSON.stringify(input),
     })
     .then(resp => resp.json())
-    .then(data => navigate('/estoque'))
+    .then(navigate('/estoque'))
     .catch(err => console.error(err))
   }
 
