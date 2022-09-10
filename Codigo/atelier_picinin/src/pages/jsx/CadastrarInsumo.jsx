@@ -1,6 +1,8 @@
 import '../css/CadastroInsumo.css'
 
 import Form from '../../components/FormCadastroInsumos'
+import Cabecalho from '../../components/CabecalhoAdmin'
+import LinkButton from '../../components/LinkButton'
 import { useNavigate } from "react-router-dom"
 
 const CadastrarInsumo = () => {
@@ -23,13 +25,18 @@ const CadastrarInsumo = () => {
   }
 
   return (
-      <div className="body">
-          <Form id="form"
-              handleSubmit={createSupplies}
-              btnText="Cadastrar"
-              classNameButton="btnCadastrar"
-          />
+    <>
+      <Cabecalho />
+      <div className="body-input-register">
+        <h1 className="title">Cadastrar Insumo</h1>
+        <Form id="form"
+            handleSubmit={createSupplies}
+            btnText="Cadastrar"
+            classNameButton="btnCadastrar"
+        />
+        <LinkButton to="/estoque" text="Voltar" classNameButton="btnBack"/>
       </div>
+    </>
   )
 }
 

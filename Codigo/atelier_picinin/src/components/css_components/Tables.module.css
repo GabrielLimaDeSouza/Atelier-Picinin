@@ -4,15 +4,11 @@
     font-size: 14px;
 }
 
-.lineTable, .headerTable{
+.headerTable{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
-}
-
-.lineTable{
-    border-bottom: 1px solid black;
 }
 
 .headerTable{
@@ -24,11 +20,8 @@
     font-size: .9rem;
 }
 
-.lineTable em:last-child, .headerTable em:last-child {
-    width: 70px;
-}
-
 .headerTable em:last-child {
+    width: 70px;
     visibility: hidden;
 }
 

@@ -1,10 +1,10 @@
-.body {
+.body-inventory {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
     gap: 30px;
-    margin: 0 auto 0;
+    margin: 50px auto;
 }
 
 .titleButton{
@@ -72,13 +72,13 @@
 }
 .status-vencendo{
     font-family: Verdana;
-font-size: 14px;
-letter-spacing: 0.4px;
-word-spacing: 2px;
-color: #ff9900;
-font-weight: 700;
-text-decoration: none solid rgb(68, 68, 68);
-font-style: normal;
-font-variant: small-caps;
-text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    word-spacing: 2px;
+    color: #ff9900;
+    font-weight: 700;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: uppercase;
 }

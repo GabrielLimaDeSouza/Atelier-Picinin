@@ -5,11 +5,11 @@ import Button from "./Button"
 import { useState } from "react"
 
 const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
-    const [insumo, setInsumo] = useState(content || {})
+    const [insumo, setInsumo] = useState(content)
     const date = new Date().toISOString().split('T')[0]
 
-    if(insumo.validade)
-        insumo.validade = insumo.validade.split('T')[0]
+    if(content && content.validade)
+        content.validade = content.validade.split('T')[0]
     
     function handleChange(e) {
         setInsumo({ ...insumo, [e.target.name]: e.target.value })
@@ -21,15 +21,15 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
     }
         
     return (
-        <form id={id && (id)} className={styles.form} onSubmit={submit} >
+        <form id={id && (id)} className={styles.form} onSubmit={submit}>
             <Input type="text"
                 name="name"
                 id="nome"
                 htmlFor="nome"
                 textLabel={"Nome:"}
-                value={insumo.name}
+                value={content && content.name}
                 handleOnChange={handleChange}
-                required={true}
+                required
             />
             <Input type="number"
                 name="emEstoque"
@@ -37,9 +37,9 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
                 min="0"
                 htmlFor="quantidade_inicial"
                 textLabel={"Quantidade em estoque:"}
-                value={insumo.emEstoque}
+                value={content && content.emEstoque}
                 handleOnChange={handleChange}
-                required={true}
+                required
             />
             <Input type="number"
                 name="quantidadeMin"
@@ -47,9 +47,9 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
                 min="0"
                 htmlFor="quantidade_minima"
                 textLabel={"Quantidade Mínima:"}
-                value={insumo.quantidadeMin}
+                value={content && content.quantidadeMin}
                 handleOnChange={handleChange}
-                required={true}
+                required
             />
             <Input type="date"
                 name="validade"
@@ -57,15 +57,16 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
                 htmlFor="validade"
                 textLabel={"Validade:"}
                 min={date}
-                value={insumo.validade} 
+                value={content && content.validade} 
                 handleOnChange={handleChange}
             />
             <Button
                 type="submit"
-                text={btnText}
                 className={classNameButton}
-                buttonSubmitEvent={submit}
-            />
+                buttonSubmitEvent={submit}>
+                    
+                {btnText}
+            </Button>
         </form>
     )
 }

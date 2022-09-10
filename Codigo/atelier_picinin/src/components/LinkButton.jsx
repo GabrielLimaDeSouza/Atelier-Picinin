@@ -6,10 +6,9 @@ import Button from './Button'
 function LinkButton({ to, type, text, classNameButton }) {
     return (
         <Link to={to}>
-            <Button type={type}
-                className={classNameButton}
-                text={text}
-            />
+            <Button type={type} className={classNameButton}>
+                {text}
+            </Button>
         </Link>
     )
 }

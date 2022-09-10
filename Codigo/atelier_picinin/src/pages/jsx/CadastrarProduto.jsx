@@ -3,6 +3,7 @@ import '../css/CadastrarProduto.css'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useState, useEffect, useNavigate } from 'react'
 import Form from '../../components/FormCadastroProdutos'
+import Cabecalho from '../../components/CabecalhoAdmin'
 import Button from '../../components/Button'
 import { BiTrash } from 'react-icons/bi'
 
@@ -43,6 +44,7 @@ const CadastrarProduto = () => {
 
     return (
         <div className="body">
+            <Cabecalho />
             <h1 className="title">Cadastro de Produto</h1>
             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Inserir Novo Produto
@@ -77,7 +79,7 @@ const CadastrarProduto = () => {
                                 <td>{number.saborProduto}</td>
                                 <td>{number.precoProduto}</td>
                                 <td>{number.pedidoMinProduto}</td>
-                                <td><Button type="button" text={<BiTrash />} className="btnTrash" event={deletProduct} /></td>
+                                <td><Button type="button" className="btnTrash" event={deletProduct}>{<BiTrash />}</Button></td>
                                 <td>
                                     
                                     <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

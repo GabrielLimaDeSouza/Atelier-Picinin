@@ -1,11 +1,12 @@
 import '../css/Estoque.css'
 
-import Tables from '../../components/SuppliesTable'
-import LinkButton from '../../components/LinkButton'
+import Cabecalho from '../../components/CabecalhoAdmin'
 import Message from '../../components/Message'
+import LinkButton from '../../components/LinkButton'
+import Dropdown from '../../components/Dropdown'
+import Tables from '../../components/SuppliesTable'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import Dropdown from '../../components/Dropdown'
 
 const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
@@ -85,25 +86,28 @@ const CadastrarInsumo = () => {
     }
     
     return (
-        <div className="body">
-            <div className="titleButton">
-                <h1 className="title">Cadastro de Insumos</h1>
+        <>
+            <Cabecalho />
+            <div className="body-inventory">
+                <div className="titleButton">
+                    <h1 className="title">Cadastro de Insumos</h1>
 
-                <LinkButton to="/cadastrarInsumo" text="Inserir Novo Insumo" classNameButton="btnAdd"/>
+                    <LinkButton to="/cadastrarInsumo" text="Inserir Novo Insumo" classNameButton="btnAdd"/>
+                </div>
+
+                { message && <Message type="success" message={message} /> }
+
+                <div className="filters">
+                    <Dropdown options={status} textDefault="Selecione um status" />
+                </div>
+
+                <Tables
+                    itens={insumos}
+                    categorias={inputTypes}
+                    buttonClickEvent={deleteInput}
+                />
             </div>
-
-            { message && <Message type="success" message={message} /> }
-
-            <div className="filters">
-                <Dropdown options={status} textDefault="Selecione um status" />
-            </div>
-
-            <Tables
-                itens={insumos}
-                categorias={inputTypes}
-                buttonClickEvent={deleteInput}
-            />
-        </div>
+        </>
     )
 }
 export default CadastrarInsumo

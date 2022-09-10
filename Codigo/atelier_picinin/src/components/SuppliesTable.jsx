@@ -1,10 +1,8 @@
 import styles from './css_components/Tables.module.css'
 
-import LinkButton from './LinkButton'
-import Button from './Button'
 import CollapseElement from './CollapseElement'
-import { BiTrash, BiPencil } from 'react-icons/bi'
-import { useState, useEffect } from 'react'
+import InputComponentTable from './InputComponentTable'
+import { useState } from 'react'
 
 const TableIsumo = ({ itens, buttonClickEvent, categorias }) => {
     const initialArray = []
@@ -22,7 +20,7 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias }) => {
     return(
         <>
             <div className={styles.table}>
-                <div className='bodyTable'>
+                <div className='body-table'>
                     {
                         categorias.map((categoria, index) =>
                             <CollapseElement isOpened={dropdown[index]} buttonClickEvent={() => teste({ index: index })} text={categoria}>
@@ -37,35 +35,7 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias }) => {
 
                                 { itens.map(item => 
                                     categoria == item.name && (
-                                        <div id={item._id} key={item._id} className={styles.lineTable}>
-                                            <em>{ item.name }</em>
-                                            <em>{ item.emEstoque }</em>
-                                            <em>{ item.quantidadeMin }</em>
-
-                                            { 
-                                                item.validade ? ( 
-                                                    <em>{ new Date(item.validade).toLocaleDateString("pt-BR") }</em>
-                                                ) : ( 
-                                                    <em>-</em> 
-                                                )
-                                            }
-
-                                            <em>{ item.status }</em>
-
-                                            <em>{ 
-                                                <div className="btnManipulate">
-                                                    <LinkButton to={`/estoque/${item["_id"]}`}
-                                                        type="button"
-                                                        text={<BiPencil />}
-                                                        classNameButton="btnEdit"
-                                                    />
-                                                    <Button type="button" text={<BiTrash />}
-                                                            className="btnTrash"
-                                                            buttonClickEvent={buttonClickEvent}
-                                                    />
-                                                </div>
-                                            }</em>
-                                        </div>
+                                        <InputComponentTable item={item} buttonClickEvent={buttonClickEvent} />
                                     )
                                 )}
                             </CollapseElement>

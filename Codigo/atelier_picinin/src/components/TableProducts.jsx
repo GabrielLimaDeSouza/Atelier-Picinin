@@ -20,7 +20,7 @@ const Table = ({ produtos, buttonEvent, clickEvent }) => {
                                 <td>{produto.saborProduto}</td>
                                 <td>{produto.precoProduto}</td>
                                 <td>{produto.pedidoMinProduto}</td>
-                                <td><Button type="button" text={<BiTrash />} className="btnLixeira" event={buttonEvent} /></td>
+                                <td><Button type="button" className="btnLixeira" event={buttonEvent}>{<BiTrash />}</Button></td>
                             </tr>              
                         )
                     }

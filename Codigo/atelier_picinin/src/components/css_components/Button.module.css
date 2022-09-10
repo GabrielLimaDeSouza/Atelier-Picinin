@@ -1,8 +1,9 @@
 :root{
     --verde: rgb(0, 255, 13);
     --btn-azul: #4939FF;
+    --dark-gray: rgb(46, 46, 46);
+    --light-gray: rgb(245, 243, 243);
     --box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
-    --darkGray: rgb(46, 46, 46);
 }
 
 .btnTrash, .btnEdit {
@@ -28,7 +29,7 @@
 
 .btnBack{
     border: none;
-    background-color: var(--darkGray);
+    background-color: var(--dark-gray);
     border-radius: 10px;
     padding: 5px 15px;
     color: white;
@@ -36,9 +37,9 @@
 }
 
 .btnBack:hover{
-    color: var(--darkGray);
+    color: var(--dark-gray);
     background-color: white;
-    border: 1px solid var(--darkGray);
+    border: 1px solid var(--dark-gray);
 }
 
 .btnAdd {
@@ -65,4 +66,14 @@
     border-radius: 10px;
     margin-top: 10px;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--light-gray);
+}
+
+.dropdown em {
+    font-size: 30px;
+    padding: 0;
+    width: 30px;
 }

@@ -17,8 +17,6 @@ module.exports = {
             status: "OK"
         }
 
-        console.log(req.body)
-
         for (let atributo in insumo) {
             if (insumo[atributo] == undefined)
                 insumo[atributo] = null;
@@ -43,8 +41,6 @@ module.exports = {
             emEstoque,
             validade
         }
-
-        console.log(req.body)
 
         try {
             const updatedInventory = await Insumo.updateOne({ _id: id }, insumo)
