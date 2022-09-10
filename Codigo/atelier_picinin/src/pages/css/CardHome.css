@@ -1,0 +1,16 @@
+.estrela {
+    color: rgb(255, 238, 0);
+}
+
+.card {
+    width: 18rem;
+}
+
+.card p {
+    font-weight: bold;
+}
+
+.card span {
+    font-weight: normal !important;
+    font-size: 12px;
+}

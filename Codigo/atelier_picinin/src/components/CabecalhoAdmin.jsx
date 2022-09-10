@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import '../pages/css/Cabecalho.css'
+import '../pages/css/CabecalhoAdmin.css'
 
-const Cabecalho = () => {
+const CabecalhoAdmin = () => {
     return (
         <nav className="div-header">
             <Link to="/">
@@ -15,4 +15,4 @@ const Cabecalho = () => {
     )
 }
 
-export default Cabecalho
+export default CabecalhoAdmin

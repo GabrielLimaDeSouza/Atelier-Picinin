@@ -3,7 +3,7 @@ import { useState } from 'react'
 import './App.css'
 
 import Rodape from './components/Rodape'
-import Cabecalho from './components/Cabecalho'
+import CabecalhoAdmin from './components/CabecalhoAdmin'
 import Home from './pages/jsx/Home'
 import CadastrarProduto from './pages/jsx/CadastrarProduto'
 import Estoque from './pages/jsx/Estoque'
@@ -13,7 +13,6 @@ import EditInventory from './pages/jsx/EditInventory'
 function App() {
   return (
     <div className="App">
-      <Cabecalho/>
       <Routes>
         <Route exact path='/' element={ <Home /> }>Home</Route>
         <Route path='/cadastrarProduto' element={ <CadastrarProduto /> }>Cadastrar Produtos</Route>
