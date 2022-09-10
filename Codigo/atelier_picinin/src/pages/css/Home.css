@@ -1,0 +1,75 @@
+/**** Estilos Banner ****/
+
+.banner {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #D9D9D9;
+}
+
+.banner h2 {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.banner p {
+    font-size: 15px;
+}
+
+.banner-buttons {
+    display: flex;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.banner-buttons button {
+    background-color: #D9D9D9;
+    border: none;
+}
+
+.informacoes {
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    background-color: #af8b8b81;
+}
+
+/**** Fim estilos Banner ****/
+
+/**** Estilos Cardápio ****/
+
+.div-cardapio {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    padding: 100px;
+}
+
+.div-cardapio h3 {
+    font-weight: bold;
+    width: 100%;
+    font-size: 20px;
+}
+
+.div-cardapio p {
+    width: 100%;
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 140px;
+}
