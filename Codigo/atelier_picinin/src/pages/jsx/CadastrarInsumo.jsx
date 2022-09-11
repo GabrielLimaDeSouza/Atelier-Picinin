@@ -6,7 +6,7 @@ import LinkButton from '../../components/LinkButton'
 import { useNavigate } from "react-router-dom"
 
 const CadastrarInsumo = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
   function createSupplies(input) {
     if(input.validade)
@@ -20,7 +20,7 @@ const CadastrarInsumo = () => {
       body: JSON.stringify(input),
     })
     .then(resp => resp.json())
-    .then(navigate('/estoque'))
+    .then(navigate('/estoque', { state: { message: "Insumo cadastrado com sucesso", type: "success" } }))
     .catch(err => console.error(err))
   }
 

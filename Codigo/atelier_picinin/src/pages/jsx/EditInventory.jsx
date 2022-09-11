@@ -4,13 +4,17 @@ import Form from '../../components/FormCadastroInsumos'
 import LinkButton from '../../components/LinkButton'
 import Cabecalho from '../../components/CabecalhoAdmin'
 import Message from '../../components/Message'
+
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 const EditInvetory = () => {
     const { id } = useParams()
     const [insumo, setInsumo] = useState({})
     const [message, setMessage] = useState('')
+    const [typeMessage, setTypeMessage] = useState('')
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetch(`http://localhost:3000/api/viewInputById?id=${id}`, {
@@ -30,17 +34,18 @@ const EditInvetory = () => {
     function handleEditInput(editedInput){
         if(editedInput.emEstoque < editedInput.quantidadeMin){
             setMessage("Quantidade Inicial deve ser maior que a Quantidade Mínima")
+            setTypeMessage("error")
             return false
         }
 
         fetch(`http://localhost:3000/api/updateInput?id=${editedInput._id}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json;',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(editedInput),
         }).then(resp => resp.json())
-        .then(data => setInsumo(data))
+        .then(navigate('/estoque', { state: { message: "Insumo atualizado com sucesso!", type: "success" }}))
         .catch(err => console.error(err))
     }
 
@@ -49,8 +54,8 @@ const EditInvetory = () => {
             <Cabecalho />
             <div className="body-edit-inventory">
                 <h1 className="title">Editar {insumo.name}</h1>
-                        
-                { message && <Message type="success" message={message} /> }
+
+                { message && <Message type={typeMessage} message={message} /> }
                 
                 { insumo && 
                     <Form id="form"

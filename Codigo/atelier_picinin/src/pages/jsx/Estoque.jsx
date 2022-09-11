@@ -5,21 +5,20 @@ import Message from '../../components/Message'
 import LinkButton from '../../components/LinkButton'
 import Dropdown from '../../components/Dropdown'
 import Tables from '../../components/SuppliesTable'
+import SearchBar from '../../components/SearchBar'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
+    const [typeMessage, setTypeMessage] = useState('')
     const [insumos, setInsumos] = useState([])
     const [status, setStatus] = useState([])
-    const [filterParams, setFilterParams] = useState('')
+    const [filterDropdownParams, setFilterDropdownParams] = useState('')
+    const [filterSearchParams, setFilterSearchParams] = useState('')
     const [inputTypes, setInputTypes] = useState([])
-    const [initialSupplies, setInitialSupplies] = useState([])
-    const [initialInuputTypes, setInitialInuputTypes] = useState([])
+    
     const location = useLocation()
-
-    if(location.state)
-        setMessage(location.state.message)
 
     // Carregamento dos insumos
     useEffect(() => {
@@ -43,12 +42,15 @@ const CadastrarInsumo = () => {
 
             
             setInsumos(data)
-            setInitialSupplies(data)
             setInputTypes(arraySupplies)
-            setInitialInuputTypes(arraySupplies)
             setStatus(arrayStatus)
         })
         .catch(err => console.error(err))
+
+        if(location.state) {
+            setTypeMessage(location.state.type)
+            setMessage(location.state.message)
+        }
     }, [])
 
     // Delete de insumos
@@ -64,7 +66,8 @@ const CadastrarInsumo = () => {
         }).then(resp => resp.json())
         .then(() => {
             setInsumos(insumos.filter(insumo => insumo._id !== id))
-            setMessage("Insumo removido com sucesso!")  
+            setTypeMessage("success")
+            setMessage("Insumo removido com sucesso!")
         })
         .catch(err => console.error(err))
     }
@@ -89,35 +92,12 @@ const CadastrarInsumo = () => {
 
     function handleFilterSuppliesByStatus(e){
         const value = e.target.value
-        setFilterParams(value)
-        
-        /* let teste = []
-        initialSupplies.forEach((insumo, index) => {
-            if(insumo.status != value){
-                setInsumos(insumos.filter(input => input.status == value))
-            } else{
-                insumos.push(initialSupplies[index])
-                teste.push(initialSupplies[index])
-                setInsumos(array => [...array])
-            }
-        })
-
-        console.log(teste)
-        if(teste)
-            teste.forEach(insumo => {
-                console.log(inputTypes.includes(insumo.name))
-                console.log(insumo);
-                if(inputTypes.includes(insumo.name)){
-                    // inputTypes.push(initialInuputTypes[index])
-                    // setInputTypes(array => [...array])
-                    //console.log(inputTypes)
-                } else {
-                    setInputTypes(inputTypes.splice(inputTypes[insumo.name], 1))
-                    console.log(inputTypes)
-                }
-            })
-        else
-            setInputTypes([]) */
+        setFilterDropdownParams(value)
+    }
+    
+    function handleFilterSuppliesByName(e){
+        const value = e.target.value
+        setFilterSearchParams(value)
     }
     
     return (
@@ -130,15 +110,17 @@ const CadastrarInsumo = () => {
                     <LinkButton to="/cadastrarInsumo" text="Inserir Novo Insumo" classNameButton="btnAdd"/>
                 </div>
 
-                { message && <Message type="success" message={message} /> }
+                { message && <Message type={typeMessage} message={message} /> }
 
                 <div className="filters">
+                    <SearchBar handleOnChange={handleFilterSuppliesByName}/>
                     <Dropdown options={status} textDefault="Selecione um status" handleOnChange={handleFilterSuppliesByStatus} />
                 </div>
 
                 <Tables
                     itens={insumos}
-                    filterParams={filterParams}
+                    filterDropdownParams={filterDropdownParams}
+                    filterSearchParams={filterSearchParams}
                     categorias={inputTypes}
                     buttonClickEvent={deleteInput}
                 />

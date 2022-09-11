@@ -1,6 +1,14 @@
-const SearchBar = ({  }) => {
+import Input from './Inputs'
+
+const SearchBar = ({ handleOnChange }) => {
     return (
-        <h1>Hello World</h1>
+        <Input type="text"
+            name="searchBarFilter"
+            placeholder="Pesquise um insumo"
+            id="searchbar-input"
+            handleOnChange={handleOnChange}
+            textLabel="Pesquisar no estoque"
+            htmlFor="searchbar-input"/>
     )
 }
 

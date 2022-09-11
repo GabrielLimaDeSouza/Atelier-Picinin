@@ -4,7 +4,7 @@ import CollapseElement from './CollapseElement'
 import InputComponentTable from './InputComponentTable'
 import { useState } from 'react'
 
-const TableIsumo = ({ itens, buttonClickEvent, categorias, filterParams }) => {
+const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams, filterSearchParams }) => {
     const initialArray = []
     for(let i = 0; i < categorias.length; i++)
         initialArray.push(false)
@@ -17,22 +17,30 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterParams }) => {
         setDropdown(array => [...array])
     }
 
-    function dropdownFilter(supplies) {
-        return supplies.filter(input => {
-            if (input.status == filterParams) {
-                return input
-            } else if (filterParams == "") {
-                return input
-            }
-        })
+    function searchStatusInItems(supplies){
+        if(filterDropdownParams != "")
+            return supplies.filter(input => input.status == filterDropdownParams)
+        else
+            return supplies
+    }
+
+    function searchNameInItems(supplies){ 
+        if(filterSearchParams != "")
+            return supplies.filter(input => input.name.toLowerCase().includes(filterSearchParams.toLowerCase()))
+        else 
+            return supplies
+    }
+
+    function searchFilter(supplies) {
+        let result = searchStatusInItems(supplies)
+        return searchNameInItems(result)
     }
 
     function categoryFilter(categories){
         return categories.filter(category => {
-            const foundItem = dropdownFilter(itens).find(item => item.name == category)
+            const foundItem = searchFilter(itens).find(item => item.name == category)
+
             if(foundItem)
-                return category
-            else if (filterParams == "")
                 return category
         })
     }
@@ -53,7 +61,7 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterParams }) => {
                                     <em>.</em>
                                 </div>
 
-                                { dropdownFilter(itens).map(item => 
+                                { searchFilter(itens).map(item => 
                                     categoria == item.name && (
                                         <InputComponentTable item={item} buttonClickEvent={buttonClickEvent} />
                                     )

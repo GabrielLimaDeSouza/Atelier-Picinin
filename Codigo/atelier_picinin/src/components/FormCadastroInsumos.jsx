@@ -5,19 +5,18 @@ import Button from "./Button"
 import { useState } from "react"
 
 const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
-    const [insumo, setInsumo] = useState(content)
     const date = new Date().toISOString().split('T')[0]
 
     if(content && content.validade)
         content.validade = content.validade.split('T')[0]
     
     function handleChange(e) {
-        setInsumo({ ...insumo, [e.target.name]: e.target.value })
+        content[e.target.name] = e.target.value
     }
 
     function submit(e) {
         e.preventDefault()
-        handleSubmit(insumo)
+        handleSubmit(content)
     }
         
     return (
