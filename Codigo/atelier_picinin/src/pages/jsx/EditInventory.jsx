@@ -32,20 +32,20 @@ const EditInvetory = () => {
     }, [])
 
     function handleEditInput(editedInput){
-        if(editedInput.emEstoque < editedInput.quantidadeMin){
-            setMessage("Quantidade Inicial deve ser maior que a Quantidade Mínima")
+        if(editedInput.emEstoque < 0 && editedInput.quantidadeMin < 0){
+            setMessage("Valores invalidos")
             setTypeMessage("error")
             return false
         }
 
-        fetch(`http://localhost:3000/api/updateInput?id=${editedInput._id}`, {
+        fetch(`http://localhost:3000/api/updateInput?id=${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(editedInput),
         }).then(resp => resp.json())
-        .then(navigate('/estoque', { state: { message: "Insumo atualizado com sucesso!", type: "success" }}))
+        .then(navigate('/estoque', { state: { message: "Insumo atualizado com sucesso!", type: "success" } }))
         .catch(err => console.error(err))
     }
 

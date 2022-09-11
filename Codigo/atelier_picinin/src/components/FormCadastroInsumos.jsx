@@ -2,21 +2,31 @@ import styles from './css_components/Form.module.css'
 
 import Input from "./Inputs"
 import Button from "./Button"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 
 const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
-    const date = new Date().toISOString().split('T')[0]
+    const [insumo, setInsumo] = useState({ name: "", emEstoque: 0, quantidadeMin: 0, validade: "" })
+    //const date = new Date().toISOString().split('T')[0]
 
-    if(content && content.validade)
-        content.validade = content.validade.split('T')[0]
+    useEffect(() => {
+        if(content){
+            setInsumo(content)
+    
+            if(content.validade)
+                content.validade = content.validade.split('T')[0]
+        }
+    }, [content])
     
     function handleChange(e) {
-        content[e.target.name] = e.target.value
+        insumo[e.target.name] = e.target.value
+
+        setInsumo(insumo)
     }
 
     function submit(e) {
         e.preventDefault()
-        handleSubmit(content)
+        console.log(insumo)
+        handleSubmit(insumo)
     }
         
     return (
@@ -55,7 +65,6 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
                 id="validade"
                 htmlFor="validade"
                 textLabel={"Validade:"}
-                min={date}
                 value={content && content.validade} 
                 handleOnChange={handleChange}
             />

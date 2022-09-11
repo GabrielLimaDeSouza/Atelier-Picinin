@@ -16,18 +16,21 @@
 }
 
 .headerTable em {
-    font-weight: 600;
-    font-size: .9rem;
+    font-weight: 500;
+}
+
+.headerTable em:first-child {
+    width: 40%;
 }
 
 .headerTable em:last-child {
-    width: 70px;
+    width: 65px;
     visibility: hidden;
 }
 
 em {
     font-style: normal;
-    width: 200px;
+    width: 120px;
     text-align: left;
     padding: 10px 0;
 }

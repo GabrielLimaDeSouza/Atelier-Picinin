@@ -20,6 +20,29 @@ const CadastrarInsumo = () => {
     
     const location = useLocation()
 
+    function verifyStatus(supplies) {
+        if (supplies.emEstoque < supplies.quantidadeMin)
+            return supplies.status = "Em Falta"
+        
+        else if (supplies.validade) {
+            const dataValidade = new Date(supplies.validade)
+            const dataAtual = new Date()
+
+            var timeDiff = Math.abs(dataValidade.getTime() - dataAtual.getTime())
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
+
+            if (dataValidade <= dataAtual)
+                return supplies.status = "Vencido"
+
+            else if(diffDays < 7)
+                return supplies.status = "Vencendo"
+            else
+                return supplies.status = "OK"
+            
+        } else
+            return supplies.status = "OK"
+    }
+
     // Carregamento dos insumos
     useEffect(() => {
         fetch('http://localhost:3000/api/viewAllSupplies', {
@@ -35,11 +58,12 @@ const CadastrarInsumo = () => {
             data.map(data => {
                 arrayStatus.push(data.status)
                 arraySupplies.push(data.name)
+                
             })
-            
             arrayStatus = filterDuplicateItemInArray(arrayStatus)
             arraySupplies = filterDuplicateItemInArray(arraySupplies)
 
+            data.forEach(input => input.status = verifyStatus(input))
             
             setInsumos(data)
             setInputTypes(arraySupplies)
@@ -52,6 +76,18 @@ const CadastrarInsumo = () => {
             setMessage(location.state.message)
         }
     }, [])
+
+    useEffect(() => {
+        insumos.forEach(insumo => {
+            fetch(`http://localhost:3000/api/updateInput?id=${insumo._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ "status": insumo.status }),
+            }).catch(err => console.error(err))
+    })
+    }, [insumos])
 
     // Delete de insumos
     function deleteInput(e){

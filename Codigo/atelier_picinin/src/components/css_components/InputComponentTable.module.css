@@ -4,17 +4,21 @@
     align-items: center;
     padding: 0 30px;
 }
-.component{
+.component:not(:last-child) {
     border-bottom: 1px solid black;
 }
 
-.component em:last-child {
-    width: 70px;
-}
-
-.component em {
+.component em:not(:last-child) {
     font-style: normal;
-    width: 200px;
+    width: 120px;
     text-align: left;
     padding: 10px 0;
+}
+
+.component em:last-child {
+    width: 65px;
+}
+
+.component em:first-child {
+    width: 40%;
 }

@@ -11,7 +11,7 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
 
     const [dropdown, setDropdown] = useState(initialArray)
     
-    function teste({ index }) {
+    function dropdownConfig({ index }) {
         dropdown[index] = !dropdown[index]
 
         setDropdown(array => [...array])
@@ -51,13 +51,13 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
                 <div className='body-table'>
                     {
                         categoryFilter(categorias).map((categoria, index) =>
-                            <CollapseElement isOpened={dropdown[index]} buttonClickEvent={() => teste({ index: index })} text={categoria}>
+                            <CollapseElement isOpened={dropdown[index]} buttonClickEvent={() => dropdownConfig({ index: index })} text={categoria}>
                                 <div className={styles.headerTable}>
-                                    <em key="insumo">Insumo</em>
-                                    <em key="emEstoque">Em Estoque</em>
-                                    <em key="quantidadeMin">Quantidade Mínima</em>
-                                    <em key="validade">Validade</em>
-                                    <em key="status">Status</em>
+                                    <em key="insumo">INSUMO</em>
+                                    <em key="emEstoque">ESTOQUE</em>
+                                    <em key="quantidadeMin">MÍNIMO</em>
+                                    <em key="validade">VALIDADE</em>
+                                    <em key="status">STATUS</em>
                                     <em>.</em>
                                 </div>
 

@@ -13,7 +13,7 @@ const InputComponentTable = ({ item, buttonClickEvent }) => {
 
             { 
                 item.validade ? ( 
-                    <em>{ new Date(item.validade).toLocaleDateString("pt-BR") }</em>
+                    <em>{ new Date(item.validade).toLocaleDateString("pt-BR", {timeZone: 'UTC'}) }</em>
                 ) : ( 
                     <em>-</em> 
                 )

@@ -33,13 +33,14 @@ module.exports = {
     },
     async updateInput (req, res) {
         const id = req.query.id
-        const { name, quantidadeMin, emEstoque, validade } = req.body
+        const { name, quantidadeMin, emEstoque, validade, status } = req.body
 
         const insumo = {
             name,
             quantidadeMin,
             emEstoque,
-            validade
+            validade,
+            status
         }
 
         try {
