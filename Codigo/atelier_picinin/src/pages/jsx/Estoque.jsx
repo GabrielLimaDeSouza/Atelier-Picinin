@@ -12,12 +12,14 @@ const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
     const [insumos, setInsumos] = useState([])
     const [status, setStatus] = useState([])
+    const [filterParams, setFilterParams] = useState('')
     const [inputTypes, setInputTypes] = useState([])
-    const location = useLocation();
+    const [initialSupplies, setInitialSupplies] = useState([])
+    const [initialInuputTypes, setInitialInuputTypes] = useState([])
+    const location = useLocation()
 
-    if(location.state){
+    if(location.state)
         setMessage(location.state.message)
-    }
 
     // Carregamento dos insumos
     useEffect(() => {
@@ -28,21 +30,22 @@ const CadastrarInsumo = () => {
             }
         }).then(resp => resp.json())
         .then(data => {
-            setInsumos(data)
-
-            let arrayStatus = []
+            let arrayStatus = ["fodase"]
             let arraySupplies = []
             
             data.map(data => {
                 arrayStatus.push(data.status)
                 arraySupplies.push(data.name)
             })
-
+            
             arrayStatus = filterDuplicateItemInArray(arrayStatus)
             arraySupplies = filterDuplicateItemInArray(arraySupplies)
 
+            
+            setInsumos(data)
+            setInitialSupplies(data)
             setInputTypes(arraySupplies)
-
+            setInitialInuputTypes(arraySupplies)
             setStatus(arrayStatus)
         })
         .catch(err => console.error(err))
@@ -61,8 +64,7 @@ const CadastrarInsumo = () => {
         }).then(resp => resp.json())
         .then(() => {
             setInsumos(insumos.filter(insumo => insumo._id !== id))
-            console.log(insumos)
-            setMessage("Insumo removido com sucesso!")
+            setMessage("Insumo removido com sucesso!")  
         })
         .catch(err => console.error(err))
     }
@@ -78,11 +80,44 @@ const CadastrarInsumo = () => {
     }
 
     function filterDuplicateItemInArray(array){
-        var newArray = array.filter((item, index) => {
+        var filteredArray = array.filter((item, index) => {
             return array.indexOf(item) === index;
         });
 
-        return newArray
+        return filteredArray
+    }
+
+    function handleFilterSuppliesByStatus(e){
+        const value = e.target.value
+        setFilterParams(value)
+        
+        /* let teste = []
+        initialSupplies.forEach((insumo, index) => {
+            if(insumo.status != value){
+                setInsumos(insumos.filter(input => input.status == value))
+            } else{
+                insumos.push(initialSupplies[index])
+                teste.push(initialSupplies[index])
+                setInsumos(array => [...array])
+            }
+        })
+
+        console.log(teste)
+        if(teste)
+            teste.forEach(insumo => {
+                console.log(inputTypes.includes(insumo.name))
+                console.log(insumo);
+                if(inputTypes.includes(insumo.name)){
+                    // inputTypes.push(initialInuputTypes[index])
+                    // setInputTypes(array => [...array])
+                    //console.log(inputTypes)
+                } else {
+                    setInputTypes(inputTypes.splice(inputTypes[insumo.name], 1))
+                    console.log(inputTypes)
+                }
+            })
+        else
+            setInputTypes([]) */
     }
     
     return (
@@ -98,11 +133,12 @@ const CadastrarInsumo = () => {
                 { message && <Message type="success" message={message} /> }
 
                 <div className="filters">
-                    <Dropdown options={status} textDefault="Selecione um status" />
+                    <Dropdown options={status} textDefault="Selecione um status" handleOnChange={handleFilterSuppliesByStatus} />
                 </div>
 
                 <Tables
                     itens={insumos}
+                    filterParams={filterParams}
                     categorias={inputTypes}
                     buttonClickEvent={deleteInput}
                 />

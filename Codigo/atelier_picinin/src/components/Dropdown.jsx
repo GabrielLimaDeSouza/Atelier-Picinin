@@ -1,7 +1,7 @@
 const Dropdown = ({ options, handleOnChange, textDefault }) => {
     return (
         <select onChange={handleOnChange}>
-            <option>{textDefault}</option>
+            <option value=''>{textDefault}</option>
             { 
                 options.map(option => 
                     <option key={option} value={option}>{option}</option>

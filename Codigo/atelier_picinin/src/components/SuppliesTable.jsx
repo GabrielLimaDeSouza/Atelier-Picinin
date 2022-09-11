@@ -4,7 +4,7 @@ import CollapseElement from './CollapseElement'
 import InputComponentTable from './InputComponentTable'
 import { useState } from 'react'
 
-const TableIsumo = ({ itens, buttonClickEvent, categorias }) => {
+const TableIsumo = ({ itens, buttonClickEvent, categorias, filterParams }) => {
     const initialArray = []
     for(let i = 0; i < categorias.length; i++)
         initialArray.push(false)
@@ -16,13 +16,33 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias }) => {
 
         setDropdown(array => [...array])
     }
+
+    function dropdownFilter(supplies) {
+        return supplies.filter(input => {
+            if (input.status == filterParams) {
+                return input
+            } else if (filterParams == "") {
+                return input
+            }
+        })
+    }
+
+    function categoryFilter(categories){
+        return categories.filter(category => {
+            const foundItem = dropdownFilter(itens).find(item => item.name == category)
+            if(foundItem)
+                return category
+            else if (filterParams == "")
+                return category
+        })
+    }
     
     return(
         <>
             <div className={styles.table}>
                 <div className='body-table'>
                     {
-                        categorias.map((categoria, index) =>
+                        categoryFilter(categorias).map((categoria, index) =>
                             <CollapseElement isOpened={dropdown[index]} buttonClickEvent={() => teste({ index: index })} text={categoria}>
                                 <div className={styles.headerTable}>
                                     <em key="insumo">Insumo</em>
@@ -33,7 +53,7 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias }) => {
                                     <em>.</em>
                                 </div>
 
-                                { itens.map(item => 
+                                { dropdownFilter(itens).map(item => 
                                     categoria == item.name && (
                                         <InputComponentTable item={item} buttonClickEvent={buttonClickEvent} />
                                     )
