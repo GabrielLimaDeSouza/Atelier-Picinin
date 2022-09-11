@@ -1,0 +1,19 @@
+.select {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: none;
+    border-radius: 50px;
+    background-color: #f7f7f7;
+    padding: 5px 15px;
+    width: 25% !important;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+}
+
+.select:focus{
+    outline: none;
+}
+
+.select option{
+    border-radius: 0 0 17px 17px;
+}

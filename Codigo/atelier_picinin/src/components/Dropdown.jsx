@@ -1,6 +1,8 @@
+import styles from './css_components/Dropdown.module.css'
+
 const Dropdown = ({ options, handleOnChange, textDefault }) => {
     return (
-        <select onChange={handleOnChange}>
+        <select className={styles.select} onChange={handleOnChange}>
             <option value=''>{textDefault}</option>
             { 
                 options.map(option => 

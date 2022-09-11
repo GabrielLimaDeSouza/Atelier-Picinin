@@ -1,6 +1,6 @@
 import styles from './css_components/Input.module.css'
 
-const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required, value, handleOnChange }) => {
+const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required, value, handleOnChange, autocomplete }) => {
     return (
         <div className={styles.divInput}>
             {htmlFor && (
@@ -15,6 +15,7 @@ const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required,
                 required={required}
                 defaultValue={value}
                 onChange={handleOnChange}
+                autoComplete={autocomplete}
             />
         </div>
     )

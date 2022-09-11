@@ -21,6 +21,7 @@ const CollapseElement = ({ isOpened, text, buttonClickEvent, children }) => {
               { isOpen ? ( <BiChevronUp /> ) : ( <BiChevronDown /> )}
             </em>
         </Button>
+        
         <Collapse layoutEffect isOpened={isOpened}>
           {children}
         </Collapse>

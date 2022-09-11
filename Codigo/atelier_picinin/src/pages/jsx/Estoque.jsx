@@ -20,6 +20,7 @@ const CadastrarInsumo = () => {
     
     const location = useLocation()
 
+    // Atualização do status de acordo com a data de validade e quantidade em estoque comparado com a quantidade mínima
     function verifyStatus(supplies) {
         if (supplies.emEstoque < supplies.quantidadeMin)
             return supplies.status = "Em Falta"
@@ -28,8 +29,7 @@ const CadastrarInsumo = () => {
             const dataValidade = new Date(supplies.validade)
             const dataAtual = new Date()
 
-            var timeDiff = Math.abs(dataValidade.getTime() - dataAtual.getTime())
-            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
+            var diffDays = diferençaDatasEmDias(dataValidade, dataAtual)
 
             if (dataValidade <= dataAtual)
                 return supplies.status = "Vencido"
@@ -41,6 +41,12 @@ const CadastrarInsumo = () => {
             
         } else
             return supplies.status = "OK"
+    }
+
+    // Cálculo da diferença de dias entre duas datas
+    function diferençaDatasEmDias(data1, data2) {
+        var timeDiff = Math.abs(data1.getTime() - data2.getTime())
+        return Math.ceil(timeDiff / (1000 * 3600 * 24))
     }
 
     // Carregamento dos insumos
@@ -77,6 +83,7 @@ const CadastrarInsumo = () => {
         }
     }, [])
 
+    // Atualizar o status no bd toda vez q página é carregada e o status calculado
     useEffect(() => {
         insumos.forEach(insumo => {
             fetch(`http://localhost:3000/api/updateInput?id=${insumo._id}`, {
@@ -118,6 +125,7 @@ const CadastrarInsumo = () => {
         return element.id
     }
 
+    // Filtro de elementos repetidos para o array de categorias
     function filterDuplicateItemInArray(array){
         var filteredArray = array.filter((item, index) => {
             return array.indexOf(item) === index;
@@ -126,11 +134,13 @@ const CadastrarInsumo = () => {
         return filteredArray
     }
 
+    // Filtro do insumos de acordo com o status
     function handleFilterSuppliesByStatus(e){
         const value = e.target.value
         setFilterDropdownParams(value)
     }
     
+    // Filtro dos insumos de acordo com o nome
     function handleFilterSuppliesByName(e){
         const value = e.target.value
         setFilterSearchParams(value)
@@ -149,7 +159,7 @@ const CadastrarInsumo = () => {
                 { message && <Message type={typeMessage} message={message} /> }
 
                 <div className="filters">
-                    <SearchBar handleOnChange={handleFilterSuppliesByName}/>
+                    <SearchBar handleOnChange={handleFilterSuppliesByName} placeholder="Pesquise por um Insumo" />
                     <Dropdown options={status} textDefault="Selecione um status" handleOnChange={handleFilterSuppliesByStatus} />
                 </div>
 

@@ -1,0 +1,14 @@
+.searchbar{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #f7f7f7;
+    padding: 5px 15px;
+    width: 40% !important;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+}
+
+.searchbar div, .searchbar div input {
+    width: 100% !important;
+}

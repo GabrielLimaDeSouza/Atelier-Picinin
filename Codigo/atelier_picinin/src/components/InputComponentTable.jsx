@@ -5,6 +5,8 @@ import Button from './Button'
 import { BiTrash, BiPencil } from 'react-icons/bi'
 
 const InputComponentTable = ({ item, buttonClickEvent }) => {
+    const statusStyle = item.status.replace(/\s/g, '').toLowerCase()
+
     return (
         <div id={item._id} key={item._id} className={styles.component}>
             <em>{ item.name }</em>
@@ -19,7 +21,7 @@ const InputComponentTable = ({ item, buttonClickEvent }) => {
                 )
             }
 
-            <em>{ item.status }</em>
+            <em><span className={styles[statusStyle]}>{ item.status }</span></em>
 
             <em>{ 
                 <div className="btnManipulate">

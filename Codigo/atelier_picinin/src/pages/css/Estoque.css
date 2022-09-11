@@ -5,80 +5,34 @@
     align-items: center;
     gap: 30px;
     margin: 50px auto;
+    width: 65%;
 }
 
 .titleButton{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 100%;
 }
 
-.title {
-    font-size: 30px;
-    width: 80%;
-    text-align: center;
+h1.title {
+    font-size: 25px;
+    text-align: left;
+    width: 50%;
 }
 
-/** Estilos de formulário (modal) **/
-
-.btnMais {
-    font-size: 20px;
-    border: none;
-    background-color: white;
+div.filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    margin-bottom: 30px;
 }
 
-.btn-warning {
-    margin-top: 20px;
+div.filters div{
+    width: 60%;
 }
 
-.status-ok{
-    font-family: Verdana;
-    font-size: 14px;
-    letter-spacing: 0.4px;
-    word-spacing: 2px;
-    color: #00ff22;
-    font-weight: 700;
-    text-decoration: none solid rgb(68, 68, 68);
-    font-style: normal;
-    font-variant: small-caps;
-    text-transform: uppercase;
-   
-}
-.status-em-falta{
-    font-family: Verdana;
-    font-size: 14px;
-    letter-spacing: 0.4px;
-    word-spacing: 2px;
-    color: #000000;
-    font-weight: 700;
-    text-decoration: none solid rgb(68, 68, 68);
-    font-style: normal;
-    font-variant: small-caps;
-    text-transform: uppercase;
-}
-.status-vencido{
-    font-family: Verdana;
-    font-size: 14px;
-    letter-spacing: 0.4px;
-    word-spacing: 2px;
-    color: #ff0000;
-    font-weight: 700;
-    text-decoration: none solid rgb(68, 68, 68);
-    font-style: normal;
-    font-variant: small-caps;
-    text-transform: uppercase;
-}
-.status-vencendo{
-    font-family: Verdana;
-    font-size: 14px;
-    letter-spacing: 0.4px;
-    word-spacing: 2px;
-    color: #ff9900;
-    font-weight: 700;
-    text-decoration: none solid rgb(68, 68, 68);
-    font-style: normal;
-    font-variant: small-caps;
-    text-transform: uppercase;
+div.filters select {
+    margin-top: auto;
 }

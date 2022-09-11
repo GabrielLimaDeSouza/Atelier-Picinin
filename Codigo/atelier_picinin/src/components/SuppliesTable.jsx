@@ -10,6 +10,10 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
         initialArray.push(false)
 
     const [dropdown, setDropdown] = useState(initialArray)
+
+    function primeiraLetraMaiuscula(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     
     function dropdownConfig({ index }) {
         dropdown[index] = !dropdown[index]
@@ -51,7 +55,10 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
                 <div className='body-table'>
                     {
                         categoryFilter(categorias).map((categoria, index) =>
-                            <CollapseElement isOpened={dropdown[index]} buttonClickEvent={() => dropdownConfig({ index: index })} text={categoria}>
+                            <CollapseElement isOpened={dropdown[index]}
+                                buttonClickEvent={() => dropdownConfig({ index: index })}
+                                text={primeiraLetraMaiuscula(categoria)}>
+
                                 <div className={styles.headerTable}>
                                     <em key="insumo">INSUMO</em>
                                     <em key="emEstoque">ESTOQUE</em>
