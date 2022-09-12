@@ -4,7 +4,7 @@ import LinkButton from './LinkButton'
 import Button from './Button'
 import { BiTrash, BiPencil } from 'react-icons/bi'
 
-const InputComponentTable = ({ item, buttonClickEvent }) => {
+const InputComponentTable = ({ item, buttonClickEvent, categories }) => {
     const statusStyle = item.status.replace(/\s/g, '').toLowerCase()
 
     return (
@@ -29,6 +29,7 @@ const InputComponentTable = ({ item, buttonClickEvent }) => {
                         type="button"
                         text={<BiPencil />}
                         classNameButton="btnEdit"
+                        state={ { categories: categories } }
                     />
                     <Button type="button"
                             className="btnTrash"

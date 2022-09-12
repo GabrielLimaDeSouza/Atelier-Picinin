@@ -50,7 +50,6 @@
     border-radius: 20px;
     transition: all .2s;
     margin-left: auto;
-
 }
 
 .btnAdd:hover{
@@ -77,4 +76,20 @@
     font-size: 30px;
     padding: 0;
     width: 30px;
+}
+
+.btnDropdown{
+    padding: 5px 15px;
+    background-color: var(--btn-azul);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: all .2s;
+    margin: 0 !important;
+}
+
+.btnDropdown:hover{
+    box-shadow: var(--box-shadow);
+    color: var(--btn-azul);
+    background-color: white;
 }

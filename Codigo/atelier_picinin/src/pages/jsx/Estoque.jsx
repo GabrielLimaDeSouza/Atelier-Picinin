@@ -13,10 +13,11 @@ const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
     const [insumos, setInsumos] = useState([])
+    const [initialSupplies, setInitialSupplies] = useState([])
     const [status, setStatus] = useState([])
     const [filterDropdownParams, setFilterDropdownParams] = useState('')
     const [filterSearchParams, setFilterSearchParams] = useState('')
-    const [inputTypes, setInputTypes] = useState([])
+    const [categories, setCategories] = useState([])
     
     const location = useLocation()
 
@@ -63,8 +64,7 @@ const CadastrarInsumo = () => {
             
             data.map(data => {
                 arrayStatus.push(data.status)
-                arraySupplies.push(data.name)
-                
+                arraySupplies.push(data.categoria)
             })
             arrayStatus = filterDuplicateItemInArray(arrayStatus)
             arraySupplies = filterDuplicateItemInArray(arraySupplies)
@@ -72,7 +72,8 @@ const CadastrarInsumo = () => {
             data.forEach(input => input.status = verifyStatus(input))
             
             setInsumos(data)
-            setInputTypes(arraySupplies)
+            setInitialSupplies(data)
+            setCategories(arraySupplies)
             setStatus(arrayStatus)
         })
         .catch(err => console.error(err))
@@ -83,16 +84,22 @@ const CadastrarInsumo = () => {
         }
     }, [])
 
+    // Pesquisar insumo pelo id
+    function getInputById(supplies, id){
+        return supplies.find(input => input._id == id)
+    }
+
     // Atualizar o status no bd toda vez q página é carregada e o status calculado
     useEffect(() => {
         insumos.forEach(insumo => {
-            fetch(`http://localhost:3000/api/updateInput?id=${insumo._id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ "status": insumo.status }),
-            }).catch(err => console.error(err))
+            if(insumo.status != getInputById(initialSupplies, insumo._id).status)
+                fetch(`http://localhost:3000/api/updateInput?id=${insumo._id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ "status": insumo.status }),
+                }).catch(err => console.error(err))
     })
     }, [insumos])
 
@@ -151,23 +158,27 @@ const CadastrarInsumo = () => {
             <Cabecalho />
             <div className="body-inventory">
                 <div className="titleButton">
-                    <h1 className="title">Cadastro de Insumos</h1>
+                    <h1 className="inventory-title">Cadastro de Insumos</h1>
 
-                    <LinkButton to="/cadastrarInsumo" text="Inserir Novo Insumo" classNameButton="btnAdd"/>
+                    <LinkButton to="/cadastrarInsumo" state={ { categories: categories } } text="Inserir Novo Insumo" classNameButton="btnAdd"/>
                 </div>
 
                 { message && <Message type={typeMessage} message={message} /> }
 
                 <div className="filters">
                     <SearchBar handleOnChange={handleFilterSuppliesByName} placeholder="Pesquise por um Insumo" />
-                    <Dropdown options={status} textDefault="Selecione um status" handleOnChange={handleFilterSuppliesByStatus} />
+
+                    <Dropdown options={status}
+                        textDefault="Selecione um status"
+                        handleOnChange={handleFilterSuppliesByStatus}
+                        notSwitchValue/>
                 </div>
 
                 <Tables
                     itens={insumos}
                     filterDropdownParams={filterDropdownParams}
                     filterSearchParams={filterSearchParams}
-                    categorias={inputTypes}
+                    categorias={categories}
                     buttonClickEvent={deleteInput}
                 />
             </div>

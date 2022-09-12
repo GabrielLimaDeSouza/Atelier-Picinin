@@ -1,16 +1,21 @@
 import './css_components/Button.module.css'
 
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Button from './Button'
 
-function LinkButton({ to, type, text, classNameButton }) {
-    return (
-        <Link to={to}>
-            <Button type={type} className={classNameButton}>
-                {text}
-            </Button>
-        </Link>
-    )
+function LinkButton({ to, state, type, text, classNameButton }) {
+    const navigate = useNavigate()
+
+    function clickEvent(){
+        navigate(to, { state: state })
+    }
+
+    return <Button type={type}
+        className={classNameButton}
+        buttonClickEvent={clickEvent}>
+
+        {text}
+    </Button>
 }
 
 export default LinkButton

@@ -2,11 +2,12 @@ import styles from './css_components/Form.module.css'
 
 import Input from "./Inputs"
 import Button from "./Button"
-import { useState,useEffect } from "react"
+import Dropdown from "./Dropdown"
+import { useState, useEffect } from "react"
 
-const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
-    const [insumo, setInsumo] = useState({ name: "", emEstoque: 0, quantidadeMin: 0, validade: "" })
-    //const date = new Date().toISOString().split('T')[0]
+const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptions, selectTextDefault }) => {
+    const [insumo, setInsumo] = useState({ name: "", emEstoque: 0, quantidadeMin: 0, validade: "", categoria: "" })
+    const date = new Date().toISOString().split('T')[0]
 
     useEffect(() => {
         if(content){
@@ -65,8 +66,15 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton }) => {
                 id="validade"
                 htmlFor="validade"
                 textLabel={"Validade:"}
-                value={content && content.validade} 
+                value={content && content.validade}
+                min={date}
                 handleOnChange={handleChange}
+            />
+            <Dropdown options={selectOptions}
+                handleOnChange={handleChange}
+                textDefault={selectTextDefault}
+                optionSelected={content && content.categoria}
+                allowLabel
             />
             <Button
                 type="submit"

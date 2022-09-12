@@ -42,7 +42,7 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
 
     function categoryFilter(categories){
         return categories.filter(category => {
-            const foundItem = searchFilter(itens).find(item => item.name == category)
+            const foundItem = searchFilter(itens).find(item => item.categoria == category)
 
             if(foundItem)
                 return category
@@ -69,8 +69,8 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
                                 </div>
 
                                 { searchFilter(itens).map(item => 
-                                    categoria == item.name && (
-                                        <InputComponentTable item={item} buttonClickEvent={buttonClickEvent} />
+                                    categoria == item.categoria && (
+                                        <InputComponentTable item={item} buttonClickEvent={buttonClickEvent} categories={categorias} />
                                     )
                                 )}
                             </CollapseElement>

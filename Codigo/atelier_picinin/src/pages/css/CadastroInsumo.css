@@ -9,7 +9,14 @@
     width: 65%;
 }
 
-.title{
+h1.register-title{
+    font-size: 25px;
     text-align: center;
     width: 80%;
+}
+
+input{
+    background-color: #f7f7f7 !important;
+    padding: 5px 15px !important;
+    border-radius: 50px !important;
 }

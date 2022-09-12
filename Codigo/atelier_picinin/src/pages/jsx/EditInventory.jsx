@@ -6,15 +6,17 @@ import Cabecalho from '../../components/CabecalhoAdmin'
 import Message from '../../components/Message'
 
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 
 const EditInvetory = () => {
     const { id } = useParams()
     const [insumo, setInsumo] = useState({})
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
+    const [categories, setCategories] = useState([])
 
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         fetch(`http://localhost:3000/api/viewInputById?id=${id}`, {
@@ -29,9 +31,12 @@ const EditInvetory = () => {
             setInsumo(data)
         })
         .catch(err => console.error(err))
+
+        setCategories(location.state.categories)
     }, [])
 
     function handleEditInput(editedInput){
+        console.log(editedInput)
         if(editedInput.emEstoque < 0 && editedInput.quantidadeMin < 0){
             setMessage("Valores invalidos")
             setTypeMessage("error")
@@ -53,16 +58,18 @@ const EditInvetory = () => {
         <>
             <Cabecalho />
             <div className="body-edit-inventory">
-                <h1 className="title">Editar {insumo.name}</h1>
+                <h1 className="edit-title">Editar {insumo.name}</h1>
 
                 { message && <Message type={typeMessage} message={message} /> }
                 
-                { insumo && 
+                { insumo && categories &&
                     <Form id="form"
                         content={insumo}
                         handleSubmit={handleEditInput}
                         btnText="Alterar"
                         classNameButton="btnCadastrar"
+                        selectOptions={categories}
+                        selectTextDefault="Selecione uma categoria de insumo"
                     />
                 }
                 <LinkButton to="/estoque" text="Voltar" classNameButton="btnBack"/>

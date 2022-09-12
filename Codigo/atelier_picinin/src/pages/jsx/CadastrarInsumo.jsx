@@ -3,10 +3,17 @@ import '../css/CadastroInsumo.css'
 import Form from '../../components/FormCadastroInsumos'
 import Cabecalho from '../../components/CabecalhoAdmin'
 import LinkButton from '../../components/LinkButton'
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useState, useEffect } from 'react'
 
 const CadastrarInsumo = () => {
+  const location = useLocation()
   const navigate = useNavigate()
+  const [categories, setCategories] = useState(location.state.categories)
+
+  useEffect(() => {
+    setCategories(location.state.categories)
+  }, [])
 
   function createSupplies(input) {
     if(input.validade)
@@ -28,12 +35,15 @@ const CadastrarInsumo = () => {
     <>
       <Cabecalho />
       <div className="body-input-register">
-        <h1 className="title">Cadastrar Insumo</h1>
-        <Form id="form"
-            handleSubmit={createSupplies}
-            btnText="Cadastrar"
-            classNameButton="btnCadastrar"
-        />
+        <h1 className="register-title">Cadastrar Insumo</h1>
+        { categories && <Form id="form"
+                          handleSubmit={createSupplies}
+                          btnText="Cadastrar"
+                          classNameButton="btnCadastrar"
+                          selectOptions={categories}
+                          selectTextDefault="Selecione uma categoria de insumo"
+          />
+        }
         <LinkButton to="/estoque" text="Voltar" classNameButton="btnBack"/>
       </div>
     </>

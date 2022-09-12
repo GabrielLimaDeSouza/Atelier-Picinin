@@ -4,10 +4,12 @@
     justify-content: center;
     align-items: center;
     gap: 30px;
-    margin-top: 100px;
+    margin: 100px auto 0;
+    width: 65%;
 }
 
-.title{
+.edit-title{
+    font-size: 25px;
     text-align: center;
     width: 80%;
 }
