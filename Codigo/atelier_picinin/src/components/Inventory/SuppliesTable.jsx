@@ -1,4 +1,4 @@
-import styles from './css_components/Tables.module.css'
+import styles from '../css_components/layout/Tables.module.css'
 
 import CollapseElement from '../layout/CollapseElement'
 import InputComponentTable from '../layout/InputComponentTable'

@@ -1,13 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import styles from '../css_components/layout/CabecalhoAdmin.module.css'
 
-import '../pages/css/CabecalhoAdmin.css'
+import { Link } from 'react-router-dom'
 
 const CabecalhoAdmin = () => {
     return (
-        <nav className="div-header">
+        <nav className={styles["div-header"]}>
             <Link to="/">
-                <h1 className='logo'>Logo</h1>
+                <h1 className={styles.logo}>Logo</h1>
             </Link>
             <Link to="/cadastrarProduto">Cadastrar Produtos</Link>
             <Link to="/estoque">Estoque</Link>

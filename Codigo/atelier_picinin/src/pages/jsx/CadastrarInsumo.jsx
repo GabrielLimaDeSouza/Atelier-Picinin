@@ -1,8 +1,8 @@
-import '../css/CadastroInsumo.css'
+import '../css/inventory/CadastroInsumo.css'
 
-import Form from '../../components/FormCadastroInsumos'
-import Cabecalho from '../../components/CabecalhoAdmin'
-import LinkButton from '../../components/LinkButton'
+import Form from '../../components/inventory/FormCadastroInsumos'
+import Cabecalho from '../../components/layout/CabecalhoAdmin'
+import LinkButton from '../../components/layout/LinkButton'
 import { useLocation, useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
 

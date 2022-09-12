@@ -1,4 +1,4 @@
-import styles from './css_components/Dropdown.module.css'
+import styles from '../css_components/layout/Dropdown.module.css'
 
 import Button from './Button'
 import Input from './Inputs'

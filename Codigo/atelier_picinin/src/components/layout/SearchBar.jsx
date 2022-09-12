@@ -1,4 +1,4 @@
-import styles from './css_components/SearchBar.module.css'
+import styles from '../css_components/SearchBar.module.css'
 
 import Input from './Inputs'
 import { BiSearch } from 'react-icons/bi'

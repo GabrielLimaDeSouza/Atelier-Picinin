@@ -1,10 +1,10 @@
-import '../css/Estoque.css'
+import '../css/inventory/Estoque.css'
 
-import Cabecalho from '../../components/layout/CabecalhoAdmin'
+import CabecalhoAdmin from '../../components/layout/CabecalhoAdmin'
 import Message from '../../components/layout/Message'
 import LinkButton from '../../components/layout/LinkButton'
 import Dropdown from '../../components/layout/Dropdown'
-import Tables from '../../components/Inventory/SuppliesTable'
+import Tables from '../../components/inventory/SuppliesTable'
 import SearchBar from '../../components/layout/SearchBar'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -155,7 +155,7 @@ const CadastrarInsumo = () => {
     
     return (
         <>
-            <Cabecalho />
+            <CabecalhoAdmin />
             <div className="body-inventory">
                 <div className="titleButton">
                     <h1 className="inventory-title">Cadastro de Insumos</h1>

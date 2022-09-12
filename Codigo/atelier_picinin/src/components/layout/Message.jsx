@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import styles from '../css_components/layout/Message.module.css'
 
-import styles from './css_components/Message.module.css'
+import { useState, useEffect } from 'react'
 
 function Message({ type, message }) {
   const [visible, setVisible] = useState(false)

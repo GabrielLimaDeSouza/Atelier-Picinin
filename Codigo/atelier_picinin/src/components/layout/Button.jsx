@@ -1,4 +1,4 @@
-import styles from './css_components/Button.module.css'
+import styles from '../css_components/layout/Button.module.css'
 
 const Button = ({ type, children, className, buttonClickEvent, buttonSubmitEvent}) => {
     return <button type={type}

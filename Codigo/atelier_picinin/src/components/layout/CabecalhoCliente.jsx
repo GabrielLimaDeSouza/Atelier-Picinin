@@ -1,15 +1,15 @@
-import React from 'react'
+import styles from '../css_components/layout/CabecalhoCliente.module.css'
+
 import { BiUserCircle } from 'react-icons/bi'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import '../pages/css/CabecalhoCliente.css'
 
 const CabecalhoCliente = () => {
     return (
-        <nav className="div-header">
-            <h1 className='logo'>Logo</h1>
-            <div className='buttons'>
-                <button className="carrinho"><AiOutlineShoppingCart /></button>
-                <button className="perfil"><BiUserCircle /></button>
+        <nav className={styles["div-header"]}>
+            <h1 className={styles.logo}>Logo</h1>
+            <div className={styles.buttons}>
+                <button className={styles.carrinho}><AiOutlineShoppingCart /></button>
+                <button className={styles.perfil}><BiUserCircle /></button>
             </div>
         </nav>
     )

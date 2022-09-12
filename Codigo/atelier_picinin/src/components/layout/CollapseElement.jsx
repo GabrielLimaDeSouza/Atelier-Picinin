@@ -1,4 +1,4 @@
-import styles from './css_components/CollapseElement.module.css'
+import styles from '../css_components/layout/CollapseElement.module.css'
 
 import Button from './Button'
 import { Collapse } from 'react-collapse'

@@ -1,8 +1,8 @@
-import styles from './css_components/Form.module.css'
+import styles from '../css_components/Form.module.css'
 
-import Input from "./Inputs"
-import Button from "./Button"
-import Dropdown from "./Dropdown"
+import Input from "../layout/Inputs"
+import Button from "../layout/Button"
+import Dropdown from "../layout/Dropdown"
 import { useState, useEffect } from "react"
 
 const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptions, selectTextDefault }) => {

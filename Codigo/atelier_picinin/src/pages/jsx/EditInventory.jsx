@@ -1,9 +1,9 @@
-import '../css/EditInventory.css'
+import '../css/inventory/EditInventory.css'
 
-import Form from '../../components/FormCadastroInsumos'
-import LinkButton from '../../components/LinkButton'
-import Cabecalho from '../../components/CabecalhoAdmin'
-import Message from '../../components/Message'
+import Form from '../../components/inventory/FormCadastroInsumos'
+import LinkButton from '../../components/layout/LinkButton'
+import Cabecalho from '../../components/layout/CabecalhoAdmin'
+import Message from '../../components/layout/Message'
 
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'

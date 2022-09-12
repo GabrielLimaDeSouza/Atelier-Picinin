@@ -1,4 +1,4 @@
-import styles from './css_components/Input.module.css'
+import styles from '../css_components/layout/Input.module.css'
 
 const Input = ({ type, placeholder, name, id, min, htmlFor, textLabel, required, value, handleOnChange, autocomplete }) => {
     return (

@@ -1,10 +1,10 @@
-import '../css/CadastrarProduto.css'
+import '../css/products/CadastrarProduto.css'
 
+import Form from '../../components/products/FormCadastroProdutos'
+import Cabecalho from '../../components/layout/CabecalhoAdmin'
+import Button from '../../components/layout/Button'
+import { useState, useEffect } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { useState, useEffect, useNavigate } from 'react'
-import Form from '../../components/FormCadastroProdutos'
-import Cabecalho from '../../components/CabecalhoAdmin'
-import Button from '../../components/Button'
 import { BiTrash } from 'react-icons/bi'
 
 const CadastrarProduto = () => {

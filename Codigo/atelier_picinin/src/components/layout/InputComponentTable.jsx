@@ -1,4 +1,4 @@
-import styles from './css_components/InputComponentTable.module.css'
+import styles from '../css_components/InputComponentTable.module.css'
 
 import LinkButton from './LinkButton'
 import Button from './Button'
