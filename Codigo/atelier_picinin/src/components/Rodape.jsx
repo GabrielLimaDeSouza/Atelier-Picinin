@@ -6,7 +6,11 @@ function Rodape() {
     return (
         <footer className='color'>
             <div>
-                <p>teste</p>
+                <p>Atelier Picinin</p>
+                <div className="buttonsRodape">
+                    <a><BsInstagram /></a>
+                    <a><BsWhatsapp /></a>
+                </div>
             </div>
         </footer>
     )

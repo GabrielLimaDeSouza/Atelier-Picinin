@@ -39,6 +39,7 @@
 .img {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     width: 50%;
     background-color: #af8b8b81;
