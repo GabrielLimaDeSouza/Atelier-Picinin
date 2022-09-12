@@ -11,7 +11,9 @@ const CadastrarInsumo = () => {
   const [categories, setCategories] = useState(location.state.categories)
 
   useEffect(() => {
-    setCategories(location.state.categories)
+    setTimeout(() => {
+      setCategories(location.state.categories)
+    }, 100)
   }, [])
 
   function createSupplies(input) {
@@ -35,15 +37,14 @@ const CadastrarInsumo = () => {
       <Cabecalho />
       <div className="body-input-register">
         <h1 className="register-title">Cadastrar Insumo</h1>
-        { categories && <Form id="form"
-                          handleSubmit={createSupplies}
-                          btnText="Cadastrar"
-                          classNameButton="btnCadastrar"
-                          selectOptions={categories}
-                          selectTextDefault="Selecione uma categoria"
-                          btnVoltar="/estoque"
-          />
-        }
+        <Form id="form"
+          handleSubmit={createSupplies}
+          btnText="Cadastrar"
+          classNameButton="btnCadastrar"
+          selectOptions={categories}
+          selectTextDefault="Selecione uma categoria"
+          btnVoltar="/estoque"
+        />
       </div>
     </>
   )

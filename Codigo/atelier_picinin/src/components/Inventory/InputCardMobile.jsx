@@ -15,18 +15,18 @@ const InputCardMobile = ({ item, buttonClickEvent, categories }) => {
     return (
         <div id={item._id} key={item._id} className={styles.card}>
             <div className={styles.headerCard}>
-                <em>{ primeiraLetraMaiuscula(item.name) }</em>
-                <em><span className={status_styles[statusStyle]}>{ item.status }</span></em>
+                <em key={item.name}>{ primeiraLetraMaiuscula(item.name) }</em>
+                <em key={statusStyle}><span className={status_styles[statusStyle]}>{ item.status }</span></em>
             </div>
             <div className={styles.infos}>
                 <div className={styles.supplies_data}>
-                    <em>Estoque: { item.emEstoque }</em>
-                    <em>Mínimo: { item.quantidadeMin }</em>
+                    <em key={item.emEstoque}>Estoque: { item.emEstoque }</em>
+                    <em key={item.quantidadeMin}>Mínimo: { item.quantidadeMin }</em>
 
                     { item.validade ? ( 
-                        <em>Validade: { new Date(item.validade).toLocaleDateString("pt-BR", {timeZone: 'UTC'}) }</em>
+                        <em key={item.validade}>Validade: { new Date(item.validade).toLocaleDateString("pt-BR", {timeZone: 'UTC'}) }</em>
                     ) : ( 
-                        <em>Sem Validade</em> 
+                        <em key="SemValidade">Sem Validade</em> 
                     )}
                 </div>
 

@@ -6,6 +6,7 @@ import LinkButton from '../../components/layout/LinkButton'
 import Dropdown from '../../components/layout/Dropdown'
 import Tables from '../../components/inventory/SuppliesTable'
 import SearchBar from '../../components/layout/SearchBar'
+import Loading from '../../components/layout/Loading'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
@@ -18,6 +19,8 @@ const CadastrarInsumo = () => {
     const [filterDropdownParams, setFilterDropdownParams] = useState('')
     const [filterSearchParams, setFilterSearchParams] = useState('')
     const [categories, setCategories] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
     
     const location = useLocation()
 
@@ -32,10 +35,10 @@ const CadastrarInsumo = () => {
 
             var diffDays = diferençaDatasEmDias(dataValidade, dataAtual)
 
-            if (dataValidade <= dataAtual)
+            if (dataValidade < dataAtual)
                 return supplies.status = "Vencido"
 
-            else if(diffDays < 7)
+            else if(diffDays <= 7)
                 return supplies.status = "Vencendo"
             else
                 return supplies.status = "OK"
@@ -52,31 +55,35 @@ const CadastrarInsumo = () => {
 
     // Carregamento dos insumos
     useEffect(() => {
-        fetch('http://localhost:3000/api/viewAllSupplies', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(resp => resp.json())
-        .then(data => {
-            let arrayStatus = []
-            let arraySupplies = []
-            
-            data.map(data => {
-                arrayStatus.push(data.status)
-                arraySupplies.push(data.categoria)
-            })
-            arrayStatus = filterDuplicateItemInArray(arrayStatus)
-            arraySupplies = filterDuplicateItemInArray(arraySupplies)
+        setTimeout(() => {
+            fetch('http://localhost:3000/api/viewAllSupplies', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(resp => resp.json())
+            .then(data => {
+                let arrayStatus = []
+                let arraySupplies = []
+                
+                data.map(data => {
+                    arrayStatus.push(data.status)
+                    arraySupplies.push(data.categoria)
+                })
+                arrayStatus = filterDuplicateItemInArray(arrayStatus)
+                arraySupplies = filterDuplicateItemInArray(arraySupplies)
 
-            data.forEach(input => input.status = verifyStatus(input))
-            
-            setInsumos(data)
-            setInitialSupplies(data)
-            setCategories(arraySupplies.sort())
-            setStatus(arrayStatus)
-        })
-        .catch(err => console.error(err))
+                data.forEach(input => input.status = verifyStatus(input))
+                
+                setInsumos(data)
+                setInitialSupplies(data)
+                setCategories(arraySupplies.sort())
+                setStatus(arrayStatus)
+            })
+            .catch(err => console.error(err))
+
+            setIsLoading(false)
+        }, 600)
 
         if(location.state) {
             setTypeMessage(location.state.type)
@@ -173,14 +180,17 @@ const CadastrarInsumo = () => {
                         handleOnChange={handleFilterSuppliesByStatus}
                         notSwitchValue/>
                 </div>
-
-                <Tables
-                    itens={insumos}
-                    filterDropdownParams={filterDropdownParams}
-                    filterSearchParams={filterSearchParams}
-                    categorias={categories}
-                    buttonClickEvent={deleteInput}
-                />
+                { isLoading ?
+                    <Loading />
+                    :
+                    <Tables
+                        itens={insumos}
+                        filterDropdownParams={filterDropdownParams}
+                        filterSearchParams={filterSearchParams}
+                        categorias={categories}
+                        buttonClickEvent={deleteInput}
+                    />
+                }
             </div>
         </>
     )
