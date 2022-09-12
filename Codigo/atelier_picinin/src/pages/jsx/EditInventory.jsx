@@ -1,7 +1,6 @@
 import '../css/inventory/EditInventory.css'
 
 import Form from '../../components/inventory/FormCadastroInsumos'
-import LinkButton from '../../components/layout/LinkButton'
 import Cabecalho from '../../components/layout/CabecalhoAdmin'
 import Message from '../../components/layout/Message'
 
@@ -69,10 +68,10 @@ const EditInvetory = () => {
                         btnText="Alterar"
                         classNameButton="btnCadastrar"
                         selectOptions={categories}
-                        selectTextDefault="Selecione uma categoria de insumo"
+                        selectTextDefault="Selecione uma categoria"
+                        btnVoltar="/estoque"
                     />
                 }
-                <LinkButton to="/estoque" text="Voltar" classNameButton="btnBack"/>
             </div>
         </>
     )

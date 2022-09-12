@@ -2,7 +2,6 @@ import '../css/inventory/CadastroInsumo.css'
 
 import Form from '../../components/inventory/FormCadastroInsumos'
 import Cabecalho from '../../components/layout/CabecalhoAdmin'
-import LinkButton from '../../components/layout/LinkButton'
 import { useLocation, useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
 
@@ -41,10 +40,10 @@ const CadastrarInsumo = () => {
                           btnText="Cadastrar"
                           classNameButton="btnCadastrar"
                           selectOptions={categories}
-                          selectTextDefault="Selecione uma categoria de insumo"
+                          selectTextDefault="Selecione uma categoria"
+                          btnVoltar="/estoque"
           />
         }
-        <LinkButton to="/estoque" text="Voltar" classNameButton="btnBack"/>
       </div>
     </>
   )

@@ -17,3 +17,9 @@
 .App > div {
     margin: 100px 0;
 }
+
+@media (max-width: 600px) {
+    .App > div {
+        width: 90%;
+    }
+}

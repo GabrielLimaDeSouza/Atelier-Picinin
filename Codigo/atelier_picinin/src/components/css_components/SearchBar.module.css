@@ -1,4 +1,4 @@
-.searchbar{
+.searchbar {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -11,4 +11,10 @@
 
 .searchbar div, .searchbar div input {
     width: 100% !important;
+}
+
+@media (max-width: 900px) {
+    .searchbar {
+        width: 90%;
+    }
 }

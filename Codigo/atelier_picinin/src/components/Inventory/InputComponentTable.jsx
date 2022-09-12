@@ -1,7 +1,7 @@
 import styles from '../css_components/InputComponentTable.module.css'
 
-import LinkButton from './LinkButton'
-import Button from './Button'
+import LinkButton from '../layout/LinkButton'
+import Button from '../layout/Button'
 import { BiTrash, BiPencil } from 'react-icons/bi'
 
 const InputComponentTable = ({ item, buttonClickEvent, categories }) => {

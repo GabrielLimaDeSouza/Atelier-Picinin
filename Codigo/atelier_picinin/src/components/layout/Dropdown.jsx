@@ -3,10 +3,13 @@ import styles from '../css_components/layout/Dropdown.module.css'
 import Button from './Button'
 import Input from './Inputs'
 import { useState, useEffect } from "react"
+import { BiPlus } from 'react-icons/bi'
 
 const Dropdown = ({ options, handleOnChange, textDefault, optionSelected, notSwitchValue, allowLabel }) => {
     const [selected, setSelected] = useState(optionSelected)
     const [newCategory, setNewCategory] = useState(false)
+
+    const larguraTela = window.innerWidth
 
     useEffect(() => {
         setSelected(optionSelected)
@@ -53,7 +56,11 @@ const Dropdown = ({ options, handleOnChange, textDefault, optionSelected, notSwi
 
             { !notSwitchValue &&
                 <Button type="button" className="btnDropdown" buttonClickEvent={handleInsertCategory}>
-                    { !newCategory ? "Adicionar categoria" : "Fechar"}
+                    { larguraTela <= 900 ?
+                        <BiPlus />
+                        :
+                        !newCategory ? "Adicionar categoria" : "Fechar"
+                    }
                 </Button>
             }
         </div>

@@ -1,10 +1,13 @@
 import styles from '../css_components/layout/Tables.module.css'
 
 import CollapseElement from '../layout/CollapseElement'
-import InputComponentTable from '../layout/InputComponentTable'
+import InputComponentTable from './InputComponentTable'
+import InputCardMobile from './InputCardMobile'
 import { useState } from 'react'
 
 const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams, filterSearchParams }) => {
+    const larguraTela = window.innerWidth
+
     const initialArray = []
     for(let i = 0; i < categorias.length; i++)
         initialArray.push(false)
@@ -70,19 +73,18 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
                             <CollapseElement isOpened={dropdown[index]}
                                 buttonClickEvent={() => dropdownConfig({ index: index })}
                                 text={primeiraLetraMaiuscula(categoria)}>
-
-                                <div className={styles.headerTable}>
-                                    <em key="insumo">INSUMO</em>
-                                    <div className={styles.infosWithoutName}>
-                                        <em key="emEstoque">ESTOQUE</em>
-                                        <em key="quantidadeMin">MÍNIMO</em>
-                                        <em key="validade">VALIDADE</em>
-                                        <em key="status">STATUS</em>
-                                        <em>.</em>
+                                { larguraTela  >= 700 &&
+                                    <div className={styles.headerTable}>
+                                        <em key="insumo">INSUMO</em>
+                                        <div className={styles.infosWithoutName}>
+                                            <em key="emEstoque">ESTOQUE</em>
+                                            <em key="quantidadeMin">MÍNIMO</em>
+                                            <em key="validade">VALIDADE</em>
+                                            <em key="status">STATUS</em>
+                                            <em>.</em>
+                                        </div>
                                     </div>
-                                </div>
-
-                                { 
+                                } { 
                                     searchFilter(itens)
                                     .sort((a, b) => {
                                         if(a.name < b.name)
@@ -92,7 +94,10 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
                                     })
                                     .map(item => 
                                         categoria == item.categoria && (
-                                            <InputComponentTable item={item} buttonClickEvent={buttonClickEvent} categories={categorias} />
+                                            larguraTela  >= 700 ? 
+                                                <InputComponentTable item={item} buttonClickEvent={buttonClickEvent} categories={categorias} />
+                                            :
+                                                <InputCardMobile item={item} buttonClickEvent={buttonClickEvent} categories={categorias} />
                                         )
                                     )
                                 }

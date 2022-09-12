@@ -12,6 +12,8 @@
     width: 100%;
 }
 
-.form button {
-    margin-top: 30px;
+.hudBtn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

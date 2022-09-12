@@ -1,9 +1,8 @@
 div.divInput {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
-    width: 100%;
 }
 
 .input, .label {
@@ -13,12 +12,13 @@ div.divInput {
     border: none;
     width: inherit;
 }
+
 .input:focus {
     border: none;
     box-shadow: none;
     outline: none;
 }
 
-.label{
+.label {
     margin-bottom: 5px;
 }

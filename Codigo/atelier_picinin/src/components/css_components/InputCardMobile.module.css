@@ -1,0 +1,41 @@
+.card {
+    padding: 25px 20px;
+}
+
+.card:not(:last-child) {
+    border-bottom: 1px solid rgb(124, 124, 124);
+}
+
+.headerCard{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.headerCard em:last-child {
+    text-align: end;
+}
+
+.infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.supplies_data, .edit_data {
+    display: inherit;
+    justify-content: inherit;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.supplies_data em {
+    font-style: normal;
+    padding: 3px 0;
+    width: 100%;
+}
+
+.supplies_data {
+    width: 60%;
+}

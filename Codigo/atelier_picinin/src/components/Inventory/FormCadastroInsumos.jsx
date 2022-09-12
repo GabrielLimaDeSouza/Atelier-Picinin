@@ -2,10 +2,11 @@ import styles from '../css_components/Form.module.css'
 
 import Input from "../layout/Inputs"
 import Button from "../layout/Button"
+import LinkButton from '../../components/layout/LinkButton'
 import Dropdown from "../layout/Dropdown"
 import { useState, useEffect } from "react"
 
-const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptions, selectTextDefault }) => {
+const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptions, selectTextDefault, btnVoltar }) => {
     const [insumo, setInsumo] = useState({ name: "", emEstoque: 0, quantidadeMin: 0, validade: "", categoria: "" })
     const date = new Date().toISOString().split('T')[0]
 
@@ -76,13 +77,16 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptio
                 optionSelected={content && content.categoria}
                 allowLabel
             />
-            <Button
-                type="submit"
-                className={classNameButton}
-                buttonSubmitEvent={submit}>
-                    
-                {btnText}
-            </Button>
+            <div className={styles.hudBtn}>
+                <LinkButton to={btnVoltar} text="Voltar" classNameButton="btnBack"/>
+                <Button
+                    type="submit"
+                    className={classNameButton}
+                    buttonSubmitEvent={submit}>
+                        
+                    {btnText}
+                </Button>
+            </div>
         </form>
     )
 }
