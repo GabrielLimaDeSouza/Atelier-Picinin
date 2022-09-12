@@ -11,9 +11,7 @@ const CadastrarInsumo = () => {
   const [categories, setCategories] = useState(location.state.categories)
 
   useEffect(() => {
-    setTimeout(() => {
-      setCategories(location.state.categories)
-    }, 100)
+    setCategories(location.state.categories)
   }, [])
 
   function createSupplies(input) {

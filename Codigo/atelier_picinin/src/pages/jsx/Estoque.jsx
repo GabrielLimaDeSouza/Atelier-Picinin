@@ -14,7 +14,6 @@ const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
     const [insumos, setInsumos] = useState([])
-    const [initialSupplies, setInitialSupplies] = useState([])
     const [status, setStatus] = useState([])
     const [filterDropdownParams, setFilterDropdownParams] = useState('')
     const [filterSearchParams, setFilterSearchParams] = useState('')
@@ -63,22 +62,23 @@ const CadastrarInsumo = () => {
                 }
             }).then(resp => resp.json())
             .then(data => {
-                let arrayStatus = []
+                const initialSupplies = data
+                let arrayStatus = [] 
                 let arraySupplies = []
-                
-                data.map(data => {
-                    arrayStatus.push(data.status)
-                    arraySupplies.push(data.categoria)
-                })
-                arrayStatus = filterDuplicateItemInArray(arrayStatus)
-                arraySupplies = filterDuplicateItemInArray(arraySupplies)
 
                 data.forEach(input => input.status = verifyStatus(input))
                 
+                data.map((insumo, index) => {
+                    arrayStatus.push(updateStatus(insumo, initialSupplies[index].status))
+                    arraySupplies.push(insumo.categoria)
+                })
+
+                arrayStatus = filterDuplicateItemInArray(arrayStatus)
+                arraySupplies = filterDuplicateItemInArray(arraySupplies)
+                
                 setInsumos(data)
-                setInitialSupplies(data)
                 setCategories(arraySupplies.sort())
-                setStatus(arrayStatus)
+                setStatus(arrayStatus.sort())
             })
             .catch(err => console.error(err))
 
@@ -92,23 +92,23 @@ const CadastrarInsumo = () => {
     }, [])
 
     // Pesquisar insumo pelo id
-    function getInputById(supplies, id){
+    /* function getInputById(supplies, id){
         return supplies.find(input => input._id == id)
-    }
+    } */
 
     // Atualizar o status no bd toda vez q página é carregada e o status calculado
-    useEffect(() => {
-        insumos.forEach(insumo => {
-            if(insumo.status != getInputById(initialSupplies, insumo._id).status)
-                fetch(`http://localhost:3000/api/updateInput?id=${insumo._id}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ "status": insumo.status }),
-                }).catch(err => console.error(err))
-    })
-    }, [insumos])
+    function updateStatus(insumo, status) {
+        if(insumo.status != status)
+            fetch(`http://localhost:3000/api/updateInput?id=${insumo._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ "status": insumo.status }),
+            }).catch(err => console.error(err))
+
+        return insumo.status
+    }
 
     // Delete de insumos
     function deleteInput(e){
