@@ -27,7 +27,6 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptio
 
     function submit(e) {
         e.preventDefault()
-        console.log(insumo)
         handleSubmit(insumo)
     }
         

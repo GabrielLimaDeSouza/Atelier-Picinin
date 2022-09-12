@@ -20,7 +20,6 @@ const CadastrarInsumo = () => {
     const [categories, setCategories] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
-    
     const location = useLocation()
 
     // Atualização do status de acordo com a data de validade e quantidade em estoque comparado com a quantidade mínima
@@ -90,11 +89,6 @@ const CadastrarInsumo = () => {
             setMessage(location.state.message)
         }
     }, [])
-
-    // Pesquisar insumo pelo id
-    /* function getInputById(supplies, id){
-        return supplies.find(input => input._id == id)
-    } */
 
     // Atualizar o status no bd toda vez q página é carregada e o status calculado
     function updateStatus(insumo, status) {
