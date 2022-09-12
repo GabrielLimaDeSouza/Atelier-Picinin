@@ -23,7 +23,7 @@ const CadastrarInsumo = () => {
 
     // Atualização do status de acordo com a data de validade e quantidade em estoque comparado com a quantidade mínima
     function verifyStatus(supplies) {
-        if (supplies.emEstoque < supplies.quantidadeMin)
+        if (supplies.emEstoque <= supplies.quantidadeMin)
             return supplies.status = "Em Falta"
         
         else if (supplies.validade) {
@@ -73,7 +73,7 @@ const CadastrarInsumo = () => {
             
             setInsumos(data)
             setInitialSupplies(data)
-            setCategories(arraySupplies)
+            setCategories(arraySupplies.sort())
             setStatus(arrayStatus)
         })
         .catch(err => console.error(err))

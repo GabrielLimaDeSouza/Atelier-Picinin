@@ -21,6 +21,18 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
         setDropdown(array => [...array])
     }
 
+    function includeValues(object, arrayAttribute, value) {
+        let count = 0
+        arrayAttribute.forEach(attribute => {
+            const inclueValue = object[attribute].toLowerCase().includes(value.toLowerCase())
+
+            if(inclueValue)
+                count++
+        })
+
+        return count
+    }
+
     function searchStatusInItems(supplies){
         if(filterDropdownParams != "")
             return supplies.filter(input => input.status == filterDropdownParams)
@@ -28,16 +40,16 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
             return supplies
     }
 
-    function searchNameInItems(supplies){ 
+    function searchNameCategory(supplies){ 
         if(filterSearchParams != "")
-            return supplies.filter(input => input.name.toLowerCase().includes(filterSearchParams.toLowerCase()))
+            return supplies.filter(input => includeValues(input, ["name", "categoria"], filterSearchParams))
         else 
             return supplies
     }
 
     function searchFilter(supplies) {
         let result = searchStatusInItems(supplies)
-        return searchNameInItems(result)
+        return searchNameCategory(result)
     }
 
     function categoryFilter(categories){
@@ -68,11 +80,20 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
                                     <em>.</em>
                                 </div>
 
-                                { searchFilter(itens).map(item => 
-                                    categoria == item.categoria && (
-                                        <InputComponentTable item={item} buttonClickEvent={buttonClickEvent} categories={categorias} />
+                                { 
+                                    searchFilter(itens)
+                                    .sort((a, b) => {
+                                        if(a.name < b.name)
+                                            return -1
+                                        else
+                                            return true
+                                    })
+                                    .map(item => 
+                                        categoria == item.categoria && (
+                                            <InputComponentTable item={item} buttonClickEvent={buttonClickEvent} categories={categorias} />
+                                        )
                                     )
-                                )}
+                                }
                             </CollapseElement>
                         )
                     }

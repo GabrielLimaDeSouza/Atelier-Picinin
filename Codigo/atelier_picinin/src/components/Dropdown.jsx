@@ -46,6 +46,7 @@ const Dropdown = ({ options, handleOnChange, textDefault, optionSelected, notSwi
                     htmlFor="categoria"
                     textLabel="Adicionar categoria"
                     handleOnChange={handleSelectOption}
+                    value={selected}
                     required
                     />
             }
