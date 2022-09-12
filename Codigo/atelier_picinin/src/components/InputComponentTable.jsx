@@ -10,34 +10,36 @@ const InputComponentTable = ({ item, buttonClickEvent, categories }) => {
     return (
         <div id={item._id} key={item._id} className={styles.component}>
             <em>{ item.name }</em>
-            <em>{ item.emEstoque }</em>
-            <em>{ item.quantidadeMin }</em>
+            <div className={styles.infosWithoutName}>
+                <em>{ item.emEstoque }</em>
+                <em>{ item.quantidadeMin }</em>
 
-            { 
-                item.validade ? ( 
-                    <em>{ new Date(item.validade).toLocaleDateString("pt-BR", {timeZone: 'UTC'}) }</em>
-                ) : ( 
-                    <em>-</em> 
-                )
-            }
+                { 
+                    item.validade ? ( 
+                        <em>{ new Date(item.validade).toLocaleDateString("pt-BR", {timeZone: 'UTC'}) }</em>
+                    ) : ( 
+                        <em>-</em> 
+                    )
+                }
 
-            <em><span className={styles[statusStyle]}>{ item.status }</span></em>
+                <em><span className={styles[statusStyle]}>{ item.status }</span></em>
 
-            <em>{ 
-                <div className="btnManipulate">
-                    <LinkButton to={`/estoque/${item._id}`}
-                        type="button"
-                        text={<BiPencil />}
-                        classNameButton="btnEdit"
-                        state={ { categories: categories } }
-                    />
-                    <Button type="button"
-                            className="btnTrash"
-                            buttonClickEvent={buttonClickEvent}>
-                        {<BiTrash />}
-                    </Button>
-                </div>
-            }</em>
+                <em>{ 
+                    <div className="btnManipulate">
+                        <LinkButton to={`/estoque/${item._id}`}
+                            type="button"
+                            text={<BiPencil />}
+                            classNameButton="btnEdit"
+                            state={ { categories: categories } }
+                        />
+                        <Button type="button"
+                                className="btnTrash"
+                                buttonClickEvent={buttonClickEvent}>
+                            {<BiTrash />}
+                        </Button>
+                    </div>
+                }</em>
+            </div>
         </div>
     )
 }

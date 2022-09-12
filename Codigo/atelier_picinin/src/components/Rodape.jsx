@@ -4,7 +4,7 @@ import { BsWhatsapp } from "react-icons/bs";
 function Rodape() {
 
     return (
-        <footer className='color'>
+        <footer className='footer'>
             <div>
                 <p>Atelier Picinin</p>
                 <div className="buttonsRodape">

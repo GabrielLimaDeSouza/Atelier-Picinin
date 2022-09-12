@@ -73,11 +73,13 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
 
                                 <div className={styles.headerTable}>
                                     <em key="insumo">INSUMO</em>
-                                    <em key="emEstoque">ESTOQUE</em>
-                                    <em key="quantidadeMin">MÍNIMO</em>
-                                    <em key="validade">VALIDADE</em>
-                                    <em key="status">STATUS</em>
-                                    <em>.</em>
+                                    <div className={styles.infosWithoutName}>
+                                        <em key="emEstoque">ESTOQUE</em>
+                                        <em key="quantidadeMin">MÍNIMO</em>
+                                        <em key="validade">VALIDADE</em>
+                                        <em key="status">STATUS</em>
+                                        <em>.</em>
+                                    </div>
                                 </div>
 
                                 { 

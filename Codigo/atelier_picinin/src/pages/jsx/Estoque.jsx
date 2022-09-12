@@ -59,7 +59,7 @@ const CadastrarInsumo = () => {
             }
         }).then(resp => resp.json())
         .then(data => {
-            let arrayStatus = ["fodase"]
+            let arrayStatus = []
             let arraySupplies = []
             
             data.map(data => {

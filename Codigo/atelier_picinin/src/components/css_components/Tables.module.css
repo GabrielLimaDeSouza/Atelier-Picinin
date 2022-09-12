@@ -9,18 +9,17 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
+    margin-bottom: 10px;
 }
 
-.headerTable{
-    margin-bottom: 10px;
+.infosWithoutName{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .headerTable em {
     font-weight: 500;
-}
-
-.headerTable em:first-child {
-    width: 40%;
 }
 
 .headerTable em:last-child {
