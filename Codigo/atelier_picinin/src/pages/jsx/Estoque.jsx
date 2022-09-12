@@ -1,11 +1,11 @@
 import '../css/Estoque.css'
 
-import Cabecalho from '../../components/CabecalhoAdmin'
-import Message from '../../components/Message'
-import LinkButton from '../../components/LinkButton'
-import Dropdown from '../../components/Dropdown'
-import Tables from '../../components/SuppliesTable'
-import SearchBar from '../../components/SearchBar'
+import Cabecalho from '../../components/layout/CabecalhoAdmin'
+import Message from '../../components/layout/Message'
+import LinkButton from '../../components/layout/LinkButton'
+import Dropdown from '../../components/layout/Dropdown'
+import Tables from '../../components/Inventory/SuppliesTable'
+import SearchBar from '../../components/layout/SearchBar'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 

@@ -1,7 +1,7 @@
 import styles from './css_components/Tables.module.css'
 
-import CollapseElement from './CollapseElement'
-import InputComponentTable from './InputComponentTable'
+import CollapseElement from '../layout/CollapseElement'
+import InputComponentTable from '../layout/InputComponentTable'
 import { useState } from 'react'
 
 const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams, filterSearchParams }) => {
