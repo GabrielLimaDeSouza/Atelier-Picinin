@@ -21,7 +21,31 @@ const CadastrarProduto = () => {
         .then(data => setProdutos(data))
         .catch(err => console.error(err))
     })
+    var dadosJson
+    useEffect(() => {
+        const token = "IGQVJYdW03amRBemQ0VHRXVjFWMUF4YzVWYkdVX1V5b1h0TDF3ZAk02SDhXMWRmc213enZAndmRmWFd2LWxPV18wZAjZAiVVk4ZAjE4MjFOb0x3Mzlfbl9nTjEwLWtsMlhBMkNZAQ2NPcnlIdE82U205MkdNUAZDZD"
+        const url = "https://graph.instagram.com/me/media?access_token=" + token + "&fields=media_url,media_type,caption,permalink"
 
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json())
+            .then(data => {
+                dadosJson = data.data
+                var feed = dadosJson[0]
+
+                console.log(feed)
+                var oImg = document.createElement("img");
+                oImg.setAttribute('src', feed.media_url);
+                oImg.setAttribute('alt', 'na');
+                oImg.setAttribute('height', '100px');
+                oImg.setAttribute('width', '100px');
+                document.getElementById('insta').appendChild(oImg);
+            })
+            .catch(err => console.error(err))
+    }, [])
     function deletProduct(e){
         e.preventDefault();
         const btn = e.target
