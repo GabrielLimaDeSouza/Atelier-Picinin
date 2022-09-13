@@ -23,7 +23,7 @@ const CadastrarProduto = () => {
     })
     var dadosJson
     useEffect(() => {
-        const token = "IGQVJYdW03amRBemQ0VHRXVjFWMUF4YzVWYkdVX1V5b1h0TDF3ZAk02SDhXMWRmc213enZAndmRmWFd2LWxPV18wZAjZAiVVk4ZAjE4MjFOb0x3Mzlfbl9nTjEwLWtsMlhBMkNZAQ2NPcnlIdE82U205MkdNUAZDZD"
+        const token = "token"
         const url = "https://graph.instagram.com/me/media?access_token=" + token + "&fields=media_url,media_type,caption,permalink"
 
         fetch(url, {
@@ -71,6 +71,7 @@ const CadastrarProduto = () => {
             <CabecalhoAdmin />
             <div className="body-product">
                 <h1 className="title">Cadastro de Produto</h1>
+                <div id="insta"></div>
                 <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Inserir Novo Produto
                 </button>
