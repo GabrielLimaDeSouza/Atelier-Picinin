@@ -5,6 +5,7 @@ import Button from "../layout/Button"
 import LinkButton from '../../components/layout/LinkButton'
 import Dropdown from "../layout/Dropdown"
 import { useState, useEffect } from "react"
+import { BiX } from 'react-icons/bi'
 
 const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptions, selectTextDefault, btnVoltar }) => {
     const [insumo, setInsumo] = useState({ name: "", emEstoque: 0, quantidadeMin: 0, validade: "", categoria: "" })
@@ -18,10 +19,17 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptio
                 content.validade = content.validade.split('T')[0]
         }
     }, [content])
+
+    function deleteDate() {
+        const inputDate = document.querySelector('#validade')
+        inputDate.value = ""
+
+        insumo.validade = ""
+        setInsumo(insumo)
+    }
     
     function handleChange(e) {
         insumo[e.target.name] = e.target.value
-
         setInsumo(insumo)
     }
 
@@ -61,15 +69,21 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptio
                 handleOnChange={handleChange}
                 required
             />
-            <Input type="date"
-                name="validade"
-                id="validade"
-                htmlFor="validade"
-                textLabel={"Validade:"}
-                value={content && content.validade}
-                min={date}
-                handleOnChange={handleChange}
-            />
+            <div className={styles.dateInput}>
+                <Input type="date"
+                    name="validade"
+                    id="validade"
+                    htmlFor="validade"
+                    textLabel={"Validade:"}
+                    value={content && content.validade}
+                    min={date}
+                    handleOnChange={handleChange}
+                />
+
+                <Button type="button" className="btnClear" buttonClickEvent={deleteDate}>
+                    {<BiX />}
+                </Button>
+            </div>
             <Dropdown options={selectOptions}
                 handleOnChange={handleChange}
                 textDefault={selectTextDefault}

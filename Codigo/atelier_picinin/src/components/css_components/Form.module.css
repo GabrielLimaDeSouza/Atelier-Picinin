@@ -11,6 +11,20 @@
     width: 100%;
 }
 
+.dateInput {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.dateInput div {
+    width: 85%;
+}
+
+.dateInput input {
+    width: 100%;
+}
+
 .hudBtn{
     display: flex;
     justify-content: space-between;

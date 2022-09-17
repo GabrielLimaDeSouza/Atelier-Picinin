@@ -3,7 +3,7 @@
     --btn-azul: #4939FF;
     --dark-gray: rgb(46, 46, 46);
     --light-gray: rgb(247, 247, 247);
-    --box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+    --box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .btnTrash, .btnEdit {
@@ -24,7 +24,7 @@
 .btnCadastrar:hover{
     color: var(--verde);
     background-color: white;
-    border: 1px solid var(--verde);
+    box-shadow: var(--box-shadow);
 }
 
 .btnBack{
@@ -39,7 +39,24 @@
 .btnBack:hover{
     color: var(--dark-gray);
     background-color: white;
-    border: 1px solid var(--dark-gray);
+    box-shadow: var(--box-shadow);
+}
+
+.btnClear {
+    border: none;
+    background-color: var(--dark-gray);
+    border-radius: 20px;
+    height: 35px;
+    width: 35px;
+    padding: 0;
+    color: white;
+    transition: all .2s;
+}
+
+.btnClear:hover{
+    color: var(--dark-gray);
+    background-color: white;
+    box-shadow: var(--box-shadow);
 }
 
 .btnAdd {
