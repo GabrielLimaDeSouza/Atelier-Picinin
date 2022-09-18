@@ -5,7 +5,8 @@ const Insumo = mongoose.model('Insumo', {
     quantidadeMin: Number,
     emEstoque: Number,
     validade: Date,
-    status: String
+    status: String,
+    categoria: String
 })
 
 module.exports = Insumo

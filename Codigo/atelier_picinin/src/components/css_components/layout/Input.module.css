@@ -1,0 +1,24 @@
+div.divInput {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.input, .label {
+    background: none;
+    margin: 0;
+    padding: 0 10px;
+    border: none;
+    width: inherit;
+}
+
+.input:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.label {
+    margin-bottom: 5px;
+}

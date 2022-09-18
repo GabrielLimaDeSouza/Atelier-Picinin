@@ -23,6 +23,7 @@ module.exports = {
             precoProduto,
             pedidoMinProduto
         }
+        console.log(req.body)
         try{
             await Produto.create(produto)
             res.status(201).json({message: 'Produto cadastrado'})

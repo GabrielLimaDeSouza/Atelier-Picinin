@@ -1,34 +1,42 @@
-import '../css/EditInventory.css'
+import '../css/inventory/EditInventory.css'
 
-import Form from '../../components/FormCadastroInsumos'
-import LinkButton from '../../components/LinkButton'
-import Cabecalho from '../../components/CabecalhoAdmin'
-import Message from '../../components/Message'
+import Form from '../../components/inventory/FormCadastroInsumos'
+import Cabecalho from '../../components/layout/CabecalhoAdmin'
+import Message from '../../components/layout/Message'
+import Loading from '../../components/layout/Loading'
 
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 
 const EditInvetory = () => {
     const { id } = useParams()
     const [insumo, setInsumo] = useState({})
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
+    const [categories, setCategories] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/viewInputById?id=${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(resp => resp.json())
-        .then(data => {
-            data.emEstoque = parseInt(data.emEstoque)
-            data.quantidadeMin = parseInt(data.quantidadeMin)
-            setInsumo(data)
-        })
-        .catch(err => console.error(err))
+        setTimeout(() => {
+            fetch(`http://localhost:3000/api/viewInputById?id=${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(resp => resp.json())
+            .then(data => {
+                data.emEstoque = parseInt(data.emEstoque)
+                data.quantidadeMin = parseInt(data.quantidadeMin)
+                setInsumo(data)
+            })
+            .catch(err => console.error(err))
+    
+            setCategories(location.state.categories)
+            setIsLoading(false)
+        }, 1200)
     }, [])
 
     function handleEditInput(editedInput){
@@ -53,19 +61,24 @@ const EditInvetory = () => {
         <>
             <Cabecalho />
             <div className="body-edit-inventory">
-                <h1 className="title">Editar {insumo.name}</h1>
+                <h1 className="edit-title">Editar insumo</h1>
 
                 { message && <Message type={typeMessage} message={message} /> }
                 
-                { insumo && 
+                { isLoading ?
+                    <Loading />
+                    :
                     <Form id="form"
                         content={insumo}
                         handleSubmit={handleEditInput}
                         btnText="Alterar"
                         classNameButton="btnCadastrar"
+                        selectOptions={categories}
+                        selectTextDefault="Selecione uma categoria"
+                        btnVoltar="/estoque"
                     />
+                    
                 }
-                <LinkButton to="/estoque" text="Voltar" classNameButton="btnBack"/>
             </div>
         </>
     )

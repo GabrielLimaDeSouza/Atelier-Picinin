@@ -4,6 +4,13 @@
     align-items: center;
     padding: 0 30px;
 }
+
+.infosWithoutName{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .component:not(:last-child) {
     border-bottom: 1px solid black;
 }
@@ -17,10 +24,6 @@
 
 .component em:last-child {
     width: 65px;
-}
-
-.component em:first-child {
-    width: 40%;
 }
 
 .emfalta{

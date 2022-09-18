@@ -1,0 +1,15 @@
+.body-edit-inventory{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 0 auto;
+    width: 65%;
+}
+
+.edit-title{
+    font-size: 25px;
+    text-align: center;
+    width: 80%;
+}

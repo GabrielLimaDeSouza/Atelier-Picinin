@@ -3,7 +3,7 @@ const Insumo = require('../models/Insumo')
 
 module.exports = {
     async inputRegister(req, res) {
-        const { name, emEstoque, quantidadeMin, validade } = req.body
+        const { name, emEstoque, quantidadeMin, validade, categoria } = req.body
 
         if(!name && !quantidadeMin && !emEstoque){
             res.status(422).json({ err: "Campos obrigatórios" })
@@ -14,7 +14,8 @@ module.exports = {
             quantidadeMin,
             emEstoque,
             validade,
-            status: "OK"
+            status: "OK",
+            categoria
         }
 
         for (let atributo in insumo) {
@@ -33,14 +34,15 @@ module.exports = {
     },
     async updateInput (req, res) {
         const id = req.query.id
-        const { name, quantidadeMin, emEstoque, validade, status } = req.body
+        const { name, quantidadeMin, emEstoque, validade, status, categoria } = req.body
 
         const insumo = {
             name,
             quantidadeMin,
             emEstoque,
             validade,
-            status
+            status,
+            categoria
         }
 
         try {

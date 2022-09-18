@@ -1,11 +1,12 @@
-import '../css/Estoque.css'
+import '../css/inventory/Estoque.css'
 
-import Cabecalho from '../../components/CabecalhoAdmin'
-import Message from '../../components/Message'
-import LinkButton from '../../components/LinkButton'
-import Dropdown from '../../components/Dropdown'
-import Tables from '../../components/SuppliesTable'
-import SearchBar from '../../components/SearchBar'
+import CabecalhoAdmin from '../../components/layout/CabecalhoAdmin'
+import Message from '../../components/layout/Message'
+import LinkButton from '../../components/layout/LinkButton'
+import Dropdown from '../../components/layout/Dropdown'
+import Tables from '../../components/inventory/SuppliesTable'
+import SearchBar from '../../components/layout/SearchBar'
+import Loading from '../../components/layout/Loading'
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
@@ -16,13 +17,14 @@ const CadastrarInsumo = () => {
     const [status, setStatus] = useState([])
     const [filterDropdownParams, setFilterDropdownParams] = useState('')
     const [filterSearchParams, setFilterSearchParams] = useState('')
-    const [inputTypes, setInputTypes] = useState([])
-    
+    const [categories, setCategories] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
     const location = useLocation()
 
     // Atualização do status de acordo com a data de validade e quantidade em estoque comparado com a quantidade mínima
     function verifyStatus(supplies) {
-        if (supplies.emEstoque < supplies.quantidadeMin)
+        if (supplies.emEstoque <= supplies.quantidadeMin)
             return supplies.status = "Em Falta"
         
         else if (supplies.validade) {
@@ -31,10 +33,10 @@ const CadastrarInsumo = () => {
 
             var diffDays = diferençaDatasEmDias(dataValidade, dataAtual)
 
-            if (dataValidade <= dataAtual)
+            if (dataValidade < dataAtual)
                 return supplies.status = "Vencido"
 
-            else if(diffDays < 7)
+            else if(diffDays <= 7)
                 return supplies.status = "Vencendo"
             else
                 return supplies.status = "OK"
@@ -51,31 +53,36 @@ const CadastrarInsumo = () => {
 
     // Carregamento dos insumos
     useEffect(() => {
-        fetch('http://localhost:3000/api/viewAllSupplies', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(resp => resp.json())
-        .then(data => {
-            let arrayStatus = ["fodase"]
-            let arraySupplies = []
-            
-            data.map(data => {
-                arrayStatus.push(data.status)
-                arraySupplies.push(data.name)
-                
-            })
-            arrayStatus = filterDuplicateItemInArray(arrayStatus)
-            arraySupplies = filterDuplicateItemInArray(arraySupplies)
+        setTimeout(() => {
+            fetch('http://localhost:3000/api/viewAllSupplies', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(resp => resp.json())
+            .then(data => {
+                const initialSupplies = data
+                let arrayStatus = [] 
+                let arraySupplies = []
 
-            data.forEach(input => input.status = verifyStatus(input))
-            
-            setInsumos(data)
-            setInputTypes(arraySupplies)
-            setStatus(arrayStatus)
-        })
-        .catch(err => console.error(err))
+                data.forEach(input => input.status = verifyStatus(input))
+                
+                data.map((insumo, index) => {
+                    arrayStatus.push(updateStatus(insumo, initialSupplies[index].status))
+                    arraySupplies.push(insumo.categoria)
+                })
+
+                arrayStatus = filterDuplicateItemInArray(arrayStatus)
+                arraySupplies = filterDuplicateItemInArray(arraySupplies)
+                
+                setInsumos(data)
+                setCategories(arraySupplies.sort())
+                setStatus(arrayStatus.sort())
+            })
+            .catch(err => console.error(err))
+
+            setIsLoading(false)
+        }, 600)
 
         if(location.state) {
             setTypeMessage(location.state.type)
@@ -84,8 +91,8 @@ const CadastrarInsumo = () => {
     }, [])
 
     // Atualizar o status no bd toda vez q página é carregada e o status calculado
-    useEffect(() => {
-        insumos.forEach(insumo => {
+    function updateStatus(insumo, status) {
+        if(insumo.status != status)
             fetch(`http://localhost:3000/api/updateInput?id=${insumo._id}`, {
                 method: 'PATCH',
                 headers: {
@@ -93,8 +100,9 @@ const CadastrarInsumo = () => {
                 },
                 body: JSON.stringify({ "status": insumo.status }),
             }).catch(err => console.error(err))
-    })
-    }, [insumos])
+
+        return insumo.status
+    }
 
     // Delete de insumos
     function deleteInput(e){
@@ -148,28 +156,35 @@ const CadastrarInsumo = () => {
     
     return (
         <>
-            <Cabecalho />
+            <CabecalhoAdmin />
             <div className="body-inventory">
                 <div className="titleButton">
-                    <h1 className="title">Cadastro de Insumos</h1>
+                    <h1 className="inventory-title">Cadastro de Insumos</h1>
 
-                    <LinkButton to="/cadastrarInsumo" text="Inserir Novo Insumo" classNameButton="btnAdd"/>
+                    <LinkButton to="/cadastrarInsumo" state={ { categories: categories } } text="Inserir Novo Insumo" classNameButton="btnAdd"/>
                 </div>
 
                 { message && <Message type={typeMessage} message={message} /> }
 
                 <div className="filters">
                     <SearchBar handleOnChange={handleFilterSuppliesByName} placeholder="Pesquise por um Insumo" />
-                    <Dropdown options={status} textDefault="Selecione um status" handleOnChange={handleFilterSuppliesByStatus} />
-                </div>
 
-                <Tables
-                    itens={insumos}
-                    filterDropdownParams={filterDropdownParams}
-                    filterSearchParams={filterSearchParams}
-                    categorias={inputTypes}
-                    buttonClickEvent={deleteInput}
-                />
+                    <Dropdown options={status}
+                        textDefault="Selecione um status"
+                        handleOnChange={handleFilterSuppliesByStatus}
+                        notSwitchValue/>
+                </div>
+                { isLoading ?
+                    <Loading />
+                    :
+                    <Tables
+                        itens={insumos}
+                        filterDropdownParams={filterDropdownParams}
+                        filterSearchParams={filterSearchParams}
+                        categorias={categories}
+                        buttonClickEvent={deleteInput}
+                    />
+                }
             </div>
         </>
     )

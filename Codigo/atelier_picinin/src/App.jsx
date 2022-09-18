@@ -1,9 +1,7 @@
-import { BrowserRouter as Router, Outlet, Route, Routes } from 'react-router-dom'
-import { useState } from 'react'
+import { Outlet, Route, Routes } from 'react-router-dom'
 import './App.css'
 
-import Rodape from './components/Rodape'
-import CabecalhoAdmin from './components/CabecalhoAdmin'
+import Rodape from './components/layout/Rodape'
 import Home from './pages/jsx/Home'
 import CadastrarProduto from './pages/jsx/CadastrarProduto'
 import Estoque from './pages/jsx/Estoque'

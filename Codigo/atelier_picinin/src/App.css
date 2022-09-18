@@ -4,3 +4,22 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+
+.App {
+    max-width: 2000px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.App > div {
+    margin: 100px 0;
+}
+
+@media (max-width: 600px) {
+    .App > div {
+        width: 90%;
+    }
+}
