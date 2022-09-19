@@ -19,6 +19,7 @@
     padding: 5px 15px;
     color: white;
     transition: all .2s;
+    margin-top: 10px;
 }
 
 .btnCadastrar:hover{

@@ -11,8 +11,11 @@ module.exports = {
         const saborProduto = req.body.sabor
         const precoProduto = req.body.preco
         const pedidoMinProduto = req.body.pedidoMinProduto
+        const foto1 = req.body.foto1
+        const foto2 = req.body.foto2
+        const foto3= req.body.foto3
 
-        if(!nomeProduto && !descricaoProduto && !saborProduto && !precoProduto && !pedidoMinProduto){
+        if(!nomeProduto && !descricaoProduto && !saborProduto && !precoProduto && !pedidoMinProduto && !foto1 && !foto2 && !foto3){
             res.status(422).json({ error: "Campos obrigatórios" })
             return
         }
@@ -21,7 +24,10 @@ module.exports = {
             descricaoProduto,
             saborProduto,
             precoProduto,
-            pedidoMinProduto
+            pedidoMinProduto,
+            foto1,
+            foto2,
+            foto3
         }
         console.log(req.body)
         try{
