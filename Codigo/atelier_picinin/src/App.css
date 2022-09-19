@@ -18,6 +18,14 @@
     margin: 100px 0;
 }
 
+.App > div.body-home {
+    width: 100%;
+}
+
+.App > div.body-home > div {
+    margin: 0 auto;
+}
+
 @media (max-width: 600px) {
     .App > div {
         width: 90%;

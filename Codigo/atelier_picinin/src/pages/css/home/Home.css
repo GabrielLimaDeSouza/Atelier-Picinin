@@ -50,7 +50,7 @@
 /**** Estilos Cardápio ****/
 
 .div-cardapio {
-    width: 100%;
+    width: 65%;
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
