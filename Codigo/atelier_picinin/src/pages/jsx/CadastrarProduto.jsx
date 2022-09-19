@@ -6,7 +6,6 @@ import Message from '../../components/layout/Message'
 import { useState, useEffect } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BiTrash } from 'react-icons/bi'
-import 'bootstrap/dist/css/bootstrap.min.css';
 const CadastrarProduto = () => {
     const [produtos, setProdutos] = useState([])
     const [message, setMessage] = useState('')
