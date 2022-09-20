@@ -7,6 +7,7 @@ import CadastrarProduto from './pages/jsx/CadastrarProduto'
 import Estoque from './pages/jsx/Estoque'
 import CadastrarInsumo from './pages/jsx/CadastrarInsumo'
 import EditInventory from './pages/jsx/EditInventory'
+import DetalhesProduto from './pages/jsx/DetalhesProduto'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/estoque' element={ <Estoque /> }>Estoque</Route>
         <Route path='/cadastrarInsumo' element={ <CadastrarInsumo /> }></Route>
         <Route path='/estoque/:id' element={ <EditInventory /> }></Route>
+        <Route path='/detalhesProduto' element={ <DetalhesProduto /> }></Route>
       </Routes>
       <Outlet/>
       <Rodape />
