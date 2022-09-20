@@ -18,12 +18,22 @@
     margin: 100px 0;
 }
 
+.App > div {
+    width: 65%;
+}
+
 .App > div.body-home {
     width: 100%;
 }
 
 .App > div.body-home > div {
     margin: 0 auto;
+}
+
+.App a {
+    text-decoration: none;
+    color: rgb(24, 24, 24);
+
 }
 
 @media (max-width: 600px) {

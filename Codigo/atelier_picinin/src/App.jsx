@@ -8,6 +8,7 @@ import Estoque from './pages/jsx/Estoque'
 import CadastrarInsumo from './pages/jsx/CadastrarInsumo'
 import EditInventory from './pages/jsx/EditInventory'
 import DetalhesProduto from './pages/jsx/DetalhesProduto'
+import Carrinho from './pages/jsx/Carrinho'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/cadastrarInsumo' element={ <CadastrarInsumo /> }></Route>
         <Route path='/estoque/:id' element={ <EditInventory /> }></Route>
         <Route path='/detalhesProduto' element={ <DetalhesProduto /> }></Route>
+        <Route path='/carrinho' element={ <Carrinho /> }></Route>
       </Routes>
       <Outlet/>
       <Rodape />
