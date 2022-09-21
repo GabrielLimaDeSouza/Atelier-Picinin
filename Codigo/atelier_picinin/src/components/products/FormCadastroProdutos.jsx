@@ -2,13 +2,11 @@ import styles from '../css_components/Form.module.css'
 
 import Input from "../layout/Inputs"
 import Button from "../layout/Button"
-function salvaImg(){
-    console.log("1")
-}
 
-const Form = ({ action, method, id, btnText, classNameButton, onClickEvent, content, url1, url2,url3 }) => {
+
+const Form = ({ action, method, id, btnText, classNameButton, onClickEvent, onSubmitEvent}) => {
     return (
-        <form className={styles.form} action={action} method={method} id={id && (id)}>
+        <form className={styles.form} action={action} method={method} id={id && (id) } onSubmit={onSubmitEvent}>
             <Input type="text" name="nome" id="nome" htmlFor="nome" textLabel={"Nome do Produto:"} required />
             <Input type="text" name="descricao" id="descricao" htmlFor="descricao" textLabel={"Descrição do Produto:"} required />
             <Input type="text" name="sabor" id="sabor" htmlFor="sabor" textLabel={"Sabores:"} required />
