@@ -5,6 +5,7 @@
   border-top-color: #51d4db;
   height: 50px;
   width: 50px;
+  margin: 0 auto;
 }
 
 @keyframes is-rotating {
