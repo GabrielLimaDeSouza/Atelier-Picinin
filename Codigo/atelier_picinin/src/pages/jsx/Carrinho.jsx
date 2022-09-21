@@ -16,7 +16,7 @@ const Carrinho = () => {
     { _id: 3333, img: "http://via.placeholder.com/150.png", nome: "Petit Gâteau", sabores: ["açucar", "limão", "chocolate", "churrasco"], preco: 18.49, quantidade: 2, precoTotal: 36.98 },
     { _id: 3333, img: "http://via.placeholder.com/150.png", nome: "Mousse de Maracujá", sabores: ["limão", "maracujá", "chocolate", "morango", "tomate"], preco: 5.95, quantidade: 4, precoTotal: 23.80 },
     { _id: 3333, img: "http://via.placeholder.com/150.png", nome: "Brigadeiro", sabores: ["brigadeiro", "bis", "kit-kat"], preco: 3.00, quantidade: 25, precoTotal: 75.00 },
-    { _id: 3333, img: "http://via.placeholder.com/150.png", nome: "Pudim", sabores: ["leite", "leite-condesado", "creme de avelã"], preco: 25.00, quantidade: 1, precoTotal: 25.00 }
+    { _id: 3333, img: "http://via.placeholder.com/150.png", nome: "Pudim", sabores: ["leite", "leite condensado moça", "creme de avelã"], preco: 25.00, quantidade: 1, precoTotal: 25.00 }
 ]
     window.localStorage.setItem("user-cart", JSON.stringify(mockup))
     
