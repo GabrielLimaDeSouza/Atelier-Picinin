@@ -1,0 +1,33 @@
+:root {
+    --pastel-red: #ff6961;
+    --light-gray: #e4e4e4;
+    --white: #fff;
+}
+
+div.order-price {
+    width: 100%;
+}
+
+div.order-price > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 5px 0;
+}
+
+div.shipping {
+    margin-bottom: 35px;
+}
+
+.total {
+    padding-top: 20px !important;
+    margin-bottom: 30px;
+    border-top: 1px solid;
+}
+
+.total-label {
+    font-weight: 600;
+    font-size: 16px;
+}

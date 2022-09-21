@@ -3,6 +3,7 @@
     --btn-azul: #4939FF;
     --dark-gray: rgb(46, 46, 46);
     --light-gray: rgb(247, 247, 247);
+    --pastel-red: #ff6961;
     --box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
@@ -109,6 +110,17 @@
     box-shadow: var(--box-shadow);
     color: var(--btn-azul);
     background-color: white;
+}
+
+.btnPagamento {
+    padding: 5px 0px;
+    background-color: var(--pastel-red);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: all .2s;
+    margin: 0 !important;
+    width: 100%;
 }
 
 @media (max-width: 900px) {
