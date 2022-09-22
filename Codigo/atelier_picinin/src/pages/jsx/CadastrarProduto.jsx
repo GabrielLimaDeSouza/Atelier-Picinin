@@ -1,5 +1,6 @@
 import '../css/products/CadastrarProduto.css'
 import styles from '../../components/css_components/Form.module.css'
+import Avaliacao from '../../components/layout/Avaliação'
 
 import { useLocation, useNavigate } from "react-router-dom"
 import Form from '../../components/products/FormCadastroProdutos'
@@ -276,9 +277,9 @@ const CadastrarProduto = () => {
                                 </tr>
                             )
                         }
-                    </tbody>
+                    </tbody>    
                 </table>
-
+                        <Avaliacao/>
             </div>
         </>
     )
