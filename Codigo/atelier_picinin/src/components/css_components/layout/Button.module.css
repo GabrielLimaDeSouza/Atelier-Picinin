@@ -123,6 +123,17 @@
     width: 100%;
 }
 
+.btnRemover {
+    padding: 5px 0px;
+    background-color: var(--pastel-red);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: all .2s;
+    margin: 0 !important;
+    width: 100%;
+}
+
 @media (max-width: 900px) {
     .btnDropdown {
         height: 35px;

@@ -55,6 +55,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .title-page h1 {
@@ -65,4 +66,20 @@
 
 .title-page span {
     margin-left: 10px;
+}
+
+@media (max-width: 600px) {
+    .body-cart {
+        flex-direction: column;
+        padding: 100px 0;
+    }
+
+    .cart-content {
+        width: 100%;
+    }
+
+    .summary-order {
+        max-width: 100%;
+        width: 100%;
+    }
 }
