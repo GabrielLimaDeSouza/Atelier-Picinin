@@ -32,7 +32,7 @@ module.exports = {
         console.log(req.body)
         try{
             await Produto.create(produto)
-            res.status(201).json({message: 'Produto cadastrado'})
+            res.status(201).json({ message: "Produto cadastado com sucesso!" })
         }catch(error){
             res.status(500).json({error: error})
         }
@@ -56,19 +56,26 @@ module.exports = {
     },
     async updateProduct (req, res) {
         const id = req.params.id
-        const descricaoProduto = req.body.descricaoProduto
-        const nomeProduto = req.body.nomeProduto
-        const saborProduto = req.body.sabor
-        const precoProduto = req.body.precoProduto
-        const pedidoMinProduto = req.body.pedidoMinProduto
+        const descricaoProduto = req.body.updatedescricao
+        const nomeProduto = req.body.updatenome
+        const saborProduto = req.body.updatesabor
+        const precoProduto = req.body.updatepreco
+        const pedidoMinProduto = req.body.updatepedidoMinProduto
+        const foto1 = req.body.updatefoto1
+        const foto2 = req.body.updatefoto2
+        const foto3= req.body.updatefoto3
 
         const produto = {
             nomeProduto,
-            saborProduto,
             descricaoProduto,
+            saborProduto,
             precoProduto,
-            pedidoMinProduto
+            pedidoMinProduto,
+            foto1,
+            foto2,
+            foto3
         }
+        console.log(produto)
         try {
             const updatedProduto = await Produto.updateOne({ _id: id }, produto)
 
