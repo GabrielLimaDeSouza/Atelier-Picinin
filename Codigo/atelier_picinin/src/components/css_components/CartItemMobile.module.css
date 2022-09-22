@@ -6,11 +6,7 @@
 }
 
 div.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 20px 30px;
+    padding: 20px 0;
 }
 
 div.cart-item:not(:last-child) {
@@ -19,14 +15,12 @@ div.cart-item:not(:last-child) {
 
 div.info-cart-item {
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 40%;
-}
-
-div.info-cart-item img {
-    width: 80px;
-    border-radius: 100%;
+    width: 100%;
+    margin-bottom: 10px;
+    gap: 15px;
 }
 
 div.organize-cart-item {
@@ -35,14 +29,40 @@ div.organize-cart-item {
     align-items: center;
 }
 
-div.name-flavors {
-    margin-left: 15px;
+div.cart-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
 }
 
-div.name-flavors h5 {
+div.cart-info img {
+    width: 80px;
+    border-radius: 100%;
+}
+
+div.infos {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+div.name-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+div.name-price h5 {
     font-size: 18px;
     font-weight: 600;
     margin: 0;
+}
+
+div.name-price span {
+    min-width: 65px;
 }
 
 div.divSabores {
@@ -61,26 +81,5 @@ div.manipulation-price {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 230px;
-    margin-right: 30px;
-}
-
-div.quantity-manipulation {
-    background-color: var(--light-bege);
-    border-radius: 30px;
-    padding: 0 5px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 70px;
-}
-
-div.quantity-manipulation button {
-    background: none;
-    border: none;
-    padding: 0;
-}
-
-.remove-button {
-    cursor: pointer;
+    width: 100%;
 }
