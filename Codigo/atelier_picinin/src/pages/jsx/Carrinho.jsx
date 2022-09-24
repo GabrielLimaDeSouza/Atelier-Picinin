@@ -48,9 +48,8 @@ const Carrinho = () => {
         return cartItemUpdated
     }
 
-    function handleEditQuantity(item, className, e) {
+    function handleEditQuantity(item, className) {
         const id = item._id
-        const value = e && +e.target.value
         let editedCart
 
         switch(className) {
@@ -64,11 +63,6 @@ const Carrinho = () => {
 
                 break
             
-            case "input-quantity":
-                    editedCart = (value >= 1) && editCartItem(id, "quantidade", value)
-
-                break
-            
             case "remove-button":
                 editedCart = cartItems.filter(item => item._id != id)
 
@@ -79,9 +73,21 @@ const Carrinho = () => {
         setCartItems(editedCart)
     }
 
+    function handleDropdownMenu() {
+        const summary = document.querySelector('div.summary-order')
+        summary.classList.toggle('active')
+
+        const summaryContent = document.querySelector('div.summaryContent')
+
+        !summaryContent.classList.contains('hidden') ?
+            summaryContent.classList.remove('hidden')
+        :
+            setTimeout(() => summaryContent.classList.add('hidden'), 300)
+    }
+
     return (
         <>
-            
+            {/* <Cabecalho /> */}
 
             <div className="body-cart">
                 <div className="cart-content">
@@ -107,12 +113,16 @@ const Carrinho = () => {
                 </div>
 
                 <div className="summary-order">
-                    <h1>Resumo do pedido</h1>
-                    { isLoading ?
-                        <Loading />
-                        :
-                        <SummaryOrder subtotal={subtotal} entrega={entrega}/>
-                    }
+                    <button type="button" className="dropdown" onClick={handleDropdownMenu}><div className="line"></div></button>
+                    
+                    <div className="summaryContent">
+                        <h1>Resumo do pedido</h1>
+                        { isLoading ?
+                            <Loading />
+                            :
+                            <SummaryOrder subtotal={subtotal} entrega={entrega}/>
+                        }
+                    </div>
                 </div>
             </div>
         </>

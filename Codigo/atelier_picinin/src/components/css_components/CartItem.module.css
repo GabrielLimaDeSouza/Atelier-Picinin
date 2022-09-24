@@ -17,25 +17,25 @@ div.cart-item:not(:last-child) {
     border-bottom: 1px solid var(--light-gray);
 }
 
-div.info-cart-item {
+div.infosCart {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 40%;
 }
 
-div.info-cart-item img {
+div.infosCart img {
     width: 80px;
     border-radius: 100%;
 }
 
-div.organize-cart-item {
+div.organizeCartItemsa {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-div.name-flavors {
+div.nameFlavors {
     margin-left: 15px;
 }
 
@@ -57,7 +57,7 @@ span.sabores {
     color: var(--gray);
 }
 
-div.manipulation-price {
+div.manipulationPrice {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,7 +65,7 @@ div.manipulation-price {
     margin-right: 30px;
 }
 
-div.quantity-manipulation {
+div.quantityManipulation {
     background-color: var(--light-bege);
     border-radius: 30px;
     padding: 0 5px;
@@ -75,7 +75,7 @@ div.quantity-manipulation {
     width: 70px;
 }
 
-div.quantity-manipulation button {
+div.quantityManipulation button {
     background: none;
     border: none;
     padding: 0;

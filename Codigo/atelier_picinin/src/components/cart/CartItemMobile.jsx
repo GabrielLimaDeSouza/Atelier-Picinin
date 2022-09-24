@@ -1,6 +1,5 @@
 import styles from '../css_components/CartItemMobile.module.css'
 
-import Input from '../layout/Inputs'
 import Button from '../layout/Button'
 
 const CartItemMobile = ({ content, handleEditCart }) => {
@@ -11,33 +10,28 @@ const CartItemMobile = ({ content, handleEditCart }) => {
 
     return (
         <div className={ styles["cart-item"] } key={ content._id }>
-            <div className={ styles["info-cart-item"] }>
-                <div className={ styles["cart-info"] }>
+            <div className={ styles.infosCart }>
+                <div className={ styles.cartContent }>
                     <img src={ content.img } alt="img" />
 
-                    <div className={ styles.infos }>
-                        <div className={ styles["name-price"] }>
+                    <div className={ styles.textItem }>
+                        <div>
                             <h5>{ primeiraLetraMaiuscula(content.nome) }</h5>
-                            <span className={ styles["unit-price"] }><b>R$</b> { content.preco.toFixed(2) }</span>
+
+                            <div className={styles.divSabores}>
+                                { content.sabores.map(sabor => <span className={ styles.sabores }>{ primeiraLetraMaiuscula(sabor) }</span> ) }
+                            </div>
                         </div>
 
-                        <div className={styles.divSabores}>
-                            { content.sabores.map(sabor => <span className={ styles.sabores }>{ primeiraLetraMaiuscula(sabor) }</span> ) }
-                        </div>
-
-                        <span className={ styles["total-price"] }>Total: <b>R$</b> { content.precoTotal.toFixed(2) }</span>
+                        <span className={ styles.totalPrice }><b>R$</b> { content.precoTotal.toFixed(2) }</span>
                     </div>
                 </div>
 
-                <Input type="number"
-                    name="quantidade"
-                    id="quantidade"
-                    min={ 1 }
-                    value={ content.quantidade }
-                    handleOnBlur={ (e) => handleEditCart(content, "input-quantity", e) }
-                    htmlFor="quantidade"
-                    textLabel="Quantidade"
-                />
+                <div className={ styles.quantityManipulation }>
+                    <Button type="button" className="add-quantity" buttonClickEvent={ () => handleEditCart(content, "add-quantity") }>+</Button>
+                    <span className={ styles.quantity }>{ content.quantidade }</span>
+                    <Button type="button" className="remove-quantity" buttonClickEvent={ () => handleEditCart(content, "remove-quantity") }>-</Button>
+                </div>
             </div>
 
             <Button className="btnRemover" buttonClickEvent={ () => handleEditCart(content, "remove-button") } id={ content._id }>

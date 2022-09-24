@@ -21,6 +21,7 @@ const SummaryOrder = ({ subtotal, entrega }) => {
                     <span className={styles["total-price"]}><b>R$ </b> { (+subtotal + +entrega).toFixed(2) }</span>
                 </div>
             </div>
+
             <LinkButton to="/" type="button" classNameButton="btnPagamento">Ir para pagamento</LinkButton>
         </>
     )

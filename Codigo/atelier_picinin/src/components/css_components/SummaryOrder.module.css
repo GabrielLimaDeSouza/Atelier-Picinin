@@ -31,3 +31,7 @@ div.shipping {
     font-weight: 600;
     font-size: 16px;
 }
+
+@media (marx-width: 600px) {
+
+}
