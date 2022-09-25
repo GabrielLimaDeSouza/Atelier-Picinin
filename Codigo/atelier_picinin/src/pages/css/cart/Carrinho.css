@@ -61,16 +61,13 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    column-gap: 15px;
 }
 
 .title-page h1 {
     font-size: 20px;
     font-weight: 600;
     margin: 0;
-}
-
-.title-page span {
-    margin-left: 10px;
 }
 
 .dropdown {

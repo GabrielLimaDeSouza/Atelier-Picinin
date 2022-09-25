@@ -2,7 +2,7 @@ import styles from '../css_components/SummaryOrder.module.css'
 
 import LinkButton from '../../components/layout/LinkButton'
 
-const SummaryOrder = ({ subtotal, entrega }) => {
+const SummaryOrder = ({ subtotal, entrega, linkTo, textLinkTo }) => {
     return (
         <>
             <div className={styles["order-price"]}>
@@ -22,7 +22,7 @@ const SummaryOrder = ({ subtotal, entrega }) => {
                 </div>
             </div>
 
-            <LinkButton to="/" type="button" classNameButton="btnPagamento">Ir para pagamento</LinkButton>
+            <LinkButton to={linkTo} type="button" classNameButton="btnPagamento">{textLinkTo}</LinkButton>
         </>
     )
 }
