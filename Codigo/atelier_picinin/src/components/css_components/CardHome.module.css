@@ -7,11 +7,21 @@
     height: 180px;
 }
 
+a {
+    text-decoration: none;
+}
+
 .card {
     width: 18rem;
+    border-radius: 10px !important;
     -webkit-animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    transition: 0.5s;
+    transition: 0.5s !important;
+}
+
+.card:hover {
+    transform: scale(1.05) !important;
+    cursor: pointer;
 }
 
 .card-body {
