@@ -19,7 +19,7 @@ function App() {
         <Route path='/estoque' element={ <Estoque /> }>Estoque</Route>
         <Route path='/cadastrarInsumo' element={ <CadastrarInsumo /> }></Route>
         <Route path='/estoque/:id' element={ <EditInventory /> }></Route>
-        <Route path='/detalhesProduto' element={ <DetalhesProduto /> }></Route>
+        <Route path='/detalhesProduto/:id' element={ <DetalhesProduto /> }></Route>
         <Route path='/carrinho' element={ <Carrinho /> }></Route>
       </Routes>
       <Outlet/>

@@ -1,0 +1,20 @@
+.btn-avaliar,
+.btn-enviar {
+    border-radius: 10px;
+}
+
+#comentario {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px !important;
+    text-align: start;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    height: 100px;
+}
+
+.avaliacao {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

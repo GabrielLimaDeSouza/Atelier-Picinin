@@ -19,7 +19,6 @@ const Home = () => {
       .catch(err => console.error(err))
   }, [])
 
-  console.log(produtos);
 
   return (
     <>
