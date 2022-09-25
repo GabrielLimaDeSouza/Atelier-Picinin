@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require("cors");
 const mongoose = require('mongoose')
+const path = require('path')
 const inventoryRoutes = require("./routes/inventoryRoutes")
 const cadastrarProdutoRoute = require ("./routes/cadastrarProduto")
 require('dotenv').config()
@@ -14,6 +15,8 @@ app.use(
 )
 app.use(cors());
 app.use(express.json())
+
+app.use(express.static(path.join(__dirname, '../atelier_picinin/public')));
 
 // rotas
 app.use('/api', inventoryRoutes);

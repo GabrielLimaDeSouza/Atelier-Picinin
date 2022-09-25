@@ -24,9 +24,15 @@
     font-size: 20px;
 }
 
-.banner-buttons button {
-    background-color: #D9D9D9;
+.banner-buttons a {
+    color: rgba(0, 0, 0, 0.863);
     border: none;
+    transition: 0.2s;
+}
+
+.banner-buttons a:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .informacoes {
