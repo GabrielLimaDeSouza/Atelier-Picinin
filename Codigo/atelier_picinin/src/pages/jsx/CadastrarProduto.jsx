@@ -279,7 +279,7 @@ const CadastrarProduto = () => {
                         }
                     </tbody>    
                 </table>
-                        <Avaliacao/>
+                        <Avaliacao avaliador={"Carlos"} nota={2.5} comentario={"Muito bom"}/>
             </div>
         </>
     )
