@@ -34,6 +34,18 @@ const DetalhesProduto = () => {
             .catch(err => console.error(err))
     }, [])
 
+    function handleClick(e) {
+        var stars = document.querySelectorAll('.star-icon');
+        var classStar = e.target.classList;
+        if (!classStar.contains('ativo')) {
+            stars.forEach(function (star) {
+                star.classList.remove('ativo')
+            })
+            classStar.add('ativo')
+            console.log(e.target.getAttribute('data-avaliacao'))
+        }
+    }
+
     return (
 
         <>
@@ -143,6 +155,13 @@ const DetalhesProduto = () => {
                             <label htmlFor="comentario">Comentario:</label>
                             <input type="text" name="comentario" id="comentario" />
                             <p>Nota:</p>
+                            <ul class="avaliacao">
+                                <li className="star-icon ativo" data-avaliacao="1" onClick={handleClick}></li>
+                                <li className="star-icon" data-avaliacao="2" onClick={handleClick}></li>
+                                <li className="star-icon" data-avaliacao="3" onClick={handleClick}></li>
+                                <li className="star-icon" data-avaliacao="4" onClick={handleClick}></li>
+                                <li className="star-icon" data-avaliacao="5" onClick={handleClick}></li>
+                            </ul>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>
