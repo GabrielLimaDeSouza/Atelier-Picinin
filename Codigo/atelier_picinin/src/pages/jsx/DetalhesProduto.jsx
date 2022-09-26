@@ -42,7 +42,7 @@ const DetalhesProduto = () => {
                 star.classList.remove('ativo')
             })
             classStar.add('ativo')
-            console.log(e.target.getAttribute('data-avaliacao'))
+            /*console.log(e.target.getAttribute('data-avaliacao')) */
         }
     }
 
