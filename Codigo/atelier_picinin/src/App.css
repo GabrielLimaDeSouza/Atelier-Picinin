@@ -4,14 +4,20 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
-    color: rgb(24, 24, 24);
     border: none;
     margin: 0;
     padding: 0;
+    font-weight: 500;
+}
+
+a, a:hover {
+    color: rgb(24, 24, 24);
 }
 
 body, html {
     max-width: 2000px;
+    display: block !important;
+    font-weight: 500;
 }
 
 .App {
@@ -20,6 +26,10 @@ body, html {
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
+}
+
+.App > div {
+    padding: 100px 0;
 }
 
 @media (max-width: 600px) {

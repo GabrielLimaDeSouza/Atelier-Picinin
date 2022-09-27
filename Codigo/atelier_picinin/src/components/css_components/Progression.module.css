@@ -1,0 +1,29 @@
+.divProgression {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.divElements {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.divElements > span, .divElements > svg {
+    color: #CBCBCB;
+}
+
+.divElements span.checked {
+    color: #737373;
+}
+
+.divElements span.inProgress {
+    color: #F36961;
+}
+
+.checked {
+    color: red;
+}

@@ -10,11 +10,11 @@ function LinkButton({ to, state, type, children, classNameButton }) {
         navigate(to, { state: state })
     }
 
-    return <Button type={type}
-        className={classNameButton}
-        buttonClickEvent={clickEvent}>
+    return <Button type={ type }
+        className={ classNameButton }
+        buttonClickEvent={ clickEvent }>
 
-        {children}
+        { children }
     </Button>
 }
 

@@ -36,7 +36,7 @@ const CartItem = ({ content, handleEditCart }) => {
                     <span className={ styles.totalPrice }><b>R$</b> { content.precoTotal.toFixed(2) }</span>
                 </div>
 
-                <VscClose className={ styles["remove-button"] } onClick={ () => handleEditCart(content, "remove-button") } />
+                <VscClose className={ styles["remove-button"] } onClick={ () => handleEditCart(content, "remove-button" ) } />
             </div>
         </div>
     )

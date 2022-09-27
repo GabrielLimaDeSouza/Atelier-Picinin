@@ -1,37 +1,60 @@
+const { json } = require("express");
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
 const Produto = require('../models/Produto');
+const Sabor = require('../models/Sabores')
 //const Sabor = require('../models/Sabor');
-
+var sabores
 module.exports = {
     async productRegister(req, res){
+        
         const descricaoProduto = req.body.descricao
         const nomeProduto = req.body.nome
-        const saborProduto = req.body.sabor
-        const precoProduto = req.body.preco
         const pedidoMinProduto = req.body.pedidoMinProduto
         const foto1 = req.body.foto1
         const foto2 = req.body.foto2
         const foto3= req.body.foto3
-
-        if(!nomeProduto && !descricaoProduto && !saborProduto && !precoProduto && !pedidoMinProduto && !foto1 && !foto2 && !foto3){
+        
+        if(!nomeProduto && !descricaoProduto  && !pedidoMinProduto && !foto1 && !foto2 && !foto3){
             res.status(422).json({ error: "Campos obrigatórios" })
             return
         }
+        
         const produto = {
             nomeProduto,
             descricaoProduto,
-            saborProduto,
-            precoProduto,
             pedidoMinProduto,
             foto1,
             foto2,
             foto3
         }
-        console.log(req.body)
+        
+        sabores = req.body.sabores
+        
+           
+        console.log(req.body.lenght)
+        
+        
+        
+        
         try{
+            
             await Produto.create(produto)
+            console.log("teste")
+            for(let i=0; i < req.body.lenght; i++){
+                var saborProduto = sabores[i].sabor
+                var precoProduto = sabores[i].preco
+                 console.log(saborProduto)
+                 console.log(precoProduto)
+                const sabor = {
+                    nomeProduto,
+                    saborProduto,
+                    precoProduto
+                }
+                console.log(sabor)
+                await Sabor.create(sabor)
+            }
             res.status(201).json({ message: "Produto cadastado com sucesso!" })
         }catch(error){
             res.status(500).json({error: error})
@@ -75,7 +98,6 @@ module.exports = {
             foto2,
             foto3
         }
-        console.log(produto)
         try {
             const updatedProduto = await Produto.updateOne({ _id: id }, produto)
 

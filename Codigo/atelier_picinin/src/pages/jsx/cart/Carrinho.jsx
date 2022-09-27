@@ -1,10 +1,11 @@
-import '../css/cart/Carrinho.css'
+import '../../css/cart/Carrinho.css'
 
-import Cabecalho from '../../components/layout/CabecalhoCliente'
-import Loading from '../../components/layout/Loading'
-import CartItem from '../../components/cart/CartItem'
-import CartItemMobile from '../../components/cart/CartItemMobile'
-import SummaryOrder from '../../components/cart/SummaryOrder'
+import Cabecalho from '../../../components/layout/CabecalhoCliente'
+import Loading from '../../../components/layout/Loading'
+import CartItem from '../../../components/cart/CartItem'
+import CartItemMobile from '../../../components/cart/CartItemMobile'
+import SummaryOrder from '../../../components/cart/SummaryOrder'
+import Progression from '../../../components/cart/Progression'
 import { useState, useEffect } from 'react'
 
 const Carrinho = () => {
@@ -38,8 +39,8 @@ const Carrinho = () => {
         window.localStorage.setItem("user-cart", JSON.stringify(cartItems))
     }, [cartItems])
 
-    function editCartItem(id, attribute, value) {
-        const cartItemUpdated = cartItems.reduce((acc, o) => {
+    function editCartItem(array, id, attribute, value) {
+        const cartItemUpdated = array.reduce((acc, o) => {
             let obj = (id == o._id) ? Object.assign(o, o[attribute] = value) : o
             acc.push(obj)
             return acc
@@ -54,22 +55,22 @@ const Carrinho = () => {
 
         switch(className) {
             case "add-quantity":
-                editedCart = editCartItem(id, "quantidade", item.quantidade + 1)
+                editedCart = editCartItem(cartItems, id, "quantidade", item.quantidade + 1)
 
                 break
         
             case "remove-quantity":
-                editedCart = (item.quantidade > 1) && editCartItem(id, "quantidade", item.quantidade - 1)
+                editedCart = (item.quantidade > 1) && editCartItem(cartItems, id, "quantidade", item.quantidade - 1)
 
                 break
             
             case "remove-button":
                 editedCart = cartItems.filter(item => item._id != id)
-
+                
                 break
         }
-
-        editedCart = editCartItem(id, "precoTotal", +((item.quantidade * item.preco).toFixed(2)))
+        
+        editedCart = editCartItem(editedCart, id, "precoTotal", +((item.quantidade * item.preco).toFixed(2)))
         setCartItems(editedCart)
     }
 
@@ -87,14 +88,14 @@ const Carrinho = () => {
 
     return (
         <>
-            {/* <Cabecalho /> */}
+            <Cabecalho />
 
             <div className="body-cart">
                 <div className="cart-content">
                     <div className="title-page">
                         <h1 className="logo">Logo</h1>
                         <span>|</span>
-                        <span>Carrinho de Compras</span>
+                        <Progression state={ [false, false, false] } elements={ ["Carrinho de Compra", "Endereço", "Confirmar Pedido"] } />
                     </div>
 
                     <div className="cart-items">
@@ -102,7 +103,7 @@ const Carrinho = () => {
                         <Loading />
                         :
                         cartItems.length ?
-                            larguraTela >= 1000 ?
+                            larguraTela >= 600 ?
                                 cartItems.map( cartItem => <CartItem content={cartItem} handleEditCart={handleEditQuantity} /> )
                             :
                                 cartItems.map( cartItem => <CartItemMobile content={cartItem} handleEditCart={handleEditQuantity} /> )
@@ -120,7 +121,7 @@ const Carrinho = () => {
                         { isLoading ?
                             <Loading />
                             :
-                            <SummaryOrder subtotal={subtotal} entrega={entrega}/>
+                            <SummaryOrder subtotal={subtotal} entrega={entrega} linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço"/>
                         }
                     </div>
                 </div>

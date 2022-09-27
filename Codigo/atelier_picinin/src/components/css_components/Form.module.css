@@ -1,4 +1,4 @@
-.form {
+form.form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,32 +7,29 @@
     height: 500px;
 }
 
-.form>div {
+form.form > div, form.form input {
     width: 100%;
 }
 
-.dateInput {
+div.dateInput {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-}
-
-.dateInput div {
-    width: 85%;
-}
-
-.dateInput input {
     width: 100%;
 }
 
-.hudBtn{
+div.dateInput > div {
+    width: 80%;
+}
+
+div.hudBtn {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
-.instas{
-    
+.instas {
     display: flex;
     justify-content: space-around;
     align-items: center;

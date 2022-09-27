@@ -26,6 +26,11 @@
     width: 65px;
 }
 
+.btnManipulate {
+    display: flex;
+    justify-content: space-between;
+}
+
 .emfalta{
     text-align: center;
     font-weight: 500;

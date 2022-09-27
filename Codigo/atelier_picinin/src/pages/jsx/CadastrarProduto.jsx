@@ -2,6 +2,7 @@ import '../css/products/CadastrarProduto.css'
 import styles from '../../components/css_components/Form.module.css'
 import Avaliacao from '../../components/layout/Avaliação'
 
+
 import { useLocation, useNavigate } from "react-router-dom"
 import Form from '../../components/products/FormCadastroProdutos'
 import CabecalhoAdmin from '../../components/layout/CabecalhoAdmin'
@@ -10,6 +11,8 @@ import Message from '../../components/layout/Message'
 import { useState, useEffect } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BiTrash } from 'react-icons/bi'
+var sabores = []
+var lenghtSabor=0
 const CadastrarProduto = () => {
     const [produtos, setProdutos] = useState([])
     const [message, setMessage] = useState('')
@@ -33,6 +36,7 @@ const CadastrarProduto = () => {
     var arreyFotos = [];
     var arreyFotosNovas = [];
     var controle = 0
+    
     useEffect(() => {
         const token = ""
         const url = "https://graph.instagram.com/me/media?access_token=" + token + "&fields=media_url,media_type,caption,permalink"
@@ -73,6 +77,17 @@ const CadastrarProduto = () => {
             .catch(err => console.error(err))
     }, [])
 
+    function handleSaboresProduto(sabor,e){
+      if(sabor.length>0){
+        sabores=sabor
+        lenghtSabor = sabores.length
+        console.log(lenghtSabor)
+      }else{
+        lenghtSabor = 0
+      }
+        
+    }
+
     function createProduto(e){
         e.preventDefault()
             fetch(`http://localhost:3000/produto/registerProduct`, {
@@ -83,19 +98,20 @@ const CadastrarProduto = () => {
                 
                 body: JSON.stringify({ "nome": document.getElementById("nome").value,
                 "descricao": document.getElementById("descricao").value,
-                "sabor": document.getElementById("sabor").value,
+                "saborProduto": document.getElementById("sabor").value,
                 "preco": document.getElementById("preco").value,
+                
                 "pedidoMinProduto": document.getElementById("pedidoMinProduto").value,
                 "foto1": document.getElementById("foto1").value,
                 "foto2": document.getElementById("foto2").value,
-                "foto3": document.getElementById("foto3").value
+                "foto3": document.getElementById("foto3").value,
+                "sabores": sabores,
+                "lenght": lenghtSabor
 
-                
-            
-            
-            })
+            },
+            )
             }).catch(err => console.error(err))
-
+            
             setMessage("Produto cadastrado com sucesso!")
     }
     function updateProduto(produto, e) {
@@ -185,7 +201,11 @@ const CadastrarProduto = () => {
             }
         }
     }
+    function createSabor(){
+        console.log("teste")
+        let div = <div></div>
 
+    }
     return (
         <>
 
@@ -207,7 +227,7 @@ const CadastrarProduto = () => {
                             </div>
                             <div className="modal-body">
                             {message && <Message type="success" message={message} />}
-                                <Form id="form" content={produtos} action="http://localhost:3000/produto/registerProduct" method="post" btnText="Cadastrar" classNameButton="btnCadastrar" onSubmitEvent={createProduto} />
+                                <Form id="form" content={produtos} btnText="Cadastrar" classNameButton="btnCadastrar" onSubmitEvent={createProduto} onChangeEvent={handleSaboresProduto} />
                                 
                             </div>
                         </div>
@@ -248,13 +268,12 @@ const CadastrarProduto = () => {
                                                     <div>
                                                     {message && <Message type="success" message={message} />}
                                                         <form id="form"className={styles.form} onSubmit={(event) => {updateProduto(number, event)}}>
-                                                        
                                                             <label htmlFor="nome">Nome do Produto: </label>
                                                             <input type="text" name="updatenome" id="updateNome" />
                                                             <label htmlFor="descricao">Descrição do Produto:</label>
                                                             <input type="text" name="updatedescricao" id="updateDescricao" />
                                                             <label htmlFor="sabores">Sabor:</label>
-                                                            <input type="text" name="updatesabor" id="updateSabor" />
+                                                            <input type="text" name="updatesabor" id="updateSabor"/>
                                                             <label htmlFor="preco">Preço:</label>
                                                             <input type="number" name="updatepreco" id="updatePreco" min="0" />
                                                             <label htmlFor="pedidoMinimo">Pedido Mínimo:</label>
@@ -279,7 +298,7 @@ const CadastrarProduto = () => {
                         }
                     </tbody>    
                 </table>
-                        <Avaliacao/>
+                        <Avaliacao avaliador={"Carlos"} nota={4.21} comentario={"Muito bom"}/>
             </div>
         </>
     )

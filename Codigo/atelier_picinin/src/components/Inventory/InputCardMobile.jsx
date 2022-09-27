@@ -33,10 +33,12 @@ const InputCardMobile = ({ item, buttonClickEvent, categories }) => {
                 <div className={styles.edit_data}>
                     <LinkButton to={`/estoque/${item._id}`}
                         type="button"
-                        text={<BiPencil />}
                         classNameButton="btnEdit"
-                        state={ { categories: categories } }
-                    />
+                        state={ { categories: categories } }>
+                        
+                        <BiPencil />
+                    </LinkButton>
+
                     <Button type="button"
                             className="btnTrash"
                             buttonClickEvent={buttonClickEvent}>

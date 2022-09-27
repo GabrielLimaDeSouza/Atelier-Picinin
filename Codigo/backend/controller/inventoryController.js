@@ -5,7 +5,7 @@ module.exports = {
     async inputRegister(req, res) {
         const { name, emEstoque, quantidadeMin, validade, categoria } = req.body
 
-        if(!name && !quantidadeMin && !emEstoque){
+        if (!name && !quantidadeMin && !emEstoque) {
             res.status(422).json({ err: "Campos obrigatórios" })
         }
 
@@ -20,7 +20,7 @@ module.exports = {
 
         for (let atributo in insumo) {
             if (insumo[atributo] == undefined)
-                insumo[atributo] = null;
+                insumo[atributo] = null
         }
 
         try {
@@ -32,7 +32,8 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     },
-    async updateInput (req, res) {
+
+    async  updateInput(req, res) {
         const id = req.query.id
         const { name, quantidadeMin, emEstoque, validade, status, categoria } = req.body
 
@@ -48,7 +49,7 @@ module.exports = {
         try {
             const updatedInventory = await Insumo.updateOne({ _id: id }, insumo)
 
-            if(updatedInventory.matchedCount === 0){
+            if (updatedInventory.matchedCount === 0) {
                 res.status(422).json({ message: "Insumo não encontrado" })
                 return
             }
@@ -58,7 +59,8 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     },
-    async viewAllSupplies (req, res) {
+
+    async viewAllSupplies(req, res) {
         try {
             const supplies = await Insumo.find()
 
@@ -67,13 +69,14 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     },
-    async viewInputById (req, res) {
+
+    async viewInputById(req, res) {
         const id = req.query.id
         const inputById = await Insumo.findById(id)
 
-        if(!inputById) {
+        if (!inputById) {
             res.status(422).json({ message: "Insumo não encontrado" })
-            return 
+            return
         }
 
         try {
@@ -82,13 +85,14 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     },
-    async deleteInput (req, res) {
+    
+    async deleteInput(req, res) {
         const id = req.query.id
         const inputById = await Insumo.findById(id)
 
-        if(!inputById) {
+        if (!inputById) {
             res.status(422).json({ message: "Insumo não encontrado" })
-            return 
+            return
         }
 
         try {
@@ -99,4 +103,4 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     }
- }
+}

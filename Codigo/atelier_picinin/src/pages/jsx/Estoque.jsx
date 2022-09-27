@@ -53,41 +53,39 @@ const CadastrarInsumo = () => {
 
     // Carregamento dos insumos
     useEffect(() => {
-        setTimeout(() => {
-            fetch('http://localhost:3000/api/viewAllSupplies', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(resp => resp.json())
-            .then(data => {
-                const initialSupplies = data
-                let arrayStatus = [] 
-                let arraySupplies = []
+        fetch('http://localhost:3000/api/viewAllSupplies', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json())
+        .then(data => {
+            const initialSupplies = data
+            let arrayStatus = [] 
+            let arraySupplies = []
 
-                data.forEach(input => input.status = verifyStatus(input))
-                
-                data.map((insumo, index) => {
-                    arrayStatus.push(updateStatus(insumo, initialSupplies[index].status))
-                    arraySupplies.push(insumo.categoria)
-                })
-
-                arrayStatus = filterDuplicateItemInArray(arrayStatus)
-                arraySupplies = filterDuplicateItemInArray(arraySupplies)
-                
-                setInsumos(data)
-                setCategories(arraySupplies.sort())
-                setStatus(arrayStatus.sort())
+            data.forEach(input => input.status = verifyStatus(input))
+            
+            data.map((insumo, index) => {
+                arrayStatus.push(updateStatus(insumo, initialSupplies[index].status))
+                arraySupplies.push(insumo.categoria)
             })
-            .catch(err => console.error(err))
 
-            setIsLoading(false)
-        }, 600)
+            arrayStatus = filterDuplicateItemInArray(arrayStatus)
+            arraySupplies = filterDuplicateItemInArray(arraySupplies)
+            
+            setInsumos(data)
+            setCategories(arraySupplies.sort())
+            setStatus(arrayStatus.sort())
+        })
+        .catch(err => console.error(err))
 
         if(location.state) {
             setTypeMessage(location.state.type)
             setMessage(location.state.message)
         }
+
+        setTimeout(() => setIsLoading(false), 600)
     }, [])
 
     // Atualizar o status no bd toda vez q página é carregada e o status calculado
@@ -157,11 +155,14 @@ const CadastrarInsumo = () => {
     return (
         <>
             <CabecalhoAdmin />
+
             <div className="body-inventory">
                 <div className="titleButton">
                     <h1 className="inventory-title">Cadastro de Insumos</h1>
 
-                    <LinkButton to="/cadastrarInsumo" state={ { categories: categories } } text="Inserir Novo Insumo" classNameButton="btnAdd"/>
+                    <LinkButton to="/cadastrarInsumo" state={ { categories: categories } } classNameButton="btnAdd">
+                        Inserir Novo Insumo
+                    </LinkButton>
                 </div>
 
                 { message && <Message type={typeMessage} message={message} /> }
