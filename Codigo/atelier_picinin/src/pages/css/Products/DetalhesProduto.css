@@ -1,4 +1,4 @@
-/* Estilos avaliação */
+/*  Estilos avaliação  */
 .btn-avaliar,
 .btn-enviar {
     border-radius: 10px;
@@ -20,7 +20,7 @@
     margin-bottom: 50px;
 }
 
-/* Estilos estrelas avaliação */
+/*  Estilos estrelas avaliação  */
 .avaliacao {
     display: flex;
     justify-content: center;

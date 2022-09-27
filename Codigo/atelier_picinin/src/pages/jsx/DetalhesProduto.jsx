@@ -47,19 +47,15 @@ const DetalhesProduto = () => {
     }
 
     return (
-
         <>
             <CabecalhoCliente />
             <div className='Body-detalhes-produto' style={{ width: '100%', padding: '0rem 4rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <h1></h1>
                 </div>
-
                 <br />
-
                 <div className="container">
                     <div className="row gx-4 ">
-
                         <div className="col-md-6" style={{ paddingLeft: '0rem' }}>
                             <Carousel>
                                 <Carousel.Item>
@@ -79,7 +75,6 @@ const DetalhesProduto = () => {
                                         src={image2}
                                         alt="Second slide"
                                     />
-
                                     <Carousel.Caption>
                                         <h3>{produto.nomeProduto}</h3>
                                         <p>Frase legal de marketing do doce</p>
@@ -91,7 +86,6 @@ const DetalhesProduto = () => {
                                         src={image3}
                                         alt="Third slide"
                                     />
-
                                     <Carousel.Caption>
                                         <h3>{produto.nomeProduto}</h3>
                                         <p>Frase legal de marketing do doce</p>
@@ -132,8 +126,6 @@ const DetalhesProduto = () => {
                                 <Button variant="outline-secondary">Adicionar no Carrinho</Button>{' '}
                             </div>
                         </div>
-
-
                     </div>
                 </div><br /><br />
                 <div style={{ width: '100%', padding: '0rem 4rem' }}>
