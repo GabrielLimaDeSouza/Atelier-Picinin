@@ -37,7 +37,7 @@ const Dropdown = ({ options, handleOnChange, textDefault, optionSelected, notSwi
                         <option value=''>{ textDefault }</option>
                         { 
                             options.map(option => 
-                                <option key={ option } value={ option }> { option }</option>
+                                <option key={ option } value={ option }> { primeiraLetraMaiuscula(option) }</option>
                             )
                         }
                     </select>

@@ -17,7 +17,8 @@ const AdicionarEndereco = () => {
     const [adresses, setAdresses] = useState([])
     const [addressSelected, setAddressSelected] = useState({})
     const [message, setMessage] = useState('')
-    const [typeMessage, setTypeMessage] = useState('')
+    const [typeMessage, setTypeMessage] = useState('')    
+    const [saveAddress, setSaveAddress] = useState(false)    
 
     const subtotal = location.state.subtotal
     const entrega = location.state.entrega
@@ -31,7 +32,13 @@ const AdicionarEndereco = () => {
                 }
         })
         .then(resp => resp.json())
-        .then(data => setAdresses(data))
+        .then(data => {
+            setAdresses(data)
+            setAddressSelected(data[0])
+            
+            // const select = document.querySelector('#enderecoSalvo')
+            // select.value = data[0].idAddress
+        })
         .catch(err => console.error(err))
 
         setTimeout(() => setIsLoading(false), 600)
@@ -55,7 +62,17 @@ const AdicionarEndereco = () => {
         .then(() => {
             setTypeMessage("success")
             setMessage("Endereço adicionado com sucesso!")
-            setAdresses(adresses => [...adresses, address])
+            setAdresses(adresses => [...adresses, 
+                {
+                    rua: address.rua,
+                    cep: address.cep,
+                    bairro: address.bairro,
+                    cidade: address.cidade,
+                    complemento: address.complemento,
+                    numero: address.numero,
+                    estado: address.estado
+                }
+            ])
         })
         .catch(err => console.error(err))
     }
@@ -70,6 +87,10 @@ const AdicionarEndereco = () => {
             summaryContent.classList.remove('hidden')
         :
             setTimeout(() => summaryContent.classList.add('hidden'), 300)
+    }
+
+    function handleSaveAddress() {
+        setSaveAddress(!saveAddress)
     }
 
     return (
@@ -97,13 +118,20 @@ const AdicionarEndereco = () => {
                         </select>
                     </div>
                         
-                    { !addressSelected ?
-                        <Form handleSubmit={ handleEditAddress } value={ addressSelected }/>
+                    { saveAddress ?
+                        <Form handleSubmit={ handleEditAddress } />
                     :
                         <div className="endereco">
-teste
+                            <span>Endereço: { addressSelected.rua }</span>
+                            <span>CEP: { addressSelected.cep }</span>
+                            <span>Bairro: { addressSelected.bairro }</span>
+                            <span>Cidade: { addressSelected.cidade }</span>
+                            <span>Complemento: { addressSelected.complemento }</span>
+                            <span>Número: { addressSelected.numero }</span>
                         </div>
                     }
+
+                    <button type="button" onClick={handleSaveAddress}>{ !saveAddress ? "Adicionar Endereço" : "Fechar" }</button>
                 </div>
 
                 <div className="summary-order">

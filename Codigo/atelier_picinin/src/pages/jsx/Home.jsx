@@ -23,6 +23,7 @@ const Home = () => {
   return (
     <>
       <CabecalhoCliente />
+      
       <div className='body-home'>
         <div className='banner'>
           <div className='informacoes'>
