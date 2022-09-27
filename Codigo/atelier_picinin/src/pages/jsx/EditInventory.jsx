@@ -49,9 +49,9 @@ const EditInvetory = () => {
         fetch(`http://localhost:3000/api/updateInput?id=${id}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(editedInput),
+            body: JSON.stringify(editedInput)
         }).then(resp => resp.json())
         .then(navigate('/estoque', { state: { message: "Insumo atualizado com sucesso!", type: "success" } }))
         .catch(err => console.error(err))

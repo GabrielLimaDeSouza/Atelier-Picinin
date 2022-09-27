@@ -30,10 +30,6 @@ div.filters {
     flex-wrap: wrap;
 }
 
-div.filters select {
-    margin-top: auto;
-}
-
 @media (max-width: 900px) {
     div.filters {
         justify-content: center;

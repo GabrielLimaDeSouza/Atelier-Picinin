@@ -29,10 +29,11 @@ div.infosCart img {
     border-radius: 100%;
 }
 
-div.organizeCartItemsa {
+div.organizeCartItems {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    column-gap: 60px;
 }
 
 div.nameFlavors {
@@ -61,8 +62,7 @@ div.manipulationPrice {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 230px;
-    margin-right: 30px;
+    column-gap: 35px;
 }
 
 div.quantityManipulation {

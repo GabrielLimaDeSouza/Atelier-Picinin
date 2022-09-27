@@ -39,8 +39,8 @@ const Carrinho = () => {
         window.localStorage.setItem("user-cart", JSON.stringify(cartItems))
     }, [cartItems])
 
-    function editCartItem(id, attribute, value) {
-        const cartItemUpdated = cartItems.reduce((acc, o) => {
+    function editCartItem(array, id, attribute, value) {
+        const cartItemUpdated = array.reduce((acc, o) => {
             let obj = (id == o._id) ? Object.assign(o, o[attribute] = value) : o
             acc.push(obj)
             return acc
@@ -55,22 +55,22 @@ const Carrinho = () => {
 
         switch(className) {
             case "add-quantity":
-                editedCart = editCartItem(id, "quantidade", item.quantidade + 1)
+                editedCart = editCartItem(cartItems, id, "quantidade", item.quantidade + 1)
 
                 break
         
             case "remove-quantity":
-                editedCart = (item.quantidade > 1) && editCartItem(id, "quantidade", item.quantidade - 1)
+                editedCart = (item.quantidade > 1) && editCartItem(cartItems, id, "quantidade", item.quantidade - 1)
 
                 break
             
             case "remove-button":
                 editedCart = cartItems.filter(item => item._id != id)
-
+                
                 break
         }
-
-        editedCart = editCartItem(id, "precoTotal", +((item.quantidade * item.preco).toFixed(2)))
+        
+        editedCart = editCartItem(editedCart, id, "precoTotal", +((item.quantidade * item.preco).toFixed(2)))
         setCartItems(editedCart)
     }
 
@@ -95,7 +95,7 @@ const Carrinho = () => {
                     <div className="title-page">
                         <h1 className="logo">Logo</h1>
                         <span>|</span>
-                        <Progression state={[false, false, false]} elements={["Carrinho de Compra", "Endereço", "Confirmar Pedido"]} />
+                        <Progression state={ [false, false, false] } elements={ ["Carrinho de Compra", "Endereço", "Confirmar Pedido"] } />
                     </div>
 
                     <div className="cart-items">

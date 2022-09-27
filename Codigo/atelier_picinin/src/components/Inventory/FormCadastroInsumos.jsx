@@ -88,10 +88,13 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptio
                 handleOnChange={handleChange}
                 textDefault={selectTextDefault}
                 optionSelected={content && content.categoria}
+                textSwitchValue="Adicionar Categoria"
                 allowLabel
+                label="Categorias"
+                name="categoria"
             />
             <div className={styles.hudBtn}>
-                <LinkButton to={btnVoltar} text="Voltar" classNameButton="btnBack"/>
+                <LinkButton to={btnVoltar} classNameButton="btnBack">Voltar</LinkButton>
                 <Button
                     type="submit"
                     className={classNameButton}

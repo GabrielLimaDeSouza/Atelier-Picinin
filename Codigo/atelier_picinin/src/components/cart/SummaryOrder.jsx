@@ -22,7 +22,7 @@ const SummaryOrder = ({ subtotal, entrega, linkTo, textLinkTo }) => {
                 </div>
             </div>
 
-            <LinkButton to={linkTo} type="button" classNameButton="btnPagamento">{textLinkTo}</LinkButton>
+            <LinkButton to={linkTo} type="button" classNameButton="btnPagamento" state={{ subtotal: subtotal, entrega: entrega }}>{textLinkTo}</LinkButton>
         </>
     )
 }

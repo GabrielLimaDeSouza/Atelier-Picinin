@@ -5,12 +5,12 @@ import Input from './Inputs'
 import { useState, useEffect } from "react"
 import { BiPlus } from 'react-icons/bi'
 
-const Dropdown = ({ options, handleOnChange, textDefault, optionSelected, notSwitchValue, allowLabel }) => {
+const Dropdown = ({ options, handleOnChange, textDefault, optionSelected, notSwitchValue, textSwitchValue, allowLabel, label, name }) => {
     const [selected, setSelected] = useState(optionSelected)
     const [newCategory, setNewCategory] = useState(false)
 
     const larguraTela = window.innerWidth
-
+    
     useEffect(() => {
         setSelected(optionSelected)
     }, [optionSelected])
@@ -29,15 +29,15 @@ const Dropdown = ({ options, handleOnChange, textDefault, optionSelected, notSwi
     }
 
     return (
-        <div className={styles["body-dropdown"]}>
+        <div className={ styles["body-dropdown"] }>
             { !newCategory ? 
-                <div className={styles.divSelect}>
-                    { allowLabel && <label className={styles.label} htmlFor='categoria'>Categoria</label>}
-                    <select id="categoria" name="categoria" className={styles.select} onChange={handleSelectOption} value={selected}>
-                        <option value=''>{textDefault}</option>
+                <div className={ styles.divSelect }>
+                    { allowLabel && <label className={ styles.label } htmlFor="select">{ label }</label> }
+                    <select id="select" name={ name } className={ styles.select } onChange={ handleSelectOption } value={ selected }>
+                        <option value=''>{ textDefault }</option>
                         { 
                             options.map(option => 
-                                <option key={option} value={option}>{primeiraLetraMaiuscula(option)}</option>
+                                <option key={ option } value={ option }> { option }</option>
                             )
                         }
                     </select>
@@ -48,18 +48,18 @@ const Dropdown = ({ options, handleOnChange, textDefault, optionSelected, notSwi
                     id="categoria"
                     htmlFor="categoria"
                     textLabel="Adicionar categoria"
-                    handleOnChange={handleSelectOption}
-                    value={selected}
+                    handleOnChange={ handleSelectOption }
+                    value={ selected }
                     required
                     />
             }
 
             { !notSwitchValue &&
-                <Button type="button" className="btnDropdown" buttonClickEvent={handleInsertCategory}>
+                <Button type="button" className="btnDropdown" buttonClickEvent={ handleInsertCategory }>
                     { larguraTela <= 900 ?
                         <BiPlus />
                         :
-                        !newCategory ? "Adicionar categoria" : "Fechar"
+                        !newCategory ? textSwitchValue : "Fechar"
                     }
                 </Button>
             }

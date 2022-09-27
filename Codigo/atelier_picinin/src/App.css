@@ -22,6 +22,10 @@ body, html {
     min-height: 100vh;
 }
 
+.App > div {
+    padding: 100px 0;
+}
+
 @media (max-width: 600px) {
     .App > div {
         width: 90%;

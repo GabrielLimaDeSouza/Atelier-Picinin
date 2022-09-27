@@ -20,20 +20,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+    column-gap: 150px;
 
-.logo-menu > div {
-    margin-left: 250px;
 }
 
 .menu {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.menu > a:not(:first-child) {
-    margin-left: 50px;
+    column-gap: 50px;
 }
 
 .menu > a {

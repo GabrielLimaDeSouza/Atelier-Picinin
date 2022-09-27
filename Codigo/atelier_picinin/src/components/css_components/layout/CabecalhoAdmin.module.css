@@ -19,16 +19,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.logo-menu > div {
-    margin-left: 250px;
+    column-gap: 150px;
 }
 
 .menu {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    column-gap: 50px;
 }
 
 .menu > a {
@@ -48,10 +46,6 @@
 
 .menu > a:hover::after {
     width: 100%;
-}
-
-.menu > a:not(:first-child) {
-    margin-left: 50px;
 }
 
 .logo {

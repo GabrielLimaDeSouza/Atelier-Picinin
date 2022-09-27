@@ -96,7 +96,7 @@ const TableIsumo = ({ itens, buttonClickEvent, categorias, filterDropdownParams,
                         categoryFilter(categorias).map((categoria, index) => (
                             <CollapseElement isOpened={ dropdown[index] }
                                 buttonClickEvent={() => dropdownConfig({ index: index })}
-                                text={primeiraLetraMaiuscula(categoria)}>
+                                text={ primeiraLetraMaiuscula(categoria) }>
 
                                 { larguraTela  >= 700 &&
                                     <div className={styles.headerTable}>
