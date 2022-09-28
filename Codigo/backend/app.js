@@ -7,7 +7,7 @@ const path = require('path')
 
 // Rotas
 const inventoryRoutes = require("./routes/inventoryRoutes")
-const cadastrarProdutoRoute = require("./routes/cadastrarProduto")
+const productRoutes = require("./routes/productRoutes")
 const userRoutes = require("./routes/userRoutes")
 const addressRoutes = require("./routes/addressRoutes")
 
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, '../atelier_picinin/public')))
 
 // rotas
 app.use('/api', inventoryRoutes)
-app.use('/produto', cadastrarProdutoRoute)
+app.use('/produto', productRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/address', addressRoutes)
 

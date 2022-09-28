@@ -1,4 +1,4 @@
-import styles from '../css_components/CardHome.module.css'
+import styles from '../css/CardHome.module.css'
 import {Link} from 'react-router-dom'
 
 import { AiFillStar } from 'react-icons/ai'

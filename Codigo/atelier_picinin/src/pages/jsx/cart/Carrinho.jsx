@@ -2,10 +2,10 @@ import '../../css/cart/Carrinho.css'
 
 import Cabecalho from '../../../components/layout/CabecalhoCliente'
 import Loading from '../../../components/layout/Loading'
-import CartItem from '../../../components/cart/CartItem'
-import CartItemMobile from '../../../components/cart/CartItemMobile'
-import SummaryOrder from '../../../components/cart/SummaryOrder'
-import Progression from '../../../components/cart/Progression'
+import CartItem from '../../../components/cart/modules/CartItem'
+import CartItemMobile from '../../../components/cart/modules/CartItemMobile'
+import SummaryOrder from '../../../components/cart/modules/SummaryOrder'
+import Progression from '../../../components/cart/modules/Progression'
 import { useState, useEffect } from 'react'
 
 const Carrinho = () => {
@@ -95,7 +95,7 @@ const Carrinho = () => {
                     <div className="title-page">
                         <h1 className="logo">Logo</h1>
                         <span>|</span>
-                        <Progression state={ [false, false, false] } elements={ ["Carrinho de Compra", "Endereço", "Confirmar Pedido"] } />
+                        <Progression state="Carrinho de Compra" elements={ ["Carrinho de Compra", "Endereço", "Confirmar Pedido"] } />
                     </div>
 
                     <div className="cart-items">
