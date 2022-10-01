@@ -4,7 +4,6 @@ const router = express.Router();
 router.use(express.json());
 const Produto = require('../models/Produto');
 const Sabor = require('../models/Sabores')
-//const Sabor = require('../models/Sabor');
 var sabores
 module.exports = {
     async productRegister(req, res){
@@ -20,41 +19,52 @@ module.exports = {
             res.status(422).json({ error: "Campos obrigatórios" })
             return
         }
-        
+        const sabores = req.body.sabores
+        console.log("TESTEs")
+        console.log(sabores)
+
         const produto = {
-            nomeProduto,
-            descricaoProduto,
-            pedidoMinProduto,
-            foto1,
-            foto2,
-            foto3
+            nomeProduto: nomeProduto,
+            descricaoProduto: descricaoProduto,
+            pedidoMinProduto: pedidoMinProduto,
+            foto1: foto1,
+            foto2: foto2,
+            foto3: foto3, 
+            sabores: sabores
+        }
+        console.log("Produto")
+        console.log(produto)
+        
+        
+        try{
+
+            await Produto.create(produto)
+            res.status(201).json({ message: "Produto cadastado com sucesso!" })
+        }catch(error){
+            res.status(500).json({error: error})
+        }
+    },
+    async saborRegister(req, res){
+        
+        const nomeProduto = req.body.nome
+        const saboresProduto = req.body.sabores
+        
+        if(!nomeProduto && !saboresProduto){
+            res.status(422).json({ error: "Campos obrigatórios" })
+            return
         }
         
-        sabores = req.body.sabores
-        
-           
-        console.log(req.body.lenght)
+        const jsonSabor = {
+            nomeProduto,
+            saboresProduto
+        }
         
         
         
         
         try{
             
-            await Produto.create(produto)
-            console.log("teste")
-            for(let i=0; i < req.body.lenght; i++){
-                var saborProduto = sabores[i].sabor
-                var precoProduto = sabores[i].preco
-                 console.log(saborProduto)
-                 console.log(precoProduto)
-                const sabor = {
-                    nomeProduto,
-                    saborProduto,
-                    precoProduto
-                }
-                console.log(sabor)
-                await Sabor.create(sabor)
-            }
+            await Sabor.create(jsonSabor)
             res.status(201).json({ message: "Produto cadastado com sucesso!" })
         }catch(error){
             res.status(500).json({error: error})
@@ -64,6 +74,15 @@ module.exports = {
         try{
             const produtos = await Produto.find()
             res.status(200).json(produtos)
+        }catch(error){
+            res.status(500).json({error: error})
+        }
+    },
+    async saboresGetAll(req,res){
+        try{
+            const sabores = await Sabor.find()
+            
+            res.status(200).json(sabores)
         }catch(error){
             res.status(500).json({error: error})
         }
@@ -121,8 +140,9 @@ module.exports = {
         }
 
         try {
+            
             await Produto.deleteOne({ _id: id })
-
+             
             res.status(200).json({ message: "Produto apagado com sucesso" })
         } catch (error) {
             res.status(500).json({ error: error })

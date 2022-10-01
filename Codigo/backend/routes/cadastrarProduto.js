@@ -6,6 +6,7 @@ const productController = require('../controller/productController')
 
 router.post('/registerProduct', productController.productRegister)
 router.get('/getAllProducts', productController.productGetAll)
+router.get('/getAllSabores', productController.saboresGetAll)
 router.get('/getProductById/:id', productController.productGetById)
 router.patch('/updateProduct/:id', productController.updateProduct)
 router.delete('/deleteProduct/:id', productController.deleteProduct)
