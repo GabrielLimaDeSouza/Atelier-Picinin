@@ -11,6 +11,7 @@ div.cart-item {
     align-items: center;
     width: 100%;
     padding: 20px 30px;
+    column-gap: 50px;
 }
 
 div.cart-item:not(:last-child) {
@@ -20,8 +21,9 @@ div.cart-item:not(:last-child) {
 div.infosCart {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    width: 40%;
+    align-items: flex-start;
+    column-gap: 15px;
+    width: 350px;
 }
 
 div.infosCart img {
@@ -34,15 +36,18 @@ div.organizeCartItems {
     justify-content: space-between;
     align-items: center;
     column-gap: 60px;
+    width: 350px;
 }
 
 div.nameFlavors {
-    margin-left: 15px;
+    display: inherit;
+    flex-direction: column;
+    row-gap: 5px;
 }
 
-div.name-flavors h5 {
+h5.productTitle {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 600 !important;
     margin: 0;
 }
 

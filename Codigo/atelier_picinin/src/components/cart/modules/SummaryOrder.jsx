@@ -1,6 +1,6 @@
-import styles from '../css_components/SummaryOrder.module.css'
+import styles from '../css/SummaryOrder.module.css'
 
-import LinkButton from '../../components/layout/LinkButton'
+import LinkButton from '../../layout/LinkButton'
 
 const SummaryOrder = ({ subtotal, entrega, linkTo, textLinkTo }) => {
     return (

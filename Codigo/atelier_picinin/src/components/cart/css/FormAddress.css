@@ -1,0 +1,46 @@
+form.form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+}
+
+form.form div {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    column-gap: 30px;
+}
+s
+form.form > div {
+    column-gap: 50px;
+}
+
+form.form > div div {
+    flex-direction: column;
+}
+
+div.divSelect {
+    width: 100%;
+}
+
+div.rua, div.complemento, input[type="text"] {
+    width: 100%;
+}
+
+div.bairro {
+    width: 40%;
+}
+div.cidade {
+    width: 60%;
+}
+
+input[type="number"] {
+    width: 100px;
+}
+
+input:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}

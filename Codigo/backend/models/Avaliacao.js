@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose' )
 
 const Avaliacao = mongoose.model('Avaliacao', {
+    produto: String,
     cliente: String,
     comentario: String,
     nota: Number,
@@ -8,3 +9,4 @@ const Avaliacao = mongoose.model('Avaliacao', {
 })
 
 module.exports = Avaliacao
+

@@ -1,6 +1,6 @@
-import styles from '../css_components/CartItemMobile.module.css'
+import styles from '../css/CartItemMobile.module.css'
 
-import Button from '../layout/Button'
+import Button from '../../layout/Button'
 
 const CartItemMobile = ({ content, handleEditCart }) => {
 
