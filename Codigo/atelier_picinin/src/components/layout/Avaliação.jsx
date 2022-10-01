@@ -3,14 +3,14 @@ import { BsStarFill } from 'react-icons/bs'
 import "../css_components/avaliacao.css"
 import { BsStarHalf } from "react-icons/bs";
 
-const style = { color: "black", fontSize: "1.2em" }
+const style = { color: "yellow", fontSize: "1.2em" }
 
 const avaliacao = ({nota, avaliador, comentario}) => {
     return (
         <>
 
             <div className="flex">
-                <div className="avaliador"><p style={style}>{avaliador}</p></div>
+                <div className="avaliador"><p className="avaliador">{avaliador}</p></div>
                 <div >
                     {
                         nota == 1 ? (

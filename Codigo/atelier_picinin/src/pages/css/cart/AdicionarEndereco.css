@@ -1,0 +1,90 @@
+:root {
+    --bckgnd-input: #ebebeb;
+    --font-color: #444;
+}
+
+div.body-address {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    position: relative;
+    max-width: 80rem;
+    width: 100%;
+    padding: 30px 30px 100px;
+}
+
+div.body-address label, div.body-address span {
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--font-color);
+}
+
+div.formAddress {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    row-gap: 90px;
+}
+
+div.formAddress > div {
+    padding: 0 30px;
+    width: 100%;
+}
+
+div.content {
+    display: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    flex-direction: inherit;
+    row-gap: 40px;
+}
+
+div.selectAddress {
+    display: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    flex-direction: inherit;
+    width: 100%;
+    row-gap: 5px;
+}
+
+div.selectAddress select.select {
+    border-radius: 35px;
+    border: none;
+    background-color: var(--bckgnd-input);
+    font-weight: 400;
+    padding: 0 15px;
+    width: 50%;
+}
+
+div.selectAddress select.select:focus {
+    outline: none;
+    border: none;
+}
+
+div.selectAddress label {
+    font-size: 16px;
+    color: var(--font-color);
+}
+
+div.selectAddress option {
+    font-weight: 400;
+}
+
+div.endereco {
+    display: inherit;
+    flex-direction: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    row-gap: 30px;
+}
+
+div.spans {
+    display: inherit;
+    flex-direction: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    row-gap: 3px;
+}
