@@ -69,7 +69,7 @@ const DetalhesProduto = () => {
     return (
         <>
             <CabecalhoCliente />
-            <div className='Body-detalhes-produto' style={{ width: '100%', padding: '0rem 4rem' }}>
+            <div className='Body-detalhes-produto ' style={{ width: '100%', padding: '0rem 4rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <h1></h1>
                 </div>

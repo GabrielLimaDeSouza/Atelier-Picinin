@@ -3,7 +3,7 @@ const router = express.Router()
 router.use(express.json())
 
 // Controllers
-const controller = require('../controller/ratingController')
+const controller = require('../controller/ratingController' )
 
 //#region rotas CRUD
 

@@ -3,7 +3,7 @@ const Avaliacao = require('../models/Avaliacao')
 
 module.exports = {
     async ratingRegister(req, res) {
-        const { produto, cliente, comentario, nota, data } = req.body
+        const { produto, cliente, comentario, nota, data  } = req.body
 
         if (!comentario && !nota) {
             res.status(422).json({ err: "Campos obrigatórios" })

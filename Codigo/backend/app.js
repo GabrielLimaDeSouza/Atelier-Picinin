@@ -10,12 +10,12 @@ const inventoryRoutes = require("./routes/inventoryRoutes")
 const productRoutes = require("./routes/productRoutes")
 const userRoutes = require("./routes/userRoutes")
 const addressRoutes = require("./routes/addressRoutes")
-const ratingRoutes = require("./routes/ratingRoutes")
+const ratingRoutes = require("./routes/ratingRoutes") 
 
 // dotEnv
 require('dotenv').config()
 
-// middlewares para leitura de JSON
+// middlewares para leitura de  JSON
 app.use(
     express.urlencoded({
         extended: true

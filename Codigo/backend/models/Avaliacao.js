@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose' )
 
 const Avaliacao = mongoose.model('Avaliacao', {
     produto: String,
