@@ -1,12 +1,9 @@
 import '../css/Products/DetalhesProduto.css'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 import CabecalhoCliente from '../../components/layout/CabecalhoCliente'
 import Carousel from 'react-bootstrap/Carousel';
-import image1 from '../img/SUSPIROVERDE.png'
-import image2 from '../img/SUSPIRODOURADO.png'
-import image3 from '../img/SUSPIROBRANCO.png'
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
@@ -14,6 +11,8 @@ import oneStar from '../img/goldstar.png'
 
 
 const DetalhesProduto = () => {
+    
+    var  nota = 1;
 
     const { id } = useParams()
     const [produto, setProduto] = useState([])
@@ -22,6 +21,8 @@ const DetalhesProduto = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetch(`http://localhost:3000/produto/getProductById/${id}`, {
@@ -34,16 +35,35 @@ const DetalhesProduto = () => {
             .catch(err => console.error(err))
     }, [])
 
-    function handleClick(e) {
+    function handleClickStar(e) {
         var stars = document.querySelectorAll('.star-icon');
         var classStar = e.target.classList;
         if (!classStar.contains('ativo')) {
             stars.forEach(function (star) {
                 star.classList.remove('ativo')
             })
-            classStar.add('ativo')
-            /*console.log(e.target.getAttribute('data-avaliacao')) */
+            classStar.add('ativo') 
+
+            nota = e.target.getAttribute('data-avaliacao')
         }
+    }
+
+    function createRating(input){
+        input.data = new Date().toISOString()
+
+        fetch('http://localhost:3000/rating/ratingRegister', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },  
+            body: JSON.stringify({ "produto": produto._id,
+            "cliente": "Cliente",
+            "comentario": document.getElementById("comentario").value,
+            "nota": nota,
+            "data": input.data },)
+        }).then(resp => resp.json())
+        .catch(err => console.error(err))
+        .then(window.location.reload())
     }
 
     return (
@@ -61,7 +81,7 @@ const DetalhesProduto = () => {
                                 <Carousel.Item>
                                     <img
                                         className="d-block w-100"
-                                        src={image1}
+                                        src={produto.foto1}
                                         alt="First slide"
                                     />
                                     <Carousel.Caption>
@@ -72,7 +92,7 @@ const DetalhesProduto = () => {
                                 <Carousel.Item>
                                     <img
                                         className="d-block w-100"
-                                        src={image2}
+                                        src={produto.foto2}
                                         alt="Second slide"
                                     />
                                     <Carousel.Caption>
@@ -83,7 +103,7 @@ const DetalhesProduto = () => {
                                 <Carousel.Item>
                                     <img
                                         className="d-block w-100"
-                                        src={image3}
+                                        src={produto.foto3}
                                         alt="Third slide"
                                     />
                                     <Carousel.Caption>
@@ -145,21 +165,21 @@ const DetalhesProduto = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <label htmlFor="comentario">Comentario:</label>
-                            <input type="text" name="comentario" id="comentario" />
+                            <input type="text" name="comentario" id="comentario" required/>
                             <p>Nota:</p>
-                            <ul class="avaliacao">
-                                <li className="star-icon ativo" data-avaliacao="1" onClick={handleClick}></li>
-                                <li className="star-icon" data-avaliacao="2" onClick={handleClick}></li>
-                                <li className="star-icon" data-avaliacao="3" onClick={handleClick}></li>
-                                <li className="star-icon" data-avaliacao="4" onClick={handleClick}></li>
-                                <li className="star-icon" data-avaliacao="5" onClick={handleClick}></li>
+                            <ul className="avaliacao">
+                                <li className="star-icon ativo" data-avaliacao="1" onClick={handleClickStar}></li>
+                                <li className="star-icon" data-avaliacao="2" onClick={handleClickStar}></li>
+                                <li className="star-icon" data-avaliacao="3" onClick={handleClickStar}></li>
+                                <li className="star-icon" data-avaliacao="4" onClick={handleClickStar}></li>
+                                <li className="star-icon" data-avaliacao="5" onClick={handleClickStar}></li>
                             </ul>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>
                                 Fechar
                             </Button>
-                            <Button className="btn-enviar" variant="primary" onClick={handleClose}>
+                            <Button className="btn-enviar" variant="primary" onClick={createRating}>
                                 Enviar
                             </Button>
                         </Modal.Footer>
