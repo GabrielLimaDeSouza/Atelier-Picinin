@@ -87,46 +87,42 @@ const Carrinho = () => {
     }
 
     return (
-        <>
-            <Cabecalho />
+        <div className="body-cart">
+            <div className="cart-content">
+                <div className="title-page">
+                    <h1 className="logo">Logo</h1>
+                    <span>|</span>
+                    <Progression state="Carrinho de Compra" elements={ ["Carrinho de Compra", "Endereço", "Confirmar Pedido"] } />
+                </div>
 
-            <div className="body-cart">
-                <div className="cart-content">
-                    <div className="title-page">
-                        <h1 className="logo">Logo</h1>
-                        <span>|</span>
-                        <Progression state="Carrinho de Compra" elements={ ["Carrinho de Compra", "Endereço", "Confirmar Pedido"] } />
-                    </div>
+                <div className="cart-items">
+                { isLoading ?
+                    <Loading />
+                    :
+                    cartItems.length ?
+                        larguraTela >= 600 ?
+                            cartItems.map( cartItem => <CartItem content={cartItem} handleEditCart={handleEditQuantity} /> )
+                        :
+                            cartItems.map( cartItem => <CartItemMobile content={cartItem} handleEditCart={handleEditQuantity} /> )
+                    :        
+                        <p className="cart-empty">O carrinho está vazio</p>
+                }
+                </div>
+            </div>
 
-                    <div className="cart-items">
+            <div className="summary-order">
+                <button type="button" className="dropdown" onClick={handleDropdownMenu}><div className="line"></div></button>
+                
+                <div className="summaryContent">
+                    <h1>Resumo do pedido</h1>
                     { isLoading ?
                         <Loading />
                         :
-                        cartItems.length ?
-                            larguraTela >= 600 ?
-                                cartItems.map( cartItem => <CartItem content={cartItem} handleEditCart={handleEditQuantity} /> )
-                            :
-                                cartItems.map( cartItem => <CartItemMobile content={cartItem} handleEditCart={handleEditQuantity} /> )
-                        :        
-                            <p className="cart-empty">O carrinho está vazio</p>
+                        <SummaryOrder subtotal={subtotal} entrega={entrega} linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço"/>
                     }
-                    </div>
-                </div>
-
-                <div className="summary-order">
-                    <button type="button" className="dropdown" onClick={handleDropdownMenu}><div className="line"></div></button>
-                    
-                    <div className="summaryContent">
-                        <h1>Resumo do pedido</h1>
-                        { isLoading ?
-                            <Loading />
-                            :
-                            <SummaryOrder subtotal={subtotal} entrega={entrega} linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço"/>
-                        }
-                    </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

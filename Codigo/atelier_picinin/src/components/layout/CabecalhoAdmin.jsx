@@ -1,32 +1,25 @@
-import styles from '../css_components/layout/CabecalhoAdmin.module.css'
+import './css/CabecalhoAdmin.css'
 
 import { Link } from 'react-router-dom'
 import { BiUser } from 'react-icons/bi'
-import { useState, useEffect } from 'react'
 
 const CabecalhoAdmin = () => {
-    // const [pageLocation, setPageLocation] = useState("home");
+    function handlePageLocation(e) {
+        const allLinkMenu = document.querySelectorAll(".menu a");
+        allLinkMenu.forEach(menuLink => menuLink.classList.remove("active"));
 
-    // useEffect(() => {
-    //     const navbarItem = document.querySelector(`#${pageLocation}`)
-    //     navbarItem.className = "active"
-    //     console.log(pageLocation)
-    // }, [])
+        const element = e.target;
+        element.classList.add("active");
+    }
 
-    // function teste(e) {
-    //     console.log(e.target.id)
-    //     const navbarItem = document.querySelector(`#${id}`)
-    //     navbarItem.className = "active"
-    //     setPageLocation(e.target.id)
-    // }
     return (
-        <nav className={styles["div-header"]}>
-            <div className={styles["logo-menu"]}>
-                <h1 className={styles.logo}>Logo</h1>
-                <div className={styles.menu}>
-                    <Link id="home" to="/">Home</Link>
-                    <Link id="cadastrarProduto" to="/cadastrarProduto">Cadastrar Produtos</Link>
-                    <Link id="estoque" to="/estoque">Estoque</Link>
+        <nav className="div-header">
+            <div className="logo-menu">
+                <h1 className="logo">Logo</h1>
+                <div className="menu">
+                    <Link id="home" to="/" onClick={ handlePageLocation }>Home</Link>
+                    <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={ handlePageLocation }>Cadastrar Produtos</Link>
+                    <Link id="estoque" to="/estoque" onClick={ handlePageLocation }>Estoque</Link>
                 </div>
             </div>
             <Link to="/"><BiUser /></Link>

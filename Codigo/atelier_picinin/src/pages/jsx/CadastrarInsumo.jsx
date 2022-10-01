@@ -1,9 +1,9 @@
 import '../css/inventory/CadastroInsumo.css'
 
 import Form from '../../components/inventory/FormCadastroInsumos'
-import Cabecalho from '../../components/layout/CabecalhoAdmin'
 import { useLocation, useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
+const url = "http://localhost:3000"
 
 const CadastrarInsumo = () => {
   const location = useLocation()
@@ -18,12 +18,12 @@ const CadastrarInsumo = () => {
     if(input.validade)
       input.validade = new Date(input.validade).toISOString()
 
-    fetch('http://localhost:3000/api/inputRegister', {
+    fetch(`${url}/api/inputRegister`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(input),
+      body: JSON.stringify(input)
     })
     .then(resp => resp.json())
     .then(navigate('/estoque', { state: { message: "Insumo cadastrado com sucesso", type: "success" } }))
@@ -31,9 +31,7 @@ const CadastrarInsumo = () => {
   }
 
   return (
-    <>
-      <Cabecalho />
-      <div className="body-input-register">
+    <div className="body-input-register">
         <h1 className="register-title">Cadastrar Insumo</h1>
         <Form id="form"
           handleSubmit={createSupplies}
@@ -43,8 +41,7 @@ const CadastrarInsumo = () => {
           selectTextDefault="Selecione uma categoria"
           btnVoltar="/estoque"
         />
-      </div>
-    </>
+    </div>
   )
 }
 

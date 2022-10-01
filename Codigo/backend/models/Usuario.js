@@ -4,6 +4,7 @@ const Usuario = mongoose.model('Usuario', {
     nome: String,
     email: String,
     senha: String,
+    admin: Boolean,
     endereco: [{
         idAddress: String,
         rua: String,
