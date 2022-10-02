@@ -1,17 +1,18 @@
 import "../css/products/CadastrarProduto.css"
 import styles from "../../components/css_components/Form.module.css"
-import Avaliacao from "../../components/layout/Avaliação"
 
-import { useLocation, useNavigate } from "react-router-dom"
+import Avaliacao from "../../components/layout/Avaliação"
 import Form from "../../components/products/FormCadastroProdutos"
 import Button from "../../components/layout/Button"
 import Message from "../../components/layout/Message"
+
+import { useLocation, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { AiOutlinePlus } from "react-icons/ai"
 import { BiTrash } from "react-icons/bi"
+
 var sabores = []
 var lenghtSabor = 0
-
 const url = "http://localhost:3000"
 
 const CadastrarProduto = () => {

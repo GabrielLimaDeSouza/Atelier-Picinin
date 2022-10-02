@@ -1,6 +1,5 @@
 import '../../css/cart/Carrinho.css'
 
-import Cabecalho from '../../../components/layout/CabecalhoCliente'
 import Loading from '../../../components/layout/Loading'
 import CartItem from '../../../components/cart/modules/CartItem'
 import CartItemMobile from '../../../components/cart/modules/CartItemMobile'

@@ -1,12 +1,13 @@
 import '../css/Products/DetalhesProduto.css'
-import { useState, useEffect } from 'react'
-import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import oneStar from '../img/goldstar.png'
+
+import { useState, useEffect } from 'react'
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 const url = "http://localhost:3000"
 

@@ -1,6 +1,5 @@
 import '../../css/cart/AdicionarEndereco.css'
 
-import Cabecalho from '../../../components/layout/CabecalhoCliente'
 import Progression from '../../../components/cart/modules/Progression'
 import Form from '../../../components/cart/modules/FormAddress'
 import SummaryOrder from '../../../components/cart/modules/SummaryOrder'

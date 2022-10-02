@@ -1,12 +1,12 @@
 import '../css/inventory/Estoque.css'
 
-import CabecalhoAdmin from '../../components/layout/CabecalhoAdmin'
 import Message from '../../components/layout/Message'
 import LinkButton from '../../components/layout/LinkButton'
 import Dropdown from '../../components/layout/Dropdown'
 import Tables from '../../components/inventory/SuppliesTable'
 import SearchBar from '../../components/layout/SearchBar'
 import Loading from '../../components/layout/Loading'
+
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
