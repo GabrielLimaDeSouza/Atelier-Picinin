@@ -10,6 +10,7 @@ import Message from "../../components/layout/Message"
 
 import { useState, useEffect } from 'react'
 import {useNavigate, useParams } from "react-router-dom"
+import avaliacao from '../../components/layout/Avaliação';
 
 const url = "http://localhost:3000"
 
@@ -173,7 +174,7 @@ const DetalhesProduto = () => {
                 <h1>Informações do Produto</h1>
                 <div>{ produto.descricaoProduto }</div>
             </div>
-
+        
             <div className="ulavaliacao">
                 <Button className="btn-avaliar" variant="primary" onClick={handleShow}>
                     Avaliar
@@ -188,7 +189,7 @@ const DetalhesProduto = () => {
                         <label htmlFor="comentario">Comentario:</label>
                         <input type="text" name="comentario" id="comentario" required/>
                         <p>Nota:</p>
-                        <ul className="avaliacao">
+                        <ul className="ulavaliacao">
                             <li className="star-icon ativo" data-avaliacao="1" onClick={handleClickStar}></li>
                             <li className="star-icon" data-avaliacao="2" onClick={handleClickStar}></li>
                             <li className="star-icon" data-avaliacao="3" onClick={handleClickStar}></li>
@@ -206,8 +207,20 @@ const DetalhesProduto = () => {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+                
             </div>
+            {
+                    avaliacoes.map(avaliacao=>
+                        avaliacao.produto == produto._id && (
+                            
+                            <Compavaliacao nota={avaliacao.nota} comentario={avaliacao.comentario} avaliador={avaliacao.cliente}/>
+                        )
+                        )
+
+                    
+                }
         </div>
+        
     )
 
 }

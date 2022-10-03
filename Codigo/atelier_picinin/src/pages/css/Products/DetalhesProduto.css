@@ -45,6 +45,7 @@
 }
 .ulavaliacao{
     display: flex;
+    justify-content: center;
 }
 
 .divAvalacoes{
