@@ -19,13 +19,12 @@ const url = "http://localhost:3000"
 function App() {
   const [menuVisible, setMenuVisible] = useState(false)
   const [user, setUser] = useState({})
+  const [windowWidth, setWindowWidth] = useState(0);
   const idAdmin = "6338b9c1c5008fbce42bed33"
   const idClient = "63322d88207cc8eeb929f645"
 
-  const widthWindow = window.innerWidth
-
   useEffect(() => {
-    fetch(`${url}/api/user/getUserById?id=${ idAdmin }`, {
+    fetch(`${ url }/api/user/getUserById?id=${ idAdmin }`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json'
@@ -34,13 +33,22 @@ function App() {
   .then(data => setUser(data))
   .catch(err => console.error(err))
   }, [])
+
+  useEffect(() => { 
+    document.body.style.overflowY = menuVisible ? 'hidden' : 'auto'
+  }, [menuVisible])
+
+  useEffect(() => { 
+    setWindowWidth(window.innerWidth) 
+    console.log(windowWidth)
+  }, [window.innerWidth])
   
   return (
       <div className="App">
-        { widthWindow <= 900 ?
-          <MenuMobile state={user.admin} menuVisible={menuVisible} setMenuVisible={setMenuVisible} />
+        { windowWidth <= 900 ?
+          <MenuMobile state={ user.admin } menuVisible={ menuVisible } setMenuVisible={ setMenuVisible } />
           :
-          <Cabecalho state={user.admin}/>
+          <Cabecalho state={ user.admin }/>
         }
         
         <Routes>

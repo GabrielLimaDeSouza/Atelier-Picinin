@@ -8,34 +8,37 @@ import { Link } from 'react-router-dom'
 
 const MenuMobile = ({ state, menuVisible, setMenuVisible }) => {
     function handleVisibilityMenu() {
-        const menu = document.querySelector(".visibleMenu")
-        menu.classList.toggle("visible")
+        const nav = document.querySelector("nav.menu")
+        nav.classList.toggle("active")
         
-        setTimeout(() => {
-            setMenuVisible(!menuVisible)
-            //menu.classList.toggle("hidden")
-        }, 100)
+        const divVisible = document.querySelector("div.visibleMenu")
+        divVisible.classList.toggle("visible")
+        
+        setTimeout(() => setMenuVisible(!menuVisible), 100)
     }
+
     return (
         <div className="header">
             <nav className="menu">
-                <h1 className="logo">Logo</h1>
+            <Link id="home" to="/"><h1 className="logo">Logo</h1></Link>
 
                 <div className="buttons">
-                    { state == "admin" && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link> }
+                    { !state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link> }
                     <Link to="/" className="perfil"><BiUser /></Link>
-                    { menuVisible ? <RiMenu3Fill onClick={ handleVisibilityMenu } /> : <IoClose onClick={ handleVisibilityMenu }/> }
+                    <RiMenu3Fill onClick={ handleVisibilityMenu } />
                 </div>
 
                 <div className="visibleMenu">
+                    <IoClose onClick={ handleVisibilityMenu }/>
                     <Link id="home" to="/">Home</Link>
-                    { state == "admin" ? <>
+                    { state ? <>
                             <Link id="cadastrarProduto" to="/cadastrarProduto">Cadastrar Produtos</Link>
                             <Link id="estoque" to="/estoque">Estoque</Link>
                         </> : <>
                             <Link id="contatos" to="/">Contatos</Link>
                         </>
                     }
+                    
                 </div>
             </nav>
         </div>

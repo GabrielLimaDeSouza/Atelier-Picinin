@@ -1,3 +1,9 @@
+:root {
+    --pastel-red: #ff6961;
+    --light-gray: #e4e4e4;
+    --white: #fff;
+}
+
 div.header {
     padding: 0 !important;
     width: 100%;
@@ -10,6 +16,10 @@ nav.menu {
     gap: 2rem;
     width: 100%;
     padding: 1rem;
+    transition: all .3s ease-in-out;
+}
+nav.menu svg {
+    font-size: 20px;
 }
 
 div.hiddenMenu {
@@ -28,11 +38,11 @@ div.visibleMenu {
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    height: calc(100vh - 56px);
-    transform: translateX(300px);
-    width: 40%;
+    height: 100vh;
+    transform: translateX(100vw);
+    width: 90%;
     backdrop-filter: blur(3px);
-    background-color: rgba(230, 230, 230, 0.267);
+    background-color: var(--pastel-red);
     transition: transform .3s ease-in-out;
 }
 
@@ -41,8 +51,17 @@ div.visibleMenu.visible {
     transition: transform .3s ease-in-out;
 }
 
-.buttons svg {
-    font-size: 20px;
+div.visibleMenu a {
+    text-align: center;
+    color: var(--white);
+}
+
+div.visibleMenu svg {
+    color: var(--white);
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+    font-size: 1.5rem;
 }
 
 div.hidden {
