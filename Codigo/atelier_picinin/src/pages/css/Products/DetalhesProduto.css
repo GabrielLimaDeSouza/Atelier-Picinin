@@ -23,7 +23,20 @@
 /*  Estilos estrelas avaliação  */
 .avaliacao {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.ulavaliacao{
+    display: flex;
+}
+
+.divAvalacoes{
+    padding-top: 50px;
+    
+}
+
+.divAvaliacao{
+    padding-bottom: 15px;
 }
 
 .star-icon {
