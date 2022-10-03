@@ -197,11 +197,8 @@ const CadastrarProduto = () => {
         }
     }
 
-    function deletProduct(e) {
-        e.preventDefault()
-        const id = idTrClicada(e)
-
-        fetch(`${url}/produto/deleteProduct/${id}`, {
+    function deletProduct(id) {
+        fetch(`http://localhost:3000/produto/deleteProduct/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -213,7 +210,7 @@ const CadastrarProduto = () => {
                 setMessage("Produto removido com sucesso!")
             })
             .catch((err) => console.error(err))
-    }
+    } 
     function deleteSabor(id, indice) {
 
         fetch(`http://localhost:3000/produto/deleteSabor/${id}`, {
@@ -269,7 +266,13 @@ const CadastrarProduto = () => {
         console.log(indice)
         deleteSabor(id, indice)
     }
-
+    function deletarProduto(id) {
+        setId(id)
+        setIndiceSabor(indice)
+        console.log(id)
+        console.log(indice)
+        deleteSabor(id, indice)
+    }
     return (
         <>
             <div className="body-product">
@@ -355,7 +358,7 @@ const CadastrarProduto = () => {
 
 
                                             <tr >
-                                                <td ><Button type="button" className="btnTrash" buttonClickEvent={deletProduct}>{<BiTrash />}</Button></td>
+                                                <td ><Button type="button" className="btnTrash" buttonClickEvent={()=>{deletProduct(number._id)}}>{<BiTrash />}</Button></td>
                                                 <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => { setId(number._id), idProduto(number._id) }}>
                                                     Alterar
                                                 </button></td>
