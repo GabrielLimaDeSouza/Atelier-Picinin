@@ -1,7 +1,7 @@
-import styles from '../css_components/CartItem.module.css'
+import styles from '../css/CartItem.module.css'
 
-import Button from "../layout/Button";
-import { VscClose } from "react-icons/vsc";
+import Button from "../../layout/Button"
+import { VscClose } from "react-icons/vsc"
 
 const CartItem = ({ content, handleEditCart }) => {
 
@@ -15,7 +15,7 @@ const CartItem = ({ content, handleEditCart }) => {
                 <img src={ content.img } alt="img" />
 
                 <div className={ styles.nameFlavors }>
-                    <h5>{ primeiraLetraMaiuscula(content.nome) }</h5>
+                    <h5 className={ styles.productTitle }>{ primeiraLetraMaiuscula(content.nome) }</h5>
 
                     <div className={styles.divSabores}>
                         { content.sabores.map(sabor => <span className={ styles.sabores }>{ primeiraLetraMaiuscula(sabor) }</span> ) }

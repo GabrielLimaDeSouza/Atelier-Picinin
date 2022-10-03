@@ -1,11 +1,10 @@
 import '../../css/cart/Carrinho.css'
 
-import Cabecalho from '../../../components/layout/CabecalhoCliente'
 import Loading from '../../../components/layout/Loading'
-import CartItem from '../../../components/cart/CartItem'
-import CartItemMobile from '../../../components/cart/CartItemMobile'
-import SummaryOrder from '../../../components/cart/SummaryOrder'
-import Progression from '../../../components/cart/Progression'
+import CartItem from '../../../components/cart/modules/CartItem'
+import CartItemMobile from '../../../components/cart/modules/CartItemMobile'
+import SummaryOrder from '../../../components/cart/modules/SummaryOrder'
+import Progression from '../../../components/cart/modules/Progression'
 import { useState, useEffect } from 'react'
 
 const Carrinho = () => {
@@ -87,46 +86,42 @@ const Carrinho = () => {
     }
 
     return (
-        <>
-            <Cabecalho />
+        <div className="body-cart">
+            <div className="cart-content">
+                <div className="title-page">
+                    <h1 className="logo">Logo</h1>
+                    <span>|</span>
+                    <Progression state="Carrinho de Compra" elements={ ["Carrinho de Compra", "Endereço", "Confirmar Pedido"] } />
+                </div>
 
-            <div className="body-cart">
-                <div className="cart-content">
-                    <div className="title-page">
-                        <h1 className="logo">Logo</h1>
-                        <span>|</span>
-                        <Progression state={ [false, false, false] } elements={ ["Carrinho de Compra", "Endereço", "Confirmar Pedido"] } />
-                    </div>
+                <div className="cart-items">
+                { isLoading ?
+                    <Loading />
+                    :
+                    cartItems.length ?
+                        larguraTela >= 600 ?
+                            cartItems.map( cartItem => <CartItem content={cartItem} handleEditCart={handleEditQuantity} /> )
+                        :
+                            cartItems.map( cartItem => <CartItemMobile content={cartItem} handleEditCart={handleEditQuantity} /> )
+                    :        
+                        <p className="cart-empty">O carrinho está vazio</p>
+                }
+                </div>
+            </div>
 
-                    <div className="cart-items">
+            <div className="summary-order">
+                <button type="button" className="dropdown" onClick={handleDropdownMenu}><div className="line"></div></button>
+                
+                <div className="summaryContent">
+                    <h1>Resumo do pedido</h1>
                     { isLoading ?
                         <Loading />
                         :
-                        cartItems.length ?
-                            larguraTela >= 600 ?
-                                cartItems.map( cartItem => <CartItem content={cartItem} handleEditCart={handleEditQuantity} /> )
-                            :
-                                cartItems.map( cartItem => <CartItemMobile content={cartItem} handleEditCart={handleEditQuantity} /> )
-                        :        
-                            <p className="cart-empty">O carrinho está vazio</p>
+                        <SummaryOrder subtotal={subtotal} entrega={entrega} linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço"/>
                     }
-                    </div>
-                </div>
-
-                <div className="summary-order">
-                    <button type="button" className="dropdown" onClick={handleDropdownMenu}><div className="line"></div></button>
-                    
-                    <div className="summaryContent">
-                        <h1>Resumo do pedido</h1>
-                        { isLoading ?
-                            <Loading />
-                            :
-                            <SummaryOrder subtotal={subtotal} entrega={entrega} linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço"/>
-                        }
-                    </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

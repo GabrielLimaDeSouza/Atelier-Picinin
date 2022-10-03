@@ -1,0 +1,69 @@
+:root {
+    --pastel-red: #ff6961;
+    --light-gray: #e4e4e4;
+    --white: #fff;
+}
+
+div.header {
+    padding: 0 !important;
+    width: 100%;
+}
+
+nav.menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    padding: 1rem;
+    transition: all .3s ease-in-out;
+}
+nav.menu svg {
+    font-size: 20px;
+}
+
+div.hiddenMenu {
+    justify-content: space-between;
+}
+
+div.visibleMenu {
+    position: fixed;
+    top: auto;
+    left: auto;
+    bottom: 0;
+    right: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 100vh;
+    transform: translateX(100vw);
+    width: 90%;
+    backdrop-filter: blur(3px);
+    background-color: var(--pastel-red);
+    transition: transform .3s ease-in-out;
+}
+
+div.visibleMenu.visible {
+    transform: translateX(0px);
+    transition: transform .3s ease-in-out;
+}
+
+div.visibleMenu a {
+    text-align: center;
+    color: var(--white);
+}
+
+div.visibleMenu svg {
+    color: var(--white);
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+    font-size: 1.5rem;
+}
+
+div.hidden {
+    display: none;
+}

@@ -1,14 +1,15 @@
+import '../../css/cart/AdicionarEndereco.css'
 
-import Cabecalho from '../../../components/layout/CabecalhoCliente'
-import Progression from '../../../components/cart/Progression'
-import Form from '../../../components/cart/FormAddress'
-import SummaryOrder from '../../../components/cart/SummaryOrder'
+import Progression from '../../../components/cart/modules/Progression'
+import Form from '../../../components/cart/modules/FormAddress'
+import SummaryOrder from '../../../components/cart/modules/SummaryOrder'
 import Loading from '../../../components/layout/Loading'
 import Message from '../../../components/layout/Message'
-import Dropdown from '../../../components/layout/Dropdown'
+import Button from '../../../components/layout/Button'
 
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
+const url = "http://localhost:3000"
 
 
 const AdicionarEndereco = () => {
@@ -25,7 +26,7 @@ const AdicionarEndereco = () => {
     const id = "63322d88207cc8eeb929f645"
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/address/getAddressById?id=${id}`, {
+        fetch(`${url}/api/address/getAddressById?id=${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -34,10 +35,8 @@ const AdicionarEndereco = () => {
         .then(resp => resp.json())
         .then(data => {
             setAdresses(data)
-            setAddressSelected(data[0])
-            
-            // const select = document.querySelector('#enderecoSalvo')
-            // select.value = data[0].idAddress
+            console.log(data[data.length - 1])
+            setAddressSelected(data[data.length - 1])
         })
         .catch(err => console.error(err))
 
@@ -51,7 +50,7 @@ const AdicionarEndereco = () => {
     }
 
     function handleEditAddress(address) {
-        fetch(`http://localhost:3000/api/address/registerAddress?id=${id}`, {
+        fetch(`${url}/api/address/registerAddress?id=${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,12 +80,12 @@ const AdicionarEndereco = () => {
         const summary = document.querySelector('div.summary-order')
         summary.classList.toggle('active')
 
-        const summaryContent = document.querySelector('div.summaryContent')
+        const summaryContent = document.querySelector('div.summaryContent').classList
 
-        !summaryContent.classList.contains('hidden') ?
-            summaryContent.classList.remove('hidden')
+        summaryContent.contains('show') ?
+            setTimeout(() => summaryContent.remove('show'), 300)
         :
-            setTimeout(() => summaryContent.classList.add('hidden'), 300)
+            summaryContent.add('show')
     }
 
     function handleSaveAddress() {
@@ -94,60 +93,63 @@ const AdicionarEndereco = () => {
     }
 
     return (
-        <>
-            <Cabecalho />
+        <div className="body-address">
+            <div className="formAddress">
+                <div className="title-page">
+                    <h1 className="logo">Logo</h1>
+                    <span>|</span>
+                    <Progression state="Endereço" elements={ [ "Carrinho de Compra", "Endereço", "Confirmar Pedido" ] } />
+                </div>
 
-            <div className="body-address">
-                <div className="formAddress">
-                    <div className="title-page">
-                        <h1 className="logo">Logo</h1>
-                        <span>|</span>
-                        <Progression state={ [ true, false, false ] } elements={ [ "Carrinho de Compra", "Endereço", "Confirmar Pedido" ] } />
-                    </div>
+                { message && <Message type={ typeMessage } message={ message } /> }
 
-                    { message && <Message type={ typeMessage } message={ message } /> }
-
-                    <div className="selectAddress">
-                        <label htmlFor="enderecoSalvo">Endereços Salvos</label>
-                        <select id="enderecoSalvo" name="enderecoSalvo" className="select" onChange={ handleSelectAddress }>
-                            <option value="">Selecione um endereço</option>
-                            { adresses.map(address => 
-                                    <option key={ address.idAddress } value={ address.idAddress }> { address.rua }</option>
-                                )
-                            }
-                        </select>
-                    </div>
-                        
+                <div className="content">
                     { saveAddress ?
                         <Form handleSubmit={ handleEditAddress } />
                     :
-                        <div className="endereco">
-                            <span>Endereço: { addressSelected.rua }</span>
-                            <span>CEP: { addressSelected.cep }</span>
-                            <span>Bairro: { addressSelected.bairro }</span>
-                            <span>Cidade: { addressSelected.cidade }</span>
-                            <span>Complemento: { addressSelected.complemento }</span>
-                            <span>Número: { addressSelected.numero }</span>
-                        </div>
+                        <>
+                            <div className="selectAddress">
+                                <label htmlFor="enderecoSalvo">Endereços Salvos</label>
+                                <select id="enderecoSalvo" name="enderecoSalvo" className="select" onChange={ handleSelectAddress }>
+                                    <option value="">Selecione um endereço</option>
+                                    { adresses.map(address => 
+                                            <option key={ address.idAddress } value={ address.idAddress }> { address.rua }</option>
+                                        )
+                                    }
+                                </select>
+                            </div>
+
+                            <div className="endereco">
+                                <div className="spans">
+                                    <span><b>Endereço:</b> { addressSelected.rua }</span>
+                                    <span><b>CEP:</b>  { addressSelected.cep }</span>
+                                    <span><b>Bairro:</b>  { addressSelected.bairro }</span>
+                                    <span><b>Cidade:</b>  { addressSelected.cidade }</span>
+                                    <span><b>Complemento:</b>  { addressSelected.complemento }</span>
+                                    <span><b>Número:</b>  { addressSelected.numero }</span>
+                                </div>
+
+                            </div>
+                        </>
                     }
+                    <Button type="button" className="btnCadastrar" buttonClickEvent={handleSaveAddress}>{ !saveAddress ? "Adicionar Endereço" : "Fechar" }</Button>
 
-                    <button type="button" onClick={handleSaveAddress}>{ !saveAddress ? "Adicionar Endereço" : "Fechar" }</button>
-                </div>
-
-                <div className="summary-order">
-                    <button type="button" className="dropdown" onClick={ handleDropdownMenu }><div className="line"></div></button>
-                    
-                    <div className="summaryContent">
-                        <h1>Resumo do pedido</h1>
-                        { isLoading ?
-                            <Loading />
-                            :
-                            <SummaryOrder subtotal={ subtotal } entrega={ entrega } linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço"/>
-                        }
-                    </div>
                 </div>
             </div>
-        </>
+
+            <div className="summary-order">
+                <button type="button" className="dropdown" onClick={ handleDropdownMenu }><div className="line"></div></button>
+                
+                <div className="summaryContent">
+                    <h1>Resumo do pedido</h1>
+                    { isLoading ?
+                        <Loading />
+                        :
+                        <SummaryOrder subtotal={ subtotal } entrega={ entrega } linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço"/>
+                    }
+                </div>
+            </div>
+        </div>
     )
 }
 

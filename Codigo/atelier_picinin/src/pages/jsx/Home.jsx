@@ -1,7 +1,6 @@
 import '../css/home/Home.css'
 
-import CabecalhoCliente from '../../components/layout/CabecalhoCliente'
-import Card from '../../components/home/CardHome'
+import Card from '../../components/home/module/CardHome'
 import { useState, useEffect } from 'react'
 import { BsWhatsapp, BsInstagram } from 'react-icons/bs'
 
@@ -22,8 +21,6 @@ const Home = () => {
 
   return (
     <>
-      <CabecalhoCliente />
-      
       <div className='body-home'>
         <div className='banner'>
           <div className='informacoes'>

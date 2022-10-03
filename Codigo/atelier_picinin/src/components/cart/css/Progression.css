@@ -12,18 +12,19 @@
     column-gap: 10px;
 }
 
-.divElements > span, .divElements > svg {
+span.element, .divElements > svg {
     color: #CBCBCB;
+    font-weight: 400;
 }
 
-.divElements span.checked {
-    color: #737373;
+span.element.checked {
+    color: #5a5a5a;
 }
 
-.divElements span.inProgress {
+svg.checked {
+    color: #2bff00;
+}
+
+span.element.inProgress {
     color: #F36961;
-}
-
-.checked {
-    color: red;
 }

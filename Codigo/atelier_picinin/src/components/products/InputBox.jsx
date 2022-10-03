@@ -15,20 +15,13 @@ const [preco, setPreco] = useState("")
 
     function handleSabor(e){
         setSabor(e.target.value)
-        
-        
     }
 
     function handlePreco(e){
         setPreco(e.target.value)
-        
-        
     }
-    function handleKeyDown(e){
-        
-            setTags(tags =>[...tags, {sabor: sabor, preco: preco}])
-        
-        
+    function handleKeyDown(e){   
+            setTags(tags =>[...tags, {sabor: sabor, preco: preco}])   
     }
 
     function removeTag(index){
@@ -45,8 +38,10 @@ const [preco, setPreco] = useState("")
                     <span className="close" onClick={() => removeTag(index)}>&times;</span>
                 </div>
             )) }
-            <input  type="text" onChange={handleSabor} className="tags-input" placeholder="Type somthing" id='sabor' name='sabor'/>
-            <input  type="text" onChange={handlePreco} className="tags-input" placeholder="Type somthing" id='preco' name= 'preco'/>
+            <label htmlFor="">Nome do sabor:</label>
+            <input  type="text" onChange={handleSabor} className="tags-input" id='sabor' name='sabor'/>
+            <label htmlFor="">Preco do sabor:</label>
+            <input  type="text" onChange={handlePreco} className="tags-input" id='preco' name= 'preco'/>
 
             <button type='button' onClick={handleKeyDown}>Confirmar</button>
         </div>

@@ -1,14 +1,16 @@
 import '../css/inventory/Estoque.css'
 
-import CabecalhoAdmin from '../../components/layout/CabecalhoAdmin'
 import Message from '../../components/layout/Message'
 import LinkButton from '../../components/layout/LinkButton'
 import Dropdown from '../../components/layout/Dropdown'
 import Tables from '../../components/inventory/SuppliesTable'
 import SearchBar from '../../components/layout/SearchBar'
 import Loading from '../../components/layout/Loading'
+
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+
+const url = "http://localhost:3000"
 
 const CadastrarInsumo = () => {
     const [message, setMessage] = useState('')
@@ -53,7 +55,7 @@ const CadastrarInsumo = () => {
 
     // Carregamento dos insumos
     useEffect(() => {
-        fetch('http://localhost:3000/api/viewAllSupplies', {
+        fetch(`${url}/api/viewAllSupplies`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -91,7 +93,7 @@ const CadastrarInsumo = () => {
     // Atualizar o status no bd toda vez q página é carregada e o status calculado
     function updateStatus(insumo, status) {
         if(insumo.status != status)
-            fetch(`http://localhost:3000/api/updateInput?id=${insumo._id}`, {
+            fetch(`${url}/api/updateInput?id=${insumo._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,7 +109,7 @@ const CadastrarInsumo = () => {
         e.preventDefault()
         const id = idTrClicada(e)
         
-        fetch(`http://localhost:3000/api/deleteInput?id=${id}`, {
+        fetch(`${url}/api/deleteInput?id=${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -134,8 +136,8 @@ const CadastrarInsumo = () => {
     // Filtro de elementos repetidos para o array de categorias
     function filterDuplicateItemInArray(array){
         var filteredArray = array.filter((item, index) => {
-            return array.indexOf(item) === index;
-        });
+            return array.indexOf(item) === index
+        })
 
         return filteredArray
     }
@@ -153,41 +155,37 @@ const CadastrarInsumo = () => {
     }
     
     return (
-        <>
-            <CabecalhoAdmin />
+        <div className="body-inventory">
+            <div className="titleButton">
+                <h1 className="inventory-title">Cadastro de Insumos</h1>
 
-            <div className="body-inventory">
-                <div className="titleButton">
-                    <h1 className="inventory-title">Cadastro de Insumos</h1>
-
-                    <LinkButton to="/cadastrarInsumo" state={ { categories: categories } } classNameButton="btnAdd">
-                        Inserir Novo Insumo
-                    </LinkButton>
-                </div>
-
-                { message && <Message type={typeMessage} message={message} /> }
-
-                <div className="filters">
-                    <SearchBar handleOnChange={handleFilterSuppliesByName} placeholder="Pesquise por um Insumo" />
-
-                    <Dropdown options={status}
-                        textDefault="Selecione um status"
-                        handleOnChange={handleFilterSuppliesByStatus}
-                        notSwitchValue/>
-                </div>
-                { isLoading ?
-                    <Loading />
-                    :
-                    <Tables
-                        itens={insumos}
-                        filterDropdownParams={filterDropdownParams}
-                        filterSearchParams={filterSearchParams}
-                        categorias={categories}
-                        buttonClickEvent={deleteInput}
-                    />
-                }
+                <LinkButton to="/cadastrarInsumo" state={ { categories: categories } } classNameButton="btnAdd">
+                    Inserir Novo Insumo
+                </LinkButton>
             </div>
-        </>
+
+            { message && <Message type={typeMessage} message={message} /> }
+
+            <div className="filters">
+                <SearchBar handleOnChange={handleFilterSuppliesByName} placeholder="Pesquise por um Insumo" />
+
+                <Dropdown options={status}
+                    textDefault="Selecione um status"
+                    handleOnChange={handleFilterSuppliesByStatus}
+                    notSwitchValue/>
+            </div>
+            { isLoading ?
+                <Loading />
+                :
+                <Tables
+                    itens={insumos}
+                    filterDropdownParams={filterDropdownParams}
+                    filterSearchParams={filterSearchParams}
+                    categorias={categories}
+                    buttonClickEvent={deleteInput}
+                />
+            }
+        </div>
     )
 }
 export default CadastrarInsumo

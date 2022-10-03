@@ -12,12 +12,12 @@ div.divSelect {
     flex-direction: column;
 }
 
-.label {
+label.label {
     padding: 0 10px;
     margin-bottom: 5px;
 }
 
-.select {
+select.select {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +27,11 @@ div.divSelect {
     padding: 5px 15px;
 }
 
-.select:focus{
+select.select, select.select option {
+    font-weight: 400;
+}
+
+select.select:focus{
     outline: none;
 }
 

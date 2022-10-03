@@ -6,7 +6,7 @@ div.divInput {
     width: 100%;
 }
 
-.input, .label {
+input.input, label.label {
     background: none;
     margin: 0;
     padding: 0 10px;
@@ -14,12 +14,12 @@ div.divInput {
     width: inherit;
 }
 
-.input:focus {
+input.input:focus {
     border: none;
     box-shadow: none;
     outline: none;
 }
 
-.label {
+label.label {
     margin-bottom: 5px;
 }
