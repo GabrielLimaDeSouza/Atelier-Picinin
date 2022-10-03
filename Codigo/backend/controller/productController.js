@@ -98,7 +98,7 @@ module.exports = {
         }
     },
     async updateProduct (req, res) {
-        console.log(req.body)
+        
         const id = req.params.id
         const descricaoProduto = req.body.updatedescricao
         const nomeProduto = req.body.updatenome
@@ -117,9 +117,9 @@ module.exports = {
             foto2,
             foto3,
         }
-        console.log(produto)
+        
         try {
-    
+            
             const updatedProduto = await Produto.updateOne({ _id: id }, produto)
 
             if(updatedProduto.matchedCount === 0){
@@ -137,12 +137,13 @@ module.exports = {
         const id = req.params.id
         const sabor = req.body.sabor
         const preco = req.body.preco
-        const indice =req.body.indice
+        const indice =req.body.indiceSabor
         const produto = {
             sabor,
             preco
         }
         try {
+            
             let produtoEspecifico = await Produto.findById(id)
             produtoEspecifico.sabores[indice].sabor = sabor
             produtoEspecifico.sabores[indice].preco = preco

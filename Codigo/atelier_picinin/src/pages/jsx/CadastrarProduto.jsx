@@ -162,6 +162,7 @@ const CadastrarProduto = () => {
             },
 
             body: JSON.stringify({
+                indiceSabor: indiceSabor,
                 sabor: document.getElementById("updateSabor").value,
                 preco: document.getElementById("updatePrecoSabor").value
             })
@@ -309,79 +310,7 @@ const CadastrarProduto = () => {
                 </div>
                 
 
-                <div class="modal fade"
-                    id="staticBackdrop"
-                    data-bs-backdrop="static"
-                    data-bs-keyboard="false"
-                    tabindex="-1"
-                    aria-labelledby="staticBackdropLabel"
-                    aria-hidden="true">
-
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">
-                                    Modal title
-                                </h5>
-
-                                <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close">
-                                </button>
-                            </div>
-
-                            <div class="modal-body">
-                                <div>
-                                    {message && <Message type="success" message={message} />}
-
-                                    <form
-                                        id="form"
-                                        className={styles.form}
-                                        onSubmit={event => updateProduto(number, event)}>
-                                        <label htmlFor="nome">Nome do Produto: </label>
-                                        <input type="text" name="updatenome" id="updateNome" />
-
-                                        <label htmlFor="descricao">Descrição do Produto:</label>
-                                        <input type="text" name="updatedescricao" id="updateDescricao" />
-
-                                        <label htmlFor="sabores">Sabor:</label>
-                                        <input type="text" name="updatesabor" id="updateSabor" />
-
-                                        <label htmlFor="preco">Preço:</label>
-                                        <input type="number" name="updatepreco" id="updatePreco" min="0" />
-
-                                        <label htmlFor="pedidoMinimo">Pedido Mínimo:</label>
-                                        <input type="number" name="updatepedidominproduto" id="updatePedidoMinProduto" min="0" />
-
-                                        <button type="reset" className="btnMais" id="btnMais">
-                                            <AiOutlinePlus />
-                                        </button>
-
-                                        <label htmlFor="foto1">Foto de capa:</label>
-                                        <input type="text" name="updatefoto1" id="updateFoto1" />
-
-                                        <label htmlFor="foto2">Segunda foto:</label>
-                                        <input type="text" name="updatefoto2" id="updateFoto2" />
-
-                                        <label htmlFor="foto3">Terceira foto:</label>
-                                        <input type="text" name="updatefoto3" id="updateFoto3" />
-
-                                        <div id="instasUpdate"></div>
-
-                                        <button type="submit" className="btn btn-warning" id="cadastrar">
-                                            Atualizar
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
+               
                 {
                     produtos.map(number =>
 
@@ -440,7 +369,7 @@ const CadastrarProduto = () => {
 
                             </ul>
                         </div>
-                    ) 
+                    )
                 }
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
