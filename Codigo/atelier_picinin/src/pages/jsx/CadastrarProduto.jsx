@@ -2,15 +2,16 @@ import '../css/products/CadastrarProduto.css'
 import styles from '../../components/css_components/Form.module.css'
 
 
+import Avaliacao from "../../components/layout/Avaliação"
+import Form from "../../components/products/FormCadastroProdutos"
+import Button from "../../components/layout/Button"
+import Message from "../../components/layout/Message"
 
 import { useLocation, useNavigate } from "react-router-dom"
-import Form from '../../components/products/FormCadastroProdutos'
-import CabecalhoAdmin from '../../components/layout/CabecalhoAdmin'
-import Button from '../../components/layout/Button'
-import Message from '../../components/layout/Message'
-import { useState, useEffect } from 'react'
-import { AiOutlinePlus } from 'react-icons/ai'
-import { BiTrash } from 'react-icons/bi'
+import { useState, useEffect } from "react"
+import { AiOutlinePlus } from "react-icons/ai"
+import { BiTrash } from "react-icons/bi"
+
 var sabores = []
 var lenghtSabor = 0
 var contadorSabor = 0
@@ -24,10 +25,10 @@ const CadastrarProduto = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch('http://localhost:3000/produto/getAllProducts', {
-            method: 'GET',
+        fetch(`${ url }/produto/getAllProducts`, {
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             }
         }).then(resp => resp.json())
             .then(data => setProdutos(data), console.log(produtos))
@@ -35,10 +36,10 @@ const CadastrarProduto = () => {
     }, [])
 
     useEffect(() => {
-        fetch('http://localhost:3000/produto/getAllSabores', {
-            method: 'GET',
+        fetch(`${ url }/produto/getAllSabores`, {
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             }
         }).then(resp => resp.json())
             .then(data => setSabor(data))
@@ -46,51 +47,51 @@ const CadastrarProduto = () => {
     }, [])
 
     var dadosJson
-    var arreyFotos = [];
-    var arreyFotosNovas = [];
+    var arreyFotos = []
+    var arreyFotosNovas = []
     var controle = 0
 
     useEffect(() => {
         const token = "IGQVJWSzRxV0IwS2kxbGVBd1dPanpISUpuSDk0V2loU29rV2dlNi0tOGhNZAGV5cVpscERJVkM5b1JQNndfZAzVhRG9WZADVJM1BkSi02ellGb1dqVklaaXRBWmRiTmhoWEVOV2U0cDBNNVh6cGMxQVpzUgZDZD"
         const url = "https://graph.instagram.com/me/media?access_token=" + token + "&fields=media_url,media_type,caption,permalink"
 
-        fetch(url, {
-            method: 'GET',
+        fetch(urlInstagram, {
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             }
-        }).then(resp => resp.json())
-            .then(data => {
-                if (controle == 0) {
-                    dadosJson = data.data
-                    for (let i = 0; (i < dadosJson.length && i < 10); i++) {
-                        var feed = dadosJson[0]
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            if (controle == 0) {
+                dadosJson = data.data
 
-                        var oImg = document.createElement("img");
-                        oImg.setAttribute('src', feed.media_url);
-                        oImg.setAttribute('alt', 'na');
-                        oImg.setAttribute('height', '100px');
-                        oImg.setAttribute('width', '100px');
-                        oImg.addEventListener("click", salvaImg.bind(null, feed.media_url))
-                        document.getElementById('instas').appendChild(oImg);
+                for (let i = 0; i < dadosJson.length && i < 10; i++) {
+                    var feed = dadosJson[0]
 
-                        var oImg = document.createElement("img");
-                        oImg.setAttribute('src', feed.media_url);
-                        oImg.setAttribute('alt', 'na');
-                        oImg.setAttribute('height', '100px');
-                        oImg.setAttribute('width', '100px');
-                        oImg.addEventListener("click", updateImg.bind(null, feed.media_url))
-                        document.getElementById('instasUpdate').appendChild(oImg);
-                    }
+                    var oImg = document.createElement("img")
+                    oImg.setAttribute("src", feed.media_url)
+                    oImg.setAttribute("alt", "na")
+                    oImg.setAttribute("height", "100px")
+                    oImg.setAttribute("width", "100px")
+                    oImg.addEventListener("click", salvaImg.bind(null, feed.media_url))
+                    document.getElementById("instas").appendChild(oImg)
+                    var oImg = document.createElement("img")
+                    oImg.setAttribute("src", feed.media_url)
+                    oImg.setAttribute("alt", "na")
+                    oImg.setAttribute("height", "100px")
+                    oImg.setAttribute("width", "100px")
+                    oImg.addEventListener("click", updateImg.bind(null, feed.media_url))
+                    document.getElementById("instasUpdate").appendChild(oImg)
                 }
+            }
 
-
-                controle = 1
-            })
-            .catch(err => console.error(err))
+            controle = 1
+        })
+        .catch((err) => console.error(err))
     }, [])
 
-    function handleSaboresProduto(sabor, e) {
+    function handleSaboresProduto(sabor) {
         if (sabor.length > 0) {
             sabores = sabor
             lenghtSabor = sabores.length
@@ -98,15 +99,17 @@ const CadastrarProduto = () => {
         } else {
             lenghtSabor = 0
         }
+
         console.log(sabores)
     }
 
     function createProduto(e) {
         e.preventDefault()
-        fetch(`http://localhost:3000/produto/registerProduct`, {
-            method: 'POST',
+
+        fetch(`${ url }/produto/registerProduct`, {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
 
             body: JSON.stringify({
@@ -133,9 +136,8 @@ const CadastrarProduto = () => {
         fetch(`http://localhost:3000/produto/updateProduct/${id}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
-
             body: JSON.stringify({
                 updatenome: document.getElementById("updateNome").value,
                 updatedescricao: document.getElementById("updateDescricao").value,
@@ -145,7 +147,7 @@ const CadastrarProduto = () => {
                 updatefoto2: document.getElementById("updateFoto2").value,
                 updatefoto3: document.getElementById("updateFoto3").value
             })
-        }).catch(err => console.error(err))
+        }).catch((err) => console.error(err))
 
         setMessage("Produto atualizado com sucesso!")
     }
@@ -188,26 +190,27 @@ const CadastrarProduto = () => {
     function idTrClicada(e) {
         const tr = e.target
         var element = tr.parentNode
-        while (element.id == false)
+        while (element.id == false) {
             element = element.parentNode
         return element.id
     }
 
     function deletProduct(e) {
-        e.preventDefault();
+        e.preventDefault()
         const id = idTrClicada(e)
 
-        fetch(`http://localhost:3000/produto/deleteProduct/${id}`, {
-            method: 'DELETE',
+        fetch(`${ url }/produto/deleteProduct/${ id }`, {
+            method: "DELETE",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             }
-        }).then(resp => resp.json())
-            .then(() => {
-                setProdutos(produtos.filter((produto) => produto.id !== id))
-                setMessage("Produto removido com sucesso!")
-            })
-            .catch(err => console.error(err))
+        })
+        .then((resp) => resp.json())
+        .then(() => {
+            setProdutos(produtos.filter((produto) => produto.id !== id))
+            setMessage("Produto removido com sucesso!")
+        })
+        .catch((err) => console.error(err))
     }
     function deleteSabor(id, indice) {
         
@@ -227,22 +230,21 @@ const CadastrarProduto = () => {
     }
     function salvaImg(imgLink) {
         if (arreyFotos.indexOf(imgLink) == null) {
-            arreyFotos.splice(arreyFotos.indexOf(imgLink), 1);
+            arreyFotos.splice(arreyFotos.indexOf(imgLink), 1)
         } else {
             arreyFotos.push(imgLink)
-            document.getElementById(`foto${arreyFotos.length}`).value = imgLink
+            document.getElementById(`foto${ arreyFotos.length }`).value = imgLink
         }
     }
 
     function updateImg(imgLink) {
         if (arreyFotosNovas.indexOf(imgLink) == null) {
-            arreyFotosNovas.splice(arreyFotosNovas.indexOf(imgLink), 1);
+            arreyFotosNovas.splice(arreyFotosNovas.indexOf(imgLink), 1)
         } else {
             arreyFotosNovas.push(imgLink)
-            document.getElementById(`foto${arreyFotosNovas.length}`).value = imgLink
+            document.getElementById(`foto${ arreyFotosNovas.length }`).value = imgLink
         }
     }
-
 
     function idProduto(id) {
         for (let i = 0; i < produtos.length; i++) {
@@ -265,33 +267,166 @@ const CadastrarProduto = () => {
         console.log(indice)
         deleteSabor(id,indice)
     }
+
     return (
         <>
-
-            <CabecalhoAdmin />
-
             <div className="body-product">
                 <h1 className="title">Cadastro de Produto</h1>
+
                 <div id="insta"></div>
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
                     Inserir Novo Produto
                 </button>
-                {message && <Message type="success" message={message} />}
-                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-scrollable">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Cadastrando Novo Produto</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div className="modal-body">
-                                {message && <Message type="success" message={message} />}
-                                <Form id="form" content={produtos} btnText="Cadastrar" classNameButton="btnCadastrar" onSubmitEvent={createProduto} onChangeEvent={handleSaboresProduto} />
 
+                { message && <Message type="success" message={ message } /> }
+
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-scrollable">
+                    <div className="modal-content">
+
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">
+                            Cadastrando Novo Produto
+                        </h5>
+
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div className="modal-body">
+                        { message && <Message type="success" message={ message } /> }
+
+                        <Form id="form" content={ produtos } btnText="Cadastrar"
+                            classNameButton="btnCadastrar"
+                            onSubmitEvent={ createProduto }
+                            onChangeEvent={ handleSaboresProduto }
+                        />
+                    </div>
+                </div>
+            </div>
+
+            </div>
+                { produtos.map(produto => (
+                    <div class="dropdown-center">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            { produto.nomeProduto }
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">SABOR</th>
+                                        <th scope="col">PREÇO</th>
+                                        <th scope="col">PEDIDO MÍNIMO</th>
+                                        <th scope="col">PRODUTO</th>
+                                        <th scope="col">Alterar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        { produto.sabores.map(sabores => (
+                                            <tr id={ produto._id  } key={ produto._id }>
+                                                <td>{ sabores.sabor }</td>
+                                                <td>{ sabores.preco }</td>
+                                                <td>{ produto.pedidoMinProduto }</td>
+                                                <td>
+                                                    <Button type="button"
+                                                        className="btnTrash"
+                                                        buttonClickEvent={ deletProduct }>
+
+                                                        <BiTrash />
+                                                    </Button>
+                                                </td>
+                                                <td>
+                                                <button type="button"
+                                                    class="btn btn-secondary"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#staticBackdrop"
+                                                    onClick={ event => idProduto(produto._id, event) }>
+
+                                                    Alterar
+                                                </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </li>
+                        </ul>
+                    </div>
+                ))}
+
+                <div class="modal fade"
+                    id="staticBackdrop"
+                    data-bs-backdrop="static"
+                    data-bs-keyboard="false"
+                    tabindex="-1"
+                    aria-labelledby="staticBackdropLabel"
+                    aria-hidden="true">
+
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">
+                                Modal title
+                            </h5>
+
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close">
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div>
+                                { message && <Message type="success" message={ message } /> }
+
+                                <form
+                                    id="form"
+                                    className={ styles.form }
+                                    onSubmit={ event => updateProduto(number, event) }>
+                                        <label htmlFor="nome">Nome do Produto: </label>
+                                        <input type="text" name="updatenome" id="updateNome" />
+
+                                        <label htmlFor="descricao">Descrição do Produto:</label>
+                                        <input type="text" name="updatedescricao" id="updateDescricao" />
+
+                                        <label htmlFor="sabores">Sabor:</label>
+                                        <input type="text" name="updatesabor" id="updateSabor" />
+
+                                        <label htmlFor="preco">Preço:</label>
+                                        <input type="number" name="updatepreco" id="updatePreco" min="0" />
+
+                                        <label htmlFor="pedidoMinimo">Pedido Mínimo:</label>
+                                        <input type="number" name="updatepedidominproduto" id="updatePedidoMinProduto" min="0" />
+
+                                        <button type="reset" className="btnMais" id="btnMais">
+                                            <AiOutlinePlus />
+                                        </button>
+
+                                        <label htmlFor="foto1">Foto de capa:</label>
+                                        <input type="text" name="updatefoto1" id="updateFoto1" />
+
+                                        <label htmlFor="foto2">Segunda foto:</label>
+                                        <input type="text" name="updatefoto2" id="updateFoto2" />
+
+                                        <label htmlFor="foto3">Terceira foto:</label>
+                                        <input type="text" name="updatefoto3" id="updateFoto3" />
+
+                                        <div id="instasUpdate"></div>
+
+                                        <button type="submit" className="btn btn-warning" id="cadastrar">
+                                            Atualizar
+                                        </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
 
@@ -436,5 +571,5 @@ const CadastrarProduto = () => {
         </>
     )
 }
-
+}
 export default CadastrarProduto

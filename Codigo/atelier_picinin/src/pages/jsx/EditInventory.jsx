@@ -1,12 +1,13 @@
 import '../css/inventory/EditInventory.css'
 
 import Form from '../../components/inventory/FormCadastroInsumos'
-import Cabecalho from '../../components/layout/CabecalhoAdmin'
 import Message from '../../components/layout/Message'
 import Loading from '../../components/layout/Loading'
 
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
+
+const url = "http://localhost:3000"
 
 const EditInvetory = () => {
     const { id } = useParams()
@@ -21,7 +22,7 @@ const EditInvetory = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            fetch(`http://localhost:3000/api/viewInputById?id=${id}`, {
+            fetch(`${url}/api/viewInputById?id=${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -46,7 +47,7 @@ const EditInvetory = () => {
             return false
         }
 
-        fetch(`http://localhost:3000/api/updateInput?id=${id}`, {
+        fetch(`${url}/api/updateInput?id=${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,29 +59,26 @@ const EditInvetory = () => {
     }
 
     return (
-        <>
-            <Cabecalho />
-            <div className="body-edit-inventory">
-                <h1 className="edit-title">Editar insumo</h1>
+        <div className="body-edit-inventory">
+            <h1 className="edit-title">Editar insumo</h1>
 
-                { message && <Message type={typeMessage} message={message} /> }
+            { message && <Message type={typeMessage} message={message} /> }
+            
+            { isLoading ?
+                <Loading />
+                :
+                <Form id="form"
+                    content={insumo}
+                    handleSubmit={handleEditInput}
+                    btnText="Alterar"
+                    classNameButton="btnCadastrar"
+                    selectOptions={categories}
+                    selectTextDefault="Selecione uma categoria"
+                    btnVoltar="/estoque"
+                />
                 
-                { isLoading ?
-                    <Loading />
-                    :
-                    <Form id="form"
-                        content={insumo}
-                        handleSubmit={handleEditInput}
-                        btnText="Alterar"
-                        classNameButton="btnCadastrar"
-                        selectOptions={categories}
-                        selectTextDefault="Selecione uma categoria"
-                        btnVoltar="/estoque"
-                    />
-                    
-                }
-            </div>
-        </>
+            }
+        </div>
     )
 }
 

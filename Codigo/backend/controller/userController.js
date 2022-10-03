@@ -3,12 +3,13 @@ const Usuario = require('../models/Usuario')
 
 module.exports = {
     async registerUser(req, res) {
-        const { nome, email, senha } = req.body
+        const { nome, email, senha, admin } = req.body
 
         const insumo = {
             nome,
             email,
             senha,
+            admin
         }
 
         for (let atributo in insumo) {

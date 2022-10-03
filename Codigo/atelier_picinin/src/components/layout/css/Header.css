@@ -1,3 +1,4 @@
+/**** Estilos cabeçalho ****/
 .div-header {
     display: flex;
     flex-wrap: wrap;
@@ -20,6 +21,7 @@
     justify-content: space-between;
     align-items: center;
     column-gap: 150px;
+
 }
 
 .menu {
@@ -34,12 +36,12 @@
     position: relative;
 }
 
-.menu > a::after, .menu > a.active::after {
+.menu > a.active::after {
     content: '';
     position: absolute;
     display: block;
     height: 2px;
-    width: 0%;
+    width: 100%;
     background-color: rgb(255, 92, 92);
     bottom: -5px;
 }
@@ -52,3 +54,16 @@
     font-size: 20px;
     margin: 0;
 }
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.buttons > a {
+    font-size: 25px;
+    border: 0;
+}
+/**** Fim estilos cabeçalho ****/
