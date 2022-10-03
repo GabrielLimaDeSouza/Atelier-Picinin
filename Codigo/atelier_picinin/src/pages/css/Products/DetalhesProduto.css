@@ -1,3 +1,20 @@
+.buttongroup {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.sabores {
+    margin-top: 20px;
+}
+
+.btncarrinho {
+    margin-top: 20px;
+}
+
+.informacoes {
+    margin-top: 50px;
+}
+
 /*  Estilos avaliação  */
 .btn-avaliar,
 .btn-enviar {

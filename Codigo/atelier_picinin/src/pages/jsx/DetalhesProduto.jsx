@@ -5,9 +5,10 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import oneStar from '../img/goldstar.png'
+import Message from "../../components/layout/Message"
 
 import { useState, useEffect } from 'react'
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import {useNavigate, useParams } from "react-router-dom"
 
 const url = "http://localhost:3000"
 
@@ -17,6 +18,7 @@ const DetalhesProduto = () => {
 
     const { id } = useParams()
     const [produto, setProduto] = useState([])
+    const [message, setMessage] = useState("")
 
     const [show, setShow] = useState(false);
 
@@ -63,16 +65,16 @@ const DetalhesProduto = () => {
             "nota": nota,
             "data": input.data },)
         }).then(resp => resp.json())
+        .then(handleClose)
+        .then(navigate(`/detalhesProduto/${id}`))
+        .then(setMessage("Avaliação cadastrada com sucesso!"))
         .catch(err => console.error(err))
-        .then(window.location.reload())
     }
 
     return (
         <div className='Body-detalhes-produto ' style={{ width: '100%', padding: '0rem 4rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <h1></h1>
-            </div>
             <div className="container">
+            { message && <Message type="success" message={ message } /> }
                 <div className="row gx-4 ">
                     <div className="col-md-6" style={{ paddingLeft: '0rem' }}>
                         <Carousel>
@@ -120,42 +122,41 @@ const DetalhesProduto = () => {
                     <div className='col-md-6' >
                         <div>
                             <h1>{ produto.nomeProduto }</h1>
-
                             <div>
-                                <span>4,6</span>
                                 <span><img src={oneStar} style={{ width: '12px', paddingBottom: '4px' }} /></span>
-                                <span>3 reviews</span>
+                                <span> 4,6</span><br/>
+                                <span> 3 reviews</span>
                             </div>
 
                             <span>R${produto.precoProduto} por unidade</span>
                         </div>
 
                         <div className="row gx-4 ">
-                            <div className="col-md-6">Sabores
+                            <div className="col-md-6 sabores">Sabores
                                 <div>
-                                    <ButtonGroup aria-label="Basic example" size='sm'>
-                                        <Button variant="secondary">Chocolate</Button>
-                                        <Button variant="secondary">Morango</Button>
-                                        <Button variant="secondary">Banana</Button>
+                                    <ButtonGroup aria-label="Basic example" size='sm' className='buttongroup'>
+                                        <Button variant="info">Morango</Button>
+                                        <Button variant="info">Abacaxi</Button>
+                                        <Button variant="info">Coco</Button>
                                     </ButtonGroup>
                                 </div>
                             </div>
 
                             <div className="col-md-6">
-                                <div>Quantidade
-                                    <input type="number" style={{ border: '1px solid black' }} step={produto.pedidoMinProduto} min={produto.pedidoMinProduto} />
+                                <div>Quantidade 
+                                    <input type="number" style={{ border: '1px solid black' }} step={produto.pedidoMinProduto} min={produto.pedidoMinProduto} className='inputnota'/>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <Button variant="outline-secondary">Adicionar no Carrinho</Button>{' '}
+                            <Button variant="outline-secondary" className='btncarrinho'>Adicionar no Carrinho</Button>{' '}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div style={{ width: '100%', padding: '0rem 4rem' }}>
+            <div style={{ width: '100%', padding: '0rem 4rem' }} className="informacoes">
                 <h1>Informações do Produto</h1>
                 <div>{ produto.descricaoProduto }</div>
             </div>
@@ -195,6 +196,7 @@ const DetalhesProduto = () => {
             </div>
         </div>
     )
+
 }
 
 export default DetalhesProduto
