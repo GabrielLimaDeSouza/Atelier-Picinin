@@ -37,11 +37,6 @@ function App() {
   useEffect(() => { 
     document.body.style.overflowY = menuVisible ? 'hidden' : 'auto'
   }, [menuVisible])
-
-  useEffect(() => { 
-    setWindowWidth(window.innerWidth) 
-    console.log(windowWidth)
-  }, [window.innerWidth])
   
   return (
       <div className="App">

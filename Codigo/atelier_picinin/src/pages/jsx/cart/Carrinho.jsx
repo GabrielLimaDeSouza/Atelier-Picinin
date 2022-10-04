@@ -8,8 +8,6 @@ import Progression from '../../../components/cart/modules/Progression'
 import { useState, useEffect } from 'react'
 
 const Carrinho = () => {
-    
-    
     const data = window.localStorage.getItem("user-cart")
     const [cartItems, setCartItems] = useState(data ? JSON.parse(data) : [])
     const [isLoading, setIsLoading] = useState(true)
@@ -22,6 +20,7 @@ const Carrinho = () => {
     
     useEffect(() => {
         var subtotal = 0
+        console.log(cartItems)
         cartItems.forEach(item => subtotal += item.precoTotal)
         setSubtotal(subtotal.toFixed(2))
 

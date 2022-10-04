@@ -19,7 +19,7 @@ const CartItemMobile = ({ content, handleEditCart }) => {
                             <h5>{ primeiraLetraMaiuscula(content.nome) }</h5>
 
                             <div className={styles.divSabores}>
-                                { content.sabores.map(sabor => <span className={ styles.sabores }>{ primeiraLetraMaiuscula(sabor) }</span> ) }
+                                <span className={ styles.sabores }>{ primeiraLetraMaiuscula(content.sabores) }</span>
                             </div>
                         </div>
 
