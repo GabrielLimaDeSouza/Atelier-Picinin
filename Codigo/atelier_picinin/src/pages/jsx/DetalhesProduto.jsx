@@ -6,9 +6,10 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import oneStar from '../img/goldstar.png'
 import Message from "../../components/layout/Message"
-
+import LinkButton from "../../components/layout/LinkButton";
 import { useState, useEffect } from 'react'
 import {useNavigate, useParams } from "react-router-dom"
+
 
 const url = "http://localhost:3000"
 
@@ -21,9 +22,11 @@ const DetalhesProduto = () => {
     const [message, setMessage] = useState("")
 
     const [show, setShow] = useState(false);
-
+    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [sabor, setSabores] = useState({});
+    const [isLoading, setLoading] = useState(true);
 
     const navigate = useNavigate()
 
@@ -36,7 +39,22 @@ const DetalhesProduto = () => {
         }).then(resp => resp.json())
             .then(data => setProduto(data))
             .catch(err => console.error(err))
+            setTimeout((() => setLoading(false)),300)
     }, [])
+
+    useEffect(() => {
+        console.log(produto)
+    },[produto])
+    function addProdutoCarrinho(){
+        const qtd = document.querySelector(".inputQtd")
+        let precoTotal = sabor.preco * parseInt(qtd.value);
+        const produtoTeste = {
+            _id: produto._id, img: produto.foto1, nome: produto.nomeProduto, preco: sabor.preco, quantidade: parseInt(qtd.value), precoTotal: precoTotal, sabores: sabor.sabor
+        }
+        window.localStorage.setItem("user-cart", JSON.stringify(produtoTeste))
+        navigate("/carrinho")
+    }
+    
 
     function handleClickStar(e) {
         var stars = document.querySelectorAll('.star-icon');
@@ -70,11 +88,17 @@ const DetalhesProduto = () => {
         .then(setMessage("Avaliação cadastrada com sucesso!"))
         .catch(err => console.error(err))
     }
+    function addSabor(sabores){
+        setSabores(sabores)
+        console.log(sabores)
+    }
 
     return (
+        
         <div className='Body-detalhes-produto ' style={{ width: '100%', padding: '0rem 4rem' }}>
             <div className="container">
             { message && <Message type="success" message={ message } /> }
+            {!isLoading && 
                 <div className="row gx-4 ">
                     <div className="col-md-6" style={{ paddingLeft: '0rem' }}>
                         <Carousel>
@@ -135,27 +159,25 @@ const DetalhesProduto = () => {
                             <div className="col-md-6 sabores">Sabores
                                 <div>
                                     <ButtonGroup aria-label="Basic example" size='sm' className='buttongroup'>
-                                        <Button variant="info">Morango</Button>
-                                        <Button variant="info">Abacaxi</Button>
-                                        <Button variant="info">Coco</Button>
+                                        {produto.sabores.map(sabores => <button onClick={() => addSabor(sabores)}> {sabores.sabor} </button>)}
                                     </ButtonGroup>
                                 </div>
                             </div>
 
                             <div className="col-md-6">
                                 <div>Quantidade 
-                                    <input type="number" style={{ border: '1px solid black' }} step={produto.pedidoMinProduto} min={produto.pedidoMinProduto} className='inputnota'/>
+                                    <input type="number" style={{ border: '1px solid black' }} step={produto.pedidoMinProduto} min={produto.pedidoMinProduto} className='inputQtd'/>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <Button variant="outline-secondary" className='btncarrinho'>Adicionar no Carrinho</Button>{' '}
+                            <Button onClick = {addProdutoCarrinho}  variant="outline-secondary" className='btncarrinho'>Adicionar no Carrinho</Button>{' '}
                         </div>
                     </div>
                 </div>
-            </div>
-
+}</div>
+{!isLoading && <>
             <div style={{ width: '100%', padding: '0rem 4rem' }} className="informacoes">
                 <h1>Informações do Produto</h1>
                 <div>{ produto.descricaoProduto }</div>
@@ -194,7 +216,7 @@ const DetalhesProduto = () => {
                     </Modal.Footer>
                 </Modal>
             </div>
-        </div>
+            </>} </div>
     )
 
 }

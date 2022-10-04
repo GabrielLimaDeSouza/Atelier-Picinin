@@ -8,17 +8,7 @@ import Progression from '../../../components/cart/modules/Progression'
 import { useState, useEffect } from 'react'
 
 const Carrinho = () => {
-    const mockup = [{ _id: 1111, img: "http://via.placeholder.com/150.png", nome: "Suspiro", sabores: ["sal", "chocolate"], preco: 12.90, quantidade: 6, precoTotal: 77.40 },
-    { _id: 2222, img: "http://via.placeholder.com/150.png", nome: "Goiabada", sabores: ["goiaba", "morango", "maça"], preco: 6.50, quantidade: 2, precoTotal: 11.20 },
-    { _id: 3333, img: "http://via.placeholder.com/150.png", nome: "Moranguinho", sabores: ["nutella", "wasabi", "gengibre", "tapioca"], preco: 8.95, quantidade: 5, precoTotal: 44.75 },
-    { _id: 4444, img: "http://via.placeholder.com/150.png", nome: "Bolo de sorvete", sabores: ["coca-cola", "baunilha", "ervilha"], preco: 15.00, quantidade: 3, precoTotal: 45.00 },
-    { _id: 5555, img: "http://via.placeholder.com/150.png", nome: "Doce de Leite", sabores: ["yorgut", "bacalhau"], preco: 24.50, quantidade: 1, precoTotal: 24.50 },
-    { _id: 6666, img: "http://via.placeholder.com/150.png", nome: "Petit Gâteau", sabores: ["açucar", "limão", "chocolate", "churrasco"], preco: 18.49, quantidade: 2, precoTotal: 36.98 },
-    { _id: 7777, img: "http://via.placeholder.com/150.png", nome: "Mousse de Maracujá", sabores: ["limão", "maracujá", "chocolate", "morango", "tomate"], preco: 5.95, quantidade: 4, precoTotal: 23.80 },
-    { _id: 8888, img: "http://via.placeholder.com/150.png", nome: "Brigadeiro", sabores: ["brigadeiro", "bis", "kit-kat"], preco: 3.00, quantidade: 25, precoTotal: 75.00 },
-    { _id: 9999, img: "http://via.placeholder.com/150.png", nome: "Pudim", sabores: ["leite", "leite condensado moça", "creme de avelã"], preco: 25.00, quantidade: 1, precoTotal: 25.00 }
-]
-    window.localStorage.setItem("user-cart", JSON.stringify(mockup))
+    
     
     const data = window.localStorage.getItem("user-cart")
     const [cartItems, setCartItems] = useState(data ? JSON.parse(data) : [])

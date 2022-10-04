@@ -24,7 +24,7 @@ function App() {
   const idClient = "63322d88207cc8eeb929f645"
 
   useEffect(() => {
-    fetch(`${ url }/api/user/getUserById?id=${ idAdmin }`, {
+    fetch(`${ url }/api/user/getUserById?id=${ idClient }`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json'
