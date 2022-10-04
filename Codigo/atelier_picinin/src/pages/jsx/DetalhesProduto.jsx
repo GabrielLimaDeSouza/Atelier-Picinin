@@ -5,10 +5,12 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import oneStar from '../img/goldstar.png'
+import Compavaliacao from '../../components/layout/Avaliação'
 import Message from "../../components/layout/Message"
 import LinkButton from "../../components/layout/LinkButton";
 import { useState, useEffect } from 'react'
 import {useNavigate, useParams } from "react-router-dom"
+import avaliacao from '../../components/layout/Avaliação';
 
 
 const url = "http://localhost:3000"
@@ -19,6 +21,7 @@ const DetalhesProduto = () => {
 
     const { id } = useParams()
     const [produto, setProduto] = useState([])
+    const [avaliacoes, setAvaliacoes] = useState([])
     const [message, setMessage] = useState("")
 
     const [show, setShow] = useState(false);
@@ -40,6 +43,16 @@ const DetalhesProduto = () => {
             .then(data => setProduto(data))
             .catch(err => console.error(err))
             setTimeout((() => setLoading(false)),300)
+    }, [])
+    useEffect(() => {
+        fetch(`http://localhost:3000/rating/viewAllRatings`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json())
+            .then(data => setAvaliacoes(data))
+            .catch(err => console.error(err))
     }, [])
 
     useEffect(() => {
@@ -182,8 +195,8 @@ const DetalhesProduto = () => {
                 <h1>Informações do Produto</h1>
                 <div>{ produto.descricaoProduto }</div>
             </div>
-
-            <div className="avaliacao">
+        
+            <div className="ulavaliacao">
                 <Button className="btn-avaliar" variant="primary" onClick={handleShow}>
                     Avaliar
                 </Button>
@@ -197,7 +210,7 @@ const DetalhesProduto = () => {
                         <label htmlFor="comentario">Comentario:</label>
                         <input type="text" name="comentario" id="comentario" required/>
                         <p>Nota:</p>
-                        <ul className="avaliacao">
+                        <ul className="ulavaliacao">
                             <li className="star-icon ativo" data-avaliacao="1" onClick={handleClickStar}></li>
                             <li className="star-icon" data-avaliacao="2" onClick={handleClickStar}></li>
                             <li className="star-icon" data-avaliacao="3" onClick={handleClickStar}></li>
@@ -215,6 +228,7 @@ const DetalhesProduto = () => {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+                
             </div>
             </>} </div>
     )

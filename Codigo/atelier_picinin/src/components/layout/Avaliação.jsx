@@ -10,7 +10,7 @@ const avaliacao = ({nota, avaliador, comentario}) => {
         <>
 
             <div className="flex">
-                <div className="avaliador"><p className="avaliador">{avaliador}</p></div>
+                <div className="avaliador">{avaliador}</div>
                 <div >
                     {
                         nota == 1 ? (
@@ -57,8 +57,9 @@ const avaliacao = ({nota, avaliador, comentario}) => {
 
 
 
-                <div>{comentario} </div>
+                <div><p>{comentario}</p> </div>
             </div>
+            <hr />
         </>
     )
 }
