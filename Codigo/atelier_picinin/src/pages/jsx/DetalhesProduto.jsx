@@ -156,7 +156,7 @@ const DetalhesProduto = () => {
                                     <span>3 reviews</span>
                                 </div>
 
-                                <span>R${produto.precoProduto} por unidade</span>
+                                <span><b>R$ {produto.preco}</b> por unidade</span>
                             </div>
 
                             <div className="row gx-4 ">

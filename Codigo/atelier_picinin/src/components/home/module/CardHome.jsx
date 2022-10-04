@@ -13,7 +13,7 @@ const CardHome = ({produtos, key}) => {
         <div className={styles["card-body"]}>
             <h5 className={styles["card-title"]}>{produtos.nomeProduto}</h5>
             <p className={styles["card-text"]}><AiFillStar className={styles.estrela} /></p>
-            <p>R${produtos.precoProduto} <span>por unidade</span></p>
+            <p>R${produtos.preco} <span>por unidade</span></p>
         </div>
     </div>
     </Link>

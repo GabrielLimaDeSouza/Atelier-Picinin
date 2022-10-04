@@ -24,7 +24,7 @@ function App() {
   const idClient = "63322d88207cc8eeb929f645"
 
   useEffect(() => {
-    fetch(`${ url }/api/user/getUserById?id=${ idClient }`, {
+    fetch(`${ url }/api/user/getUserById?id=${ idAdmin }`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json'
@@ -32,6 +32,8 @@ function App() {
   }).then(resp => resp.json())
   .then(data => setUser(data))
   .catch(err => console.error(err))
+
+  setWindowWidth(window.innerWidth)
   }, [])
 
   useEffect(() => { 

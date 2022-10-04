@@ -68,10 +68,10 @@ const Carrinho = () => {
 
         const summaryContent = document.querySelector('div.summaryContent')
 
-        !summaryContent.classList.contains('hidden') ?
-            summaryContent.classList.remove('hidden')
+        !summaryContent.classList.contains('show') ?
+            summaryContent.classList.add('show')
         :
-            setTimeout(() => summaryContent.classList.add('hidden'), 300)
+            setTimeout(() => summaryContent.classList.remove('show'), 300)
     }
 
     return (

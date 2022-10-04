@@ -41,7 +41,7 @@ const [preco, setPreco] = useState("")
             <label htmlFor="">Nome do sabor:</label>
             <input  type="text" onChange={handleSabor} className="tags-input" id='sabor' name='sabor'/>
             <label htmlFor="">Preco do sabor:</label>
-            <input  type="text" onChange={handlePreco} className="tags-input" id='preco' name= 'preco'/>
+            <input  type="number" onChange={handlePreco} className="tags-input" id='preco' name= 'preco'/>
 
             <button type='button' onClick={handleKeyDown}>Confirmar</button>
         </div>

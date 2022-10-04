@@ -31,9 +31,9 @@ const CadastrarProduto = () => {
                 "Content-Type": "application/json"
             }
         }).then(resp => resp.json())
-            .then(data => setProdutos(data), console.log(produtos))
+            .then(data => setProdutos(data))
             .catch(err => console.error(err))
-    }, [])
+    })
 
     useEffect(() => {
         fetch(`${url}/produto/getAllSabores`, {
@@ -52,7 +52,8 @@ const CadastrarProduto = () => {
     var controle = 0
 
     useEffect(() => {
-        const token = "IGQVJWSzRxV0IwS2kxbGVBd1dPanpISUpuSDk0V2loU29rV2dlNi0tOGhNZAGV5cVpscERJVkM5b1JQNndfZAzVhRG9WZADVJM1BkSi02ellGb1dqVklaaXRBWmRiTmhoWEVOV2U0cDBNNVh6cGMxQVpzUgZDZD"
+        const aiosdo = "IGQVJWVUM0Vk5ZAWUNXb3BzR01nT2daXzlObXZAremJBRzZAqV1R6SHR5N1Y5aVBNa1k4WnkwV1kzcllRWXFGVEtwaV9CM2xRQjNCNUFHcG9hNlJnOTdGWDV6TWFNa3BlS05jY0J1OGE5ZA18zbU1mdEx2SAZDZD"
+        const token = ""
         const urlInsta = "https://graph.instagram.com/me/media?access_token=" + token + "&fields=media_url,media_type,caption,permalink"
 
         fetch(urlInsta, {
@@ -132,7 +133,7 @@ const CadastrarProduto = () => {
     }
     function updateProduto(e) {
         e.preventDefault()
-        let produto = idTrClicada(e)
+        
         fetch(`http://localhost:3000/produto/updateProduct/${id}`, {
             method: 'PATCH',
             headers: {
@@ -141,8 +142,8 @@ const CadastrarProduto = () => {
             body: JSON.stringify({
                 updatenome: document.getElementById("updateNome").value,
                 updatedescricao: document.getElementById("updateDescricao").value,
-                updatepreco: document.getElementById("updatePreco").value,
-                updatepedidoMinProduto: document.getElementById("updatePedidoMinProduto").value,
+                updatepreco: parseInt(document.getElementById("updatePreco").value),
+                updatepedidoMinProduto: parseInt(document.getElementById("updatePedidoMinProduto").value),
                 updatefoto1: document.getElementById("updateFoto1").value,
                 updatefoto2: document.getElementById("updateFoto2").value,
                 updatefoto3: document.getElementById("updateFoto3").value
@@ -392,7 +393,7 @@ const CadastrarProduto = () => {
                                         <label htmlFor="preco">Preço:</label>
                                         <input type="number" name="updatepreco" id="updatePreco" min="0" />
                                         <label htmlFor="pedidoMinimo">Pedido Mínimo:</label>
-                                        <input type="number" name="updatepedidominproduto" id="updatePedidoMinProduto" min="0" />
+                                        <input type="text" name="updatepedidominproduto" id="updatePedidoMinProduto" min="0" />
                                         <label htmlFor="foto1">Foto de capa:</label>
                                         <input type="text" name="updatefoto1" id="updateFoto1" />
                                         <label htmlFor="foto2">Segunda foto:</label>
@@ -400,7 +401,7 @@ const CadastrarProduto = () => {
                                         <label htmlFor="foto3">Terceira foto:</label>
                                         <input type="text" name="updatefoto3" id="updateFoto3" />
                                         <div id='instasUpdate'></div>
-                                        <button type="submit" className="btn btn-warning " id='cadastrar' >Atualizar</button>
+                                        <button type="submit" className="btn btn-warning" id='cadastrar' data-bs-dismiss="modal">Atualizar</button>
                                     </form>
                                 </div>
                             </div>
@@ -422,7 +423,7 @@ const CadastrarProduto = () => {
                                     <label htmlFor="nome">Sabor: </label>
                                     <input type="text" name="updateSabor" id="updateSabor" />
                                     <label htmlFor="descricao">Preço:</label>
-                                    <input type="number" name="updatePreco" id="updatePrecoSabor" />
+                                    <input type="number" name="updatePrecoSabor" id="updatePrecoSabor" />
                                     <button type="submit" className="btn btn-warning " id='cadastrar' >Atualizar</button>
                                 </form>
                             </div>

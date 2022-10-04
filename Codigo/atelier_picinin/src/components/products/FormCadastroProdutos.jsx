@@ -9,7 +9,6 @@ const Form = ({ action, method, id, btnText, classNameButton, onClickEvent, onSu
         <form className={styles.form} action={action} method={method} id={id && (id) } onSubmit={onSubmitEvent}>
             <Input type="text" name="nome" id="nome" htmlFor="nome" textLabel={"Nome do Produto:"} required />
             <Input type="text" name="descricao" id="descricao" htmlFor="descricao" textLabel={"Descrição do Produto:"} required />
-            <Input type="text" name="sabor" id="sabor" htmlFor="sabor" textLabel={"Sabores:"} required />
             
             <Input type="number" name="preco" id="preco" min="0" htmlFor="preco" textLabel={"Preço:"} required />
             <InputBox handleSaboresProduto={onChangeEvent}/>

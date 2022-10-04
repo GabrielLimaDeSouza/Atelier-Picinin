@@ -102,7 +102,7 @@ module.exports = {
         const id = req.params.id
         const descricaoProduto = req.body.updatedescricao
         const nomeProduto = req.body.updatenome
-        const precoProduto = req.body.updatepreco
+        const preco = req.body.updatepreco
         const pedidoMinProduto = req.body.updatepedidoMinProduto
         const foto1 = req.body.updatefoto1
         const foto2 = req.body.updatefoto2
@@ -111,13 +111,12 @@ module.exports = {
         const produto = {
             nomeProduto,
             descricaoProduto,
-            precoProduto,
+            preco,
             pedidoMinProduto,
             foto1,
             foto2,
             foto3,
         }
-        
         try {
             
             const updatedProduto = await Produto.updateOne({ _id: id }, produto)
