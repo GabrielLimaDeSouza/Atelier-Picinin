@@ -12,6 +12,7 @@ import Carrinho from './pages/jsx/cart/Carrinho'
 import AdicionarEndereco from './pages/jsx/cart/AdicionarEndereco'
 import Cabecalho from './components/layout/Header'
 import MenuMobile from './components/layout/MenuMobile'
+import Login from './pages/jsx/Login'
 import { useEffect, useState } from 'react'
 
 const url = "http://localhost:3000"
@@ -57,6 +58,7 @@ function App() {
           <Route path='/detalhesProduto/:id' element={ <DetalhesProduto /> }></Route>
           <Route path='/carrinho' element={ <Carrinho /> }></Route>
           <Route path='/adicionarEndereco' element={ <AdicionarEndereco /> }></Route>
+          <Route path='/login' element={ <Login /> }></Route>
         </Routes>
         <Outlet/>
 

@@ -52,8 +52,7 @@ const CadastrarProduto = () => {
     var controle = 0
 
     useEffect(() => {
-        const aiosdo = "IGQVJWVUM0Vk5ZAWUNXb3BzR01nT2daXzlObXZAremJBRzZAqV1R6SHR5N1Y5aVBNa1k4WnkwV1kzcllRWXFGVEtwaV9CM2xRQjNCNUFHcG9hNlJnOTdGWDV6TWFNa3BlS05jY0J1OGE5ZA18zbU1mdEx2SAZDZD"
-        const token = ""
+        const token = "IGQVJVTDd5dnpzWlhnWVAwTlR4cFZAvTEY1MnNKci1oczBnRDFDejhrSGRSOEJFQUc4Q1lQZAHBCOTBqS25YMm5QcS1qSC1GZAXRFSVdxNlJ1cm5IUzU2THAyaW53UDh4eE5Ea2FtRGN3X3AteFZAnQURZAagZDZD"
         const urlInsta = "https://graph.instagram.com/me/media?access_token=" + token + "&fields=media_url,media_type,caption,permalink"
 
         fetch(urlInsta, {
@@ -363,7 +362,7 @@ const CadastrarProduto = () => {
                                                 <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => { setId(number._id), idProduto(number._id) }}>
                                                     Alterar
                                                 </button></td>
-                                                <td colspan="2"><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onClick={() => { setId(number._id) }}>
+                                                <td colSpan="2"><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onClick={() => { setId(number._id) }}>
                                                     Adicionar sabor
                                                 </button></td>
                                             </tr>

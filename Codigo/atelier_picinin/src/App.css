@@ -30,6 +30,7 @@ body, html {
 
 .App > div {
     padding: 100px 0;
+    width: 100%;
 }
 
 @media (max-width: 600px) {

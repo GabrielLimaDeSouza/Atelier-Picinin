@@ -102,7 +102,7 @@ const DetalhesProduto = () => {
         !isLoading ?
             <div className='body-detalhes-produto ' style={{ width: '100%', padding: '0rem 4rem' }}>
                 <div className="container">
-                { message && <Message type="success" message={ message } /> }
+                
                     <div className="row gx-4 ">
                         <div className="col-md-6" style={{ paddingLeft: '0rem' }}>
                             <Carousel>
@@ -186,16 +186,22 @@ const DetalhesProduto = () => {
                     <h1>Informações do Produto</h1>
                     <div>{ produto.descricaoProduto }</div>
                 </div>
-            
-                <div className="ulavaliacao">
-                    <Button className="btn-avaliar" variant="primary" onClick={handleShow}>
+
+                { message && <Message type="success" message={ message } /> }
+
+                <Button className="btn-avaliar" variant="primary" onClick={handleShow}>
                         Avaliar
                     </Button>
-                    { avaliacoes.map(avaliacao =>
+
+                { avaliacoes.map(avaliacao =>
                         avaliacao.produto == produto._id && 
                             <Compavaliacao nota={avaliacao.nota} comentario={avaliacao.comentario} avaliador={avaliacao.cliente}/>
                         )
                     }
+            
+                <div className="ulavaliacao">
+                    
+                    
                     <Modal show={show} onHide={handleClose} centered>
                         <Modal.Header closeButton>
                             <Modal.Title>Realizar Avaliação</Modal.Title>
