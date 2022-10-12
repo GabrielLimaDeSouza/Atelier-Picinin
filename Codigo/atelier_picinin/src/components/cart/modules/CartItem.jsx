@@ -18,7 +18,7 @@ const CartItem = ({ content, handleEditCart }) => {
                     <h5 className={ styles.productTitle }>{ primeiraLetraMaiuscula(content.nome) }</h5>
 
                     <div className={styles.divSabores}>
-                        <span className={ styles.sabores }>{ primeiraLetraMaiuscula(content.sabores) }</span>
+                        <span className={ styles.sabor }>{ primeiraLetraMaiuscula(content.sabor) }</span>
                     </div>
                 </div>
             </div>

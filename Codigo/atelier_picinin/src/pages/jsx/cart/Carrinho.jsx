@@ -29,7 +29,7 @@ const Carrinho = () => {
 
     function editCartItem(array, id, attribute, value) {
         const cartItemUpdated = array.reduce((acc, o) => {
-            let obj = (id == o._id) ? Object.assign(o, o[attribute] = value) : o
+            let obj = (id == o.idCarrinho) ? Object.assign(o, o[attribute] = value) : o
             acc.push(obj)
             return acc
         }, [])
@@ -38,22 +38,22 @@ const Carrinho = () => {
     }
 
     function handleEditQuantity(item, className) {
-        const id = item._id
+        const id = item.idCarrinho
         let editedCart
 
         switch(className) {
             case "add-quantity":
-                editedCart = editCartItem(cartItems, id, "quantidade", item.quantidade + 1)
+                editedCart = editCartItem(cartItems, id, "quantidade", item.quantidade + item.pedidoMinProduto)
 
                 break
         
             case "remove-quantity":
-                editedCart = (item.quantidade > 1) && editCartItem(cartItems, id, "quantidade", item.quantidade - 1)
+                editedCart = (item.quantidade > item.pedidoMinProduto) && editCartItem(cartItems, id, "quantidade", item.quantidade - item.pedidoMinProduto)
 
                 break
             
             case "remove-button":
-                editedCart = cartItems.filter(item => item._id != id)
+                editedCart = cartItems.filter(item => item.idCarrinho != id)
                 
                 break
         }
