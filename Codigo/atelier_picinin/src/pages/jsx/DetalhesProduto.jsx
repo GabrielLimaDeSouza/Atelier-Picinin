@@ -62,14 +62,23 @@ const DetalhesProduto = () => {
     function addProdutoCarrinho(){
         let precoTotal = sabores.preco * quantidade
 
-        const produtoCarrinho = {
-            _id: produto._id, img: produto.foto1, nome: produto.nomeProduto, preco: sabores.preco, quantidade: quantidade, precoTotal: precoTotal, sabores: sabores.sabor
-        }
-
         const data = window.localStorage.getItem("user-cart")
         const carrinho = data ? JSON.parse(data) : []
 
-        carrinho.push(produtoCarrinho)
+        sabores.forEach(sabor => {
+            if(!carrinho.find(produto => produto.sabores === sabor.sabor)) {
+                carrinho.push({
+                    _id: produto._id,
+                    img: produto.foto1,
+                    nome: produto.nomeProduto,
+                    preco: sabor.preco,
+                    quantidade: quantidade,
+                    precoTotal: precoTotal,
+                    sabores: sabor.sabor
+                })
+            }
+        })
+
         window.localStorage.setItem("user-cart", JSON.stringify(carrinho))
 
         navigate("/carrinho")
