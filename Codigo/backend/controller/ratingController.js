@@ -65,7 +65,7 @@ module.exports = {
 
     async viewRatingById(req, res) {
         const id = req.query.id
-        const inputById = await Avaliacao.findById(id)
+        const inputById = await Avaliacao.find({ produto: id })
 
         if (!inputById) {
             res.status(422).json({ message: "Avaliação não encontrada" })

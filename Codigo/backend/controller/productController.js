@@ -1,10 +1,10 @@
-const { json } = require("express");
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
+
 const Produto = require('../models/Produto');
 const Sabor = require('../models/Sabores')
-var sabores
+
 module.exports = {
     async productRegister(req, res){
         
@@ -20,6 +20,7 @@ module.exports = {
             res.status(422).json({ error: "Campos obrigatórios" })
             return
         }
+
         const sabores = req.body.sabores
         console.log(sabores)
 
@@ -33,24 +34,20 @@ module.exports = {
             foto3: foto3, 
             sabores: sabores
         }
-        console.log("Produto")
-        console.log(produto)
         
-        
-        try{
-
+        try {
             await Produto.create(produto)
             res.status(201).json({ message: "Produto cadastado com sucesso!" })
-        }catch(error){
+        } catch(error) {
             res.status(500).json({error: error})
         }
     },
+
     async saborRegister(req, res){
-        
         const nomeProduto = req.body.nome
         const saboresProduto = req.body.sabores
         
-        if(!nomeProduto && !saboresProduto){
+        if (!nomeProduto && !saboresProduto) {
             res.status(422).json({ error: "Campos obrigatórios" })
             return
         }
@@ -59,46 +56,46 @@ module.exports = {
             nomeProduto,
             saboresProduto
         }
-        
-        
-        
-        
-        try{
-            
+
+        try {
             await Sabor.create(jsonSabor)
             res.status(201).json({ message: "Produto cadastado com sucesso!" })
-        }catch(error){
+        } catch(error) {
             res.status(500).json({error: error})
         }
     },
+
     async productGetAll(req, res){
-        try{
+        try {
             const produtos = await Produto.find()
             res.status(200).json(produtos)
-        }catch(error){
+        } catch(error) {
             res.status(500).json({error: error})
         }
     },
-    async saboresGetAll(req,res){
-        try{
+
+    async saboresGetAll(req, res){
+        try {
             const sabores = await Sabor.find()
             
             res.status(200).json(sabores)
-        }catch(error){
+        } catch(error) {
             res.status(500).json({error: error})
         }
     },
+
     async productGetById(req,res){
-        try{
+        try {
             const id = req.params.id
             const produtoEspecifico = await Produto.findById(id)
+
             res.status(200).json(produtoEspecifico)
-        }catch(error){
+        } catch(error) {
             res.status(500).json({error: error})
         }
     },
+
     async updateProduct (req, res) {
-        
         const id = req.params.id
         const descricaoProduto = req.body.updatedescricao
         const nomeProduto = req.body.updatenome
@@ -117,8 +114,8 @@ module.exports = {
             foto2,
             foto3,
         }
+
         try {
-            
             const updatedProduto = await Produto.updateOne({ _id: id }, produto)
 
             if(updatedProduto.matchedCount === 0){
@@ -131,22 +128,25 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     },
+
     async updateSabor (req, res) {
-        
         const id = req.params.id
         const sabor = req.body.sabor
         const preco = req.body.preco
         const indice =req.body.indiceSabor
+
         const produto = {
             sabor,
             preco
         }
+
         try {
-            
             let produtoEspecifico = await Produto.findById(id)
             produtoEspecifico.sabores[indice].sabor = sabor
             produtoEspecifico.sabores[indice].preco = preco
+
             const updatedProduto = await Produto.updateOne({ _id: id }, produtoEspecifico)
+
             if(updatedProduto.matchedCount === 0){
                 res.status(422).json({ message: "produto não encontrado" })
                 return
@@ -157,19 +157,23 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     },
+
     async createSabor (req, res) {
-        
         const id = req.params.id
         const sabor = req.body.sabor
         const preco = req.body.preco
+
         const produto = {
             sabor,
             preco
         }
+
         try {
             let produtoEspecifico = await Produto.findById(id)
             produtoEspecifico.sabores.push(produto)
+
             const updatedProduto = await Produto.updateOne({ _id: id }, produtoEspecifico)
+
             if(updatedProduto.matchedCount === 0){
                 res.status(422).json({ message: "produto não encontrado" })
                 return
@@ -180,6 +184,7 @@ module.exports = {
             res.status(500).json({ error: error })
         }
     },
+
     async deleteProduct(req, res) {
         const id = req.params.id
         const productById = await Produto.findById(id)
@@ -190,7 +195,6 @@ module.exports = {
         }
 
         try {
-            
             await Produto.deleteOne({ _id: id })
              
             res.status(200).json({ message: "Produto apagado com sucesso" })
@@ -200,15 +204,15 @@ module.exports = {
     },
 
     async deleteSabor (req, res) {
-        
-        const id= req.params.id
-        const indice= req.body.indiceSabor
+        const id = req.params.id
+        const indice = req.body.indiceSabor
+
         try {
             let produtoEspecifico = await Produto.findById(id)
-            produtoEspecifico.sabores.splice(indice, indice+1)
+            produtoEspecifico.sabores.splice(indice, indice + 1)
+
             const updatedProduto = await Produto.updateOne({ _id: id }, produtoEspecifico)
-            console.log(indice)
-            console.log(produtoEspecifico)
+            
             if(updatedProduto.matchedCount === 0){
                 res.status(422).json({ message: "produto não encontrado" })
                 return

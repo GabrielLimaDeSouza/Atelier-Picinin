@@ -1,16 +1,16 @@
 import '../css/Products/DetalhesProduto.css'
 
-import Carousel from 'react-bootstrap/Carousel';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Modal from 'react-bootstrap/Modal';
-import oneStar from '../img/goldstar.png'
+import Carousel from 'react-bootstrap/Carousel'
+import Button from '../../components/layout/Button'
+import Modal from 'react-bootstrap/Modal'
+import ButtonModal from 'react-bootstrap/Button'
 import Compavaliacao from '../../components/layout/Avaliação'
 import Message from "../../components/layout/Message"
+import Loading from '../../components/layout/Loading'
+
+import { IoStar, IoStarOutline, IoStarHalf } from 'react-icons/io5'
 import { useState, useEffect } from 'react'
 import {useNavigate, useParams } from "react-router-dom"
-import avaliacao from '../../components/layout/Avaliação'
-import Loading from '../../components/layout/Loading'
 
 const url = "http://localhost:3000"
 
@@ -22,8 +22,10 @@ const DetalhesProduto = () => {
     const [avaliacoes, setAvaliacoes] = useState([])
     const [message, setMessage] = useState("")
     const [show, setShow] = useState(false)
-    const [sabor, setSabor] = useState({})
+    const [sabores, setSabores] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [media, setMedia] = useState(0.0)
+    const [quantidade, setQuantidade] = useState(0)
 
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
@@ -36,11 +38,14 @@ const DetalhesProduto = () => {
                 'Content-Type': 'application/json'
             }
         }).then(resp => resp.json())
-        .then(data => setProduto(data))
+        .then(data => {
+            setProduto(data)
+            setQuantidade(data.pedidoMinProduto)
+        })
         .then(setTimeout(() => setIsLoading(false), 300))
         .catch(err => console.error(err))
 
-        fetch(`http://localhost:3000/rating/viewAllRatings`, {
+        fetch(`http://localhost:3000/rating/viewRatingById?id=${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -50,27 +55,47 @@ const DetalhesProduto = () => {
         .catch(err => console.error(err))
     }, [])
 
+    useEffect(() => {
+        setMedia(mediaNotas)
+    }, [avaliacoes])
+
     function addProdutoCarrinho(){
-        const qtd = document.querySelector(".inputQtd")
-        let precoTotal = sabor.preco * parseInt(qtd.value);
+        let precoTotal = sabores.preco * quantidade
+
         const produtoCarrinho = {
-            _id: produto._id, img: produto.foto1, nome: produto.nomeProduto, preco: sabor.preco, quantidade: parseInt(qtd.value), precoTotal: precoTotal, sabores: sabor.sabor
+            _id: produto._id, img: produto.foto1, nome: produto.nomeProduto, preco: sabores.preco, quantidade: quantidade, precoTotal: precoTotal, sabores: sabores.sabor
         }
+
         const data = window.localStorage.getItem("user-cart")
         const carrinho = data ? JSON.parse(data) : []
+
         carrinho.push(produtoCarrinho)
         window.localStorage.setItem("user-cart", JSON.stringify(carrinho))
 
         navigate("/carrinho")
     }
 
+    function handleAddSabores(saborParam) {
+        const saboresOptions = document.querySelectorAll('span.option-sabor')
+        const saborSelected = Array.from(saboresOptions).find(selected => selected.textContent == saborParam.sabor)
+
+        if(!sabores.find(saborHook => saborHook.sabor === saborParam.sabor)) {
+            setSabores(sabores => [...sabores, { sabor: saborParam.sabor, preco: saborParam.preco }])
+
+            saborSelected.classList.add("selected")
+        } else {
+            setSabores(sabores.filter(sabor => sabor.sabor != saborParam.sabor))
+            saborSelected.classList.remove("selected")
+        }
+    }
+
     function handleClickStar(e) {
-        var stars = document.querySelectorAll('.star-icon');
-        var classStar = e.target.classList;
+        var stars = document.querySelectorAll('.star-icon')
+        var classStar = e.target.classList
+
         if (!classStar.contains('ativo')) {
-            stars.forEach(function (star) {
-                star.classList.remove('ativo')
-            })
+            stars.forEach((star) => star.classList.remove('ativo'))
+
             classStar.add('ativo') 
 
             nota = e.target.getAttribute('data-avaliacao')
@@ -98,138 +123,180 @@ const DetalhesProduto = () => {
         .catch(err => console.error(err))
     }
 
+    function addQuantity() {
+        setQuantidade(quantidade + produto.pedidoMinProduto)
+    }
+
+    function decrementQuantity() {
+        if(quantidade >= produto.pedidoMinProduto)
+            setQuantidade(quantidade - produto.pedidoMinProduto)
+    }
+
+    function mediaNotas() {
+        var media = 0
+
+        avaliacoes.forEach(avaliacao => {
+            media += avaliacao.nota
+        })
+
+        return (media / avaliacoes.length).toFixed(1)
+    }
+
+    function isFloat(x) {
+        if(!isNaN(x)) {
+            if(parseInt(x) != parseFloat(x)) {
+                return true;
+          }
+        }   
+        
+        return false;
+    }
+
+    const estrelas = []
+
+    let i = 1;
+
+    while(i <= Math.floor(media)) {
+        estrelas.push(<li className="star"><IoStar className="star" /></li>)
+        i++
+    }
+
+    for(let w = i; w <= 5; w++) {
+        estrelas.push(<li className="star"><IoStarOutline /></li>)
+    }
+
+    if(isFloat(media)) {
+        estrelas[Math.floor(media)] = <li className="star"><IoStarHalf className="star" /></li>
+    } 
+
     return (
         !isLoading ?
-            <div className='body-detalhes-produto ' style={{ width: '100%', padding: '0rem 4rem' }}>
-                <div className="container">
-                
-                    <div className="row gx-4 ">
-                        <div className="col-md-6" style={{ paddingLeft: '0rem' }}>
-                            <Carousel>
-                                <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={produto.foto1}
-                                        alt="First slide"
-                                    />
+            <div className='body-detalhes-produto'>
+                <div className="infos">
+                    <div className="carrosel">
+                        <Carousel>
+                            <Carousel.Item>
+                                <img className="d-block w-0 img-produto" src={ produto.foto1 } alt="First slide" />
+                            </Carousel.Item>
 
-                                    <Carousel.Caption>
-                                        <h3>{produto.nomeProduto}</h3>
-                                        <p>Frase legal de marketing do doce</p>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
+                            <Carousel.Item>
+                                <img className="d-block w-0 img-produto" src={ produto.foto2 } alt="Second slide" />
+                            </Carousel.Item>
 
-                                <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={produto.foto2}
-                                        alt="Second slide"
-                                    />
+                            <Carousel.Item>
+                                <img className="d-block w-0 img-produto" src={ produto.foto3 } alt="Third slide" />
+                            </Carousel.Item>
+                        </Carousel>
+                    </div>
 
-                                    <Carousel.Caption>
-                                        <h3>{produto.nomeProduto}</h3>
-                                        <p>Frase legal de marketing do doce</p>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
+                    <div className="infos-produto">
+                        <div className="tite">    
+                            <h1>{ produto.nomeProduto }</h1>
 
-                                <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={produto.foto3}
-                                        alt="Third slide"
-                                    />
-
-                                    <Carousel.Caption>
-                                        <h3>{produto.nomeProduto}</h3>
-                                        <p>Frase legal de marketing do doce</p>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
-                            </Carousel>
+                            <div className="spans-infos">
+                                <div className="span-review">
+                                    <span className="star-review"> { media }</span>
+                                    <span className="ponto"></span>
+                                    <span>{ avaliacoes.length } reviews</span>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className='col-md-6' >
-                            <div>
-                                <h1>{ produto.nomeProduto }</h1>
-                                <div>
-                                    <span><img src={oneStar} style={{ width: '12px', paddingBottom: '4px' }} /></span>
-                                    <span>4,6</span><br/>
-                                    <span>3 reviews</span>
-                                </div>
+                        <div className="preco-produto">
+                            <span className="preco-produto">R$ { produto.preco }</span>
+                            <span>por Unidade</span>
+                        </div>
 
-                                <span><b>R$ {produto.preco}</b> por unidade</span>
+                        <div className="sabor-quantidade">
+                            <div className="div-sabores">
+                                <span className="label-sabores">Sabores</span>
+                                <div className="options">
+                                        { produto.sabores.map(sabor => <span className="option-sabor" onClick={() => handleAddSabores(sabor)}>{ sabor.sabor }</span>) }
+                                </div>
                             </div>
 
-                            <div className="row gx-4 ">
-                                <div className="col-md-6 sabores">Sabores
-                                    <div>
-                                        <ButtonGroup aria-label="Basic example" size='sm' className='buttongroup'>
-                                            { produto.sabores.map(sabor => <button onClick={() => setSabor(sabor)}>{ sabor.sabor }</button>) }
-                                        </ButtonGroup>
+                            <div className="encomenda">
+                                <span className="label-encomenda">Encomenda:</span>
+
+                                <div className="quantidade">
+                                    <span className="label-quantidade">Quantidade:</span>
+
+                                    <div className="quantityManipulation">
+                                        <Button type="button" className="remove-quantity" buttonClickEvent={ decrementQuantity }>-</Button>
+                                        <span className="quantity">{ quantidade }</span>
+                                        <Button type="button" className="add-quantity" buttonClickEvent={ addQuantity }>+</Button>
                                     </div>
                                 </div>
-
-                                <div className="col-md-6">
-                                    <div>Quantidade 
-                                        <input type="number" style={{ border: '1px solid black' }} step={produto.pedidoMinProduto} min={produto.pedidoMinProduto} className='inputQtd'/>
-                                    </div>
-                                </div>
                             </div>
+                        </div>
 
-                            <div>
-                                <Button onClick = {addProdutoCarrinho} variant="outline-secondary" className='btncarrinho'>Adicionar no Carrinho</Button>{' '}
-                            </div>
+                        <div>
+                            { quantidade != 0 ?
+                                <Button type="button" buttonClickEvent={ addProdutoCarrinho } className='btncarrinho'>Adicionar no Carrinho</Button>
+                            :
+                                <Button disabled>Adicionar no Carrinho</Button>
+                            }
                         </div>
                     </div>
                 </div>
 
-                <div style={{ width: '100%', padding: '0rem 4rem' }} className="informacoes">
-                    <h1>Informações do Produto</h1>
+                <div className="descricao-produto">
+                    <h3>Informações do Produto</h3>
                     <div>{ produto.descricaoProduto }</div>
                 </div>
 
                 { message && <Message type="success" message={ message } /> }
 
-                <Button className="btn-avaliar" variant="primary" onClick={handleShow}>
-                        Avaliar
-                    </Button>
+                <div className="div-avaliacao">
+                    <div className="media-avaliacao">
+                        <span className="media">{ media }</span>
+                        <span className="nota-maxima">de 5.0</span>
 
-                { avaliacoes.map(avaliacao =>
-                        avaliacao.produto == produto._id && 
-                            <Compavaliacao nota={avaliacao.nota} comentario={avaliacao.comentario} avaliador={avaliacao.cliente}/>
-                        )
-                    }
-            
-                <div className="ulavaliacao">
-                    
-                    
-                    <Modal show={show} onHide={handleClose} centered>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Realizar Avaliação</Modal.Title>
-                        </Modal.Header>
+                        <ul className="ulavaliacao media-nota">
+                            { estrelas }
+                        </ul>
+                    </div>
 
-                        <Modal.Body>
-                            <label htmlFor="comentario">Comentario:</label>
-                            <input type="text" name="comentario" id="comentario" required/>
-                            <p>Nota:</p>
-                            <ul className="ulavaliacao">
-                                <li className="star-icon ativo" data-avaliacao="1" onClick={handleClickStar}></li>
-                                <li className="star-icon" data-avaliacao="2" onClick={handleClickStar}></li>
-                                <li className="star-icon" data-avaliacao="3" onClick={handleClickStar}></li>
-                                <li className="star-icon" data-avaliacao="4" onClick={handleClickStar}></li>
-                                <li className="star-icon" data-avaliacao="5" onClick={handleClickStar}></li>
-                            </ul>
-                        </Modal.Body>
+                    <div className="total-avaliacao">
+                        <span className="total">Total de avaliações ({ avaliacoes.length })</span>
+                        <Button className="btn-avaliar" variant="primary" buttonClickEvent={ handleShow }>
+                            Avaliar
+                        </Button>
+                    </div>
 
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Fechar
-                            </Button>
-                            <Button className="btn-enviar" variant="primary" onClick={createRating}>
-                                Enviar
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
+                    { avaliacoes.map(avaliacao => 
+                        <Compavaliacao nota={ avaliacao.nota } comentario={ avaliacao.comentario } avaliador={ avaliacao.cliente }/>
+                    )}
                 </div>
+            
+                
+                <Modal show={ show } onHide={ handleClose } centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Realizar Avaliação</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <label htmlFor="comentario">Comentario:</label>
+                        <input type="text" name="comentario" id="comentario" required/>
+                        <p>Nota:</p>
+                        <ul className="ulavaliacao">
+                            <li className="star-icon ativo" data-avaliacao="1" onClick={ handleClickStar }></li>
+                            <li className="star-icon" data-avaliacao="2" onClick={ handleClickStar }></li>
+                            <li className="star-icon" data-avaliacao="3" onClick={ handleClickStar }></li>
+                            <li className="star-icon" data-avaliacao="4" onClick={ handleClickStar }></li>
+                            <li className="star-icon" data-avaliacao="5" onClick={ handleClickStar }></li>
+                        </ul>
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <ButtonModal variant="secondary" onClick={ handleClose }>
+                            Fechar
+                        </ButtonModal>
+                        <ButtonModal className="btn-enviar" variant="primary" onClick={ createRating }>
+                            Enviar
+                        </ButtonModal>
+                    </Modal.Footer>
+                </Modal>
             </div>
         :
         <div>

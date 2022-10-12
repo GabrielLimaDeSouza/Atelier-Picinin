@@ -1,11 +1,37 @@
-.flex{
-    display: flex;
-    flex-direction: column;
-    
+:root {
+    --yellow-star: #ffe500;
+    --light-gray: #e4e4e4;
 }
 
-.estrela{
-    size: 80px;
+div.flex {
+    display: flex;
+    flex-direction: column;
+    border-bottom: .1rem solid var(--light-gray);
+}
+
+p.avaliador {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+p.comentario {
+    margin: 0;
+}
+
+ul.estrelas {
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+ul.estrelas .star {
+    list-style-type: none;
+}
+
+ul.estrelas .star svg{
+    font-size: 1.5rem;
+    color: var(--yellow-star);
 }
 
 

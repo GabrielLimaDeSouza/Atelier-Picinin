@@ -31,6 +31,7 @@ body, html {
 .App > div {
     padding: 100px 0;
     width: 100%;
+    min-height: calc(100vh - 78px);
 }
 
 @media (max-width: 600px) {

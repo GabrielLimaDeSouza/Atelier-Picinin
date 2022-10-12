@@ -1,21 +1,100 @@
-.buttongroup {
-    margin-top: 10px;
-    margin-bottom: 20px;
+:root {
+    --pastel-red: #ff6961;
+    --light-gray: #e4e4e4;
+    --font-gray: #4d4d4d;
+    --font-light-gray: #818181;
+    --white: #fff;
+    --yellow-star: #ffe500;
 }
 
-.sabores {
-    margin-top: 20px;
+div.body-detalhes-produto {
+    padding: 0 4rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5rem;
 }
 
-.btncarrinho {
-    margin-top: 20px;
+div.infos {
+    display: flex;
+    column-gap: 2rem;
 }
 
-.informacoes {
-    margin-top: 50px;
+div.carrosel, img.img-produto {
+    width: 30rem;
 }
 
-/*  Estilos avaliação  */
+div.infos-produto {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+}
+
+div.infos-produto h1 {
+    margin: 0;
+}
+
+div.spans-infos {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+}
+
+div.span-review {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 9rem;
+}
+
+div.preco-produto {
+    display: flex;
+    align-items: baseline;
+    column-gap: 1rem;
+}
+
+span.preco-produto {
+    font-weight: 600;
+    font-size: 2.5rem;
+}
+
+div.preco-produto span:last-child {
+    font-size: .9rem;
+}
+
+span.star-review::before {
+    content: "\2605 ";
+    font-size: 1.3rem;
+    color: var(--yellow-star);
+}
+
+span.ponto::before {
+    content: "\1091F";
+    font-size: 1.3rem;
+}
+
+div.descricao-produto {
+    width: 100%;
+    padding: 0 !important;
+}
+
+/* Estilos avaliação */
+
+span.media {
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+span.nota-maxima {
+    font-size: 1rem;
+    color: var(--font-light-gray);
+}
+
+ul.media-nota {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
 .btn-avaliar,
 .btn-enviar {
     border-radius: 10px;
@@ -27,7 +106,7 @@
     border-radius: 10px !important;
     text-align: start;
     margin-bottom: 20px;
-    border: 1px solid black;
+    border: none;
     height: 100px;
 }
 
@@ -37,47 +116,95 @@
     margin-bottom: 50px;
 }
 
-/*  Estilos estrelas avaliação  */
+/* Estilos estrelas avaliação */
+
 .avaliacao {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.ulavaliacao{
+
+.ulavaliacao {
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
-.divAvalacoes{
+.divAvalacoes {
     padding-top: 50px;
-    
 }
 
-.divAvaliacao{
+.divAvaliacao {
     padding-bottom: 15px;
 }
 
-.star-icon {
-    font-size: 50px;
-    width: 50px;
+.star {
     list-style-type: none;
-    border: 1px solid #fff;
+}
+
+.star svg{
+    font-size: 3rem;
+    color: var(--yellow-star);
+}
+
+/* Fim Estilos avaliação */
+
+
+/* Escolha do sabor e quantidade */
+
+div.sabor-quantidade {
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+}
+
+div.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 1rem;
+    font-size: .9rem;
+}
+
+span.selected {
+    padding: .3rem .8rem;
+    border-radius: .5rem;
+    outline: .1rem solid var(--light-gray);
+}
+
+div.sabor-quantidade {
+    display: flex;
+    column-gap: 1rem;
+}
+
+div.quantidade {
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+}
+
+span.label-quantidade {
+    font-size: .9rem;
+    color: var(--font-gray);
+}
+
+div.quantityManipulation {
+    border-radius: 30px;
+    padding: 0 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 70px;
+}
+
+div.quantityManipulation button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.remove-button {
     cursor: pointer;
-    color: #ffe500;
 }
 
-.star-icon::before {
-    content: "\2605";
-}
-
-.star-icon.ativo~.star-icon::before {
-    content: "\2606";
-}
-
-.avaliacao:hover .star-icon::before {
-    content: "\2605";
-}
-
-.star-icon:hover~.star-icon::before {
-    content: "\2606";
-}
+/* Fim Escolha sabor e quantidade */
