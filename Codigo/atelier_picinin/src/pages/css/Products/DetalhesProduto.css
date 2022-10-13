@@ -147,6 +147,31 @@ ul.media-nota {
     color: var(--yellow-star);
 }
 
+.star-icon-review {
+    font-size: 50px;
+    width: 50px;
+    list-style-type: none;
+    border: 1px solid #fff;
+    cursor: pointer;
+    color: var(--yellow-star);
+}
+
+.star-icon-review::before {
+    content: "\2605";
+}
+
+.star-icon-review.ativo~.star-icon-review::before {
+    content: "\2606";
+}
+
+.avaliacao:hover .star-icon-review::before {
+    content: "\2605";
+}
+
+.star-icon-review:hover~.star-icon-review::before {
+    content: "\2606";
+}
+
 /* Fim Estilos avaliação */
 
 

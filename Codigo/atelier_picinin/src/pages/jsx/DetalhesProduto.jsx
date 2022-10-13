@@ -101,7 +101,7 @@ const DetalhesProduto = () => {
     }
 
     function handleClickStar(e) {
-        var stars = document.querySelectorAll('.star-icon')
+        var stars = document.querySelectorAll('.star-icon-review')
         var classStar = e.target.classList
 
         if (!classStar.contains('ativo')) {
@@ -291,11 +291,11 @@ const DetalhesProduto = () => {
                         <input type="text" name="comentario" id="comentario" required/>
                         <p>Nota:</p>
                         <ul className="ulavaliacao">
-                            <li className="star-icon ativo" data-avaliacao="1" onClick={ handleClickStar }></li>
-                            <li className="star-icon" data-avaliacao="2" onClick={ handleClickStar }></li>
-                            <li className="star-icon" data-avaliacao="3" onClick={ handleClickStar }></li>
-                            <li className="star-icon" data-avaliacao="4" onClick={ handleClickStar }></li>
-                            <li className="star-icon" data-avaliacao="5" onClick={ handleClickStar }></li>
+                            <li className="star-icon-review ativo" data-avaliacao="1" onClick={ handleClickStar }></li>
+                            <li className="star-icon-review" data-avaliacao="2" onClick={ handleClickStar }></li>
+                            <li className="star-icon-review" data-avaliacao="3" onClick={ handleClickStar }></li>
+                            <li className="star-icon-review" data-avaliacao="4" onClick={ handleClickStar }></li>
+                            <li className="star-icon-review" data-avaliacao="5" onClick={ handleClickStar }></li>
                         </ul>
                     </Modal.Body>
 
