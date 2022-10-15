@@ -6,7 +6,7 @@ var mongoObjectId = () => {
     return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
         return (Math.random() * 16 | 0).toString(16);
     }).toLowerCase();
-};
+}
 
 module.exports = {
     async registerAddress(req, res) {

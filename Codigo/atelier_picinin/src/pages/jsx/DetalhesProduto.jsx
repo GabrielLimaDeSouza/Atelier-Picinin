@@ -59,16 +59,22 @@ const DetalhesProduto = () => {
         setMedia(mediaNotas)
     }, [avaliacoes])
 
+    var mongoObjectId = () => {
+        var timestamp = (new Date().getTime() / 1000 | 0).toString(16)
+        return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+            return (Math.random() * 16 | 0).toString(16)
+        }).toLowerCase()
+    }
+
     function addProdutoCarrinho(){
         const data = window.localStorage.getItem("user-cart")
         const carrinho = data ? JSON.parse(data) : []
-        var idCarrinho = 0;
 
         sabores.forEach(sabor => {
             if(!carrinho.find(produto => produto.sabores === sabor.sabor)) {
                 let precoTotal = sabor.preco * quantidade
                 carrinho.push({
-                    idCarrinho: idCarrinho++,
+                    idCarrinho: mongoObjectId(),
                     _id: produto._id,
                     img: produto.foto1,
                     nome: produto.nomeProduto,
