@@ -13,6 +13,7 @@ import AdicionarEndereco from './pages/jsx/cart/AdicionarEndereco'
 import Cabecalho from './components/layout/Header'
 import MenuMobile from './components/layout/MenuMobile'
 import Login from './pages/jsx/Login'
+import CadastarUsuario from './pages/jsx/CadastrarUsuario'
 import { useEffect, useState } from 'react'
 
 const url = "http://localhost:3000"
@@ -59,6 +60,7 @@ function App() {
           <Route path='/carrinho' element={ <Carrinho /> }></Route>
           <Route path='/adicionarEndereco' element={ <AdicionarEndereco /> }></Route>
           <Route path='/login' element={ <Login /> }></Route>
+          <Route path='/cadastrar' element={ <CadastarUsuario /> }></Route>
         </Routes>
         <Outlet/>
 

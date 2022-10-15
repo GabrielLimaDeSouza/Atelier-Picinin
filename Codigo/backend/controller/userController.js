@@ -34,7 +34,7 @@ module.exports = {
         const user = {
             nome,
             email,
-            senha
+            senha,
         }
 
         try {
