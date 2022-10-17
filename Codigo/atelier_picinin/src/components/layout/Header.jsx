@@ -5,8 +5,8 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-const Header = ({ state }) => {
-    const [logged, setLogged] = useState(false)
+const Header = ({ state, logged }) => {
+    
     function handlePageLocation(e) {
         const allLinkMenu = document.querySelectorAll(".menu a")
         allLinkMenu.forEach(menuLink => menuLink.classList.remove("active"))
@@ -14,24 +14,6 @@ const Header = ({ state }) => {
         const element = e.target
         element.classList.add("active")
     }
-
-    function getCookie(name) {
-        let cookie = {}
-    
-        document.cookie.split(';').forEach((el) => {
-            let [k, v] = el.split('=')
-            cookie[k.trim()] = v
-        })
-    
-        return cookie[name]
-    }
-
-    useEffect(() => {
-        const id = getCookie("_id")
-        if(id) {
-            setLogged(true)
-        }
-    }, [])
 
     const loggedUser = state ? 
                         <>
@@ -47,19 +29,25 @@ const Header = ({ state }) => {
                          </>
 
     return (
-        <nav className="div-header">
-            <div className="logo-menu">
-                <h1 className="logo">Logo</h1>
-                <div className="menu">
-                    <Link id="home" to="/" onClick={ handlePageLocation }>Home</Link>
-                    { logged ? loggedUser : unloggedUser }
+        <div className="header">
+            <nav className="div-header">
+                <div className="logo-menu">
+                    <h1 className="logo">Logo</h1>
+                    <div className="menu">
+                        <Link id="home" to="/" onClick={ handlePageLocation }>Home</Link>
+                        { logged && loggedUser }
+                    </div>
                 </div>
-            </div>
-            <div className="buttons">
-                { !state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link> }
-                <Link to="/" className="perfil"><BiUser /></Link>
-            </div>
-        </nav>
+                <div className="buttons">
+                    { !logged ? unloggedUser :
+                        <>
+                            { !state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link> }
+                            <Link to="/" className="perfil"><BiUser /></Link>
+                        </>
+                    }
+                </div>
+            </nav>
+        </div>
     )
 }
 

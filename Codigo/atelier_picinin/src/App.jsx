@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react'
 const url = "http://localhost:3000"
 
 function App() {
+  const [logged, setLogged] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
   const [user, setUser] = useState({})
   const [windowWidth, setWindowWidth] = useState(0);
@@ -32,23 +33,45 @@ function App() {
       headers: {
           'Content-Type': 'application/json'
       }
-  }).then(resp => resp.json())
-  .then(data => setUser(data))
-  .catch(err => console.error(err))
+    }).then(resp => resp.json())
+    .then(data => setUser(data))
+    .catch(err => console.error(err))
 
-  setWindowWidth(window.innerWidth)
+    setWindowWidth(window.innerWidth)
   }, [])
 
   useEffect(() => { 
     document.body.style.overflowY = menuVisible ? 'hidden' : 'auto'
   }, [menuVisible])
+
+  function getCookie(name) {
+    let cookie = {}
+
+    document.cookie.split(';').forEach((el) => {
+        let [k, v] = el.split('=')
+        cookie[k.trim()] = v
+    })
+
+    return cookie[name]
+}
+
+function handleLogged(login) {
+  setLogged(login)
+}
+
+useEffect(() => {
+    const id = getCookie("_id")
+    if(id) {
+        setLogged(true)
+    }
+}, [])
   
   return (
       <div className="App">
         { windowWidth <= 900 ?
-          <MenuMobile state={ user.admin } menuVisible={ menuVisible } setMenuVisible={ setMenuVisible } />
+          <MenuMobile state={ user.admin } menuVisible={ menuVisible } setMenuVisible={ setMenuVisible } logged={ logged }/>
           :
-          <Cabecalho state={ user.admin }/>
+          <Cabecalho state={ user.admin } logged={ logged }/>
         }
         
         <Routes>
@@ -60,7 +83,7 @@ function App() {
           <Route path='/detalhesProduto/:id' element={ <DetalhesProduto /> }></Route>
           <Route path='/carrinho' element={ <Carrinho /> }></Route>
           <Route path='/adicionarEndereco' element={ <AdicionarEndereco /> }></Route>
-          <Route path='/login' element={ <Login /> }></Route>
+          <Route path='/login' element={ <Login isLogged={ handleLogged }/> }></Route>
           <Route path='/cadastrar' element={ <CadastarUsuario /> }></Route>
           <Route path='/cadastrarAdm' element={ <CadastarUsuarioAdm /> }></Route>
         </Routes>

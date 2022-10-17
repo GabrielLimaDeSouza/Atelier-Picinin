@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react'
 
 const url = "http://localhost:3000"
 
-const Login = () => {
+const Login = ({ isLogged }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [message, setMessage] = useState("")
@@ -57,6 +57,7 @@ const Login = () => {
 
     function authentication(user) {
         if(user.accept) {
+            isLogged(true)
             createCookie(user._id, 1000)
             navigate('/', { replace: true })
         } else {

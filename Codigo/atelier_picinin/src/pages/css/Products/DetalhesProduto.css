@@ -8,7 +8,7 @@
 }
 
 div.body-detalhes-produto {
-    padding: 0 4rem;
+    padding: 50px 4rem !important;
     display: flex;
     flex-direction: column;
     row-gap: 5rem;
