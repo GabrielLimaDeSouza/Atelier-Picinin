@@ -28,7 +28,7 @@ body, html {
     min-height: 100vh;
 }
 
-.App > div {
+.App > div:not(:first-child) {
     padding: 100px 0;
     width: 100%;
     min-height: calc(100vh - 78px);

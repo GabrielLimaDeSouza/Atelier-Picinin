@@ -105,8 +105,8 @@ div.checkbox {
     width: 50%;
 }
 
-input[type="text"], input[type="password"] {
-    width: 100%;
+input#email, input#password {
+    width: 100% !important;
 }
 
 div.login-social-media {
@@ -160,6 +160,16 @@ footer {
 }
 
 @media (max-width: 1000px) {
+    div.body-login {
+        height: auto;
+    }
+
+    div.login {
+        margin: 0 auto;
+        padding: 0;
+        width: auto;
+    }
+
     div.mobile-hidden {
         display: none;
     }

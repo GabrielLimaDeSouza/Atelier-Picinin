@@ -22,7 +22,7 @@ function App() {
   const [menuVisible, setMenuVisible] = useState(false)
   const [user, setUser] = useState({})
   const [windowWidth, setWindowWidth] = useState(0);
-  const idAdmin = "6338b9c1c5008fbce42bed33"
+  const idAdmin = "634d58412d56cfa53cd1d919"
   const idClient = "63322d88207cc8eeb929f645"
 
   useEffect(() => {

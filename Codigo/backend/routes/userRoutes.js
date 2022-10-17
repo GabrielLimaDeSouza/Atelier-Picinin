@@ -10,6 +10,7 @@ const controller = require('../controller/userController')
 // Rotas GET
 router.get('/getAllUsers', controller.getAllUsers)
 router.get('/getUserById', controller.getUserById)
+router.post('/getUserLogin', controller.getUserLogin)
 
 // Rota POST
 router.post('/registerUser', controller.registerUser)
