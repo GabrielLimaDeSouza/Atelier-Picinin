@@ -3,8 +3,10 @@ import './css/Header.css'
 import { BiUser } from 'react-icons/bi'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 const Header = ({ state }) => {
+    const [logged, setLogged] = useState(false)
     function handlePageLocation(e) {
         const allLinkMenu = document.querySelectorAll(".menu a")
         allLinkMenu.forEach(menuLink => menuLink.classList.remove("active"))
