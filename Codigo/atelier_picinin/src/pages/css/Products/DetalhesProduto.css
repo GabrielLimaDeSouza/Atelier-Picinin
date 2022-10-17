@@ -8,7 +8,7 @@
 }
 
 div.body-detalhes-produto {
-    padding: 0 4rem;
+    padding: 0 4rem !important;
     display: flex;
     flex-direction: column;
     row-gap: 5rem;
@@ -19,7 +19,8 @@ div.infos {
     column-gap: 2rem;
 }
 
-div.carrosel, img.img-produto {
+div.carrosel,
+img.img-produto {
     width: 30rem;
 }
 
@@ -77,6 +78,22 @@ div.descricao-produto {
     padding: 0 !important;
 }
 
+.ulavaliacao {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.option-sabor {
+    border: 1px solid rgb(105, 99, 99);
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 /* Estilos avaliação */
 
 span.media {
@@ -100,8 +117,15 @@ ul.media-nota {
     border-radius: 10px;
 }
 
+.div-btn-avaliar {
+    display: flex;
+    justify-content: right;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 #comentario {
-    width: 100%;
+    width: 100% !important;
     margin-top: 10px;
     border-radius: 10px !important;
     text-align: start;
@@ -142,9 +166,10 @@ ul.media-nota {
     list-style-type: none;
 }
 
-.star svg{
-    font-size: 3rem;
+.star svg {
+    font-size: 2rem;
     color: var(--yellow-star);
+    margin-bottom: 20px;
 }
 
 .star-icon-review {
@@ -192,10 +217,11 @@ div.options {
 }
 
 span.selected {
-    padding: .3rem .8rem;
-    border-radius: .5rem;
-    outline: .1rem solid var(--light-gray);
+    background-color: #5a4a4a;
+    color: white;
 }
+
+
 
 div.sabor-quantidade {
     display: flex;

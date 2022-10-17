@@ -65,7 +65,6 @@ function App() {
           <Route path='/cadastrarAdm' element={ <CadastarUsuarioAdm /> }></Route>
         </Routes>
         <Outlet/>
-
         <Rodape />
       </div>
   )
