@@ -7,8 +7,18 @@ import { Link } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook } from 'react-icons/fa'
 import lollipop from '../img/lollipop-removebg.png'
+import { useState } from 'react'
 
 const Login = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        
+    }
+
     return (
         <div className="body-login">
             <div className="img-lollipop mobile-hidden">
@@ -25,9 +35,27 @@ const Login = () => {
                     </div>
                 </div>
                 <div className="form">
-                    <form className="form-login" onSubmit="">
-                        <input type="text" id="email" className="input-email" name="email" placeholder="Insira seu email" required/>
-                        <input type="password" id="password" className="input-senha" name="password" placeholder="Insira sua senha" required/>
+                    <form className="form-login" onSubmit={ handleSubmit }>
+                        <input
+                            type="text"
+                            id="email"
+                            className="input-email"
+                            name="email"
+                            placeholder="Insira seu email"
+                            value={ email }
+                            onChange={ (e) => setEmail(e.target.value) }
+                            required
+                        />
+                        <input
+                            type="password"
+                            id="password"
+                            className="input-senha"
+                            name="password"
+                            placeholder="Insira sua senha"
+                            value={ password }
+                            onChange={ (e) => setPassword(e.target.value) }
+                            required
+                        />
                         
                         <div className="configs">
                             <div className="checkbox">
