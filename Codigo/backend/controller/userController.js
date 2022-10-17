@@ -1,25 +1,30 @@
 // Models
 const Usuario = require('../models/Usuario')
+const PasswordHash = require('../services/auth')
 
 module.exports = {
     async registerUser(req, res) {
-        const { nome, email, senha, admin } = req.body
+        var { nome, email, senha, admin } = req.body
 
-        const insumo = {
+        if(senha) {
+            senha = await PasswordHash.createPasswordHash(senha)
+        }
+
+        const user = {
             nome,
             email,
             senha,
             admin
         }
 
-        for (let atributo in insumo) {
-            if (insumo[atributo] == undefined)
-                insumo[atributo] = null
+        for (let atributo in user) {
+            if (user[atributo] == undefined)
+            user[atributo] = null
         }
 
         try {
             // Criar dados
-            await Usuario.create(insumo)
+            await Usuario.create(user)
 
             res.status(201).json({ message: "Usuário cadastado com sucesso!" })
         } catch (error) {
@@ -75,6 +80,28 @@ module.exports = {
         } catch (error) {
             res.status(500).json({ error: error })
         }
+    },
+
+    async getUserLogin(req, res) {
+        const { email, password } = req.body
+        const user = await Usuario.findOne({ email })
+
+        if (!user) {
+            res.status(422).json({ message: "Usuário não encontrado" })
+            return
+        }
+
+        PasswordHash.checkPassword(user.senha, password).then(passwordCorrect => { 
+            if(passwordCorrect) {
+                try {
+                    res.status(200).json({ accept: true })
+                } catch (error) {
+                    res.status(500).json({ error: error })
+                }
+            } else {
+                res.status(401).json({ message: "Senha incorreta", accept: false })
+            }
+        })
     },
 
     async deleteUser(req, res) {

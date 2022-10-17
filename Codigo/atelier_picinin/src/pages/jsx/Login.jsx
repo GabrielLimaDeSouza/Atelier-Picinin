@@ -2,21 +2,54 @@ import '../css/login/Login.css'
 
 import LinkButton from '../../components/layout/LinkButton'
 import Button from '../../components/layout/Button'
+import Message from '../../components/layout/Message'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook } from 'react-icons/fa'
 import lollipop from '../img/lollipop-removebg.png'
 import { useState } from 'react'
 
+const url = "http://localhost:3000"
+
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [message, setMessage] = useState("")
+    const [typeMessage, setTypeMessage] = useState("")
 
-    const handleSubmit = (e) => {
+    const navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        
+        await fetch(`${url}/api/user/getUserLogin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password })
+        }).then(resp => resp.json())
+        .then(data => authentication(data))
+        .catch(err => console.log(err))
+    }
+
+    function authentication(user) {
+        if(user.accept) {
+            createCookie(user._id, 1000)
+            navigate('/')
+        } else {
+            setMessage("Email ou senha incorretos")
+            setTypeMessage("error")
+        }
+    }
+
+    function createCookie(idUser, days) {
+        var date = new Date()
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000))
+        const expires = date.toUTCString()
+
+        document.cookie = `idUser=${ idUser }; expires=${ expires }`
     }
 
     return (
@@ -35,6 +68,7 @@ const Login = () => {
                     </div>
                 </div>
                 <div className="form">
+                    { message && <Message type={ typeMessage } message={ message } /> }
                     <form className="form-login" onSubmit={ handleSubmit }>
                         <input
                             type="text"

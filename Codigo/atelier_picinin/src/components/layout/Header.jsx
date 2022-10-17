@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom'
 
 const Header = ({ state }) => {
     function handlePageLocation(e) {
-        const allLinkMenu = document.querySelectorAll(".menu a");
-        allLinkMenu.forEach(menuLink => menuLink.classList.remove("active"));
+        const allLinkMenu = document.querySelectorAll(".menu a")
+        allLinkMenu.forEach(menuLink => menuLink.classList.remove("active"))
 
-        const element = e.target;
-        element.classList.add("active");
+        const element = e.target
+        element.classList.add("active")
     }
 
     return (
