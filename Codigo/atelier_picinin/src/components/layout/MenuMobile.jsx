@@ -7,8 +7,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-const MenuMobile = ({ state, menuVisible, setMenuVisible }) => {
-    const [logged, setLogged] = useState(false)
+const MenuMobile = ({ state, menuVisible, setMenuVisible, logged }) => {
     const navigate = useNavigate()
 
     function handleVisibilityMenu() {
@@ -20,24 +19,6 @@ const MenuMobile = ({ state, menuVisible, setMenuVisible }) => {
         
         setTimeout(() => setMenuVisible(!menuVisible), 100)
     }
-
-    function getCookie(name) {
-        let cookie = {}
-    
-        document.cookie.split(';').forEach((el) => {
-            let [k, v] = el.split('=')
-            cookie[k.trim()] = v
-        })
-    
-        return cookie[name]
-    }
-
-    useEffect(() => {
-        const id = getCookie("_id")
-        if(id) {
-            setLogged(true)
-        }
-    })
 
     const loggedUser = state ? 
                         <>

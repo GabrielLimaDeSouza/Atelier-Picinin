@@ -8,7 +8,7 @@
 }
 
 div.body-detalhes-produto {
-    padding: 0 4rem !important;
+    padding: 50px 4rem !important;
     display: flex;
     flex-direction: column;
     row-gap: 5rem;
@@ -80,10 +80,8 @@ div.descricao-produto {
 
 .ulavaliacao {
     width: 100%;
-    margin: 0;
-    padding: 0;
     display: flex;
-    justify-content: center;
+    justify-content: left !important;
 }
 
 .option-sabor {
@@ -119,7 +117,7 @@ ul.media-nota {
 
 .div-btn-avaliar {
     display: flex;
-    justify-content: right;
+    justify-content: right !important;
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -148,10 +146,11 @@ ul.media-nota {
     align-items: center;
 }
 
-.ulavaliacao {
+.ulavaliacaomodal {
     display: flex;
     justify-content: center;
-    position: relative;
+    padding: 0;
+    margin: 0;
 }
 
 .divAvalacoes {
@@ -167,7 +166,7 @@ ul.media-nota {
 }
 
 .star svg {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--yellow-star);
     margin-bottom: 20px;
 }
