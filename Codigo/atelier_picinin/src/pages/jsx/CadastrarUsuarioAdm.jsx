@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import CompCadastroUser from '../../components/User/FormCadastroUsuario'
 import Message from "../../components/layout/Message"
 
-const cadastarUsuario = () => {
+const cadastarUsuarioAdm = () => {
     const [usuarios, setUsuarios] = useState([])
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
@@ -44,7 +44,7 @@ function cadastrar(){
                     "nome": document.getElementById("nome").value,
                     "email": document.getElementById("email").value,
                     "senha": document.getElementById("senha").value,
-                    "admin": false
+                    "admin": "true"
     
                 },
                 setTypeMessage("success"),
@@ -73,4 +73,4 @@ function cadastrar(){
     )
 }
 
-export default cadastarUsuario
+export default cadastarUsuarioAdm

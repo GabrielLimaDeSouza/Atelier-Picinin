@@ -1,5 +1,6 @@
+import '../../pages/css/cadastrarUsuario/cadastrarUsuario.module.css'
 const compCadastroUser =({event})=>{
-    return(
+    return( 
     <><div className="divForm">
                 <div className='divInput'>
                     <div className="campos">
@@ -18,7 +19,12 @@ const compCadastroUser =({event})=>{
                     </div>
 
                 </div>
-                <button onClick={event}>Cofirmar</button>
+                <div>
+                <button className="voltar">Cancelar</button>
+                <button className="cadastrar" onClick={event}>Cofirmar</button>
+                
+                </div>
+                
             </div>
     </>
     )
