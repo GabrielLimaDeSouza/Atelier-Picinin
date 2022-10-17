@@ -49,7 +49,7 @@ const Login = () => {
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000))
         const expires = date.toUTCString()
 
-        document.cookie = `idUser=${ idUser }; expires=${ expires }`
+        document.cookie = `_id=${ idUser }; expires=${ expires }`
     }
 
     return (
@@ -91,13 +91,7 @@ const Login = () => {
                             required
                         />
                         
-                        <div className="configs">
-                            <div className="checkbox">
-                                <input type="checkbox" id="keep-connected" className="input-keep-connected" name="keep-conected" />
-                                <label htmlFor="keep-connected">Manter Conectado</label>
-                            </div>
-                            <Link to="/login">Recuperar senha</Link>
-                        </div>
+                        <Link to="/login">Recuperar senha</Link>
                         <Button type="submit" className="btnLogin">Entrar</Button>
                     </form>
                 </div>
@@ -115,7 +109,7 @@ const Login = () => {
                 <div className="cadastro">
                     <p className="text-cadastro">
                         <span>Não possui cadastro? </span>
-                        <LinkButton to="/" type="button" classNameButton="btnLink">Cadastrar</LinkButton>
+                        <LinkButton to="/cadastrar" type="button" classNameButton="btnLink">Cadastrar</LinkButton>
                     </p>
                 </div>
             </div>

@@ -94,7 +94,7 @@ module.exports = {
         PasswordHash.checkPassword(user.senha, password).then(passwordCorrect => { 
             if(passwordCorrect) {
                 try {
-                    res.status(200).json({ accept: true })
+                    res.status(200).json({ _id: user._id, accept: true })
                 } catch (error) {
                     res.status(500).json({ error: error })
                 }

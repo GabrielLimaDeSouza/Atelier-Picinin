@@ -33,23 +33,23 @@ const MenuMobile = ({ state, menuVisible, setMenuVisible }) => {
     }
 
     useEffect(() => {
-        const id = getCookie("idUser")
+        const id = getCookie("_id")
         if(id) {
             setLogged(true)
         }
-    }, [])
+    })
 
     const loggedUser = state ? 
                         <>
-                            <Link id="cadastrarProduto" to="/cadastrarProduto">Cadastrar Produtos</Link>
-                            <Link id="estoque" to="/estoque">Estoque</Link>
+                            <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={ handleVisibilityMenu }>Cadastrar Produtos</Link>
+                            <Link id="estoque" to="/estoque" onClick={ handleVisibilityMenu }>Estoque</Link>
                         </> : <>
-                            <Link id="contatos" to="/">Contatos</Link>
+                            <Link id="contatos" to="/" onClick={ handleVisibilityMenu }>Contatos</Link>
                         </>
 
     const unloggedUser = <>
-                            <Link id="cadastrar" to="/">Cadastrar</Link>
-                            <Link id="login" to="/login">Login</Link>
+                            <Link id="cadastrar" to="/cadastrar" onClick={ handleVisibilityMenu }>Cadastrar</Link>
+                            <Link id="login" to="/login" onClick={ handleVisibilityMenu }>Login</Link>
                          </>
 
     return (
@@ -65,7 +65,7 @@ const MenuMobile = ({ state, menuVisible, setMenuVisible }) => {
 
                 <div className="visibleMenu">
                     <IoClose onClick={ handleVisibilityMenu }/>
-                    <Link id="home" to="/">Home</Link>
+                    <Link id="home" to="/" onClick={ handleVisibilityMenu }>Home</Link>
                     
                     { logged ? loggedUser : unloggedUser }
                 </div>

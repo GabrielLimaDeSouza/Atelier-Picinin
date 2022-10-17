@@ -13,19 +13,44 @@ const Header = ({ state }) => {
         element.classList.add("active")
     }
 
+    function getCookie(name) {
+        let cookie = {}
+    
+        document.cookie.split(';').forEach((el) => {
+            let [k, v] = el.split('=')
+            cookie[k.trim()] = v
+        })
+    
+        return cookie[name]
+    }
+
+    useEffect(() => {
+        const id = getCookie("_id")
+        if(id) {
+            setLogged(true)
+        }
+    }, [])
+
+    const loggedUser = state ? 
+                        <>
+                            <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={ handlePageLocation }>Cadastrar Produtos</Link>
+                            <Link id="estoque" to="/estoque" onClick={ handlePageLocation }>Estoque</Link>
+                        </> : <>
+                            <Link id="contatos" to="/" onClick={ handlePageLocation }>Contatos</Link>
+                        </>
+
+    const unloggedUser = <>
+                            <Link id="cadastrar" to="/cadastrar" onClick={ handlePageLocation }>Cadastrar</Link>
+                            <Link id="login" to="/login" onClick={ handlePageLocation }>Login</Link>
+                         </>
+
     return (
         <nav className="div-header">
             <div className="logo-menu">
                 <h1 className="logo">Logo</h1>
                 <div className="menu">
                     <Link id="home" to="/" onClick={ handlePageLocation }>Home</Link>
-                    { state ? <>
-                            <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={ handlePageLocation }>Cadastrar Produtos</Link>
-                            <Link id="estoque" to="/estoque" onClick={ handlePageLocation }>Estoque</Link>
-                        </> : <>
-                            <Link id="contatos" to="/" onClick={ handlePageLocation }>Contatos</Link>
-                        </>
-                    }
+                    { logged ? loggedUser : unloggedUser }
                 </div>
             </div>
             <div className="buttons">
