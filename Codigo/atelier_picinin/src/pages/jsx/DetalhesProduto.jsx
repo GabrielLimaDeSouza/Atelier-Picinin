@@ -24,7 +24,7 @@ const DetalhesProduto = () => {
     const [show, setShow] = useState(false)
     const [sabores, setSabores] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [media, setMedia] = useState(0.0)
+    const [media, setMedia] = useState(0)
     const [quantidade, setQuantidade] = useState(0)
 
     const handleClose = () => setShow(false)
@@ -56,7 +56,9 @@ const DetalhesProduto = () => {
     }, [])
 
     useEffect(() => {
-        setMedia(mediaNotas)
+        if(mediaNotas() != "NaN") {
+            setMedia(mediaNotas)
+        }
     }, [avaliacoes])
 
     var mongoObjectId = () => {
@@ -264,29 +266,32 @@ const DetalhesProduto = () => {
 
                 { message && <Message type="success" message={ message } /> }
 
-                <div className="div-avaliacao">
-                    <div className="media-avaliacao">
-                        <span className="media">{ media }</span>
-                        <span className="nota-maxima">de 5.0</span>
+                { media ?
+                    <div className="div-avaliacao">
+                        <div className="media-avaliacao">
+                            <span className="media">{ media }</span>
+                            <span className="nota-maxima">de 5.0</span>
 
-                        <ul className="ulavaliacao media-nota">
-                            { estrelas }
-                        </ul>
+                            <ul className="ulavaliacao media-nota">
+                                { estrelas }
+                            </ul>
+                        </div>
+
+                        <div className="total-avaliacao">
+                            <span className="total">Total de avaliações ({ avaliacoes.length })</span>
+                            <Button className="btn-avaliar" variant="primary" buttonClickEvent={ handleShow }>
+                                Avaliar
+                            </Button>
+                        </div>
+
+                        { avaliacoes.map(avaliacao => 
+                            <Compavaliacao nota={ avaliacao.nota } comentario={ avaliacao.comentario } avaliador={ avaliacao.cliente }/>
+                        )}
                     </div>
-
-                    <div className="total-avaliacao">
-                        <span className="total">Total de avaliações ({ avaliacoes.length })</span>
-                        <Button className="btn-avaliar" variant="primary" buttonClickEvent={ handleShow }>
-                            Avaliar
-                        </Button>
-                    </div>
-
-                    { avaliacoes.map(avaliacao => 
-                        <Compavaliacao nota={ avaliacao.nota } comentario={ avaliacao.comentario } avaliador={ avaliacao.cliente }/>
-                    )}
-                </div>
-            
-                
+                    :
+                    <div className="sem-media">Este produto ainda não possui avaliações</div>
+                }
+        
                 <Modal show={ show } onHide={ handleClose } centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Realizar Avaliação</Modal.Title>
