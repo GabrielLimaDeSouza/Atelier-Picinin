@@ -20,23 +20,28 @@ import { useEffect, useState } from 'react'
 const url = "http://localhost:3000"
 
 function App() {
-  const [logged, setLogged] = useState(false)
+  const [id, setId] = useState(getCookie("_id") || null)
+  const [isLogged, setIsLogged] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
   const [user, setUser] = useState({})
-  const [windowWidth, setWindowWidth] = useState(0);
-  const idAdmin = "634d58412d56cfa53cd1d919"
-  const idClient = "63322d88207cc8eeb929f645"
+  const [windowWidth, setWindowWidth] = useState(0)
 
   useEffect(() => {
-    fetch(`${ url }/api/user/getUserById?id=${ idAdmin }`, {
-      method: 'GET',
-      headers: {
-          'Content-Type': 'application/json'
-      }
-    }).then(resp => resp.json())
-    .then(data => setUser(data))
-    .catch(err => console.error(err))
+    if(id) {
+      fetch(`${ url }/api/user/getUserById?id=${ id }`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      }).then(resp => resp.json())
+      .then(data => setUser(data))
+      .catch(err => console.error(err))
 
+      setIsLogged(true)
+    }
+  }, [id])
+  
+  useEffect(() => {
     setWindowWidth(window.innerWidth)
   }, [])
 
@@ -53,25 +58,19 @@ function App() {
     })
 
     return cookie[name]
-}
+  }
 
 function handleLogged(login) {
-  setLogged(login)
+  setId(login._id)
+  setIsLogged(login.isLogged)
 }
-
-useEffect(() => {
-    const id = getCookie("_id")
-    if(id) {
-        setLogged(true)
-    }
-}, [])
   
   return (
       <div className="App">
         { windowWidth <= 900 ?
-          <MenuMobile state={ user.admin } menuVisible={ menuVisible } setMenuVisible={ setMenuVisible } logged={ logged }/>
+          <MenuMobile state={ user.admin } menuVisible={ menuVisible } setMenuVisible={ setMenuVisible } logged={ isLogged }/>
           :
-          <Cabecalho state={ user.admin } logged={ logged }/>
+          <Cabecalho state={ user.admin } logged={ isLogged }/>
         }
         
         <Routes>

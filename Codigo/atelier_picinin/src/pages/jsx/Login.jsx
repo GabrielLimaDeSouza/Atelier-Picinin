@@ -57,7 +57,7 @@ const Login = ({ isLogged }) => {
 
     function authentication(user) {
         if(user.accept) {
-            isLogged(true)
+            isLogged({ _id: user._id, isLogged: true })
             createCookie(user._id, 1000)
             navigate('/', { replace: true })
         } else {
