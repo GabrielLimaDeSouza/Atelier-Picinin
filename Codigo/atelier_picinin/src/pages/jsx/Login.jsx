@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook } from 'react-icons/fa'
 import lollipop from '../img/lollipop-removebg.png'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const url = "http://localhost:3000"
 
@@ -17,6 +17,27 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [message, setMessage] = useState("")
     const [typeMessage, setTypeMessage] = useState("")
+    const [notLogged, setNotLogged] = useState(false)
+
+    function getCookie(name) {
+        let cookie = {}
+    
+        document.cookie.split(';').forEach((el) => {
+            let [k, v] = el.split('=')
+            cookie[k.trim()] = v
+        })
+    
+        return cookie[name]
+    }
+
+    useEffect(() => {
+        const id = getCookie("_id")
+        if(id) {
+            navigate('/')
+        } else {
+            setNotLogged(true)
+        }
+    }, [])
 
     const navigate = useNavigate()
 
@@ -37,7 +58,7 @@ const Login = () => {
     function authentication(user) {
         if(user.accept) {
             createCookie(user._id, 1000)
-            navigate('/')
+            navigate('/', { replace: true })
         } else {
             setMessage("Email ou senha incorretos")
             setTypeMessage("error")
@@ -52,7 +73,7 @@ const Login = () => {
         document.cookie = `_id=${ idUser }; expires=${ expires }`
     }
 
-    return (
+    return ( notLogged &&
         <div className="body-login">
             <div className="img-lollipop mobile-hidden">
                 <img src={ lollipop } alt="Pirulito Atelier Picinin" className="img-login"/>
