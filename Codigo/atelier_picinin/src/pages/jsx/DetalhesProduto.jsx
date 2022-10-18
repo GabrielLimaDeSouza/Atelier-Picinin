@@ -8,14 +8,15 @@ import Compavaliacao from '../../components/layout/Avaliação'
 import Message from "../../components/layout/Message"
 import Loading from '../../components/layout/Loading'
 
+
 import { IoStar, IoStarOutline, IoStarHalf } from 'react-icons/io5'
 import { useState, useEffect } from 'react'
-import {useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 const url = "http://localhost:3000"
 
 const DetalhesProduto = () => {
-    var  nota = 1
+    var nota = 1
 
     const { id } = useParams()
     const [produto, setProduto] = useState([])
@@ -38,42 +39,42 @@ const DetalhesProduto = () => {
                 'Content-Type': 'application/json'
             }
         }).then(resp => resp.json())
-        .then(data => {
-            setProduto(data)
-            setQuantidade(data.pedidoMinProduto)
-        })
-        .then(setTimeout(() => setIsLoading(false), 300))
-        .catch(err => console.error(err))
+            .then(data => {
+                setProduto(data)
+                setQuantidade(data.pedidoMinProduto)
+            })
+            .then(setTimeout(() => setIsLoading(false), 300))
+            .catch(err => console.error(err))
 
         fetch(`http://localhost:3000/rating/viewRatingById?id=${id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then(resp => resp.json())
-        .then(data => setAvaliacoes(data))
-        .catch(err => console.error(err))
+            .then(data => setAvaliacoes(data))
+            .catch(err => console.error(err))
     }, [])
 
     useEffect(() => {
-        if(mediaNotas() != "NaN") {
+        if (mediaNotas() != "NaN") {
             setMedia(mediaNotas)
         }
     }, [avaliacoes])
 
     var mongoObjectId = () => {
         var timestamp = (new Date().getTime() / 1000 | 0).toString(16)
-        return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+        return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function () {
             return (Math.random() * 16 | 0).toString(16)
         }).toLowerCase()
     }
 
-    function addProdutoCarrinho(){
+    function addProdutoCarrinho() {
         const data = window.localStorage.getItem("user-cart")
         const carrinho = data ? JSON.parse(data) : []
 
         sabores.forEach(sabor => {
-            if(!carrinho.find(produto => produto.sabores === sabor.sabor)) {
+            if (!carrinho.find(produto => produto.sabores === sabor.sabor)) {
                 let precoTotal = sabor.preco * quantidade
                 carrinho.push({
                     idCarrinho: mongoObjectId(),
@@ -98,7 +99,7 @@ const DetalhesProduto = () => {
         const saboresOptions = document.querySelectorAll('span.option-sabor')
         const saborSelected = Array.from(saboresOptions).find(selected => selected.textContent == saborParam.sabor)
 
-        if(!sabores.find(saborHook => saborHook.sabor === saborParam.sabor)) {
+        if (!sabores.find(saborHook => saborHook.sabor === saborParam.sabor)) {
             setSabores(sabores => [...sabores, { sabor: saborParam.sabor, preco: saborParam.preco }])
 
             saborSelected.classList.add("selected")
@@ -115,31 +116,32 @@ const DetalhesProduto = () => {
         if (!classStar.contains('ativo')) {
             stars.forEach((star) => star.classList.remove('ativo'))
 
-            classStar.add('ativo') 
+            classStar.add('ativo')
 
             nota = e.target.getAttribute('data-avaliacao')
         }
     }
 
-    function createRating(input){
+    function createRating(input) {
         input.data = new Date().toISOString()
 
         fetch(`${url}/rating/ratingRegister`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-            },  
-            body: JSON.stringify({ "produto": produto._id,
-            cliente: "Cliente",
-            comentario: document.getElementById("comentario").value,
-            nota: nota,
-            data: input.data
+            },
+            body: JSON.stringify({
+                "produto": produto._id,
+                cliente: "Cliente",
+                comentario: document.getElementById("comentario").value,
+                nota: nota,
+                data: input.data
             })
         }).then(resp => resp.json())
-        .then(handleClose)
-        .then(navigate(`/detalhesProduto/${id}`))
-        .then(setMessage("Avaliação cadastrada com sucesso!"))
-        .catch(err => console.error(err))
+            .then(handleClose)
+            .then(navigate(`/detalhesProduto/${id}`))
+            .then(setMessage("Avaliação cadastrada com sucesso!"))
+            .catch(err => console.error(err))
     }
 
     function addQuantity() {
@@ -147,7 +149,7 @@ const DetalhesProduto = () => {
     }
 
     function decrementQuantity() {
-        if(quantidade >= produto.pedidoMinProduto)
+        if (quantidade >= produto.pedidoMinProduto)
             setQuantidade(quantidade - produto.pedidoMinProduto)
     }
 
@@ -162,12 +164,12 @@ const DetalhesProduto = () => {
     }
 
     function isFloat(x) {
-        if(!isNaN(x)) {
-            if(parseInt(x) != parseFloat(x)) {
+        if (!isNaN(x)) {
+            if (parseInt(x) != parseFloat(x)) {
                 return true;
-          }
-        }   
-        
+            }
+        }
+
         return false;
     }
 
@@ -175,18 +177,18 @@ const DetalhesProduto = () => {
 
     let i = 1;
 
-    while(i <= Math.floor(media)) {
+    while (i <= Math.floor(media)) {
         estrelas.push(<li className="star"><IoStar className="star" /></li>)
         i++
     }
 
-    for(let w = i; w <= 5; w++) {
+    for (let w = i; w <= 5; w++) {
         estrelas.push(<li className="star"><IoStarOutline /></li>)
     }
 
-    if(isFloat(media)) {
+    if (isFloat(media)) {
         estrelas[Math.floor(media)] = <li className="star"><IoStarHalf className="star" /></li>
-    } 
+    }
 
     return (
         !isLoading ?
@@ -195,34 +197,34 @@ const DetalhesProduto = () => {
                     <div className="carrosel">
                         <Carousel>
                             <Carousel.Item>
-                                <img className="d-block w-0 img-produto" src={ produto.foto1 } alt="First slide" />
+                                <img className="d-block w-0 img-produto" src={produto.foto1} alt="First slide" />
                             </Carousel.Item>
 
                             <Carousel.Item>
-                                <img className="d-block w-0 img-produto" src={ produto.foto2 } alt="Second slide" />
+                                <img className="d-block w-0 img-produto" src={produto.foto2} alt="Second slide" />
                             </Carousel.Item>
 
                             <Carousel.Item>
-                                <img className="d-block w-0 img-produto" src={ produto.foto3 } alt="Third slide" />
+                                <img className="d-block w-0 img-produto" src={produto.foto3} alt="Third slide" />
                             </Carousel.Item>
                         </Carousel>
                     </div>
 
                     <div className="infos-produto">
-                        <div className="tite">    
-                            <h1>{ produto.nomeProduto }</h1>
+                        <div className="tite">
+                            <h1>{produto.nomeProduto}</h1>
 
                             <div className="spans-infos">
                                 <div className="span-review">
-                                    <span className="star-review"> { media }</span>
+                                    <span className="star-review"> {media}</span>
                                     <span className="ponto"></span>
-                                    <span>{ avaliacoes.length } reviews</span>
+                                    <span>{avaliacoes.length} reviews</span>
                                 </div>
                             </div>
                         </div>
 
                         <div className="preco-produto">
-                            <span className="preco-produto">R$ { produto.preco }</span>
+                            <span className="preco-produto">R$ {produto.preco}</span>
                             <span>por Unidade</span>
                         </div>
 
@@ -230,7 +232,7 @@ const DetalhesProduto = () => {
                             <div className="div-sabores">
                                 <span className="label-sabores">Sabores</span>
                                 <div className="options">
-                                        { produto.sabores.map(sabor => <span className="option-sabor" onClick={() => handleAddSabores(sabor)}>{ sabor.sabor }</span>) }
+                                    {produto.sabores.map(sabor => <span className="option-sabor" onClick={() => handleAddSabores(sabor)}>{sabor.sabor}</span>)}
                                 </div>
                             </div>
 
@@ -241,18 +243,18 @@ const DetalhesProduto = () => {
                                     <span className="label-quantidade">Quantidade:</span>
 
                                     <div className="quantityManipulation">
-                                        <Button type="button" className="remove-quantity" buttonClickEvent={ decrementQuantity }>-</Button>
-                                        <span className="quantity">{ quantidade }</span>
-                                        <Button type="button" className="add-quantity" buttonClickEvent={ addQuantity }>+</Button>
+                                        <Button type="button" className="remove-quantity" buttonClickEvent={decrementQuantity}>-</Button>
+                                        <span className="quantity">{quantidade}</span>
+                                        <Button type="button" className="add-quantity" buttonClickEvent={addQuantity}>+</Button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            { quantidade != 0 ?
-                                <Button type="button" buttonClickEvent={ addProdutoCarrinho } className='btncarrinho'>Adicionar no Carrinho</Button>
-                            :
+                            {quantidade != 0 ?
+                                <Button type="button" buttonClickEvent={addProdutoCarrinho} className='btnAdicionarCarrinho'>Adicionar no Carrinho</Button>
+                                :
                                 <Button disabled>Adicionar no Carrinho</Button>
                             }
                         </div>
@@ -261,69 +263,72 @@ const DetalhesProduto = () => {
 
                 <div className="descricao-produto">
                     <h3>Informações do Produto</h3>
-                    <div>{ produto.descricaoProduto }</div>
+                    <div>{produto.descricaoProduto}</div>
                 </div>
 
-                { message && <Message type="success" message={ message } /> }
+                {message && <Message type="success" message={message} />}
 
-                { media ?
+                {media ?
                     <div className="div-avaliacao">
                         <div className="media-avaliacao">
-                            <span className="media">{ media }</span>
+                            <span className="media">{media}</span>
                             <span className="nota-maxima">de 5.0</span>
 
                             <ul className="ulavaliacao media-nota">
-                                { estrelas }
+                                {estrelas}
                             </ul>
                         </div>
 
                         <div className="total-avaliacao">
-                            <span className="total">Total de avaliações ({ avaliacoes.length })</span>
-                            <Button className="btn-avaliar" variant="primary" buttonClickEvent={ handleShow }>
+                            <span className="total">Total de avaliações ({avaliacoes.length})</span>
+                        </div>
+                        <div className="div-btn-avaliar">
+                            <Button className="btnAvaliar" variant="primary" buttonClickEvent={handleShow}>
                                 Avaliar
                             </Button>
+
                         </div>
 
-                        { avaliacoes.map(avaliacao => 
-                            <Compavaliacao nota={ avaliacao.nota } comentario={ avaliacao.comentario } avaliador={ avaliacao.cliente }/>
+                        {avaliacoes.map(avaliacao =>
+                            <Compavaliacao nota={avaliacao.nota} comentario={avaliacao.comentario} avaliador={avaliacao.cliente} data={avaliacao.data} />
                         )}
                     </div>
                     :
                     <div className="sem-media">Este produto ainda não possui avaliações</div>
                 }
-        
-                <Modal show={ show } onHide={ handleClose } centered>
+
+                <Modal show={show} onHide={handleClose} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Realizar Avaliação</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
                         <label htmlFor="comentario">Comentario:</label>
-                        <input type="text" name="comentario" id="comentario" required/>
+                        <input type="text" name="comentario" id="comentario" required />
                         <p>Nota:</p>
-                        <ul className="ulavaliacao">
-                            <li className="star-icon-review ativo" data-avaliacao="1" onClick={ handleClickStar }></li>
-                            <li className="star-icon-review" data-avaliacao="2" onClick={ handleClickStar }></li>
-                            <li className="star-icon-review" data-avaliacao="3" onClick={ handleClickStar }></li>
-                            <li className="star-icon-review" data-avaliacao="4" onClick={ handleClickStar }></li>
-                            <li className="star-icon-review" data-avaliacao="5" onClick={ handleClickStar }></li>
+                        <ul className="ulavaliacaomodal">
+                            <li className="star-icon-review ativo" data-avaliacao="1" onClick={handleClickStar}></li>
+                            <li className="star-icon-review" data-avaliacao="2" onClick={handleClickStar}></li>
+                            <li className="star-icon-review" data-avaliacao="3" onClick={handleClickStar}></li>
+                            <li className="star-icon-review" data-avaliacao="4" onClick={handleClickStar}></li>
+                            <li className="star-icon-review" data-avaliacao="5" onClick={handleClickStar}></li>
                         </ul>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <ButtonModal variant="secondary" onClick={ handleClose }>
+                        <ButtonModal variant="secondary" onClick={handleClose}>
                             Fechar
                         </ButtonModal>
-                        <ButtonModal className="btn-enviar" variant="primary" onClick={ createRating }>
+                        <ButtonModal className="btn-enviar" variant="primary" onClick={createRating}>
                             Enviar
                         </ButtonModal>
                     </Modal.Footer>
                 </Modal>
             </div>
-        :
-        <div>
-            <Loading />
-        </div>
+            :
+            <div>
+                <Loading />
+            </div>
     )
 }
 

@@ -1,4 +1,4 @@
-:root{
+:root {
     --verde: rgb(0, 255, 13);
     --btn-azul: #4939FF;
     --dark-gray: #1f1f1f;
@@ -7,13 +7,30 @@
     --box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
-.btnTrash, .btnEdit {
+.btnAvaliar {
+    background-color: var(--pastel-red);
+    width: 150px;
+    border-radius: 50px;
+    height: 30px;
+    color: white;
+}
+
+.btnAdicionarCarrinho {
+    background-color: var(--btn-azul);
+    width: 200px;
+    border-radius: 50px;
+    height: 30px;
+    color: white;
+}
+
+.btnTrash,
+.btnEdit {
     border: none;
     background: none;
     font-size: 20px;
 }
 
-.btnCadastrar{
+.btnCadastrar {
     border: none;
     background-color: var(--verde);
     border-radius: 20px;
@@ -22,13 +39,13 @@
     transition: all .2s;
 }
 
-.btnCadastrar:hover{
+.btnCadastrar:hover {
     color: var(--verde);
     background-color: white;
     box-shadow: var(--box-shadow);
 }
 
-.btnBack{
+.btnBack {
     border: none;
     background-color: var(--dark-gray);
     color: white;
@@ -37,7 +54,7 @@
     transition: all .2s;
 }
 
-.btnBack:hover{
+.btnBack:hover {
     color: var(--dark-gray);
     background-color: white;
     box-shadow: var(--box-shadow);
@@ -54,7 +71,7 @@
     transition: all .2s;
 }
 
-.btnClear:hover{
+.btnClear:hover {
     color: var(--pastel-red);
     background-color: white;
     box-shadow: var(--box-shadow);
@@ -69,7 +86,7 @@
     transition: all .2s;
 }
 
-.btnAdd:hover{
+.btnAdd:hover {
     box-shadow: var(--box-shadow);
     color: var(--btn-azul);
     background-color: white;
@@ -95,7 +112,7 @@
     width: 30px;
 }
 
-.btnDropdown{
+.btnDropdown {
     padding: 5px 15px;
     background-color: var(--btn-azul);
     color: white;
@@ -105,7 +122,7 @@
     margin: 0 !important;
 }
 
-.btnDropdown:hover{
+.btnDropdown:hover {
     box-shadow: var(--box-shadow);
     color: var(--btn-azul);
     background-color: white;

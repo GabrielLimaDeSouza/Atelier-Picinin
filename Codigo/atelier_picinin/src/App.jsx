@@ -87,7 +87,6 @@ function handleLogged(login) {
           <Route path='/cadastrarAdm' element={ <CadastarUsuarioAdm /> }></Route>
         </Routes>
         <Outlet/>
-
         <Rodape />
       </div>
   )

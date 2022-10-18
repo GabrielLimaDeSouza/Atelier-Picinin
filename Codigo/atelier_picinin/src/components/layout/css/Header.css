@@ -12,7 +12,7 @@
     color: rgb(24, 24, 24);
 }
 
-.div-header > a:last-child {
+.div-header>a:last-child {
     font-size: 25px;
 }
 
@@ -31,12 +31,12 @@
     column-gap: 50px;
 }
 
-.menu > a {
+.menu>a {
     text-decoration: none;
     position: relative;
 }
 
-.menu > a.active::after {
+.menu>a.active::after {
     content: '';
     position: absolute;
     display: block;
@@ -46,7 +46,7 @@
     bottom: -5px;
 }
 
-.menu > a:hover::after {
+.menu>a:hover::after {
     width: 100%;
 }
 
@@ -62,8 +62,9 @@
     gap: 20px;
 }
 
-.buttons > a {
+.buttons>a {
     font-size: 25px;
     border: 0;
 }
+
 /**** Fim estilos cabeçalho ****/

@@ -3,6 +3,7 @@ import '../css/home/Home.css'
 import Card from '../../components/home/module/CardHome'
 import { useState, useEffect } from 'react'
 import { BsWhatsapp, BsInstagram } from 'react-icons/bs'
+import Rodape from '../../components/layout/Rodape'
 
 const Home = () => {
   const [produtos, setProdutos] = useState([])
@@ -32,6 +33,7 @@ const Home = () => {
             </div>
           </div>
           <div className='img'>
+            <img src="../.././../doce.png" alt="Doce" className="img-doce" />
           </div>
         </div>
         <div className="div-cardapio">
@@ -46,6 +48,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Rodape />
     </>
   )
 }

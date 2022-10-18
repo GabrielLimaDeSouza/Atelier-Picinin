@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 const Header = ({ state, logged }) => {
-    
+
     function handlePageLocation(e) {
         const allLinkMenu = document.querySelectorAll(".menu a")
         allLinkMenu.forEach(menuLink => menuLink.classList.remove("active"))
@@ -15,18 +15,18 @@ const Header = ({ state, logged }) => {
         element.classList.add("active")
     }
 
-    const loggedUser = state ? 
-                        <>
-                            <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={ handlePageLocation }>Cadastrar Produtos</Link>
-                            <Link id="estoque" to="/estoque" onClick={ handlePageLocation }>Estoque</Link>
-                        </> : <>
-                            <Link id="contatos" to="/" onClick={ handlePageLocation }>Contatos</Link>
-                        </>
+    const loggedUser = state ?
+        <>
+            <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={handlePageLocation}>Cadastrar Produtos</Link>
+            <Link id="estoque" to="/estoque" onClick={handlePageLocation}>Estoque</Link>
+        </> : <>
+            <Link id="contatos" to="/" onClick={handlePageLocation}>Contatos</Link>
+        </>
 
     const unloggedUser = <>
-                            <Link id="cadastrar" to="/cadastrar" onClick={ handlePageLocation }>Cadastrar</Link>
-                            <Link id="login" to="/login" onClick={ handlePageLocation }>Login</Link>
-                         </>
+        <Link id="cadastrar" to="/cadastrar" onClick={handlePageLocation}>Cadastrar</Link>
+        <Link id="login" to="/login" onClick={handlePageLocation}>Login</Link>
+    </>
 
     return (
         <div className="header">
@@ -34,14 +34,14 @@ const Header = ({ state, logged }) => {
                 <div className="logo-menu">
                     <h1 className="logo">Logo</h1>
                     <div className="menu">
-                        <Link id="home" to="/" onClick={ handlePageLocation }>Home</Link>
-                        { logged && loggedUser }
+                        <Link id="home" to="/" onClick={handlePageLocation}>Home</Link>
+                        {logged && loggedUser}
                     </div>
                 </div>
                 <div className="buttons">
-                    { !logged ? unloggedUser :
+                    {!logged ? unloggedUser :
                         <>
-                            { !state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link> }
+                            {!state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link>}
                             <Link to="/" className="perfil"><BiUser /></Link>
                         </>
                     }
