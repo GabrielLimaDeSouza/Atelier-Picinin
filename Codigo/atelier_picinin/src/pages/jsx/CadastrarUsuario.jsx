@@ -1,4 +1,4 @@
-import '../css/cadastrarUsuario/cadastrarUsuario.module.css'
+import '../css/cadastrarUsuario/cadastrarUsuario.css'
 import { useEffect, useState } from 'react'
 import CompCadastroUser from '../../components/User/FormCadastroUsuario'
 import Message from "../../components/layout/Message"

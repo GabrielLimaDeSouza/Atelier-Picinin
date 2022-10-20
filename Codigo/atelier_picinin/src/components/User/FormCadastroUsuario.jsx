@@ -1,4 +1,5 @@
-import '../../pages/css/cadastrarUsuario/cadastrarUsuario.module.css'
+import '../../pages/css/cadastrarUsuario/cadastrarUsuario.css'
+
 const compCadastroUser =({event})=>{
     return( 
     <><div className="divForm">
