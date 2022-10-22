@@ -132,7 +132,7 @@ const CadastrarProduto = () => {
     }
     function updateProduto(e) {
         e.preventDefault()
-        
+
         fetch(`http://localhost:3000/produto/updateProduct/${id}`, {
             method: 'PATCH',
             headers: {
@@ -210,7 +210,7 @@ const CadastrarProduto = () => {
                 setMessage("Produto removido com sucesso!")
             })
             .catch((err) => console.error(err))
-    } 
+    }
     function deleteSabor(id, indice) {
 
         fetch(`http://localhost:3000/produto/deleteSabor/${id}`, {
@@ -311,19 +311,19 @@ const CadastrarProduto = () => {
                     </div>
 
                 </div>
-                
 
-               
+
+
                 {
                     produtos.map(number =>
 
                         <div class="dropdown-center">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button className="btn btn-secondary dropdown-toggle " id="dropdownProduto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {number.nomeProduto}
                             </button>
-                            <ul class="dropdown-menu">
+                            <ul className="dropdown-menu">
                                 <li>
-                                    <table class="table">
+                                    <table className="table">
                                         <thead>
                                             <tr>
                                                 <th scope="col">SABOR</th>
@@ -344,7 +344,7 @@ const CadastrarProduto = () => {
                                                         <td>{sabores.preco}</td>
                                                         <td>{number.pedidoMinProduto}</td>
 
-                                                        <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onClick={() => { setIndiceSabor(indice), setId(number._id) }}>
+                                                        <td><button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onClick={() => { setIndiceSabor(indice), setId(number._id) }}>
                                                             Alterar
                                                         </button></td>
                                                         <td>
@@ -358,7 +358,7 @@ const CadastrarProduto = () => {
 
 
                                             <tr >
-                                                <td ><Button type="button" className="btnTrash" buttonClickEvent={()=>{deletProduct(number._id)}}>{<BiTrash />}</Button></td>
+                                                <td ><Button type="button" className="btnTrash" buttonClickEvent={() => { deletProduct(number._id) }}>{<BiTrash />}</Button></td>
                                                 <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => { setId(number._id), idProduto(number._id) }}>
                                                     Alterar
                                                 </button></td>

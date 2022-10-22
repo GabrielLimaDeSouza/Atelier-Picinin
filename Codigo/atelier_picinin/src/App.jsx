@@ -1,7 +1,6 @@
 import { Outlet, Route, Routes } from 'react-router-dom'
 import './App.css'
 
-import Rodape from './components/layout/Rodape'
 import Home from './pages/jsx/Home'
 import CadastrarProduto from './pages/jsx/CadastrarProduto'
 import Estoque from './pages/jsx/Estoque'
@@ -27,25 +26,25 @@ function App() {
   const [windowWidth, setWindowWidth] = useState(0)
 
   useEffect(() => {
-    if(id) {
-      fetch(`${ url }/api/user/getUserById?id=${ id }`, {
+    if (id) {
+      fetch(`${url}/api/user/getUserById?id=${id}`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         }
       }).then(resp => resp.json())
-      .then(data => setUser(data))
-      .catch(err => console.error(err))
+        .then(data => setUser(data))
+        .catch(err => console.error(err))
 
       setIsLogged(true)
     }
   }, [id])
-  
+
   useEffect(() => {
     setWindowWidth(window.innerWidth)
   }, [])
 
-  useEffect(() => { 
+  useEffect(() => {
     document.body.style.overflowY = menuVisible ? 'hidden' : 'auto'
   }, [menuVisible])
 
@@ -53,18 +52,18 @@ function App() {
     let cookie = {}
 
     document.cookie.split(';').forEach((el) => {
-        let [k, v] = el.split('=')
-        cookie[k.trim()] = v
+      let [k, v] = el.split('=')
+      cookie[k.trim()] = v
     })
 
     return cookie[name]
   }
 
-function handleLogged(login) {
-  setId(login._id)
-  setIsLogged(login.isLogged)
-}
-  
+  function handleLogged(login) {
+    setId(login._id)
+    setIsLogged(login.isLogged)
+  }
+
   return (
       <div className="App">
         { windowWidth <= 900 ?
