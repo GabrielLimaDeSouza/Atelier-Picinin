@@ -3,6 +3,7 @@ import '../css/login/Login.css'
 import LinkButton from '../../components/layout/LinkButton'
 import Button from '../../components/layout/Button'
 import Message from '../../components/layout/Message'
+import login_img from '../../../public/login_img.png'
 
 import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
@@ -76,63 +77,62 @@ const Login = ({ isLogged }) => {
 
     return ( notLogged &&
         <div className="body-login">
-            <div className="img-lollipop mobile-hidden">
-                <img src={ lollipop } alt="Pirulito Atelier Picinin" className="img-login"/>
-                <div className="bg-img"></div>
-            </div>
+            <div className="img-lollipop mobile-hidden"></div>
 
             <div className="login">
-                <div className="title">
-                    <h5>Logo</h5>
-                    <div className="text-title">
-                        <p>Bem vindo ao</p>
-                        <h2 className="title-login">Atelier Picinin</h2>
+                <div className="container-login">
+                    <div className="title">
+                        <h5>Logo</h5>
+                        <div className="text-title">
+                            <p>Bem vindo ao</p>
+                            <h2 className="title-login">Atelier Picinin</h2>
+                        </div>
                     </div>
-                </div>
-                <div className="form">
-                    { message && <Message type={ typeMessage } message={ message } /> }
-                    <form className="form-login" onSubmit={ handleSubmit }>
-                        <input
-                            type="text"
-                            id="email"
-                            className="input-email"
-                            name="email"
-                            placeholder="Insira seu email"
-                            value={ email }
-                            onChange={ (e) => setEmail(e.target.value) }
-                            required
-                        />
-                        <input
-                            type="password"
-                            id="password"
-                            className="input-senha"
-                            name="password"
-                            placeholder="Insira sua senha"
-                            value={ password }
-                            onChange={ (e) => setPassword(e.target.value) }
-                            required
-                        />
-                        
-                        <Link to="/login">Recuperar senha</Link>
-                        <Button type="submit" className="btnLogin">Entrar</Button>
-                    </form>
-                </div>
-                <div className="login-social-media">
-                    <div className="separador">
-                        <div className="line"></div>
-                        <span className="text-separador">ou entre com</span>
-                        <div className="line"></div>
+                    <div className="form">
+                        { message && <Message type={ typeMessage } message={ message } /> }
+                        <form className="form-login" onSubmit={ handleSubmit }>
+                            <input
+                                type="text"
+                                id="email"
+                                className="input-email"
+                                name="email"
+                                placeholder="Insira seu email"
+                                value={ email }
+                                onChange={ (e) => setEmail(e.target.value) }
+                                required
+                            />
+                            <input
+                                type="password"
+                                id="password"
+                                className="input-senha"
+                                name="password"
+                                placeholder="Insira sua senha"
+                                value={ password }
+                                onChange={ (e) => setPassword(e.target.value) }
+                                required
+                            />
+                            
+                            <div className="recovery-password">
+                                <Link id="recuperar-senha" to="/login">Recuperar senha</Link>
+                            </div>
+                            <Button type="submit" className="btnLogin">Entrar</Button>
+                        </form>
                     </div>
-                    <div className="btns">
-                        <button type="button" className="btn-google"><FcGoogle /></button>
-                        <button type="button" className="btn-facebook"><FaFacebook /></button>
+                    <div className="login-social-media">
+                        <div className="separator">
+                            <span className="text-separator">ou entre com</span>
+                        </div>
+                        <div className="btns">
+                            <button type="button" className="btn-google"><FcGoogle /></button>
+                            <button type="button" className="btn-facebook"><FaFacebook /></button>
+                        </div>
                     </div>
-                </div>
-                <div className="cadastro">
-                    <p className="text-cadastro">
-                        <span>Não possui cadastro? </span>
-                        <LinkButton to="/cadastrar" type="button" classNameButton="btnLink">Cadastrar</LinkButton>
-                    </p>
+                    <div className="cadastro">
+                        <p className="text-cadastro">
+                            <span>Não possui cadastro? </span>
+                            <LinkButton to="/cadastrar" type="button" classNameButton="btnLink">Cadastrar</LinkButton>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

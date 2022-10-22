@@ -1,6 +1,6 @@
 :root {
     --pastel-red: #ff6961;
-    --light-gray: #e4e4e4;
+    --light-gray: #f3f3f3;
     --gray: #6b6b6b;
     --dark-gray: #202020;
     --white: #fff;
@@ -8,53 +8,32 @@
 
 div.body-login {
     display: flex;
+    justify-content: space-between;
     width: 100%;
-    height: calc(100vh - 78px);
-    padding: 0;
-    overflow: hidden;
+    padding: 0 !important;
 }
 
 div.img-lollipop {
-    position: relative;
-    display: flex;
-    width: 70%;
-}
-
-img.img-login {
-    position: absolute;
-    top: -5px;
-    left: 18%;
-    z-index: 10;
-    width: 60%;
-    height: 100vh;
-    object-fit: cover;
-    object-position: 0 0;
-    transform: rotate(30deg);
-}
-
-div.bg-img {
-    object-fit: cover;
-    position: absolute;
-    top: 13%;
-    left: -15%;
-    z-index: 9;
-    background-color: var(--pastel-red);
-    width: 100%;
-    height: 100%;
-    border-radius: 0 80px 0 0;
-    transform: rotate(10deg);
+    width: 65%;
+    background-image: url('../../../../public/login_img.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: calc(70% - 5rem) 0;
 }
 
 div.login {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    vertical-align: middle;
-    row-gap: 20px;
     width: 35%;
-    max-width: 30rem;
-    padding-right: 100px;
+}
+
+div.container-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 20px;
 }
 
 div.title {
@@ -93,16 +72,14 @@ form.form-login {
 
 div.configs {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    align-items: flex-end;
     font-size: .8rem;
 }
 
-div.checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    column-gap: 10px;
-    width: 50%;
+div.recovery-password {
+    text-align: end;
+    font-size: .8rem;
 }
 
 input#email, input#password {
@@ -113,21 +90,40 @@ div.login-social-media {
     width: 100%;
     display: flex;
     flex-direction: column;
-    row-gap: 15px;
+    row-gap: 1rem;
 }
 
-div.separador {
+div.separator {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: var(--gray);
     font-size: .8rem;
-    column-gap: 5px;
+    column-gap: 1rem;
 }
 
-div.line {
-    border-top: .1rem solid var(--gray);
-    width: 35%;
+span.text-separator {
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+}
+
+span.text-separator::before, span.text-separator::after {
+    background-color: var(--gray);
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 33%;
+}
+
+span.text-separator::before {
+    right: 0.5em;
+}
+
+span.text-separator::after {
+    left: 0.5em;
 }
 
 div.btns {
@@ -142,6 +138,7 @@ div.btns button {
     font-size: 1.5rem;
     color: rgb(0, 60, 255);
     border-radius: 5px;
+    background-color: var(--light-gray);
 }
 
 div.cadastro {
@@ -155,7 +152,7 @@ p.text-cadastro {
     margin: 0;
 }
 
-footer {
+footer.login {
     display: none;
 }
 
@@ -174,3 +171,4 @@ footer {
         display: none;
     }
 }
+

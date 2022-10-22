@@ -5,10 +5,10 @@ import { BsInstagram, BsWhatsapp } from "react-icons/bs";
 function Rodape() {
 
     return (
-        <footer className={styles.footer}>
+        <footer className={ styles.footer }>
             <div>
                 <p>Atelier Picinin</p>
-                <div className={styles.buttonsRodape}>
+                <div className={ styles.buttonsRodape }>
                     <a><BsInstagram /></a>
                     <a><BsWhatsapp /></a>
                 </div>
