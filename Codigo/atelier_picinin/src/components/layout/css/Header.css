@@ -51,20 +51,36 @@
 }
 
 .logo {
-    font-size: 20px;
-    margin: 0;
+    width: 120px;
+    transition: 0.5s;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .buttons {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .buttons>a {
     font-size: 25px;
     border: 0;
+}
+
+.perfil,
+.carrinho {
+    transition: 0.5s;
+}
+
+.perfil:hover,
+.carrinho:hover {
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
 /**** Fim estilos cabeçalho ****/

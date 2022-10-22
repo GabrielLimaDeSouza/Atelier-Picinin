@@ -32,7 +32,7 @@ const Header = ({ state, logged }) => {
         <div className="header">
             <nav className="div-header">
                 <div className="logo-menu">
-                    <h1 className="logo">Logo</h1>
+                    <Link id="home" to="/"><img src="../../../public/logo_atelier.png" alt="Logo" className="logo" /></Link>
                     <div className="menu">
                         <Link id="home" to="/" onClick={handlePageLocation}>Home</Link>
                         {logged && loggedUser}
@@ -42,7 +42,7 @@ const Header = ({ state, logged }) => {
                     {!logged ? unloggedUser :
                         <>
                             {!state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link>}
-                            <Link to="/" className="perfil"><BiUser /></Link>
+                            <Link to="/"><BiUser className="perfil" /></Link>
                         </>
                     }
                 </div>

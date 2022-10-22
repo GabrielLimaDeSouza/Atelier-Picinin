@@ -1,28 +1,42 @@
-
-input{
-    width: 30% !important;
-}
-.divForm{
-    display: flex !important;
-}
-.divInput{
-    display: flex !important;
-    justify-content: center;
-}
-.campos{
+.divForm {
     display: flex;
-    padding-bottom: 50px;
+    flex-direction: column;
+    width: 40% !important;
 }
 
-.cadastrar{
+.formCadastro {
+    background-color: #ff6961;
+    padding: 20px 30px;
+    border-radius: 50px;
+    color: white;
+    text-align: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+label {
+    margin-top: 10px;
+}
+
+
+.cadastrar {
     border: none;
-    background-color: rgb(0, 255, 13) !important;
+    background-color: #9933CC;
     border-radius: 20px;
     padding: 5px 15px;
     color: white;
     transition: all .2s;
 }
-.teste{
-    display: flex !important;
-    justify-content: center !important;
+
+.voltar {
+    border: none;
+    background-color: #ff4444;
+    border-radius: 20px;
+    padding: 5px 15px;
+    color: white;
+    transition: all .2s;
 }
