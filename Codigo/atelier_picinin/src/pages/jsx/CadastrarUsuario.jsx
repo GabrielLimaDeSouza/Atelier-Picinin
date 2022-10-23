@@ -63,7 +63,7 @@ const cadastarUsuario = () => {
     }
     return (
         <>
-            <div className="msg">{message && <Message type={typeMessage} message={message} />}</div>
+            {message && <Message type={typeMessage} message={message} />}
             <CompCadastroUser event={cadastrar} />
         </>
     )

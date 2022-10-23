@@ -15,6 +15,7 @@ import Login from './pages/jsx/Login'
 import CadastarUsuario from './pages/jsx/CadastrarUsuario'
 import CadastarUsuarioAdm from './pages/jsx/CadastrarUsuarioAdm'
 import { useEffect, useState } from 'react'
+import Rodape from './components/layout/Rodape'
 
 const url = "http://localhost:3000"
 
@@ -65,30 +66,30 @@ function App() {
   }
 
   return (
-      <div className="App">
-        { windowWidth <= 900 ?
-          <MenuMobile state={ user.admin } menuVisible={ menuVisible } setMenuVisible={ setMenuVisible } logged={ isLogged }/>
-          :
-          <Cabecalho state={ user.admin } logged={ isLogged }/>
-        }
-        
-        <Routes>
-          <Route exact path='/' element={ <Home /> }>Home</Route>
-          <Route path='/cadastrarProduto' element={ <CadastrarProduto /> }>Cadastrar Produtos</Route>
-          <Route path='/estoque' element={ <Estoque /> }>Estoque</Route>
-          <Route path='/cadastrarInsumo' element={ <CadastrarInsumo /> }></Route>
-          <Route path='/estoque/:id' element={ <EditInventory /> }></Route>
-          <Route path='/detalhesProduto/:id' element={ <DetalhesProduto /> }></Route>
-          <Route path='/carrinho' element={ <Carrinho /> }></Route>
-          <Route path='/adicionarEndereco' element={ <AdicionarEndereco /> }></Route>
-          <Route path='/login' element={ <Login isLogged={ handleLogged }/> }></Route>
-          <Route path='/cadastrar' element={ <CadastarUsuario /> }></Route>
-          <Route path='/cadastrarAdm' element={ <CadastarUsuarioAdm /> }></Route>
-        </Routes>
-        <Outlet/>
+    <div className="App">
+      {windowWidth <= 900 ?
+        <MenuMobile state={user.admin} menuVisible={menuVisible} setMenuVisible={setMenuVisible} logged={isLogged} />
+        :
+        <Cabecalho state={user.admin} logged={isLogged} />
+      }
 
-        <Rodape/>
-      </div>
+      <Routes>
+        <Route exact path='/' element={<Home />}>Home</Route>
+        <Route path='/cadastrarProduto' element={<CadastrarProduto />}>Cadastrar Produtos</Route>
+        <Route path='/estoque' element={<Estoque />}>Estoque</Route>
+        <Route path='/cadastrarInsumo' element={<CadastrarInsumo />}></Route>
+        <Route path='/estoque/:id' element={<EditInventory />}></Route>
+        <Route path='/detalhesProduto/:id' element={<DetalhesProduto />}></Route>
+        <Route path='/carrinho' element={<Carrinho />}></Route>
+        <Route path='/adicionarEndereco' element={<AdicionarEndereco />}></Route>
+        <Route path='/login' element={<Login isLogged={handleLogged} />}></Route>
+        <Route path='/cadastrar' element={<CadastarUsuario />}></Route>
+        <Route path='/cadastrarAdm' element={<CadastarUsuarioAdm />}></Route>
+      </Routes>
+
+      <Outlet />
+      <Rodape />
+    </div>
   )
 }
 

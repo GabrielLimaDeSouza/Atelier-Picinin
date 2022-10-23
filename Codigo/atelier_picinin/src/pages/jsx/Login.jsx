@@ -3,7 +3,6 @@ import '../css/login/Login.css'
 import LinkButton from '../../components/layout/LinkButton'
 import Button from '../../components/layout/Button'
 import Message from '../../components/layout/Message'
-import login_img from '../../../public/login_img.png'
 
 import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
@@ -22,18 +21,18 @@ const Login = ({ isLogged }) => {
 
     function getCookie(name) {
         let cookie = {}
-    
+
         document.cookie.split(';').forEach((el) => {
             let [k, v] = el.split('=')
             cookie[k.trim()] = v
         })
-    
+
         return cookie[name]
     }
 
     useEffect(() => {
         const id = getCookie("_id")
-        if(id) {
+        if (id) {
             navigate('/')
         } else {
             setNotLogged(true)
@@ -52,12 +51,12 @@ const Login = ({ isLogged }) => {
             },
             body: JSON.stringify({ email, password })
         }).then(resp => resp.json())
-        .then(data => authentication(data))
-        .catch(err => console.log(err))
+            .then(data => authentication(data))
+            .catch(err => console.log(err))
     }
 
     function authentication(user) {
-        if(user.accept) {
+        if (user.accept) {
             isLogged({ _id: user._id, isLogged: true })
             createCookie(user._id, 1000)
             navigate('/', { replace: true })
@@ -72,10 +71,10 @@ const Login = ({ isLogged }) => {
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000))
         const expires = date.toUTCString()
 
-        document.cookie = `_id=${ idUser }; expires=${ expires }`
+        document.cookie = `_id=${idUser}; expires=${expires}`
     }
 
-    return ( notLogged &&
+    return (notLogged &&
         <div className="body-login">
             <div className="img-lollipop mobile-hidden"></div>
 
@@ -89,16 +88,16 @@ const Login = ({ isLogged }) => {
                         </div>
                     </div>
                     <div className="form">
-                        { message && <Message type={ typeMessage } message={ message } /> }
-                        <form className="form-login" onSubmit={ handleSubmit }>
+                        {message && <Message type={typeMessage} message={message} />}
+                        <form className="form-login" onSubmit={handleSubmit}>
                             <input
                                 type="text"
                                 id="email"
                                 className="input-email"
                                 name="email"
                                 placeholder="Insira seu email"
-                                value={ email }
-                                onChange={ (e) => setEmail(e.target.value) }
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                             <input
@@ -107,11 +106,11 @@ const Login = ({ isLogged }) => {
                                 className="input-senha"
                                 name="password"
                                 placeholder="Insira sua senha"
-                                value={ password }
-                                onChange={ (e) => setPassword(e.target.value) }
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
-                            
+
                             <div className="recovery-password">
                                 <Link id="recuperar-senha" to="/login">Recuperar senha</Link>
                             </div>

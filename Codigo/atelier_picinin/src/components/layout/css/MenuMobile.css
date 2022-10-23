@@ -18,6 +18,7 @@ nav.menu {
     padding: 1rem;
     transition: all .3s ease-in-out;
 }
+
 nav.menu svg {
     font-size: 20px;
 }
@@ -66,4 +67,8 @@ div.visibleMenu svg {
 
 div.hidden {
     display: none;
+}
+
+.close {
+    cursor: pointer;
 }

@@ -4,6 +4,11 @@
     width: 40% !important;
 }
 
+.mensagem {
+    background-color: red;
+    width: 80% !important;
+}
+
 .formCadastro {
     background-color: #ff6961;
     padding: 20px 30px;

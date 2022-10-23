@@ -96,3 +96,37 @@
     gap: 50px;
     width: 100%;
 }
+
+@media screen and (max-width: 890px) {
+    .informacoes {
+        width: 100%;
+    }
+
+    .img,
+    .img-doce {
+        display: none;
+    }
+
+    .div-cardapio {
+        width: 50%;
+    }
+
+}
+
+@media screen and (max-width: 460px) {
+    .banner {
+        height: 450px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .banner {
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .banner {
+        height: 600px;
+    }
+}
