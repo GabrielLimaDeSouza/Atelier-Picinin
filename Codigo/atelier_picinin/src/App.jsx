@@ -25,6 +25,7 @@ function App() {
   const [menuVisible, setMenuVisible] = useState(false)
   const [user, setUser] = useState({})
   const [windowWidth, setWindowWidth] = useState(0)
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,7 +67,7 @@ function App() {
     setIsLogged(login.isLogged)
   }
 
-const handleLogout = () => {
+  const handleLogout = () => {
     var data = new Date(2010, 1, 1)
     document.cookie = '_id=; expires=' + data + '; path=/'
     setIsLogged(false)
@@ -100,7 +101,7 @@ const handleLogout = () => {
         </Routes>
 
       <Outlet />
-      <Rodape />
+      <Rodape/>
     </div>
   )
 }

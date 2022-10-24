@@ -155,10 +155,6 @@ p.text-cadastro {
     margin: 0;
 }
 
-footer.login {
-    display: none;
-}
-
 @media (max-width: 1000px) {
     div.body-login {
         height: auto;

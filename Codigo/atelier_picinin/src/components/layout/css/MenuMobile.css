@@ -52,7 +52,7 @@ div.visibleMenu.visible {
     transition: transform .3s ease-in-out;
 }
 
-div.visibleMenu a, span.logout {
+div.visibleMenu a, div.visibleMenu span.logout {
     text-align: center;
     color: var(--white);
 }

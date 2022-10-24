@@ -5,6 +5,10 @@
     height: 100px;
 }
 
+.login {
+    display: none;
+}
+
 .footer p {
     width: 100%;
     display: flex;

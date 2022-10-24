@@ -9,7 +9,7 @@
     text-decoration: none;
 }
 
-.div-header a {
+.div-header a, .div-header  span.logout {
     color: rgb(24, 24, 24);
 }
 
