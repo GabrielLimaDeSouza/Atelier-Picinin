@@ -52,7 +52,7 @@ div.visibleMenu.visible {
     transition: transform .3s ease-in-out;
 }
 
-div.visibleMenu a {
+div.visibleMenu a, span.logout {
     text-align: center;
     color: var(--white);
 }
@@ -63,6 +63,12 @@ div.visibleMenu svg {
     top: 1.5rem;
     right: 1rem;
     font-size: 1.5rem;
+}
+
+div.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 div.hidden {

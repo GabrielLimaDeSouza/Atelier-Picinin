@@ -1,12 +1,17 @@
 import '../css/cadastrarUsuario/cadastrarUsuario.css'
-import { useEffect, useState } from 'react'
+
 import CompCadastroUser from '../../components/User/FormCadastroUsuario'
 import Message from "../../components/layout/Message"
 
-const cadastarUsuario = () => {
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+const cadastarUsuario = ({ id }) => {
     const [usuarios, setUsuarios] = useState([])
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
+    const navigate = useNavigate()
+
     var tamanho
     const url = 'http://localhost:3000'
     useEffect(() => {
@@ -18,7 +23,13 @@ const cadastarUsuario = () => {
         }).then(resp => resp.json())
             .then(data => setUsuarios(data), tamanho = usuarios.length)
             .catch(err => console.error(err))
-    }, [{}])
+    }, [])
+
+    useEffect(() => {
+        if (id) {
+            navigate('/')
+        }
+    }, [])
 
     function cadastrar() {
         let achado = false
@@ -61,7 +72,7 @@ const cadastarUsuario = () => {
         }
 
     }
-    return (
+    return (!id &&
         <>
             {message && <Message type={typeMessage} message={message} />}
             <CompCadastroUser event={cadastrar} />

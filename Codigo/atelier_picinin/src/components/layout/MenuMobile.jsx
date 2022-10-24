@@ -5,9 +5,8 @@ import { RiMenu3Fill } from 'react-icons/ri'
 import { BiUser } from 'react-icons/bi'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 
-const MenuMobile = ({ state, menuVisible, setMenuVisible, logged }) => {
+const MenuMobile = ({ state, menuVisible, setMenuVisible, logged, handleLogout }) => {
     const navigate = useNavigate()
 
     function handleVisibilityMenu() {
@@ -20,13 +19,17 @@ const MenuMobile = ({ state, menuVisible, setMenuVisible, logged }) => {
         setTimeout(() => setMenuVisible(!menuVisible), 100)
     }
 
-    const loggedUser = state ?
-        <>
-            <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={handleVisibilityMenu}>Cadastrar Produtos</Link>
-            <Link id="estoque" to="/estoque" onClick={handleVisibilityMenu}>Estoque</Link>
-        </> : <>
-            <Link id="contatos" to="/" onClick={handleVisibilityMenu}>Contatos</Link>
-        </>
+    const loggedUser = <>
+        { state ?
+            <>
+                <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={handleVisibilityMenu}>Cadastrar Produtos</Link>
+                <Link id="estoque" to="/estoque" onClick={handleVisibilityMenu}>Estoque</Link>
+            </> : <>
+                <Link id="contatos" to="/" onClick={handleVisibilityMenu}>Contatos</Link>
+            </>
+        }
+        <span className="logout" onClick={ handleLogout }>Logout</span>
+    </>
 
     const unloggedUser = <>
         <Link id="cadastrar" to="/cadastrar" onClick={handleVisibilityMenu}>Cadastrar</Link>

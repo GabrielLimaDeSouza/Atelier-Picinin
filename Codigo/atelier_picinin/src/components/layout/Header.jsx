@@ -40,7 +40,7 @@ const Header = ({ state, logged, handleLogout }) => {
                 <div className="buttons">
                     { !logged ? unloggedUser :
                         <>
-                            {!state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link>}
+                            { !state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link> }
                             <Link to="/"><BiUser className="perfil" /></Link>
                             <span className="logout" onClick={ handleLogout }>Logout</span>
                         </>

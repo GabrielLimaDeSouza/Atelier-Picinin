@@ -15,6 +15,7 @@ const Login = ({ isLogged }) => {
     const [message, setMessage] = useState("")
     const [typeMessage, setTypeMessage] = useState("")
     const [notLogged, setNotLogged] = useState(false)
+    const navigate = useNavigate()
 
     function getCookie(name) {
         let cookie = {}
@@ -35,8 +36,6 @@ const Login = ({ isLogged }) => {
             setNotLogged(true)
         }
     }, [])
-
-    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()

@@ -76,7 +76,7 @@ const handleLogout = () => {
   return (
     <div className="App">
       { windowWidth <= 900 ?
-        <MenuMobile state={user.admin} menuVisible={menuVisible} setMenuVisible={setMenuVisible} logged={isLogged} />
+        <MenuMobile state={user.admin} menuVisible={menuVisible} setMenuVisible={setMenuVisible} logged={isLogged} handleLogout={ handleLogout } />
         :
         <Cabecalho state={user.admin} logged={isLogged} handleLogout={ handleLogout }/>
       }
@@ -90,10 +90,14 @@ const handleLogout = () => {
         <Route path='/detalhesProduto/:id' element={<DetalhesProduto />}></Route>
         <Route path='/carrinho' element={<Carrinho />}></Route>
         <Route path='/adicionarEndereco' element={<AdicionarEndereco />}></Route>
-        <Route path='/login' element={<Login isLogged={ handleLogged } />}></Route>
-        <Route path='/cadastrar' element={<CadastarUsuario />}></Route>
-        <Route path='/cadastrarAdm' element={<CadastarUsuarioAdm />}></Route>
-      </Routes>
+        { !isLogged &&
+          <>
+            <Route path='/login' element={<Login isLogged={ handleLogged } id={ getCookie("_id") } />}></Route>
+            <Route path='/cadastrar' element={<CadastarUsuario id={ getCookie("_id") } />}></Route>
+            <Route path='/cadastrarAdm' element={<CadastarUsuarioAdm id={ getCookie("_id") } />}></Route>
+          </>
+        }
+        </Routes>
 
       <Outlet />
       <Rodape />
