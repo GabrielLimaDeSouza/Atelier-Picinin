@@ -19,8 +19,6 @@ const CardHome = ({ produtos, key }) => {
       .catch(err => console.error(err))
   }, [])
 
-  console.log(avaliacoes)
-
   return (
     <Link to={`/detalhesProduto/${produtos._id}`}>
       <div className={styles.card}>

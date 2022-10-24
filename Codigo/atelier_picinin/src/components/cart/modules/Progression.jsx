@@ -2,6 +2,9 @@ import '../css/Progression.css'
 
 import { BiCheck, BiChevronRight } from 'react-icons/bi'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+
+import logo from '../../../../public/logo_atelier.png'
 
 const Progression = ({ elements, state }) => {
 
@@ -19,6 +22,8 @@ const Progression = ({ elements, state }) => {
 
     return (
         <div className="divProgression">
+            <Link id="home" to="/"><img src={logo} alt="Logo" className="logo-progression-bar" /></Link>
+            <span>|</span>
             { elements.map((element, index) => 
                 <div className="divElements">
                     { index < elements.indexOf(state) ? 

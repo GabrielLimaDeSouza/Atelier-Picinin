@@ -4,6 +4,8 @@ import { BiUser } from 'react-icons/bi'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
+import logo from '../../../public/logo_atelier.png'
+
 const Header = ({ state, logged, handleLogout }) => {
 
     function handlePageLocation(e) {
@@ -31,7 +33,7 @@ const Header = ({ state, logged, handleLogout }) => {
         <div className="header">
             <nav className="div-header">
                 <div className="logo-menu">
-                    <Link id="home" to="/"><img src="../../../public/logo_atelier.png" alt="Logo" className="logo" /></Link>
+                    <Link id="home" to="/"><img src={logo} alt="Logo" className="logo" /></Link>
                     <div className="menu">
                         <Link id="home" to="/" onClick={handlePageLocation} className="home">Home</Link>
                         { logged && loggedUser }

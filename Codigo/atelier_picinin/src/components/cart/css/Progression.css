@@ -28,3 +28,7 @@ svg.checked {
 span.element.inProgress {
     color: #F36961;
 }
+
+img.logo-progression-bar {
+    width: 4rem;
+}

@@ -20,7 +20,6 @@ const Carrinho = () => {
     
     useEffect(() => {
         var subtotal = 0
-        console.log(cartItems)
         cartItems.forEach(item => subtotal += item.precoTotal)
         setSubtotal(subtotal.toFixed(2))
 
@@ -78,8 +77,6 @@ const Carrinho = () => {
         <div className="body-cart">
             <div className="cart-content">
                 <div className="title-page">
-                    <h1 className="logo">Logo</h1>
-                    <span>|</span>
                     <Progression state="Carrinho de Compra" elements={ ["Carrinho de Compra", "Endereço", "Confirmar Pedido"] } />
                 </div>
 
