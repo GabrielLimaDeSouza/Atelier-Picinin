@@ -1,7 +1,8 @@
 :root {
-    --verde: rgb(0, 255, 13);
+    --verde: #00FF00;
     --btn-azul: #4939FF;
     --dark-gray: #1f1f1f;
+    --gray: #808080;
     --light-gray: #f7f7f7;
     --pastel-red: #ff6961;
     --box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
@@ -128,7 +129,7 @@
     background-color: white;
 }
 
-.btnPagamento {
+.btnPagamento, .btnPagamentoDisabled {
     padding: 5px 0px;
     background-color: var(--pastel-red);
     color: white;
@@ -137,6 +138,10 @@
     transition: all .2s;
     margin: 0 !important;
     width: 100%;
+}
+
+.btnPagamentoDisabled {
+    background-color: var(--gray);
 }
 
 .btnRemover {

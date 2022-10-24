@@ -1,6 +1,7 @@
 import styles from '../css/SummaryOrder.module.css'
 
 import LinkButton from '../../layout/LinkButton'
+import Button from '../../layout/Button'
 
 const SummaryOrder = ({ subtotal, entrega, linkTo, textLinkTo }) => {
     return (
@@ -22,7 +23,11 @@ const SummaryOrder = ({ subtotal, entrega, linkTo, textLinkTo }) => {
                 </div>
             </div>
 
-            <LinkButton to={linkTo} type="button" classNameButton="btnPagamento" state={{ subtotal: subtotal, entrega: entrega }}>{textLinkTo}</LinkButton>
+            { subtotal != 0 ?
+                <LinkButton to={linkTo} type="button" classNameButton="btnPagamento" state={{ subtotal: subtotal, entrega: entrega }}>{textLinkTo}</LinkButton>
+                :
+                <Button type="button" className="btnPagamentoDisabled" disabled>{textLinkTo}</Button>
+            }
         </>
     )
 }
