@@ -5,9 +5,6 @@ import Button from '../../components/layout/Button'
 import Message from '../../components/layout/Message'
 
 import { Link, useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
-import { FaFacebook } from 'react-icons/fa'
-import lollipop from '../img/lollipop-removebg.png'
 import { useState, useEffect } from 'react'
 
 const url = "http://localhost:3000"
@@ -59,7 +56,7 @@ const Login = ({ isLogged }) => {
         if (user.accept) {
             isLogged({ _id: user._id, isLogged: true })
             createCookie(user._id, 1000)
-            navigate('/', { replace: true })
+            navigate(-1, { replace: true })
         } else {
             setMessage("Email ou senha incorretos")
             setTypeMessage("error")
@@ -88,7 +85,7 @@ const Login = ({ isLogged }) => {
                         </div>
                     </div>
                     <div className="form">
-                        {message && <Message type={typeMessage} message={message} />}
+                        { message && <Message type={typeMessage} message={message} /> }
                         <form className="form-login" onSubmit={handleSubmit}>
                             <input
                                 type="text"
@@ -116,15 +113,6 @@ const Login = ({ isLogged }) => {
                             </div>
                             <Button type="submit" className="btnLogin">Entrar</Button>
                         </form>
-                    </div>
-                    <div className="login-social-media">
-                        <div className="separator">
-                            <span className="text-separator">ou entre com</span>
-                        </div>
-                        <div className="btns">
-                            <button type="button" className="btn-google"><FcGoogle /></button>
-                            <button type="button" className="btn-facebook"><FaFacebook /></button>
-                        </div>
                     </div>
                     <div className="cadastro">
                         <p className="text-cadastro">

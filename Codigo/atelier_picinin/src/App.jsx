@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from 'react-router-dom'
+import { Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 
 import Home from './pages/jsx/Home'
@@ -25,6 +25,7 @@ function App() {
   const [menuVisible, setMenuVisible] = useState(false)
   const [user, setUser] = useState({})
   const [windowWidth, setWindowWidth] = useState(0)
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -65,12 +66,19 @@ function App() {
     setIsLogged(login.isLogged)
   }
 
+const handleLogout = () => {
+    var data = new Date(2010, 1, 1)
+    document.cookie = '_id=; expires=' + data + '; path=/'
+    setIsLogged(false)
+    navigate("/")
+  }
+
   return (
     <div className="App">
-      {windowWidth <= 900 ?
+      { windowWidth <= 900 ?
         <MenuMobile state={user.admin} menuVisible={menuVisible} setMenuVisible={setMenuVisible} logged={isLogged} />
         :
-        <Cabecalho state={user.admin} logged={isLogged} />
+        <Cabecalho state={user.admin} logged={isLogged} handleLogout={ handleLogout }/>
       }
 
       <Routes>
@@ -82,7 +90,7 @@ function App() {
         <Route path='/detalhesProduto/:id' element={<DetalhesProduto />}></Route>
         <Route path='/carrinho' element={<Carrinho />}></Route>
         <Route path='/adicionarEndereco' element={<AdicionarEndereco />}></Route>
-        <Route path='/login' element={<Login isLogged={handleLogged} />}></Route>
+        <Route path='/login' element={<Login isLogged={ handleLogged } />}></Route>
         <Route path='/cadastrar' element={<CadastarUsuario />}></Route>
         <Route path='/cadastrarAdm' element={<CadastarUsuarioAdm />}></Route>
       </Routes>

@@ -3,9 +3,8 @@ import './css/Header.css'
 import { BiUser } from 'react-icons/bi'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 
-const Header = ({ state, logged }) => {
+const Header = ({ state, logged, handleLogout }) => {
 
     function handlePageLocation(e) {
         const allLinkMenu = document.querySelectorAll(".menu a")
@@ -35,14 +34,15 @@ const Header = ({ state, logged }) => {
                     <Link id="home" to="/"><img src="../../../public/logo_atelier.png" alt="Logo" className="logo" /></Link>
                     <div className="menu">
                         <Link id="home" to="/" onClick={handlePageLocation} className="home">Home</Link>
-                        {logged && loggedUser}
+                        { logged && loggedUser }
                     </div>
                 </div>
                 <div className="buttons">
-                    {!logged ? unloggedUser :
+                    { !logged ? unloggedUser :
                         <>
                             {!state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link>}
                             <Link to="/"><BiUser className="perfil" /></Link>
+                            <span className="logout" onClick={ handleLogout }>Logout</span>
                         </>
                     }
                 </div>
