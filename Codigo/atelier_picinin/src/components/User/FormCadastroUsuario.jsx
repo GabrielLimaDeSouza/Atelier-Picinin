@@ -6,13 +6,13 @@ const compCadastroUser = ({ event }) => {
             <div className="divForm">
                 <div className="formCadastro">
                     <div className="campos">
-                        <label htmlFor="nome">Nome do Usuário </label>
+                        <label htmlFor="nome">Nome de Usuário:</label>
                         <input type="text" name="nome" id="nome" />
 
-                        <label htmlFor="email">E-mail do Usuário: </label>
+                        <label htmlFor="email">E-mail do Usuário:</label>
                         <input type="text" name="email" id="email" />
 
-                        <label htmlFor="nome">Senha: </label>
+                        <label htmlFor="nome">Senha:</label>
                         <input type="text" name="senha" id="senha" />
                     </div>
 
