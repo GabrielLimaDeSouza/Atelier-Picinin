@@ -3,8 +3,35 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
 }
+
+.body-product h1 {
+    justify-content: end !important;
+}
+
+.dropdown-center {
+    padding-left: 100px;
+    padding-right: 100px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.dropdown-center .drop {
+    background-color: #f7f7f7 !important;
+    color: black;
+    border-radius: 50px;
+    width: 100%;
+    border: none;
+    height: 50px;
+    box-shadow: 0 5px 5px #666;
+}
+
+.dropdown-center .drop:hover {
+    color: black;
+}
+
 
 .title {
     font-family: Arial, Helvetica, sans-serif;
@@ -17,6 +44,47 @@
     width: 170px;
     margin-left: 60%;
 }
+
+.btnAdicionar {
+    background-color: #4939FF;
+    width: 150px;
+    border-radius: 50px;
+    height: 35px;
+    color: white;
+    border: none;
+}
+
+.btnAlterar {
+    background-color: #ff6961;
+    border: none;
+}
+
+.btnAlterarBaixo {
+    background-color: rgb(0, 255, 13);
+    width: 150px;
+    border-radius: 50px;
+    height: 35px;
+    color: white;
+    border: none;
+}
+
+.btnAlterarBaixo:hover {
+    background-color: rgb(0, 255, 13);
+}
+
+.btnAlterar:hover {
+    background-color: #ff6961;
+}
+
+.btnAdicionar:hover {
+    background-color: #4939FF;
+}
+
+.excluir {
+    border: none;
+    background-color: white;
+}
+
 
 .btn-drop {
     background-color: black !important;

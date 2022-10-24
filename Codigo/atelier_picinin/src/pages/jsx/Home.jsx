@@ -24,7 +24,7 @@ const Home = () => {
         <div className='banner'>
           <div className='informacoes'>
             <h2 className='atelierPicinin'>Atelier Picinin</h2>
-            <p className='descricao'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae sed eaque corrupti deleniti optio dicta animi odio aspernatur esse reprehenderit!</p>
+            <p className='descricao'>O Atelier Picinin é um atelier de doces 100% artesanais localizado em Belo Horizonte. Nosso lema é "Amor em forma de doce para presentear"</p>
             <div className='banner-buttons'>
               <a href='#' target="_blank"><BsWhatsapp /></a>
               <a href='https://www.instagram.com/atelierpicinin/' target="_blank"><BsInstagram /></a>

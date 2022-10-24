@@ -7,7 +7,8 @@ form.form {
     height: 500px;
 }
 
-form.form > div, form.form input {
+form.form>div,
+form.form input {
     width: 100%;
 }
 
@@ -18,7 +19,7 @@ div.dateInput {
     width: 100%;
 }
 
-div.dateInput > div {
+div.dateInput>div {
     width: 80%;
 }
 
@@ -36,4 +37,3 @@ div.hudBtn {
     flex-wrap: wrap;
     padding-top: 10px;
 }
-

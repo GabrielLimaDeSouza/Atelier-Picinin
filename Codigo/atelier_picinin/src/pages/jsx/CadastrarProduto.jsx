@@ -1,4 +1,4 @@
-import '../css/products/CadastrarProduto.css'
+import '../css/Products/CadastrarProduto.css'
 import styles from '../../components/css_components/Form.module.css'
 
 
@@ -276,7 +276,6 @@ const CadastrarProduto = () => {
     return (
         <>
             <div className="body-product">
-                <h1 className="title">Cadastro de Produto</h1>
 
                 <div id="insta"></div>
 
@@ -318,7 +317,7 @@ const CadastrarProduto = () => {
                     produtos.map(number =>
 
                         <div class="dropdown-center">
-                            <button className="btn btn-secondary dropdown-toggle " id="dropdownProduto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button className="btn btn-secondary dropdown-toggle drop" id="dropdownProduto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {number.nomeProduto}
                             </button>
                             <ul className="dropdown-menu">
@@ -344,12 +343,12 @@ const CadastrarProduto = () => {
                                                         <td>{sabores.preco}</td>
                                                         <td>{number.pedidoMinProduto}</td>
 
-                                                        <td><button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onClick={() => { setIndiceSabor(indice), setId(number._id) }}>
+                                                        <td><button type="button" className="btn btn-secondary btnAlterar" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onClick={() => { setIndiceSabor(indice), setId(number._id) }}>
                                                             Alterar
                                                         </button></td>
                                                         <td>
 
-                                                            <button onClick={() => { deletarSabor(number._id, indice) }}>{<BiTrash />}</button>
+                                                            <button onClick={() => { deletarSabor(number._id, indice) }}>{<BiTrash className="excluir" />}</button>
                                                         </td>
 
                                                     </tr>
@@ -358,11 +357,11 @@ const CadastrarProduto = () => {
 
 
                                             <tr >
-                                                <td ><Button type="button" className="btnTrash" buttonClickEvent={() => { deletProduct(number._id) }}>{<BiTrash />}</Button></td>
-                                                <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => { setId(number._id), idProduto(number._id) }}>
+                                                <td ><Button type="button" className="btnTrash" buttonClickEvent={() => { deletProduct(number._id) }}>{<BiTrash className="excluir" />}</Button></td>
+                                                <td><button type="button" className="btn btn-secondary btnAlterarBaixo" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => { setId(number._id), idProduto(number._id) }}>
                                                     Alterar
                                                 </button></td>
-                                                <td colSpan="2"><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onClick={() => { setId(number._id) }}>
+                                                <td colSpan="2"><button type="button" className="btn btn-secondary btnAdicionar" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onClick={() => { setId(number._id) }}>
                                                     Adicionar sabor
                                                 </button></td>
                                             </tr>
