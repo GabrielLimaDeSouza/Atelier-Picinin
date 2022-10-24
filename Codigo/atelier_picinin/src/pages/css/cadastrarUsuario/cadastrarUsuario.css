@@ -1,18 +1,13 @@
 .divForm {
-    display: flex;
-    flex-direction: column;
+    display: inline-block;
+    height: 50px !important;
     width: 40% !important;
-}
-
-.mensagem {
-    background-color: red;
-    width: 80% !important;
 }
 
 .formCadastro {
     background-color: #ff6961;
     padding: 20px 30px;
-    border-radius: 50px;
+    border-radius: 20px;
     color: white;
     text-align: center;
 }
@@ -27,6 +22,11 @@ label {
     margin-top: 10px;
 }
 
+input {
+    text-align: center;
+    font-size: 15px;
+    height: 30px;
+}
 
 .cadastrar {
     border: none;
@@ -44,4 +44,16 @@ label {
     padding: 5px 15px;
     color: white;
     transition: all .2s;
+}
+
+@media screen and (max-width: 675px) {
+
+    .cadastrar,
+    .voltar {
+        font-size: 10px;
+    }
+
+    .buttons {
+        display: block;
+    }
 }

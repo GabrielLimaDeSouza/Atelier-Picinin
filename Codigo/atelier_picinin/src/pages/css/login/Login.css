@@ -63,6 +63,7 @@ h2.title-login {
 div.form {
     width: 100%;
 }
+
 form.form-login {
     display: flex;
     flex-direction: column;
@@ -82,7 +83,8 @@ div.recovery-password {
     font-size: .8rem;
 }
 
-input#email, input#password {
+input#email,
+input#password {
     width: 100% !important;
 }
 
@@ -108,7 +110,8 @@ span.text-separator {
     width: 100%;
 }
 
-span.text-separator::before, span.text-separator::after {
+span.text-separator::before,
+span.text-separator::after {
     background-color: var(--gray);
     content: "";
     display: inline-block;
@@ -171,4 +174,3 @@ footer.login {
         display: none;
     }
 }
-
