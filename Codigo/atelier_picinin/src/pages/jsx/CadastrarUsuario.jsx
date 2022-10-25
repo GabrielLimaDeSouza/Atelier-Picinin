@@ -51,7 +51,7 @@ const cadastarUsuario = ({ id }) => {
                 body: JSON.stringify({
                     "nome": document.getElementById("nome").value,
                     "email": document.getElementById("email").value,
-                    "senha": document.getElementById("senha").value,
+                    "senha": document.getElementById("senhaCadastro").value,
                     "admin": false
 
                 },
