@@ -101,7 +101,7 @@ function App() {
         </Routes>
 
       <Outlet />
-      <Rodape/>
+      <Rodape />
     </div>
   )
 }
