@@ -42,9 +42,6 @@ const cadastarUsuario = ({ id }) => {
             }
         }
         if (achado == false) {
-            console.log("n existe")
-
-
             fetch(`${url}/api/user/registerUser`, {
                 method: "POST",
                 headers: {
@@ -73,10 +70,11 @@ const cadastarUsuario = ({ id }) => {
 
     }
     return (!id &&
-        <>
+        <div className='divForm'>
             {message && <Message type={typeMessage} message={message} />}
+
             <CompCadastroUser event={cadastrar} />
-        </>
+        </div>
     )
 }
 

@@ -77,7 +77,6 @@ const Login = ({ isLogged }) => {
             <div className="login">
                 <div className="container-login">
                     <div className="title">
-                        <h5>Logo</h5>
                         <div className="text-title">
                             <p>Bem vindo ao</p>
                             <h2 className="title-login">Atelier Picinin</h2>
@@ -88,7 +87,7 @@ const Login = ({ isLogged }) => {
                         <form className="form-login" onSubmit={handleSubmit}>
                             <input
                                 type="text"
-                                id="email"
+                                id="email-login"
                                 className="input-email"
                                 name="email"
                                 placeholder="Insira seu email"
@@ -98,7 +97,7 @@ const Login = ({ isLogged }) => {
                             />
                             <input
                                 type="password"
-                                id="password"
+                                id="password-login"
                                 className="input-senha"
                                 name="password"
                                 placeholder="Insira sua senha"

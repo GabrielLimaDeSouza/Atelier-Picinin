@@ -12,17 +12,19 @@
     text-align: center;
 }
 
-.buttons {
+.buttonsCadastro {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px !important;
 }
 
 label {
     margin-top: 10px;
 }
 
-input {
+#nome, #email, #senhaCadastro {
+    width: 100%;
     text-align: center;
     font-size: 15px;
     height: 30px;
@@ -46,14 +48,11 @@ input {
     transition: all .2s;
 }
 
-@media screen and (max-width: 675px) {
-
-    .cadastrar,
-    .voltar {
-        font-size: 10px;
-    }
-
-    .buttons {
-        display: block;
+@media screen and (max-width: 800px) {
+    .buttonsCadastro {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        row-gap: .8rem;
     }
 }

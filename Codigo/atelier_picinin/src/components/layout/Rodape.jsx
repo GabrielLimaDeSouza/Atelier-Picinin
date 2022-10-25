@@ -1,14 +1,14 @@
-import styles from '../css_components/layout/Rodape.module.css'
+import '../css_components/layout/Rodape.css'
 
 import { BsInstagram, BsWhatsapp } from "react-icons/bs";
 
 function Rodape() {
 
     return (
-        <footer className={ styles.footer }>
+        <footer className="footer">
             <div>
                 <p>Atelier Picinin</p>
-                <div className={ styles.buttonsRodape }>
+                <div className="buttonsRodape">
                     <a><BsInstagram /></a>
                     <a><BsWhatsapp /></a>
                 </div>

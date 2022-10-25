@@ -83,8 +83,8 @@ div.recovery-password {
     font-size: .8rem;
 }
 
-input#email,
-input#password {
+input#email-login,
+input#password-login {
     width: 100% !important;
 }
 
