@@ -7,7 +7,7 @@ import Dropdown from "../../layout/Dropdown"
 
 import { useEffect, useState } from "react"
 
-const FormAddress = ({ handleSubmit, value, linkButton }) => {
+const FormAddress = ({ handleSubmit, value, linkButton, buttonClickEvent }) => {
     const estados = [ "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT",
     "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" ]
 
@@ -16,32 +16,7 @@ const FormAddress = ({ handleSubmit, value, linkButton }) => {
     useEffect(() => {
         if(value)
             setAddress(value)
-        else
-            setAddress({})
     }, [value])
-
-    function objetoVazio(obj) {
-        for (var prop in obj) {
-            if (obj.hasOwnProperty(prop)){
-                return false
-            }
-        }
-
-        return true;
-    }
-
-    useEffect(() => {
-        const inputs = document.querySelectorAll('input')
-        const select = document.querySelector('select#select')
-
-        if(objetoVazio(address)) {
-            inputs.forEach(input => input.value = "")
-            select.value = ""
-        } else {
-            inputs.forEach(input => input.value = address[input.name])
-            select.value = address.estado
-        }
-    }, [address])
     
     function handleChange(e) {
         address[e.target.name] = e.target.value
@@ -60,7 +35,7 @@ const FormAddress = ({ handleSubmit, value, linkButton }) => {
                     <Input type="text"
                         name="rua"
                         id="rua"
-                        onChange={ handleChange }
+                        handleOnChange={ handleChange }
                         htmlFor="rua"
                         textLabel="Endereco"
                         required/>
@@ -70,7 +45,7 @@ const FormAddress = ({ handleSubmit, value, linkButton }) => {
                     <Input type="number"
                         name="cep"
                         id="cep"
-                        onChange={ handleChange }
+                        handleOnChange={ handleChange }
                         htmlFor="cep"
                         textLabel="CEP"
                         required/>
@@ -82,7 +57,7 @@ const FormAddress = ({ handleSubmit, value, linkButton }) => {
                     <Input type="text"
                         name="bairro"
                         id="bairro"
-                        onChange={ handleChange }
+                        handleOnChange={ handleChange }
                         htmlFor="bairro"
                         textLabel="Bairro"
                         required/>
@@ -92,7 +67,7 @@ const FormAddress = ({ handleSubmit, value, linkButton }) => {
                     <Input type="text"
                         name="cidade"
                         id="cidade"
-                        onChange={ handleChange }
+                        handleOnChange={ handleChange }
                         htmlFor="cidade"
                         textLabel="Cidade"
                         required/>
@@ -106,14 +81,14 @@ const FormAddress = ({ handleSubmit, value, linkButton }) => {
                         id="complemento"
                         htmlFor="complemento"
                         textLabel="Complemento (opcional)"
-                        onChange={ handleChange }/>
+                        handleOnChange={ handleChange }/>
                 </div>
 
                 <div className="numero">
                     <Input type="number"
                         name="numero"
                         id="numero"
-                        onChange={ handleChange }
+                        handleOnChange={ handleChange }
                         htmlFor="numero"
                         textLabel="Número"
                         required/>
@@ -135,7 +110,8 @@ const FormAddress = ({ handleSubmit, value, linkButton }) => {
                 <Button
                     type="submit"
                     className="btnAdd"
-                    buttonSubmitEvent={submit}>
+                    buttonSubmitEvent={ submit }
+                >
                     Salvar Endereço
                 </Button>
             </div>

@@ -8,24 +8,43 @@ import Message from '../../../components/layout/Message'
 import Button from '../../../components/layout/Button'
 
 import { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 const url = "http://localhost:3000"
 
 
 const AdicionarEndereco = () => {
-    const location = useLocation()
     const [isLoading, setIsLoading] = useState(true)
+    const [id, setId] = useState("")
     const [adresses, setAdresses] = useState([])
     const [addressSelected, setAddressSelected] = useState({})
     const [message, setMessage] = useState('')
-    const [typeMessage, setTypeMessage] = useState('')    
-    const [saveAddress, setSaveAddress] = useState(false)    
+    const [typeMessage, setTypeMessage] = useState('')
+    const [saveAddress, setSaveAddress] = useState(false)
+    const navigate = useNavigate()
 
-    const subtotal = location.state.subtotal
-    const entrega = location.state.entrega
-    const id = "63322d88207cc8eeb929f645"
+    const location = useLocation()
+    const [subtotal] = useState(location.state.subtotal)
+    const [entrega] = useState(location.state.entrega)
+
+    function getCookie(name) {
+        let cookie = {}
+
+        document.cookie.split(';').forEach((el) => {
+            let [k, v] = el.split('=')
+            cookie[k.trim()] = v
+        })
+
+        return cookie[name]
+    }
 
     useEffect(() => {
+        const id = getCookie("_id")
+        if (id) {
+            setId(id)
+        } else {
+            navigate('/')
+        }
+
         fetch(`${url}/api/address/getAddressById?id=${id}`, {
                 method: 'GET',
                 headers: {
@@ -35,8 +54,6 @@ const AdicionarEndereco = () => {
         .then(resp => resp.json())
         .then(data => {
             setAdresses(data)
-            console.log(data[data.length - 1])
-            setAddressSelected(data[data.length - 1])
         })
         .catch(err => console.error(err))
 
@@ -58,20 +75,10 @@ const AdicionarEndereco = () => {
             body: JSON.stringify(address)
         })
         .then(resp => resp.json())
-        .then(() => {
+        .then(data => {
             setTypeMessage("success")
             setMessage("Endereço adicionado com sucesso!")
-            setAdresses(adresses => [...adresses, 
-                {
-                    rua: address.rua,
-                    cep: address.cep,
-                    bairro: address.bairro,
-                    cidade: address.cidade,
-                    complemento: address.complemento,
-                    numero: address.numero,
-                    estado: address.estado
-                }
-            ])
+            setAdresses(adresses => [...adresses, data])
         })
         .catch(err => console.error(err))
     }
@@ -103,7 +110,7 @@ const AdicionarEndereco = () => {
 
                 <div className="content">
                     { saveAddress ?
-                        <Form handleSubmit={ handleEditAddress } />
+                        <Form handleSubmit={ handleEditAddress } buttonClickEvent={ handleSaveAddress }/>
                     :
                         <>
                             <div className="selectAddress">
@@ -118,20 +125,22 @@ const AdicionarEndereco = () => {
                             </div>
 
                             <div className="endereco">
-                                <div className="spans">
-                                    <span><b>Endereço:</b> { addressSelected.rua }</span>
-                                    <span><b>CEP:</b>  { addressSelected.cep }</span>
-                                    <span><b>Bairro:</b>  { addressSelected.bairro }</span>
-                                    <span><b>Cidade:</b>  { addressSelected.cidade }</span>
-                                    <span><b>Complemento:</b>  { addressSelected.complemento }</span>
-                                    <span><b>Número:</b>  { addressSelected.numero }</span>
-                                </div>
-
+                                { Object.keys(addressSelected).length ?
+                                    <div className="spans">
+                                        <span><b>Endereço:</b> { addressSelected.rua }</span>
+                                        <span><b>CEP:</b>  { addressSelected.cep }</span>
+                                        <span><b>Bairro:</b>  { addressSelected.bairro }</span>
+                                        <span><b>Cidade:</b>  { addressSelected.cidade }</span>
+                                        <span><b>Complemento:</b>  { addressSelected.complemento ? addressSelected.complemento : "Não informado" }</span>
+                                        <span><b>Número:</b>  { addressSelected.numero }</span>
+                                    </div>
+                                    :
+                                    <p className="unselectedAdress">Selecione um endereço</p>
+                                }
                             </div>
                         </>
                     }
-                    <Button type="button" className="btnCadastrar" buttonClickEvent={handleSaveAddress}>{ !saveAddress ? "Adicionar Endereço" : "Fechar" }</Button>
-
+                    <Button type="button" className="btnCadastrar" buttonClickEvent={ handleSaveAddress }>{ !saveAddress ? "Adicionar Endereço" : "Fechar" }</Button>
                 </div>
             </div>
 
@@ -143,7 +152,7 @@ const AdicionarEndereco = () => {
                     { isLoading ?
                         <Loading />
                         :
-                        <SummaryOrder subtotal={ subtotal } entrega={ entrega } linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço"/>
+                        <SummaryOrder subtotal={ subtotal } entrega={ entrega } linkTo="/adicionarEndereco" textLinkTo="Ir para o pagamento"/>
                     }
                 </div>
             </div>

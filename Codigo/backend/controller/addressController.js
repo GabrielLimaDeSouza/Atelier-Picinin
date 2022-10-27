@@ -42,7 +42,7 @@ module.exports = {
             // Criar dados
             await Usuario.updateOne({ _id: id }, user)
 
-            res.status(201).json({ message: "Endereço cadastado com sucesso!" })
+            res.status(201).json(endereco)
         } catch (error) {
             res.status(500).json({ error: error })
         }
