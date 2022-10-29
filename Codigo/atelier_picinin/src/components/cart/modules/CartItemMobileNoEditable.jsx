@@ -1,8 +1,7 @@
 import styles from '../css/CartItemMobile.module.css'
 
-import Button from '../../layout/Button'
 
-const CartItemMobile = ({ content, handleEditCart }) => {
+const CartItemMobileEditable = ({ content }) => {
 
     function primeiraLetraMaiuscula(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -28,17 +27,11 @@ const CartItemMobile = ({ content, handleEditCart }) => {
                 </div>
 
                 <div className={ styles.quantityManipulation }>
-                    <Button type="button" className="add-quantity" buttonClickEvent={ () => handleEditCart(content, "add-quantity") }>+</Button>
-                    <span className={ styles.quantity }>{ content.quantidade }</span>
-                    <Button type="button" className="remove-quantity" buttonClickEvent={ () => handleEditCart(content, "remove-quantity") }>-</Button>
+                    <span className={ styles.quantity }>Quantidade: { content.quantidade }</span>
                 </div>
             </div>
-
-            <Button className="btnRemover" buttonClickEvent={ () => handleEditCart(content, "remove-button") } id={ content._id }>
-                Remover
-            </Button>
         </div>
     )
 }
 
-export default CartItemMobile
+export default CartItemMobileEditable
