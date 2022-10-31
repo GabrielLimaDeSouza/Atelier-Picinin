@@ -1,8 +1,8 @@
 import '../../css/cart/Carrinho.css'
 
 import Loading from '../../../components/layout/Loading'
-import CartItem from '../../../components/cart/modules/CartItem'
-import CartItemMobile from '../../../components/cart/modules/CartItemMobile'
+import CartItemEditable from '../../../components/cart/modules/CartItemEditable'
+import CartItemMobileEditable from '../../../components/cart/modules/CartItemMobileEditable'
 import SummaryOrder from '../../../components/cart/modules/SummaryOrder'
 import Progression from '../../../components/cart/modules/Progression'
 import { useState, useEffect } from 'react'
@@ -13,8 +13,7 @@ const Carrinho = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [subtotal, setSubtotal] = useState(0)
     const [entrega, setEntrega] = useState(0)
-
-    const larguraTela = window.innerWidth
+    const [larguraTela] = useState(window.innerWidth)
     
     useEffect(() => { setTimeout(() => setIsLoading(false), 600) }, [])
     
@@ -86,9 +85,9 @@ const Carrinho = () => {
                     :
                     cartItems.length ?
                         larguraTela >= 600 ?
-                            cartItems.map( cartItem => <CartItem content={cartItem} handleEditCart={handleEditQuantity} /> )
+                            cartItems.map( cartItem => <CartItemEditable content={cartItem} handleEditCart={handleEditQuantity} /> )
                         :
-                            cartItems.map( cartItem => <CartItemMobile content={cartItem} handleEditCart={handleEditQuantity} /> )
+                            cartItems.map( cartItem => <CartItemMobileEditable content={cartItem} handleEditCart={handleEditQuantity} /> )
                     :        
                         <p className="cart-empty">O carrinho está vazio</p>
                 }
@@ -103,7 +102,7 @@ const Carrinho = () => {
                     { isLoading ?
                         <Loading />
                         :
-                        <SummaryOrder subtotal={subtotal} entrega={entrega} linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço"/>
+                        <SummaryOrder subtotal={subtotal} entrega={entrega} linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço" condicional/>
                     }
                 </div>
             </div>

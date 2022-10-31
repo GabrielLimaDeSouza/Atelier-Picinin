@@ -9,6 +9,7 @@ import EditInventory from './pages/jsx/EditInventory'
 import DetalhesProduto from './pages/jsx/DetalhesProduto'
 import Carrinho from './pages/jsx/cart/Carrinho'
 import AdicionarEndereco from './pages/jsx/cart/AdicionarEndereco'
+import Pagamento from './pages/jsx/cart/Pagamento'
 import Cabecalho from './components/layout/Header'
 import MenuMobile from './components/layout/MenuMobile'
 import Login from './pages/jsx/Login'
@@ -91,6 +92,7 @@ function App() {
         <Route path='/detalhesProduto/:id' element={<DetalhesProduto />}></Route>
         <Route path='/carrinho' element={<Carrinho />}></Route>
         <Route path='/adicionarEndereco' element={<AdicionarEndereco />}></Route>
+        <Route path='/pagamento' element={<Pagamento />}></Route>
         { !isLogged &&
           <>
             <Route path='/login' element={<Login isLogged={ handleLogged } id={ getCookie("_id") } />}></Route>
