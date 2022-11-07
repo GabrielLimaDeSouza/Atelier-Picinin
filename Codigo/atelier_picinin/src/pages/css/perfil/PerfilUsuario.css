@@ -1,0 +1,68 @@
+.nomeUsuarioPerfil {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.nomeUsuarioPerfil h1 {
+    font-size: 30px;
+}
+
+.formAdress {
+    width: 50% !important;
+}
+
+.pedidosPerfilUsuario {
+    width: 50% !important;
+}
+
+.selectAdressPerfil {
+    width: 250px !important;
+}
+
+.divItensPedidoPerfil {
+    border-bottom: 1px solid rgb(236, 223, 223);
+    margin-bottom: 10px;
+}
+
+.dropdownMenuItens {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.spanPedido {
+    font-weight: bold !important;
+    color: #F36961 !important;
+}
+
+.nomeProdutoPerfil {
+    color: #F36961;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.pedidosPerfilUsuario {
+    margin-top: 80px;
+}
+
+.imgProdutoPerfil {
+    width: 150px;
+    border-radius: 100px;
+}
+
+.dropPerfilButton {
+    border-radius: 15px !important;
+    margin-bottom: 30px !important;
+    box-shadow: none !important;
+    border: 1px solid rgb(236, 223, 223) !important;
+}
+
+.tituloSection {
+    color: #F36961;
+}
+
+.meusPedidosh2 {
+    margin-bottom: 50px;
+}

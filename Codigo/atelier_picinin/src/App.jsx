@@ -2,6 +2,7 @@ import { Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 
 import Home from './pages/jsx/Home'
+import PerfilUsuario from './pages/jsx/PerfilUsuario'
 import CadastrarProduto from './pages/jsx/CadastrarProduto'
 import Estoque from './pages/jsx/Estoque'
 import CadastrarInsumo from './pages/jsx/CadastrarInsumo'
@@ -79,10 +80,10 @@ function App() {
 
   return (
     <div className="App">
-      { windowWidth <= 900 ?
-        <MenuMobile state={user.admin} menuVisible={menuVisible} setMenuVisible={setMenuVisible} logged={isLogged} handleLogout={ handleLogout } />
+      {windowWidth <= 900 ?
+        <MenuMobile state={user.admin} menuVisible={menuVisible} setMenuVisible={setMenuVisible} logged={isLogged} handleLogout={handleLogout} />
         :
-        <Cabecalho state={user.admin} logged={isLogged} handleLogout={ handleLogout }/>
+        <Cabecalho state={user.admin} logged={isLogged} handleLogout={handleLogout} />
       }
 
       <Routes>
@@ -94,22 +95,23 @@ function App() {
         <Route path='/detalhesProduto/:id' element={<DetalhesProduto />}></Route>
         <Route path='/carrinho' element={<Carrinho />}></Route>
         <Route path='/adicionarEndereco' element={<AdicionarEndereco />}></Route>
+        <Route path='/perfilUsuario' element={<PerfilUsuario />}></Route>
         <Route path='/pagamento' element={<Pagamento />}></Route>
         <Route path='/pix' element={<Pix />}></Route>
-        { !isLogged &&
+        {!isLogged &&
           <>
-            <Route path='/login' element={<Login isLogged={ handleLogged } id={ getCookie("_id") } />}></Route>
-            <Route path='/cadastrar' element={<CadastarUsuario id={ getCookie("_id") } />}></Route>
-            <Route path='/cadastrarAdm' element={<CadastarUsuarioAdm id={ getCookie("_id") } />}></Route>
+            <Route path='/login' element={<Login isLogged={handleLogged} id={getCookie("_id")} />}></Route>
+            <Route path='/cadastrar' element={<CadastarUsuario id={getCookie("_id")} />}></Route>
+            <Route path='/cadastrarAdm' element={<CadastarUsuarioAdm id={getCookie("_id")} />}></Route>
           </>
         }
         <Route path='/visualizarPedidos' element={<VisualizarPedidos />}></Route>
-        </Routes>
+      </Routes>
 
       <Outlet />
       <Rodape />
     </div>
-  ) 
+  )
 }
 
 export default App
