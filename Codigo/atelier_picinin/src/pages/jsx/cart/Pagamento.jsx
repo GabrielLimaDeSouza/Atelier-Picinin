@@ -8,22 +8,24 @@ import CartItemMobileNoEditable from '../../../components/cart/modules/CartItemM
 
 import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
+import { BsTruck, BsCreditCardFill } from "react-icons/bs"
 const url = "http://localhost:3000"
 
 
 const Pagamento = () => {
+    const location = useLocation()
+    const navigate = useNavigate()
     const data = window.localStorage.getItem("user-cart")
 
     const [isLoading, setIsLoading] = useState(true)
     const [id, setId] = useState("")
-    const [address, setAddress] = useState({})
+    const [payment, setPayment] = useState(null)
+    const [address] = useState(location.state.address || {})
     const [cartItems] = useState(JSON.parse(data))
     const [larguraTela] = useState(window.innerWidth)
-    const navigate = useNavigate()
-
-    const location = useLocation()
     const [subtotal] = useState(location.state.subtotal)
     const [entrega] = useState(location.state.entrega)
+
 
     function getCookie(name) {
         let cookie = {}
@@ -51,7 +53,7 @@ const Pagamento = () => {
         setTimeout(() => setIsLoading(false), 600)
     }, [])
 
-    function handleDropdownMenu() {
+    const handleDropdownMenu = () => {
         const summary = document.querySelector('div.summary-order')
         summary.classList.toggle('active')
 
@@ -63,11 +65,33 @@ const Pagamento = () => {
             setTimeout(() => summaryContent.classList.remove('show'), 300)
     }
 
+    const handleCreatePaymentModel = () => {
+        const order = {
+            idCliente: id,
+            cartItems,
+            address,
+            total: subtotal + entrega,
+            payment,
+            status: "Pagamento pendente"
+        }
+
+        fetch(`${url}/api/order/createOrder`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(order)
+        }).then(resp => resp.json())
+        .then(data => {
+            console.log(data)
+        })
+    }
+
     return (
         <div className="body-address">
             <div className="infos-pedido">
                 <div className="title-page">
-                    <Progression state="Confirmar Pedido" elements={ [ "Carrinho de Compra", "Endereço", "Confirmar Pedido" ] } />
+                    <Progression state="Confirmar Pedido" elements={[ "Carrinho de Compra", "Endereço", "Confirmar Pedido" ]} />
                 </div>
 
                 <div className="address-payment">
@@ -76,7 +100,7 @@ const Pagamento = () => {
                             <h4 className="title-address">Informações do Pedido</h4>
                         </div>
                         <div className="subtitle-address">
-                            <h5 className="subtitle-address">Endereço de Entrega</h5>
+                            <h5 className="subtitle-address"><BsTruck /> Endereço de Entrega</h5>
                             <p className="text-subtitle-address">Este é o endereço onde o seu pedido será enviado</p>
                         </div>
                         <div className="spans">
@@ -91,10 +115,10 @@ const Pagamento = () => {
 
                     <div className="forma-pagamento">
                         <div className="title-payment-method">
-                            <h4 className="title-payment-method">Forma de Pagamento</h4>
+                            <h4 className="title-payment-method"><BsCreditCardFill /> Forma de Pagamento</h4>
                         </div>
                         <div className="subtitle-payment-method">
-                            <h5 className="pix">Pix</h5>
+                            <button className="pix" onClick={ () => setPayment("Pix") }>Pix</button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +146,7 @@ const Pagamento = () => {
                     { isLoading ?
                         <Loading />
                         :
-                        <SummaryOrder subtotal={ subtotal } entrega={ entrega } linkTo="/pagamento" textLinkTo="Ir para o pagamento" condicional/>
+                        <SummaryOrder onClick={ handleCreatePaymentModel } subtotal={ subtotal } entrega={ entrega } linkTo="/pix" textLinkTo="Finalizar" isTrue={ payment }/>
                     }
                 </div>
             </div>

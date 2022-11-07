@@ -3,7 +3,7 @@ import styles from '../css/SummaryOrder.module.css'
 import LinkButton from '../../layout/LinkButton'
 import Button from '../../layout/Button'
 
-const SummaryOrder = ({ subtotal, entrega, linkTo, textLinkTo, condicional }) => {
+const SummaryOrder = ({ state, subtotal, entrega, linkTo, textLinkTo, isTrue, onClick }) => {
     return (
         <>
             <div className={styles["order-price"]}>
@@ -23,8 +23,8 @@ const SummaryOrder = ({ subtotal, entrega, linkTo, textLinkTo, condicional }) =>
                 </div>
             </div>
 
-            { subtotal != 0 && condicional ?
-                <LinkButton to={linkTo} type="button" classNameButton="btnPagamento" state={{ subtotal: subtotal, entrega: entrega }}>{textLinkTo}</LinkButton>
+            { subtotal != 0 && isTrue ?
+                <LinkButton onClick={ onClick } to={linkTo} type="button" classNameButton="btnPagamento" state={ { address: state, subtotal: subtotal, entrega: entrega }}>{textLinkTo}</LinkButton>
                 :
                 <Button type="button" className="btnPagamentoDisabled" disabled>{textLinkTo}</Button>
             }

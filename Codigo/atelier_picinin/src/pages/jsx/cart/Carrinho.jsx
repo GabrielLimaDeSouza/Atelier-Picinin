@@ -102,7 +102,7 @@ const Carrinho = () => {
                     { isLoading ?
                         <Loading />
                         :
-                        <SummaryOrder subtotal={subtotal} entrega={entrega} linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço" condicional/>
+                        <SummaryOrder subtotal={subtotal} entrega={entrega} linkTo="/adicionarEndereco" textLinkTo="Escolher Endereço" isTrue/>
                     }
                 </div>
             </div>

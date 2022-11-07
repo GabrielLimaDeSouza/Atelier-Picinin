@@ -10,7 +10,8 @@ const inventoryRoutes = require("./routes/inventoryRoutes")
 const productRoutes = require("./routes/productRoutes")
 const userRoutes = require("./routes/userRoutes")
 const addressRoutes = require("./routes/addressRoutes")
-const ratingRoutes = require("./routes/ratingRoutes") 
+const ratingRoutes = require("./routes/ratingRoutes")
+const orderRoutes = require("./routes/orderRoutes")
 
 // dotEnv
 require('dotenv').config()
@@ -32,6 +33,7 @@ app.use('/produto', productRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/address', addressRoutes)
 app.use('/rating', ratingRoutes)
+app.use('/api/order', orderRoutes)
 
 // Acesso ao banco de dados
 const DB_USER = process.env.DB_USER

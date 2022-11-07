@@ -15,6 +15,7 @@ import MenuMobile from './components/layout/MenuMobile'
 import Login from './pages/jsx/Login'
 import CadastarUsuario from './pages/jsx/CadastrarUsuario'
 import CadastarUsuarioAdm from './pages/jsx/CadastrarUsuarioAdm'
+import Pix from './pages/jsx/cart/Pix'
 import { useEffect, useState } from 'react'
 import Rodape from './components/layout/Rodape'
 
@@ -93,6 +94,7 @@ function App() {
         <Route path='/carrinho' element={<Carrinho />}></Route>
         <Route path='/adicionarEndereco' element={<AdicionarEndereco />}></Route>
         <Route path='/pagamento' element={<Pagamento />}></Route>
+        <Route path='/pix' element={<Pix />}></Route>
         { !isLogged &&
           <>
             <Route path='/login' element={<Login isLogged={ handleLogged } id={ getCookie("_id") } />}></Route>

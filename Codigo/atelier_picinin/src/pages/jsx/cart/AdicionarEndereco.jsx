@@ -152,7 +152,7 @@ const AdicionarEndereco = () => {
                     { isLoading ?
                         <Loading />
                         :
-                        <SummaryOrder subtotal={ subtotal } entrega={ entrega } linkTo="/pagamento" textLinkTo="Ir para o pagamento" condicional={ Object.keys(addressSelected).length }/>
+                        <SummaryOrder state={ addressSelected } subtotal={ subtotal } entrega={ entrega } linkTo="/pagamento" textLinkTo="Ir para o pagamento" isTrue={ Object.keys(addressSelected).length }/>
                     }
                 </div>
             </div>
