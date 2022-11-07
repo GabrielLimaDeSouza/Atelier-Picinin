@@ -6,7 +6,8 @@ const Pedido = mongoose.model('Pedido', {
     address: {},
     total: Number,
     payment: String,
-    status: String
+    status: String,
+    data: Date
 })
 
 module.exports = Pedido
