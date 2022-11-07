@@ -36,15 +36,15 @@ const Header = ({ state, logged, handleLogout }) => {
                     <Link id="home" to="/"><img src={logo} alt="Logo" className="logo" /></Link>
                     <div className="menu">
                         <Link id="home" to="/" onClick={handlePageLocation} className="home">Home</Link>
-                        { logged && loggedUser }
+                        {logged && loggedUser}
                     </div>
                 </div>
                 <div className="buttons">
-                    { !logged ? unloggedUser :
+                    {!logged ? unloggedUser :
                         <>
-                            { !state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link> }
-                            <Link to="/"><BiUser className="perfil" /></Link>
-                            <span className="logout" onClick={ handleLogout }>Logout</span>
+                            {!state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link>}
+                            <Link to="/perfilUsuario"><BiUser className="perfil" /></Link>
+                            <span className="logout" onClick={handleLogout}>Logout</span>
                         </>
                     }
                 </div>

@@ -31,6 +31,21 @@
     font-size: 20px;
 }
 
+.btnExcluirEndereco {
+    border: none;
+    background-color: var(--pastel-red);
+    border-radius: 20px;
+    padding: 5px 15px;
+    color: white;
+    transition: all .2s;
+}
+
+.btnExcluirEndereco:hover {
+    color: var(--pastel-red);
+    background-color: white;
+    box-shadow: var(--box-shadow);
+}
+
 .btnCadastrar {
     border: none;
     background-color: var(--verde);
@@ -129,7 +144,8 @@
     background-color: white;
 }
 
-.btnPagamento, .btnPagamentoDisabled {
+.btnPagamento,
+.btnPagamentoDisabled {
     padding: 5px 0px;
     background-color: var(--pastel-red);
     color: white;
