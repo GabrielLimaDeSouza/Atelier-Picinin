@@ -15,6 +15,7 @@ import MenuMobile from './components/layout/MenuMobile'
 import Login from './pages/jsx/Login'
 import CadastarUsuario from './pages/jsx/CadastrarUsuario'
 import CadastarUsuarioAdm from './pages/jsx/CadastrarUsuarioAdm'
+import VisualizarPedidos from './pages/jsx/VisualizarPedidos'
 import { useEffect, useState } from 'react'
 import Rodape from './components/layout/Rodape'
 
@@ -100,12 +101,13 @@ function App() {
             <Route path='/cadastrarAdm' element={<CadastarUsuarioAdm id={ getCookie("_id") } />}></Route>
           </>
         }
+        <Route path='/visualizarPedidos' element={<VisualizarPedidos />}></Route>
         </Routes>
 
       <Outlet />
       <Rodape />
     </div>
-  )
+  ) 
 }
 
 export default App

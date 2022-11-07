@@ -1,0 +1,19 @@
+.divTabela{
+    max-width: 60%;
+}
+.carrinho{
+    background-color: white;
+}
+@media screen and (max-width: 600px) {
+    th{
+        font-size:xx-small;
+    }
+    td{
+        font-size:xx-small;
+    }
+    .divTabela{
+        max-width: 100%;
+    }
+  }
+
+
