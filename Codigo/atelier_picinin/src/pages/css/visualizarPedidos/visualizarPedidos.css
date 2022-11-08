@@ -4,6 +4,19 @@
 .carrinho{
     background-color: white;
 }
+.cardVisualizar{
+    display: flex;
+    flex-direction: column;
+}
+.teste75{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.small{
+    font-size: x-small;
+}
 @media screen and (max-width: 600px) {
     th{
         font-size:xx-small;
@@ -15,5 +28,6 @@
         max-width: 100%;
     }
   }
+
 
 
