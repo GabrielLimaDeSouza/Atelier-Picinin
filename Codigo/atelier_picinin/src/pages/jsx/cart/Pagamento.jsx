@@ -25,6 +25,7 @@ const Pagamento = () => {
     const [larguraTela] = useState(window.innerWidth)
     const [subtotal] = useState(location.state.subtotal)
     const [entrega] = useState(location.state.entrega)
+    const [orders, setOrders] = useState([])
 
 
     function getCookie(name) {
@@ -146,7 +147,7 @@ const Pagamento = () => {
                     { isLoading ?
                         <Loading />
                         :
-                        <SummaryOrder onClick={ handleCreatePaymentModel } subtotal={ subtotal } entrega={ entrega } linkTo="/pix" textLinkTo="Finalizar" isTrue={ payment }/>
+                        <SummaryOrder onClick={ handleCreatePaymentModel } subtotal={ subtotal } entrega={ entrega } linkTo="/pix" textLinkTo="Finalizar" isTrue={ payment } metodo_pagamento={ payment }/>
                     }
                 </div>
             </div>

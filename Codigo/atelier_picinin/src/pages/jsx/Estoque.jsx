@@ -28,7 +28,7 @@ const CadastrarInsumo = () => {
     function verifyStatus(supplies) {
         if (supplies.emEstoque <= supplies.quantidadeMin)
             return supplies.status = "Em Falta"
-        
+
         else if (supplies.validade) {
             const dataValidade = new Date(supplies.validade)
             const dataAtual = new Date()
@@ -38,11 +38,11 @@ const CadastrarInsumo = () => {
             if (dataValidade < dataAtual)
                 return supplies.status = "Vencido"
 
-            else if(diffDays <= 7)
+            else if (diffDays <= 7)
                 return supplies.status = "Vencendo"
             else
                 return supplies.status = "OK"
-            
+
         } else
             return supplies.status = "OK"
     }
@@ -61,28 +61,28 @@ const CadastrarInsumo = () => {
                 'Content-Type': 'application/json'
             }
         }).then(resp => resp.json())
-        .then(data => {
-            const initialSupplies = data
-            let arrayStatus = [] 
-            let arraySupplies = []
+            .then(data => {
+                const initialSupplies = data
+                let arrayStatus = []
+                let arraySupplies = []
 
-            data.forEach(input => input.status = verifyStatus(input))
-            
-            data.map((insumo, index) => {
-                arrayStatus.push(updateStatus(insumo, initialSupplies[index].status))
-                arraySupplies.push(insumo.categoria)
+                data.forEach(input => input.status = verifyStatus(input))
+
+                data.map((insumo, index) => {
+                    arrayStatus.push(updateStatus(insumo, initialSupplies[index].status))
+                    arraySupplies.push(insumo.categoria)
+                })
+
+                arrayStatus = filterDuplicateItemInArray(arrayStatus)
+                arraySupplies = filterDuplicateItemInArray(arraySupplies)
+
+                setInsumos(data)
+                setCategories(arraySupplies.sort())
+                setStatus(arrayStatus.sort())
             })
+            .catch(err => console.error(err))
 
-            arrayStatus = filterDuplicateItemInArray(arrayStatus)
-            arraySupplies = filterDuplicateItemInArray(arraySupplies)
-            
-            setInsumos(data)
-            setCategories(arraySupplies.sort())
-            setStatus(arrayStatus.sort())
-        })
-        .catch(err => console.error(err))
-
-        if(location.state) {
+        if (location.state) {
             setTypeMessage(location.state.type)
             setMessage(location.state.message)
         }
@@ -92,7 +92,7 @@ const CadastrarInsumo = () => {
 
     // Atualizar o status no bd toda vez q página é carregada e o status calculado
     function updateStatus(insumo, status) {
-        if(insumo.status != status)
+        if (insumo.status != status)
             fetch(`${url}/api/updateInput?id=${insumo._id}`, {
                 method: 'PATCH',
                 headers: {
@@ -105,36 +105,36 @@ const CadastrarInsumo = () => {
     }
 
     // Delete de insumos
-    function deleteInput(e){
+    function deleteInput(e) {
         e.preventDefault()
         const id = idTrClicada(e)
-        
+
         fetch(`${url}/api/deleteInput?id=${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(resp => resp.json())
-        .then(() => {
-            setInsumos(insumos.filter(insumo => insumo._id !== id))
-            setTypeMessage("success")
-            setMessage("Insumo removido com sucesso!")
-        })
-        .catch(err => console.error(err))
+            .then(() => {
+                setInsumos(insumos.filter(insumo => insumo._id !== id))
+                setTypeMessage("success")
+                setMessage("Insumo removido com sucesso!")
+            })
+            .catch(err => console.error(err))
     }
 
     // Identificar a linha da tabela clicada
     function idTrClicada(e) {
         const tr = e.target
         var element = tr.parentNode
-        while(element.id == false)
+        while (element.id == false)
             element = element.parentNode
 
         return element.id
     }
 
     // Filtro de elementos repetidos para o array de categorias
-    function filterDuplicateItemInArray(array){
+    function filterDuplicateItemInArray(array) {
         var filteredArray = array.filter((item, index) => {
             return array.indexOf(item) === index
         })
@@ -143,28 +143,28 @@ const CadastrarInsumo = () => {
     }
 
     // Filtro do insumos de acordo com o status
-    function handleFilterSuppliesByStatus(e){
+    function handleFilterSuppliesByStatus(e) {
         const value = e.target.value
         setFilterDropdownParams(value)
     }
-    
+
     // Filtro dos insumos de acordo com o nome
-    function handleFilterSuppliesByName(e){
+    function handleFilterSuppliesByName(e) {
         const value = e.target.value
         setFilterSearchParams(value)
     }
-    
+
     return (
         <div className="body-inventory">
             <div className="titleButton">
                 <h1 className="inventory-title">Cadastro de Insumos</h1>
 
-                <LinkButton to="/cadastrarInsumo" state={ { categories: categories } } classNameButton="btnAdd">
+                <LinkButton to="/cadastrarInsumo" state={{ categories: categories }} classNameButton="btnAdd">
                     Inserir Novo Insumo
                 </LinkButton>
             </div>
 
-            { message && <Message type={typeMessage} message={message} /> }
+            {message && <Message type={typeMessage} message={message} />}
 
             <div className="filters">
                 <SearchBar handleOnChange={handleFilterSuppliesByName} placeholder="Pesquise por um Insumo" />
@@ -172,9 +172,9 @@ const CadastrarInsumo = () => {
                 <Dropdown options={status}
                     textDefault="Selecione um status"
                     handleOnChange={handleFilterSuppliesByStatus}
-                    notSwitchValue/>
+                    notSwitchValue />
             </div>
-            { isLoading ?
+            {isLoading ?
                 <Loading />
                 :
                 <Tables
