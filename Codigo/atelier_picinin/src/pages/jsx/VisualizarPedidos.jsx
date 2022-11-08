@@ -65,7 +65,7 @@ const VisualizarPedidos = () => {
                             {prioridade.map(element => (
                                 <><tr>
                                     <td>{element.idCliente}</td>
-                                    <td><button type="button" data-bs-toggle="modal" data-bs-target={"#exampleModal" + element._id}>
+                                    <td><button className='carrinho' type="button" data-bs-toggle="modal" data-bs-target={"#exampleModal" + element._id}>
                                         <AiOutlineShoppingCart /></button></td>
                                     <td>{element.dataDeEntrega}</td>
                                     <td>{element.limiteDePagamento}</td>
