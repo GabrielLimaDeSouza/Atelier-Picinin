@@ -6,11 +6,32 @@ import { useLocation } from "react-router-dom"
 const url = "http://localhost:3000"
 
 const Pix = () => {
-    const location = useLocation()
+    const location = useLocation().state
 
     const [isLoading, setIsLoading] = useState(true)
-    const [total] = useState(location.state.subtotal + location.state.entrega)
-    const [payment] = useState(location.state.metodo)
+    const [total] = useState(parseFloat(location.subtotal) + location.entrega)
+    const [payment] = useState(location.metodo)
+    const [qrcode, setQrcode] = useState("")
+    const [codePix, setCodePix] = useState("")
+
+    const qrCode = async() => {
+        const orderPix = {
+            valorPix: total.toFixed(2),
+            message: "Pagamento do pedido"
+        }
+
+        const qrCodeImg = await fetch(`${url}/api/pagamento/pix`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderPix)
+        }).then(resp => resp.json())
+        .then(data => {
+            setQrcode(data.imagemQrcode)
+            setCodePix(data.qrcode)
+        })
+    }
 
     function getCookie(name) {
         let cookie = {}
@@ -29,6 +50,8 @@ const Pix = () => {
             navigate('/')
         }
 
+        qrCode();
+
         setTimeout(() => setIsLoading(false), 600)
     }, [])
 
@@ -36,14 +59,14 @@ const Pix = () => {
         <div className="body-payment">
             <div className="metodo-pagamento">
                 <h1>Pagamento via { payment }</h1>
-                <h4>Valor: <b>R$</b> { total }</h4>
+                <h4>Valor: <b>R$</b> { total.toFixed(2) }</h4>
             </div>
 
-            <div className="qr-code"></div>
+            <div className="qr-code"><img src={ qrcode } alt="" /></div>
 
             <div className="code-payment">
                 <h3 className="code-title">Código { payment }</h3>
-                <p className="code-text"></p>
+                <p className="code-text">{ codePix }</p>
             </div>
 
             <LinkButton type="button" to="/" classNameButton="btn-voltar">Voltar à tela inicial</LinkButton>

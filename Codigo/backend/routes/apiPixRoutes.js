@@ -7,8 +7,8 @@ const reqGNAlready = GNRequest({
     clientSecret: process.env.GN_CLIENT_SECRET
 })
 
-router.post('/', async (req, res) => {
-    const { valor, message } = req.body
+router.post('/pix', async (req, res) => {
+    const { valorPix, message } = req.body
     const chavePix = process.env.GN_CHAVE_PIX
 
     const reqGN = await reqGNAlready
@@ -18,22 +18,17 @@ router.post('/', async (req, res) => {
             expiracao: 3600
         },
         valor: {
-            original: valor
+            original: valorPix
         },
         chave: chavePix,
         solicitacaoPagador: message
     }
 
     const cobResponse = await reqGN.post('/v2/cob', dataCob)
-    const qrCodeResponse = await reqGN.get(`/v2/loc/${cobResponse.data.loc.id}/qrcode`)
-
+    const qrCodeResponse = await reqGN.get(`/v2/loc/${ cobResponse.data.loc.id }/qrcode`)
     res.send(qrCodeResponse.data)
 })
 
-router.post('/webhook(/pix)?', (req, res) => {
-    console.log(req.body)
-    res.send('200')
-})
 //#endregion
 
 module.exports = router
