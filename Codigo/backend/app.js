@@ -1,12 +1,9 @@
 // Config
 const express = require('express')
-const app = express()
 const cors = require("cors")
-const mongoose = require('mongoose')
+const app = express()
 const path = require('path')
-const axios = require('axios')
-const fs = require('fs')
-const https = require('https')
+const mongoose = require('mongoose')
 
 // Rotas
 const inventoryRoutes = require("./routes/inventoryRoutes")
