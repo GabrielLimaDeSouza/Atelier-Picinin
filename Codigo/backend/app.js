@@ -4,6 +4,9 @@ const app = express()
 const cors = require("cors")
 const mongoose = require('mongoose')
 const path = require('path')
+const axios = require('axios')
+const fs = require('fs')
+const https = require('https')
 
 // Rotas
 const inventoryRoutes = require("./routes/inventoryRoutes")
@@ -12,10 +15,12 @@ const userRoutes = require("./routes/userRoutes")
 const addressRoutes = require("./routes/addressRoutes")
 const ratingRoutes = require("./routes/ratingRoutes")
 const orderRoutes = require("./routes/orderRoutes")
+const apiPix = require("./routes/apiPixRoutes")
 
 // dotEnv
-require('dotenv').config()
-
+if(process.env.NODE_ENV !== "production") {
+    require('dotenv').config()
+}
 // middlewares para leitura de  JSON
 app.use(
     express.urlencoded({
@@ -34,6 +39,7 @@ app.use('/api/user', userRoutes)
 app.use('/api/address', addressRoutes)
 app.use('/rating', ratingRoutes)
 app.use('/api/order', orderRoutes)
+app.use('/api/pagamento', apiPix)
 
 // Acesso ao banco de dados
 const DB_USER = process.env.DB_USER
