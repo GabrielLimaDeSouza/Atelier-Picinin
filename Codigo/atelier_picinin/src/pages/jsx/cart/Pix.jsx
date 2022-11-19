@@ -52,25 +52,30 @@ const Pix = () => {
 
         qrCode();
 
-        setTimeout(() => setIsLoading(false), 600)
+        setTimeout(() => setIsLoading(false), 1000)
     }, [])
 
     return (
         <div className="body-payment">
-            <div className="metodo-pagamento">
-                <h1>Pagamento via { payment }</h1>
-                <h4>Valor: <b>R$</b> { total.toFixed(2) }</h4>
-            </div>
+            { isLoading ?
+                <Loading />
+                :
+                <>
+                    <div className="metodo-pagamento">
+                        <h1>Pagamento via { payment }</h1>
+                        <h4>Valor: <b>R$</b> { total.toFixed(2) }</h4>
+                    </div>
 
-            <div className="qr-code"><img src={ qrcode } alt="" /></div>
+                    <div className="qr-code"><img src={ qrcode } alt="" /></div>
 
-            <div className="code-payment">
-                <h3 className="code-title">Código { payment }</h3>
-                <p className="code-text">{ codePix }</p>
-            </div>
+                    <div className="code-payment">
+                        <h3 className="code-title">Código { payment }</h3>
+                        <p className="code-text">{ codePix }</p>
+                    </div>
 
-            <LinkButton type="button" to="/" classNameButton="btn-voltar">Voltar à tela inicial</LinkButton>
-
+                    <LinkButton type="button" to="/" classNameButton="btn-voltar">Voltar à tela inicial</LinkButton>
+                </>
+            }
         </div>
     )
 }
