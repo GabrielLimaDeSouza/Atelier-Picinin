@@ -15,19 +15,14 @@ const CartItemEditable = ({ content }) => {
                     <h5 className={ styles.productTitle }>{ primeiraLetraMaiuscula(content.nome) }</h5>
 
                     <div className={styles.divSabores}>
-                        <span className={ styles.sabor }>{ primeiraLetraMaiuscula(content.sabor) }</span>
+                        <span className={ styles.sabores }>{ primeiraLetraMaiuscula(content.sabor) }</span>
                     </div>
                 </div>
             </div>
 
             <div className={ styles.organizeCartItems }>
                 <div className={ styles.manipulationPrice }>
-
-                    <div className={ styles.quantityManipulation }>
-                        
-                        <span className={ styles.quantity }>Quantidade: { content.quantidade }</span>
-                    </div>
-
+                    <span className={ styles.quantity }>Quant: { content.quantidade }</span>
                     <span className={ styles.totalPrice }><b>R$</b> { content.precoTotal.toFixed(2) }</span>
                 </div>
             </div>

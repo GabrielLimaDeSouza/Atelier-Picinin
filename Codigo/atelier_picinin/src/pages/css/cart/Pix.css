@@ -1,0 +1,52 @@
+:root {
+    --pastel-red: #ff6961;
+    --light-gray: #c5c5c5;
+    --white: #fff;
+    --color-pix: #37B4AA;
+    --box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+}
+
+div.body-payment_pix {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+div.content_pix {
+    width: 60rem;
+}
+
+div.metodo-pagamento_pix h1 {
+    font-size: 1.8rem;
+    color: var(--pastel-red);
+    font-weight: 600;
+}
+
+div.metodo-pagamento_pix h4 {
+    font-size: 1rem;
+}
+
+div.qr-code_pix {
+    text-align: center;
+}
+
+div.qr-code_pix img {
+    width: 15rem;
+}
+
+h3.code-title_pix {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+p.code-text_pix {
+    border: 0.1rem solid var(--light-gray);
+    border-radius: .5rem;
+    padding: 1rem;
+}
+
+div.btn_pix {
+    text-align: center;
+}

@@ -3,6 +3,7 @@
     --gray: #5c5c5c;
     --light-gray: #e4e4e4;
     --light-bege: #f3e8db;
+    --pastel-red: #ff6961;
 }
 
 div.cart-item {
@@ -33,7 +34,7 @@ div.infosCart img {
 
 div.organizeCartItems {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     column-gap: 60px;
     width: 350px;
@@ -49,6 +50,7 @@ h5.productTitle {
     font-size: 18px;
     font-weight: 600 !important;
     margin: 0;
+    color: var(--pastel-red);
 }
 
 div.divSabores {
@@ -58,34 +60,28 @@ div.divSabores {
     gap: 10px;
 }
 
-span.sabores {
-    font-size: 14px;
+div.divSabores .sabores {
+    font-size: .9rem;
     color: var(--gray);
 }
 
+
+
 div.manipulationPrice {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    column-gap: 35px;
+    column-gap: 2rem;
+    width: 16rem;
 }
 
-div.quantityManipulation {
-    background-color: var(--light-bege);
-    border-radius: 30px;
-    padding: 0 5px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 70px;
+div.manipulationPrice span.quantity {
+    width: 7rem;
 }
 
-div.quantityManipulation button {
-    background: none;
-    border: none;
-    padding: 0;
+div.manipulationPrice span.totalPrice {
+
 }
 
-.remove-button {
-    cursor: pointer;
+div.manipulationPrice span {
+    font-size: .9rem;
 }

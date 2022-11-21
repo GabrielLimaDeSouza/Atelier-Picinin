@@ -1,4 +1,4 @@
-import '../../css/cart/AdicionarEndereco.css'
+import '../../css/cart/Pagamento.css'
 
 import Progression from '../../../components/cart/modules/Progression'
 import SummaryOrder from '../../../components/cart/modules/SummaryOrder'
@@ -26,6 +26,7 @@ const Pagamento = () => {
     const [subtotal] = useState(location.state.subtotal)
     const [entrega] = useState(location.state.entrega)
     const [orders, setOrders] = useState([])
+    const [togleButtonPix, setTogleButtonPix] = useState(false)
 
 
     function getCookie(name) {
@@ -88,54 +89,59 @@ const Pagamento = () => {
         })
     }
 
+    function handleSetPaymentMethod() {
+        setPayment(togleButtonPix ? "" : "Pix")
+        setTogleButtonPix(!togleButtonPix)
+    }
+
     return (
         <div className="body-address">
-            <div className="infos-pedido">
+            <div className="infos-pedido_pagamento">
                 <div className="title-page">
                     <Progression state="Confirmar Pedido" elements={[ "Carrinho de Compra", "Endereço", "Confirmar Pedido" ]} />
                 </div>
 
-                <div className="address-payment">
-                    <div className="endereco">
+                <div className="address-payment_pagamento">
+                    <div className="endereco_pagamento">
                         <div className="title-address">
-                            <h4 className="title-address">Informações do Pedido</h4>
+                            <h4 className="title-address"><BsTruck /> Informações do Pedido</h4>
                         </div>
-                        <div className="subtitle-address">
-                            <h5 className="subtitle-address"><BsTruck /> Endereço de Entrega</h5>
+                        <div className="subtitle_pagamento">
+                            <h5 className="subtitle-address">Endereço de Entrega</h5>
                             <p className="text-subtitle-address">Este é o endereço onde o seu pedido será enviado</p>
                         </div>
                         <div className="spans">
-                            <span><b>Endereço:</b> { address.rua }</span>
-                            <span><b>CEP:</b>  { address.cep }</span>
+                            <span><b>{ address.rua }</b></span>
+                            <span><b>Número:</b>  { address.numero }</span>
                             <span><b>Bairro:</b>  { address.bairro }</span>
                             <span><b>Cidade:</b>  { address.cidade }</span>
                             <span><b>Complemento:</b>  { address.complemento ? address.complemento : "Não informado" }</span>
-                            <span><b>Número:</b>  { address.numero }</span>
+                            <span><b>CEP:</b>  { address.cep }</span>
                         </div>
                     </div>
 
-                    <div className="forma-pagamento">
+                    <div className="forma-pagamento_pagamento">
                         <div className="title-payment-method">
                             <h4 className="title-payment-method"><BsCreditCardFill /> Forma de Pagamento</h4>
                         </div>
                         <div className="subtitle-payment-method">
-                            <button className="pix" onClick={ () => setPayment("Pix") }>Pix</button>
+                            <button id="pix" className={ togleButtonPix && "active" } onClick={ handleSetPaymentMethod }>Pix</button>
                         </div>
                     </div>
                 </div>
 
-                <div className="cart-items">
-                { isLoading ?
-                    <Loading />
-                    :
-                    cartItems.length ?
-                        larguraTela >= 600 ?
-                            cartItems.map( cartItem => <CartItemNoEditable content={cartItem} /> )
+                <div className="cart-items_pagamento">
+                    { isLoading ?
+                        <Loading />
                         :
-                            cartItems.map( cartItem => <CartItemMobileNoEditable content={cartItem} /> )
-                    :        
-                        <p className="cart-empty">O carrinho está vazio</p>
-                }
+                        cartItems.length ?
+                            larguraTela >= 600 ?
+                                cartItems.map( cartItem => <CartItemNoEditable content={ cartItem } /> )
+                            :
+                                cartItems.map( cartItem => <CartItemMobileNoEditable content={ cartItem } /> )
+                        :        
+                            <p className="cart-empty">O carrinho está vazio</p>
+                    }
                 </div>
             </div>
 
