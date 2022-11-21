@@ -8,7 +8,6 @@
 
 div.body-payment_pix {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
 }

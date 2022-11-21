@@ -108,7 +108,7 @@
     background-color: white;
 }
 
-.dropdown {
+.dropdown_collapseElement {
     width: 100%;
     padding: 10px 20px;
     border: none;
@@ -118,11 +118,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--light-gray);
     box-shadow: var(--box-shadow);
 }
 
-.dropdown em {
+.dropdown_collapseElement em {
     font-size: 30px;
     padding: 0;
     width: 30px;

@@ -15,7 +15,7 @@ const CollapseElement = ({ isOpened, text, buttonClickEvent, children }) => {
 
     return (
       <div className={styles.block}>
-        <Button className="dropdown" buttonClickEvent={handleOnClickEvent}>
+        <Button className="dropdown_collapseElement" buttonClickEvent={handleOnClickEvent}>
             {text}
             <em>
               { isOpen ? ( <BiChevronUp /> ) : ( <BiChevronDown /> )}

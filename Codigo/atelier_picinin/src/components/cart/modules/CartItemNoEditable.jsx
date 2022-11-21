@@ -22,7 +22,7 @@ const CartItemEditable = ({ content }) => {
 
             <div className={ styles.organizeCartItems }>
                 <div className={ styles.manipulationPrice }>
-                    <span className={ styles.quantity }>Quant: { content.quantidade }</span>
+                    <span className={ styles.quantity_no_editable }>Quant: { content.quantidade }</span>
                     <span className={ styles.totalPrice }><b>R$</b> { content.precoTotal.toFixed(2) }</span>
                 </div>
             </div>

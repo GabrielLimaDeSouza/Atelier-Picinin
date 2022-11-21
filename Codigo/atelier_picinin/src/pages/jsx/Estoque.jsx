@@ -174,17 +174,17 @@ const CadastrarInsumo = () => {
                     handleOnChange={handleFilterSuppliesByStatus}
                     notSwitchValue />
             </div>
-            {isLoading ?
-                <Loading />
-                :
-                <Tables
-                    itens={insumos}
-                    filterDropdownParams={filterDropdownParams}
-                    filterSearchParams={filterSearchParams}
-                    categorias={categories}
-                    buttonClickEvent={deleteInput}
-                />
-            }
+                {isLoading ?
+                    <Loading />
+                    :
+                    <Tables
+                        itens={insumos}
+                        filterDropdownParams={filterDropdownParams}
+                        filterSearchParams={filterSearchParams}
+                        categorias={categories}
+                        buttonClickEvent={deleteInput}
+                    />
+                }
         </div>
     )
 }
