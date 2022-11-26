@@ -39,7 +39,7 @@ const CadastrarInsumo = () => {
           classNameButton="btnCadastrar"
           selectOptions={categories}
           selectTextDefault="Selecione uma categoria"
-          btnVoltar="/estoque"
+          btnVoltar="/adm/estoque"
         />
     </div>
   )

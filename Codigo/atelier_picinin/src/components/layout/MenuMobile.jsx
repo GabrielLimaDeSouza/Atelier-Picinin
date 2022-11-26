@@ -22,8 +22,9 @@ const MenuMobile = ({ state, menuVisible, setMenuVisible, logged, handleLogout }
     const loggedUser = <>
         { state ?
             <>
-                <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={handleVisibilityMenu}>Cadastrar Produtos</Link>
-                <Link id="estoque" to="/estoque" onClick={handleVisibilityMenu}>Estoque</Link>
+                <Link id="cadastrarProduto" to="/adm/cadastrarProduto" onClick={handleVisibilityMenu}>Cadastrar Produtos</Link>
+                <Link id="estoque" to="/adm/estoque" onClick={handleVisibilityMenu}>Estoque</Link>
+                <Link id="pedidos" to="/adm/pedidos" onClick={handleVisibilityMenu}>Pedidos</Link>
             </> : <>
                 <Link id="contatos" to="/" onClick={handleVisibilityMenu}>Contatos</Link>
             </>

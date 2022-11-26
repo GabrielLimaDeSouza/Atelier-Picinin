@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 import logo from '../../../public/logo_atelier.png'
 
-const Header = ({ state, logged, handleLogout }) => {
+const Header = ({ isAdmin, logged, handleLogout }) => {
 
     function handlePageLocation(e) {
         const allLinkMenu = document.querySelectorAll(".menu a")
@@ -16,10 +16,11 @@ const Header = ({ state, logged, handleLogout }) => {
         element.classList.add("active")
     }
 
-    const loggedUser = state ?
+    const loggedUser = isAdmin ?
         <>
-            <Link id="cadastrarProduto" to="/cadastrarProduto" onClick={handlePageLocation}>Cadastrar Produtos</Link>
-            <Link id="estoque" to="/estoque" onClick={handlePageLocation}>Estoque</Link>
+            <Link id="cadastrarProduto" to="/adm/cadastrarProduto" onClick={handlePageLocation}>Cadastrar Produtos</Link>
+            <Link id="estoque" to="/adm/estoque" onClick={handlePageLocation}>Estoque</Link>
+            <Link id="pedidos" to="/adm/pedidos" onClick={handlePageLocation}>Pedidos</Link>
         </> : <>
             <Link id="contatos" to="/" onClick={handlePageLocation} className="contatos">Contatos</Link>
         </>
@@ -42,8 +43,10 @@ const Header = ({ state, logged, handleLogout }) => {
                 <div className="buttons">
                     {!logged ? unloggedUser :
                         <>
-                            {!state && <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link>}
-                            <Link to="/perfilUsuario"><BiUser className="perfil" /></Link>
+                            {!isAdmin && <>
+                                <Link to="/carrinho" className="carrinho"><AiOutlineShoppingCart /></Link>
+                                <Link to="/perfilUsuario"><BiUser className="perfil" /></Link>
+                            </> }
                             <span className="logout" onClick={handleLogout}>Logout</span>
                         </>
                     }

@@ -159,7 +159,7 @@ const CadastrarInsumo = () => {
             <div className="titleButton">
                 <h1 className="inventory-title">Cadastro de Insumos</h1>
 
-                <LinkButton to="/cadastrarInsumo" state={{ categories: categories }} classNameButton="btnAdd">
+                <LinkButton to="/adm/cadastrarInsumo" state={{ categories: categories }} classNameButton="btnAdd">
                     Inserir Novo Insumo
                 </LinkButton>
             </div>

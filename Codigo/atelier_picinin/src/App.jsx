@@ -18,8 +18,10 @@ import CadastarUsuario from './pages/jsx/CadastrarUsuario'
 import CadastarUsuarioAdm from './pages/jsx/CadastrarUsuarioAdm'
 import Pix from './pages/jsx/cart/Pix'
 import VisualizarPedidos from './pages/jsx/VisualizarPedidos'
-import { useEffect, useState } from 'react'
 import Rodape from './components/layout/Rodape'
+import PedidosAdmin from './pages/jsx/PedidosAdmin'
+
+import { useEffect, useState } from 'react'
 
 const url = "http://localhost:3000"
 
@@ -83,26 +85,30 @@ function App() {
       {windowWidth <= 900 ?
         <MenuMobile state={user.admin} menuVisible={menuVisible} setMenuVisible={setMenuVisible} logged={isLogged} handleLogout={handleLogout} />
         :
-        <Cabecalho state={user.admin} logged={isLogged} handleLogout={handleLogout} />
+        <Cabecalho isAdmin={user.admin} logged={isLogged} handleLogout={handleLogout} />
       }
 
       <Routes>
         <Route exact path='/' element={<Home />}>Home</Route>
-        <Route path='/cadastrarProduto' element={<CadastrarProduto />}>Cadastrar Produtos</Route>
-        <Route path='/estoque' element={<Estoque />}>Estoque</Route>
-        <Route path='/cadastrarInsumo' element={<CadastrarInsumo />}></Route>
-        <Route path='/estoque/:id' element={<EditInventory />}></Route>
-        <Route path='/detalhesProduto/:id' element={<DetalhesProduto />}></Route>
-        <Route path='/carrinho' element={<Carrinho />}></Route>
-        <Route path='/adicionarEndereco' element={<AdicionarEndereco />}></Route>
-        <Route path='/perfilUsuario' element={<PerfilUsuario />}></Route>
-        <Route path='/pagamento' element={<Pagamento />}></Route>
-        <Route path='/pix' element={<Pix />}></Route>
+
+        <Route exact path='/adm/cadastrarProduto' element={<CadastrarProduto />}></Route>
+        <Route exact path='/adm/estoque' element={<Estoque />}></Route>
+        <Route exact path='/adm/cadastrarInsumo' element={<CadastrarInsumo />}></Route>
+        <Route exact path='/adm/estoque/:id' element={<EditInventory />}></Route>
+        <Route exact path='/adm/pedidos' element={<PedidosAdmin />}></Route>
+
+        <Route exact path='/detalhesProduto/:id' element={<DetalhesProduto />}></Route>
+        <Route exact path='/carrinho' element={<Carrinho />}></Route>
+        <Route exact path='/adicionarEndereco' element={<AdicionarEndereco />}></Route>
+        <Route exact path='/perfilUsuario' element={<PerfilUsuario />}></Route>
+        <Route exact path='/pagamento' element={<Pagamento />}></Route>
+        <Route exact path='/pix' element={<Pix />}></Route>
         {!isLogged &&
           <>
-            <Route path='/login' element={<Login isLogged={handleLogged} id={getCookie("_id")} />}></Route>
-            <Route path='/cadastrar' element={<CadastarUsuario id={getCookie("_id")} />}></Route>
-            <Route path='/cadastrarAdm' element={<CadastarUsuarioAdm id={getCookie("_id")} />}></Route>
+            <Route exact path='/login' element={<Login isLogged={handleLogged} id={getCookie("_id")} />}></Route>
+            <Route exact path='/cadastrar' element={<CadastarUsuario id={getCookie("_id")} />}></Route>
+            <Route exact path='/adm/cadastrar' element={<CadastarUsuarioAdm id={getCookie("_id")} />}></Route>
+            
           </>
         }
         <Route path='/visualizarPedidos' element={<VisualizarPedidos />}></Route>
