@@ -19,7 +19,6 @@ import CadastarUsuarioAdm from './pages/jsx/CadastrarUsuarioAdm'
 import Pix from './pages/jsx/cart/Pix'
 import VisualizarPedidos from './pages/jsx/VisualizarPedidos'
 import Rodape from './components/layout/Rodape'
-import PedidosAdmin from './pages/jsx/PedidosAdmin'
 
 import { useEffect, useState } from 'react'
 
@@ -95,7 +94,7 @@ function App() {
         <Route exact path='/adm/estoque' element={<Estoque />}></Route>
         <Route exact path='/adm/cadastrarInsumo' element={<CadastrarInsumo />}></Route>
         <Route exact path='/adm/estoque/:id' element={<EditInventory />}></Route>
-        <Route exact path='/adm/pedidos' element={<PedidosAdmin />}></Route>
+        <Route exact path='/adm/pedidos' element={<VisualizarPedidos />}></Route>
 
         <Route exact path='/detalhesProduto/:id' element={<DetalhesProduto />}></Route>
         <Route exact path='/carrinho' element={<Carrinho />}></Route>
