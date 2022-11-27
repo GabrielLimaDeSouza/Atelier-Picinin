@@ -5,7 +5,7 @@ import { BiTrash, BiPencil } from 'react-icons/bi'
 import { useState, useEffect } from "react"
 const VisualizarPedidos = () => {
     const [pedidos, setPedidos] = useState([])
-
+    const [users, setUsers] = useState([])
     const url = 'http://localhost:3000'
     fetch(`${url}/api/order/getAllOrders`, {
         method: 'GET',
@@ -14,6 +14,13 @@ const VisualizarPedidos = () => {
         }
     }).then(resp => resp.json())
         .then(data => setPedidos(data))
+
+    fetch(`${url}/api/user/getAllUsers`,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(resp => resp.json()).then(data=> setUsers(data))
     var prioridade = []
     var expirado = []
     var vencendo = []
@@ -46,6 +53,19 @@ const VisualizarPedidos = () => {
         console.log(prioridade.length)
     }
 
+
+    function findCliente(id){
+        let nome
+        users.forEach((user)=>{
+            if(user._id == id){
+                console.log(user.nome)
+                nome =  user.nome
+            }
+        })
+
+        return nome
+    }
+
     return (
         <>
             <div className="divTabela">
@@ -64,7 +84,7 @@ const VisualizarPedidos = () => {
                         <tbody>
                             {prioridade.map(element => (
                                 <><tr>
-                                    <td>{element.idCliente}</td>
+                                    <td>{findCliente(element.idCliente)}</td>
                                     <td><button className='carrinho' type="button" data-bs-toggle="modal" data-bs-target={"#exampleModal" + element._id}>
                                         <AiOutlineShoppingCart /></button></td>
                                     <td>{element.dataDeEntrega}</td>
