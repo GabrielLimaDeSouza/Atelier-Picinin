@@ -144,6 +144,11 @@ const PerfilUsuario = () => {
             .catch(err => console.error(err))
     }
 
+    function formatDate(data) {
+        return new Date(data).toLocaleDateString();
+    }
+    
+
     return (
         <>
             <div className="body-address">
@@ -199,7 +204,7 @@ const PerfilUsuario = () => {
                             order.idCliente == getId() &&
                             <div class="dropdown-center dropPerfil">
                                 <button className="btn btn-secondary dropdown-toggle drop dropPerfilButton" id="dropdownProduto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Pedido {index + 1}
+                                    Pedido {index + 1} - Data: {formatDate(order.data)}
                                 </button>
                                 <ul className="dropdown-menu dropdownMenuItens">
                                     {
@@ -208,7 +213,7 @@ const PerfilUsuario = () => {
                                                 <p className="nomeProdutoPerfil">{item.nome}</p>
                                                 <p><span className='spanPedido'>Sabor: </span>{item.sabor}</p>
                                                 <p><span className="spanPedido">Quantidade: </span>{item.quantidade}</p>
-                                                <p><span className="spanPedido">R$</span> {item.precoTotal}</p>
+                                                <p><span className="spanPedido">R$</span>{item.precoTotal}</p>
                                             </div>
                                         )
                                     }
