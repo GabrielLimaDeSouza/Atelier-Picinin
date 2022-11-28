@@ -144,10 +144,28 @@ const PerfilUsuario = () => {
             .catch(err => console.error(err))
     }
 
+    function handleCancelPedido(address, cartItems, data, idCliente, payment , total, idOrder) {
+        console.log('entrou')
+        fetch(`${url}/api/order/updateOrder?id=${idOrder}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idCliente: idCliente,
+                cartItems: cartItems, 
+                address: address,
+                total: total,
+                payment: payment,
+                status: 'Cancelado',
+                data: data
+            })
+        }).catch((err) => console.error(err))
+    }
+
     function formatDate(data) {
         return new Date(data).toLocaleDateString();
     }
-    
 
     return (
         <>
@@ -204,7 +222,8 @@ const PerfilUsuario = () => {
                             order.idCliente == getId() &&
                             <div class="dropdown-center dropPerfil">
                                 <button className="btn btn-secondary dropdown-toggle drop dropPerfilButton" id="dropdownProduto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Pedido {index + 1} - Data: {formatDate(order.data)}
+                                    Pedido {index + 1} - {formatDate(order.data)} <br/>
+                                    Status: <span className='spanOrder'>{order.status}</span>
                                 </button>
                                 <ul className="dropdown-menu dropdownMenuItens">
                                     {
@@ -218,6 +237,9 @@ const PerfilUsuario = () => {
                                         )
                                     }
                                 </ul>
+                                <div className='divButtonCancelarPedido'>                               
+                                    <button className='buttonCancelarPedido' onClick={() => handleCancelPedido(order.address, order.cartItems, order.data, order.idCliente, order.payment ,  order.total, order._id)}>Cancelar</button>
+                                </div>
                             </div>
                         )
                     }
