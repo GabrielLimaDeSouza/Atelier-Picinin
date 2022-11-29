@@ -17,15 +17,21 @@
 .small{
     font-size: x-small;
 }
+.body{
+    overflow-y: visible !important;
+}
 @media screen and (max-width: 600px) {
     th{
-        font-size:xx-small;
+        font-size:x-small;
     }
     td{
-        font-size:xx-small;
+        font-size:small;
     }
     .divTabela{
         max-width: 100%;
+    }
+    span{
+        font-size: x-small;
     }
   }
 

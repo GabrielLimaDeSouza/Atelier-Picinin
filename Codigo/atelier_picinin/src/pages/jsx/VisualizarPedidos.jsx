@@ -4,6 +4,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BiTrash, BiPencil } from 'react-icons/bi'
 import { useState, useEffect } from "react"
 const VisualizarPedidos = () => {
+    var tamanhoTela = window.innerWidth
     const [pedidos, setPedidos] = useState([])
     const [users, setUsers] = useState([])
     const url = 'http://localhost:3000'
@@ -97,9 +98,13 @@ cancelado.push(pedidos[i])
                                                 <AiOutlineShoppingCart /></button></td>
                                             <td>{element.dataDeEntrega}</td>
                                              
+
+
+
+                                             
                                             <td>{
-                                                element.status == "Cancelado" ?  <td><span className='_emfalta_3m2o5_67'>CANCELADO</span></td> :
-                                                element.status == "pago" ? <td><span className='_ok_3m2o5_87'>PAGO</span></td> : element.status == "vencendo" ? <td><span className='_vencendo_3m2o5_107'>VENCENDO</span></td> : <td><span className='_vencendo_3m2o5_107'>PENDENTE</span></td>
+                                                element.status == "Cancelado" ?  <span className='_emfalta_3m2o5_67'>CANCELADO</span> :
+                                                element.status == "pago" ? <span className='_ok_3m2o5_87'>PAGO</span> : element.status == "vencendo" ? <span className='_vencendo_3m2o5_107'>VENCENDO</span> : <span className='_vencendo_3m2o5_107'>PENDENTE</span>
                                             }</td>
                                             <td><BiTrash /></td>
                                         </tr>
