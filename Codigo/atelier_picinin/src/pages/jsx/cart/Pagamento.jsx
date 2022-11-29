@@ -67,6 +67,10 @@ const Pagamento = () => {
             setTimeout(() => summaryContent.classList.remove('show'), 300)
     }
 
+    const handleDeleteCart = () => {
+        window.localStorage.removeItem("user-cart")
+    }
+    
     const handleCreatePaymentModel = () => {
         const order = {
             idCliente: id,
@@ -87,6 +91,8 @@ const Pagamento = () => {
         .then(data => {
             console.log(data)
         })
+
+        handleDeleteCart()
     }
 
     function handleSetPaymentMethod() {
