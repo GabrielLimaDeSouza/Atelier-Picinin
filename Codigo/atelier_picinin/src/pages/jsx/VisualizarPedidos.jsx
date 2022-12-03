@@ -170,9 +170,9 @@ const VisualizarPedidos = () => {
     return (
         <div className="divTabela">
             <div className="titleButton">
-                <h1 className="inventory-title">Pedidos ({ pedidos.length })</h1>
+                <h1 className="pedidos-title">Pedidos ({ pedidos.length })</h1>
             </div>
-            
+
             { isLoading ?
                 <Loading />
                 :
