@@ -61,26 +61,26 @@ const CadastrarInsumo = () => {
                 'Content-Type': 'application/json'
             }
         }).then(resp => resp.json())
-            .then(data => {
-                const initialSupplies = data
-                let arrayStatus = []
-                let arraySupplies = []
+        .then(data => {
+            const initialSupplies = data
+            let arrayStatus = []
+            let arraySupplies = []
 
-                data.forEach(input => input.status = verifyStatus(input))
+            data.forEach(input => input.status = verifyStatus(input))
 
-                data.map((insumo, index) => {
-                    arrayStatus.push(updateStatus(insumo, initialSupplies[index].status))
-                    arraySupplies.push(insumo.categoria)
-                })
-
-                arrayStatus = filterDuplicateItemInArray(arrayStatus)
-                arraySupplies = filterDuplicateItemInArray(arraySupplies)
-
-                setInsumos(data)
-                setCategories(arraySupplies.sort())
-                setStatus(arrayStatus.sort())
+            data.map((insumo, index) => {
+                arrayStatus.push(updateStatus(insumo, initialSupplies[index].status))
+                arraySupplies.push(insumo.categoria)
             })
-            .catch(err => console.error(err))
+
+            arrayStatus = filterDuplicateItemInArray(arrayStatus)
+            arraySupplies = filterDuplicateItemInArray(arraySupplies)
+
+            setInsumos(data)
+            setCategories(arraySupplies.sort())
+            setStatus(arrayStatus.sort())
+        })
+        .catch(err => console.error(err))
 
         if (location.state) {
             setTypeMessage(location.state.type)
@@ -121,16 +121,6 @@ const CadastrarInsumo = () => {
                 setMessage("Insumo removido com sucesso!")
             })
             .catch(err => console.error(err))
-    }
-
-    // Identificar a linha da tabela clicada
-    function idTrClicada(e) {
-        const tr = e.target
-        var element = tr.parentNode
-        while (element.id == false)
-            element = element.parentNode
-
-        return element.id
     }
 
     // Filtro de elementos repetidos para o array de categorias

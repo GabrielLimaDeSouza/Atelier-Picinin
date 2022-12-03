@@ -144,22 +144,16 @@ const PerfilUsuario = () => {
             .catch(err => console.error(err))
     }
 
-    function handleCancelPedido(address, cartItems, data, idCliente, payment , total, idOrder) {
-        console.log('entrou')
-        fetch(`${url}/api/order/updateOrder?id=${idOrder}`, {
+    function handleCancelPedido(order) {
+        order.status = "Cancelado"
+        order.codStatus = "status-3"
+
+        fetch(`${url}/api/order/updateOrder?id=${order._id}`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                idCliente: idCliente,
-                cartItems: cartItems, 
-                address: address,
-                total: total,
-                payment: payment,
-                status: 'Cancelado',
-                data: data
-            })
+            body: JSON.stringify(order)
         }).catch((err) => console.error(err))
     }
 

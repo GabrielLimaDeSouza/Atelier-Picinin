@@ -2,13 +2,15 @@ const mongoose = require('mongoose')
 
 const Pedido = mongoose.model('Pedido', {
     idCliente: String,
-    data_entrega: Date,
+    nomeCliente: String,
     cartItems: [],
     address: {},
     total: Number,
     payment: String,
     status: String,
-    data: Date
+    codStatus: String,
+    dataEntrega: Date,
+    dataPedido: Date
 })
 
 module.exports = Pedido

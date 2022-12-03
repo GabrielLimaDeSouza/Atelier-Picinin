@@ -3,19 +3,25 @@ const Pedidos = require('../models/Pedidos')
 
 module.exports = {
     async createOrder(req, res) {
-        const { idCliente, cartItems, address, total, payment, status } = req.body
+        const { idCliente, nomeCliente, cartItems, address, total, payment } = req.body
 
         var totalFloat = parseFloat(total)
-        const data = new Date().toISOString().split("T")[0]
+        const dataPedido = new Date().toISOString()
+        const dataEntregaManipulation = new Date()
+        dataEntregaManipulation.setDate(dataEntregaManipulation.getDay() + 10)
+        let dataEntrega = dataEntregaManipulation.toDateString()
 
         const order = {
             idCliente,
+            nomeCliente,
             cartItems,
             address,
             total: totalFloat,
             payment,
-            status,
-            data
+            status: "Pagamento pendente",
+            codStatus: "status-0",
+            dataPedido,
+            dataEntrega
         }
 
         try {
@@ -56,16 +62,18 @@ module.exports = {
 
     async updateOrder(req, res) {
         const id = req.query.id
-        const { idCliente, cartItems, address, total, payment, status } = req.body
+        const { cartItems, address, total, payment, codStatus, status } = req.body
 
         const order = {
-            idCliente,
             cartItems,
             address,
             total,
             payment,
-            status
+            status,
+            codStatus
         }
+
+        console.log(order)
 
         try {
             const orderUpdated = await Pedidos.updateOne({ _id: id }, order)

@@ -19,13 +19,13 @@ const Pagamento = () => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [id, setId] = useState("")
+    const [user, setUser] = useState({})
     const [payment, setPayment] = useState(null)
     const [address] = useState(location.state.address || {})
     const [cartItems] = useState(JSON.parse(data))
     const [larguraTela] = useState(window.innerWidth)
     const [subtotal] = useState(location.state.subtotal)
     const [entrega] = useState(location.state.entrega)
-    const [orders, setOrders] = useState([])
     const [togleButtonPix, setTogleButtonPix] = useState(false)
 
 
@@ -44,6 +44,16 @@ const Pagamento = () => {
         const id = getCookie("_id")
         if (id) {
             setId(id)
+
+            fetch(`http://localhost:3000/api/user/getUserById?id=${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(resp => resp.json())
+            .then(data => setUser(data))
+            .catch(err => console.error(err))
+
         } else {
             navigate('/')
         }
@@ -74,11 +84,11 @@ const Pagamento = () => {
     const handleCreatePaymentModel = () => {
         const order = {
             idCliente: id,
+            nomeCliente: user.nome,
             cartItems,
             address,
             total: subtotal + entrega,
-            payment,
-            status: "Pagamento pendente"
+            payment
         }
 
         fetch(`${url}/api/order/createOrder`, {
@@ -87,12 +97,8 @@ const Pagamento = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(order)
-        }).then(resp => resp.json())
-        .then(data => {
-            console.log(data)
-        })
-
-        handleDeleteCart()
+        }).then(handleDeleteCart())
+        .catch(err => console.log(err))
     }
 
     function handleSetPaymentMethod() {
