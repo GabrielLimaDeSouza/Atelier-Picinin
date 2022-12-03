@@ -19,10 +19,11 @@ const PerfilUsuario = () => {
     const [adresses, setAdresses] = useState([])
     const [addressSelected, setAddressSelected] = useState({})
     const [orders, setOrders] = useState([])
+    const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState('')
-    const [messageDelete, setMessageDelete] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
     const [saveAddress, setSaveAddress] = useState(false)
+
     const navigate = useNavigate()
 
     function getCookie(name) {
@@ -107,9 +108,14 @@ const PerfilUsuario = () => {
             .then(data => {
                 setTypeMessage("success")
                 setMessage("Endereço adicionado com sucesso!")
+                setShowMessage(true)
                 setAdresses(adresses => [...adresses, data])
             })
-            .catch(err => console.error(err))
+            .catch(() => {
+                setTypeMessage("error")
+                setMessage("Houve um erro ao adicionar o endereço")
+                setShowMessage(true)
+            })
     }
 
     function handleSaveAddress() {
@@ -134,14 +140,19 @@ const PerfilUsuario = () => {
                 'Content-Type': 'application/json',
             }
         })
-            .then(() => {
-                setTypeMessage("success")
-                setMessageDelete("Endereço removido com sucesso!")
-            })
-            .then(() => {
-                setAddressSelected({})
-            })
-            .catch(err => console.error(err))
+        .then(() => {
+            setTypeMessage("success")
+            setMessage("Endereço removido com sucesso!")
+            setShowMessage(true)
+        })
+        .then(() => {
+            setAddressSelected({})
+        })
+        .catch(() => {
+            setTypeMessage("error")
+            setMessage("Houve um erro ao remover o endereço")
+            setShowMessage(true)
+        })
     }
 
     function handleCancelPedido(order) {
@@ -169,8 +180,7 @@ const PerfilUsuario = () => {
                         <div className='nomeUsuarioPerfil'>
                             <h1><BiUser /> {user.nome}</h1>
                         </div>
-                        {message && <Message type={typeMessage} message={message} />}
-                        {messageDelete && <Message type={typeMessage} message={messageDelete} />}
+                        {showMessage && <Message type={typeMessage} message={message} showMessage={setShowMessage}/>}
                         <h2 className='tituloSection'>Meus Endereços: </h2>
                         {saveAddress ?
                             <Form handleSubmit={handleEditAddress} buttonClickEvent={handleSaveAddress} />

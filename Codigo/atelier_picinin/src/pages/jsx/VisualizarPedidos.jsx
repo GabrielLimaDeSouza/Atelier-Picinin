@@ -14,7 +14,7 @@ const VisualizarPedidos = () => {
     var tamanhoTela = window.innerWidth
 
     const [message, setMessage] = useState('')
-    const [showMessage, setShowMessage] = useState('')
+    const [showMessage, setShowMessage] = useState(false)
     const [typeMessage, setTypeMessage] = useState('')
     const [pedidos, setPedidos] = useState([])
     const [users, setUsers] = useState([])

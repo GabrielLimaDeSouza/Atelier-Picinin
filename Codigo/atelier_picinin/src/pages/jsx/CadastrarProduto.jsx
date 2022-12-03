@@ -20,6 +20,8 @@ const CadastrarProduto = () => {
     const [sabor, setSabor] = useState([])
     const [id, setId] = useState({})
     const [message, setMessage] = useState('')
+    const [typeMessage, setTypeMessage] = useState('')
+    const [showMessage, setShowMessage] = useState(false)
     const [indiceSabor, setIndiceSabor] = useState('')
     const location = useLocation()
     const navigate = useNavigate()
@@ -95,12 +97,9 @@ const CadastrarProduto = () => {
         if (sabor.length > 0) {
             sabores = sabor
             lenghtSabor = sabores.length
-            console.log(lenghtSabor)
         } else {
             lenghtSabor = 0
         }
-
-        console.log(sabores)
     }
 
     function createProduto(e) {
@@ -126,9 +125,16 @@ const CadastrarProduto = () => {
 
             },
             )
-        }).catch(err => console.error(err))
-
-        setMessage("Produto cadastrado com sucesso!")
+        }).then(() => {
+            setMessage("Produto cadastrado com sucesso!")
+            setTypeMessage("success")
+            setShowMessage(true)
+        })
+        .catch(() => {
+            setMessage("Houve um erro ao cadastrar um novo produto")
+            setTypeMessage("error")
+            setShowMessage(true)
+        })
     }
     function updateProduto(e) {
         e.preventDefault()
@@ -147,7 +153,16 @@ const CadastrarProduto = () => {
                 updatefoto2: document.getElementById("updateFoto2").value,
                 updatefoto3: document.getElementById("updateFoto3").value
             })
-        }).catch((err) => console.error(err))
+        }).then(() => {
+            setMessage("Produto atualizado com sucesso!")
+            setTypeMessage("success")
+            setShowMessage(true)
+        })
+        .catch(() => {
+            setMessage("Houve um erro ao atualizar o produto")
+            setTypeMessage("error")
+            setShowMessage(true)
+        })
 
         setMessage("Produto atualizado com sucesso!")
     }
@@ -166,9 +181,16 @@ const CadastrarProduto = () => {
                 sabor: document.getElementById("updateSabor").value,
                 preco: document.getElementById("updatePrecoSabor").value
             })
-        }).catch(err => console.error(err))
-
-        setMessage("Sabor atualizado com sucesso!")
+        }).then(() => {
+            setMessage("Sabor atualizado com sucesso!")
+            setTypeMessage("success")
+            setShowMessage(true)
+        })
+        .catch(() => {
+            setMessage("Houve um erro ao atualizar o sabor")
+            setTypeMessage("error")
+            setShowMessage(true)
+        })
     }
 
     function createSabor() {
@@ -183,9 +205,18 @@ const CadastrarProduto = () => {
                 sabor: document.getElementById("createSabor").value,
                 preco: document.getElementById("createPrecoSabor").value
             })
-        }).catch(err => console.error(err))
+        }).then(() => {
+            setMessage("Sabor criado com sucesso!")
+            setTypeMessage("success")
+            setShowMessage(true)
+        })
+        .catch(() => {
+            setMessage("Houve um erro ao criar um novo sabor")
+            setTypeMessage("error")
+            setShowMessage(true)
+        })
 
-        setMessage("Sabor atualizado com sucesso!")
+        
     }
     // Identificar a linha da tabela clicada
     function idTrClicada(e) {
@@ -208,11 +239,17 @@ const CadastrarProduto = () => {
             .then(() => {
                 setProdutos(produtos.filter((produto) => produto.id !== id))
                 setMessage("Produto removido com sucesso!")
+                setTypeMessage("success")
+                setShowMessage(true)
             })
-            .catch((err) => console.error(err))
+            .catch(() => {
+                setMessage("Houve um erro ao remover o produto")
+                setTypeMessage("error")
+                setShowMessage(true)
+            })
     }
-    function deleteSabor(id, indice) {
 
+    function deleteSabor(id, indice) {
         fetch(`http://localhost:3000/produto/deleteSabor/${id}`, {
             method: 'PATCH',
             headers: {
@@ -224,8 +261,14 @@ const CadastrarProduto = () => {
         }).then(resp => resp.json())
             .then(() => {
                 setMessage("Sabor removido com sucesso!")
+                setTypeMessage("success")
+                setShowMessage(true)
             })
-            .catch(err => console.error(err))
+            .catch(() => {
+                setMessage("Houve um erro ao remover o sabor")
+                setTypeMessage("error")
+                setShowMessage(true)
+            })
     }
     function salvaImg(imgLink) {
         if (arreyFotos.indexOf(imgLink) == null) {
@@ -283,7 +326,7 @@ const CadastrarProduto = () => {
                     Inserir Novo Produto
                 </button>
 
-                {message && <Message type="success" message={message} />}
+                {showMessage && <Message type={typeMessage} message={message} showMessage={setShowMessage} />}
 
                 <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-scrollable">

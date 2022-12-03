@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const cadastarUsuario = ({ id }) => {
     const [usuarios, setUsuarios] = useState([])
+    const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
     const navigate = useNavigate()
@@ -36,9 +37,7 @@ const cadastarUsuario = ({ id }) => {
         for (let i = 0; i < tamanho; i++) {
             console.log(usuarios[i].email + "   :" + document.getElementById("email").value)
             if (usuarios[i].email == document.getElementById("email").value) {
-
                 achado = true
-
             }
         }
         if (achado == false) {
@@ -54,24 +53,29 @@ const cadastarUsuario = ({ id }) => {
                     "senha": document.getElementById("senhaCadastro").value,
                     "admin": false
 
-                },
-                    setTypeMessage("success"),
-                    setMessage("Usuário cadastrado com sucesso!")),
-
-            }).catch(err => console.error(err))
+                })
+            }).then(() => {
+                setTypeMessage("success")
+                setMessage("Usuário cadastrado com sucesso!")
+                setShowMessage(true)
+            })
+            .catch(() => {
+                setTypeMessage("error")
+                setMessage("Houve um erro ao cadastrar um novo usuário")
+                setShowMessage(true)
+            })
 
 
         } else {
             setTypeMessage("error")
-            let string = "Esse usuário já é cadastrado no sistema"
-
-            setMessage(string);
+            setMessage("Esse usuário já é cadastrado no sistema")
+            setShowMessage(true)
         }
 
     }
     return (!id &&
         <div className='divForm'>
-            {message && <Message type={typeMessage} message={message} />}
+            {showMessage && <Message type={typeMessage} message={message} />}
 
             <CompCadastroUser event={cadastrar} />
         </div>

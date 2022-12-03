@@ -12,6 +12,7 @@ const url = "http://localhost:3000"
 const EditInvetory = () => {
     const { id } = useParams()
     const [insumo, setInsumo] = useState({})
+    const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
     const [categories, setCategories] = useState([])
@@ -44,6 +45,7 @@ const EditInvetory = () => {
         if(editedInput.emEstoque < 0 && editedInput.quantidadeMin < 0){
             setMessage("Valores invalidos")
             setTypeMessage("error")
+            setShowMessage(true)
             return false
         }
 
@@ -55,14 +57,18 @@ const EditInvetory = () => {
             body: JSON.stringify(editedInput)
         }).then(resp => resp.json())
         .then(navigate('/estoque', { state: { message: "Insumo atualizado com sucesso!", type: "success" } }))
-        .catch(err => console.error(err))
+        .catch(() => {
+            setTypeMessage("error")
+            setMessage("Houve um erro atualizar o insumo")
+            setShowMessage(true)
+        })
     }
 
     return (
         <div className="body-edit-inventory">
             <h1 className="edit-title">Editar insumo</h1>
 
-            { message && <Message type={typeMessage} message={message} /> }
+            { showMessage && <Message type={typeMessage} message={message} showMessage={setShowMessage} /> }
             
             { isLoading ?
                 <Loading />

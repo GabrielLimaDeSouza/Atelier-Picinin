@@ -11,7 +11,7 @@ import Loading from '../../components/layout/Loading'
 
 import { IoStar, IoStarOutline, IoStarHalf } from 'react-icons/io5'
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 const url = "http://localhost:3000"
 
@@ -21,7 +21,9 @@ const DetalhesProduto = () => {
     const { id } = useParams()
     const [produto, setProduto] = useState([])
     const [avaliacoes, setAvaliacoes] = useState([])
+    const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState("")
+    const [typeMessage, setTypeMessage] = useState("")
     const [show, setShow] = useState(false)
     const [sabores, setSabores] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -31,6 +33,7 @@ const DetalhesProduto = () => {
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         fetch(`${url}/produto/getProductById/${id}`, {
@@ -54,6 +57,12 @@ const DetalhesProduto = () => {
         }).then(resp => resp.json())
             .then(data => setAvaliacoes(data))
             .catch(err => console.error(err))
+
+        if(location.state.message) {
+            setMessage(location.state.message)
+            setTypeMessage("success")
+            setShowMessage(true)
+        }
     }, [])
 
     useEffect(() => {
@@ -139,9 +148,12 @@ const DetalhesProduto = () => {
             })
         }).then(resp => resp.json())
             .then(handleClose)
-            .then(navigate(`/detalhesProduto/${id}`))
-            .then(setMessage("Avaliação cadastrada com sucesso!"))
-            .catch(err => console.error(err))
+            .then(navigate(`/detalhesProduto/${id}`, { state: { message: "Avaliação cadastrada com sucesso!"}}))
+            .catch(() => {
+                setMessage("Houve um erro ao adicionar uma avaliação")
+                setTypeMessage("error")
+                setShowMessage(true)
+            })
     }
 
     function addQuantity() {
@@ -266,7 +278,7 @@ const DetalhesProduto = () => {
                     <div>{produto.descricaoProduto}</div>
                 </div>
 
-                {message && <Message type="success" message={message} />}
+                {showMessage && <Message type={typeMessage} message={message} showMessage={setShowMessage} />}
 
                 {media ?
                     <div className="div-avaliacao">

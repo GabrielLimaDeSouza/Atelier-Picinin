@@ -19,6 +19,7 @@ const AdicionarEndereco = () => {
     const [addressSelected, setAddressSelected] = useState({})
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
+    const [showMessage, setShowMessage] = useState('')
     const [saveAddress, setSaveAddress] = useState(false)
     const navigate = useNavigate()
 
@@ -78,9 +79,14 @@ const AdicionarEndereco = () => {
         .then(data => {
             setTypeMessage("success")
             setMessage("Endereço adicionado com sucesso!")
+            setShowMessage(true)
             setAdresses(adresses => [...adresses, data])
         })
-        .catch(err => console.error(err))
+        .catch(() => {
+            setTypeMessage("error")
+            setMessage("Houve um erro ao adicionar um endereço")
+            setShowMessage(true)
+        })
     }
 
     function handleDropdownMenu() {
@@ -106,7 +112,7 @@ const AdicionarEndereco = () => {
                     <Progression state="Endereço" elements={ [ "Carrinho de Compra", "Endereço", "Confirmar Pedido" ] } />
                 </div>
 
-                { message && <Message type={ typeMessage } message={ message } /> }
+                { showMessage && <Message type={ typeMessage } message={ message } showMessage={setShowMessage} /> }
 
                 <div className="content">
                     { saveAddress ?

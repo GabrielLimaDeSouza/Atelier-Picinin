@@ -12,6 +12,7 @@ const url = "http://localhost:3000"
 const Login = ({ isLogged }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState("")
     const [typeMessage, setTypeMessage] = useState("")
     const [notLogged, setNotLogged] = useState(false)
@@ -59,6 +60,7 @@ const Login = ({ isLogged }) => {
         } else {
             setMessage("Email ou senha incorretos")
             setTypeMessage("error")
+            setShowMessage(true)
         }
     }
 
@@ -83,7 +85,7 @@ const Login = ({ isLogged }) => {
                         </div>
                     </div>
                     <div className="form">
-                        { message && <Message type={typeMessage} message={message} /> }
+                        { showMessage && <Message type={typeMessage} message={message} showMessage={setShowMessage}/> }
                         <form className="form-login" onSubmit={handleSubmit}>
                             <input
                                 type="text"

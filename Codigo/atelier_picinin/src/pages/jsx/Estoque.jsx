@@ -13,6 +13,8 @@ import { useLocation } from 'react-router-dom'
 const url = "http://localhost:3000"
 
 const CadastrarInsumo = () => {
+
+    const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
     const [insumos, setInsumos] = useState([])
@@ -85,6 +87,7 @@ const CadastrarInsumo = () => {
         if (location.state) {
             setTypeMessage(location.state.type)
             setMessage(location.state.message)
+            setShowMessage(true)
         }
 
         setTimeout(() => setIsLoading(false), 600)
@@ -119,8 +122,13 @@ const CadastrarInsumo = () => {
                 setInsumos(insumos.filter(insumo => insumo._id !== id))
                 setTypeMessage("success")
                 setMessage("Insumo removido com sucesso!")
+                setShowMessage(true)
             })
-            .catch(err => console.error(err))
+            .catch(() => {
+                setTypeMessage("error")
+                setMessage("Houve um erro ao remover o insumo")
+                setShowMessage(true)
+            })
     }
 
     // Filtro de elementos repetidos para o array de categorias
@@ -154,7 +162,7 @@ const CadastrarInsumo = () => {
                 </LinkButton>
             </div>
 
-            {message && <Message type={typeMessage} message={message} />}
+            { showMessage && <Message type={typeMessage} message={message} showMessage={setShowMessage}/>}
 
             <div className="filters">
                 <SearchBar handleOnChange={handleFilterSuppliesByName} placeholder="Pesquise por um Insumo" />
