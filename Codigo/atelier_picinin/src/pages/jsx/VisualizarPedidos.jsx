@@ -14,6 +14,7 @@ const VisualizarPedidos = () => {
     var tamanhoTela = window.innerWidth
 
     const [message, setMessage] = useState('')
+    const [showMessage, setShowMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
     const [pedidos, setPedidos] = useState([])
     const [users, setUsers] = useState([])
@@ -50,6 +51,7 @@ const VisualizarPedidos = () => {
         if (location.state) {
             setTypeMessage(location.state.type)
             setMessage(location.state.message)
+            setShowMessage(true)
         }
 
         setTimeout(() => setIsLoading(false), 1200)
@@ -102,7 +104,6 @@ const VisualizarPedidos = () => {
     function handleChangeStatus(order, newStatus, newCodStatus) {
         order.codStatus = newCodStatus
         order.status = newStatus
-        console.log(order)
 
         fetch(`${url}/api/order/updateOrder?id=${ order._id }`, {
             method: 'PATCH',
@@ -111,24 +112,57 @@ const VisualizarPedidos = () => {
             },
             body: JSON.stringify(order)
         })
-        .then(navigate('/adm/pedidos', { state: { message: "Pedido atualizado com sucesso!", type: "success" } }))
-        .catch(err => console.error(err))
+        .then(() => {
+            setTypeMessage("success")
+            setMessage("Pedido atualizado com sucesso!")
+            setShowMessage(true)
+        })
+        .catch(() => {
+            setTypeMessage("error")
+            setMessage("Houve um erro ao atualizar o pedido")
+            setShowMessage(true)
+        })
     }
 
-    function switchButton(element) {
-        let newCodStatus, newStatus
+    function switchButton(order) {
+        let newCodStatus, newStatus, text
 
-        if(element.codStatus == "status-0") {
+        if(order.codStatus == "status-0") {
             newCodStatus = "status-1"
             newStatus = "Em preparação"
-            return <button className="btn-mudarStatus" onClick={ () => handleChangeStatus(element, newStatus, newCodStatus) }>Pagamento feito</button>
+            text = "Pagamento Realizado"
 
-        } else if(element.codStatus == "status-1") {
+        } else if(order.codStatus == "status-1") {
             newCodStatus = "status-2"
             newStatus = "Concluido"
-            return <button className="btn-mudarStatus" onClick={ () => handleChangeStatus(element, newStatus, newCodStatus) }>Concluir</button>
+            text = "Concluir"
         }
 
+        return <button className="btn-mudarStatus"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={ () => handleChangeStatus(order, newStatus, newCodStatus) }>{ text }</button>
+    }
+
+    function deleteOrder(id) {
+        fetch(`${url}/api/order/deleteOrder?id=${ id }`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(() => {
+            setTypeMessage("success")
+            setMessage("Pedido apagado com sucesso")
+            setShowMessage(true)
+        })
+        .catch(() => {
+            setTypeMessage("error")
+            setMessage("Houve um erro ao apagar o pedido")
+            setShowMessage(true)
+        })
+
+        setPedidos(pedidos.filter(({ _id }) => _id !== id))
     }
 
     return (
@@ -137,7 +171,7 @@ const VisualizarPedidos = () => {
                 <Loading />
                 :
                 <>
-                { message && <Message type={typeMessage} message={message} /> }
+                { showMessage && <Message type={ typeMessage } message={ message } showMessage={ setShowMessage } /> }
                     <table className="table">
                         <thead>
                         <tr>
@@ -168,30 +202,30 @@ const VisualizarPedidos = () => {
                                 <td>{formatarData(element.dataEntrega)}</td>
                                 <td><span className={ element.codStatus }>{ element.status }</span></td>
                                 <td>
-                                    <BiTrash />
+                                    <button classname="btn-delete-pedido" onClick={() => deleteOrder(element._id)}><BiTrash /></button>
                                 </td>
                                 </tr>
                                 <div
-                                class="modal fade"
+                                className="modal fade"
                                 id={"exampleModal" + element._id}
                                 tabindex="-1"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true"
                                 >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h1 className="modal-title fs-5" id="exampleModalLabel">
                                         Itens do pedido:
                                         </h1>
                                         <button
                                         type="button"
-                                        class="btn-close"
+                                        className="btn-close"
                                         data-bs-dismiss="modal"
                                         aria-label="Close"
                                         ></button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div className="modal-body">
                                         {element.cartItems.map((itensCarrinho) => (
                                         <>
                                             <div className="cardVisualizar">
@@ -210,7 +244,7 @@ const VisualizarPedidos = () => {
                                         ))}
                                         { switchButton(element) }
                                     </div>
-                                    <div class="modal-footer">
+                                    <div className="modal-footer">
                                         Preço total: {element.total}
                                     </div>
                                     </div>

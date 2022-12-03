@@ -1,3 +1,13 @@
+:root {
+    --verde: #00FF00;
+    --btn-azul: #4939FF;
+    --dark-gray: #1f1f1f;
+    --gray: #808080;
+    --light-gray: #f7f7f7;
+    --pastel-red: #ff6961;
+    --box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+}
+
 .divTabela{
     max-width: 60%;
 }
@@ -23,8 +33,6 @@
 
 span.status-3 {
     text-align: center;
-    font-weight: 500;
-    text-transform: uppercase;
     color: rgb(255, 0, 0);
     background-color: rgb(255, 204, 204);
     padding: 3px 10px;
@@ -41,8 +49,6 @@ span.status-2 {
 
 span.status-1 {
     text-align: center;
-    font-weight: 500;
-    text-transform: uppercase;
     color: rgb(162, 0, 255);
     background-color: rgb(240, 213, 255);
     padding: 3px 10px;
@@ -51,12 +57,25 @@ span.status-1 {
 
 span.status-0 {
     text-align: center;
-    font-weight: 500;
-    text-transform: uppercase;
     color: rgb(255, 217, 0);
     background-color: rgb(255, 252, 218);
     padding: 3px 10px;
     border-radius: 5px;
+}
+
+button.btn-mudarStatus {
+    padding: 5px 15px;
+    background-color: var(--btn-azul);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: all .2s;
+}
+
+button.btn-mudarStatus:hover {
+    box-shadow: var(--box-shadow);
+    color: var(--btn-azul);
+    background-color: white;
 }
 
 @media screen and (max-width: 600px) {

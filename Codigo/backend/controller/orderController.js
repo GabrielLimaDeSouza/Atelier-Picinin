@@ -70,10 +70,8 @@ module.exports = {
             total,
             payment,
             status,
-            codStatus
+            codStatus,
         }
-
-        console.log(order)
 
         try {
             const orderUpdated = await Pedidos.updateOne({ _id: id }, order)
