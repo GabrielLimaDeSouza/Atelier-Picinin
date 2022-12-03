@@ -138,10 +138,10 @@ const VisualizarPedidos = () => {
             text = "Concluir"
         }
 
-        return <button className="btn-mudarStatus"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={ () => handleChangeStatus(order, newStatus, newCodStatus) }>{ text }</button>
+        return order.codStatus != "status-3" && <button className="btn-mudarStatus"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                    onClick={ () => handleChangeStatus(order, newStatus, newCodStatus) }>{ text }</button>
     }
 
     function deleteOrder(id) {
