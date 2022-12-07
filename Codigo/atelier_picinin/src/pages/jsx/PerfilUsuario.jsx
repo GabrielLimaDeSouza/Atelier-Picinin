@@ -1,18 +1,23 @@
 import '../css/cart/AdicionarEndereco.css'
 import '../css/perfil/PerfilUsuario.css'
 
-import { BiUser } from 'react-icons/bi'
-
 import Form from '../../components/cart/modules/FormAddress'
 import Message from '../../components/layout/Message'
 import Button from '../../components/layout/Button'
+import Loading from '../../components/layout/Loading'
+import InfosPedidos from '../../components/pedidos/jsx/infosPedidos'
+import ItensPedido from '../../components/pedidos/jsx/itensPedido'
+import CollapseElement from '../../components/layout/CollapseElement'
 
+import { BiUser } from 'react-icons/bi'
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 const url = "http://localhost:3000"
 
 
 const PerfilUsuario = () => {
+    const larguraTela = window.innerWidth
+
     const [isLoading, setIsLoading] = useState(true)
     const [id, setId] = useState("")
     const [user, setUser] = useState([])
@@ -23,8 +28,19 @@ const PerfilUsuario = () => {
     const [message, setMessage] = useState('')
     const [typeMessage, setTypeMessage] = useState('')
     const [saveAddress, setSaveAddress] = useState(false)
-
+    
     const navigate = useNavigate()
+
+    const initialArray = []
+    orders.forEach(() => initialArray.push(false))
+
+    const [dropdown, setDropdown] = useState(initialArray)
+
+    function dropdownConfig({ index }) {
+        dropdown[index] = !dropdown[index]
+
+        setDropdown(array => [...array])
+    }
 
     function getCookie(name) {
         let cookie = {}
@@ -37,18 +53,35 @@ const PerfilUsuario = () => {
         return cookie[name]
     }
 
-
     useEffect(() => {
-        fetch('http://localhost:3000/api/order/getAllOrders', {
+        const id = getCookie("_id")
+
+        if (id) {
+            setId(id)
+        } else {
+            navigate('/')
+        }
+
+        fetch(`${url}/api/order/getOrderById?id=${ id }`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(resp => resp.json())
-            .then(data => setOrders(data))
-            .catch(err => console.error(err))
-    }, [])
+        .then(data => setOrders(data))
+        .catch(err => console.error(err))
 
+        fetch(`${url}/api/user/getUserById?id=${ id }`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json())
+        .then(data => setUser(data))
+        .catch(err => console.error(err))
+
+        setTimeout(() => setIsLoading(false), 1200)
+    }, [])
 
     useEffect(() => {
         const id = getCookie("_id")
@@ -57,37 +90,16 @@ const PerfilUsuario = () => {
         } else {
             navigate('/')
         }
-        fetch(`http://localhost:3000/api/user/getUserById?id=${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(resp => resp.json())
-            .then(data => setUser(data))
-            .catch(err => console.error(err))
-    }, [])
 
-    useEffect(() => {
-        const id = getCookie("_id")
-        if (id) {
-            setId(id)
-        } else {
-            navigate('/')
-        }
-
-        fetch(`${url}/api/address/getAddressById?id=${id}`, {
+        fetch(`${url}/api/address/getAddressById?id=${ id }`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-            .then(resp => resp.json())
-            .then(data => {
-                setAdresses(data)
-            })
-            .catch(err => console.error(err))
-
-        setTimeout(() => setIsLoading(false), 600)
+        .then(resp => resp.json())
+        .then(data => setAdresses(data))
+        .catch(err => console.error(err))
     }, [adresses])
 
     function handleSelectAddress(e) {
@@ -168,22 +180,21 @@ const PerfilUsuario = () => {
         }).catch((err) => console.error(err))
     }
 
-    function formatDate(data) {
-        return new Date(data).toLocaleDateString();
-    }
-
     return (
         <>
-            <div className="body-address">
-                <div className="formAddress">
-                    <div className="content">
-                        <div className='nomeUsuarioPerfil'>
-                            <h1><BiUser /> {user.nome}</h1>
-                        </div>
-                        {showMessage && <Message type={typeMessage} message={message} showMessage={setShowMessage}/>}
+            <div className="body-perfil">
+                <div className='nomeUsuarioPerfil'>
+                    <h1><BiUser /> {user.nome}</h1>
+                </div>
+
+                <div className="content">
+                    <div className="formAddress">
+                        { showMessage && <Message type={ typeMessage } message={ message } showMessage={setShowMessage}/> }
+
                         <h2 className='tituloSection'>Meus Endereços: </h2>
-                        {saveAddress ?
-                            <Form handleSubmit={handleEditAddress} buttonClickEvent={handleSaveAddress} />
+
+                        { saveAddress ?
+                            <Form handleSubmit={ handleEditAddress } buttonClickEvent={ handleSaveAddress } />
                             :
                             <>
                                 <div className="selectAddress">
@@ -198,14 +209,14 @@ const PerfilUsuario = () => {
                                 </div>
 
                                 <div className="endereco">
-                                    {Object.keys(addressSelected).length ?
+                                    { Object.keys(addressSelected).length ?
                                         <div className="spans">
-                                            <span><b>Endereço:</b> {addressSelected.rua}</span>
-                                            <span><b>CEP:</b>  {addressSelected.cep}</span>
-                                            <span><b>Bairro:</b>  {addressSelected.bairro}</span>
-                                            <span><b>Cidade:</b>  {addressSelected.cidade}</span>
-                                            <span><b>Complemento:</b>  {addressSelected.complemento ? addressSelected.complemento : "Não informado"}</span>
-                                            <span><b>Número:</b>  {addressSelected.numero}</span>
+                                            <span><b>Endereço:</b> { addressSelected.rua }</span>
+                                            <span><b>CEP:</b>  { addressSelected.cep }</span>
+                                            <span><b>Bairro:</b>  { addressSelected.bairro }</span>
+                                            <span><b>Cidade:</b>  { addressSelected.cidade }</span>
+                                            <span><b>Complemento:</b>  { addressSelected.complemento ? addressSelected.complemento : "Não informado" }</span>
+                                            <span><b>Número:</b>  { addressSelected.numero }</span>
                                         </div>
                                         :
                                         <p className="unselectedAdress">Selecione um endereço</p>
@@ -213,42 +224,48 @@ const PerfilUsuario = () => {
                                 </div>
                             </>
                         }
+
                         <Button type="button" className="btnCadastrar" buttonClickEvent={handleSaveAddress}>{!saveAddress ? "Adicionar Endereço" : "Fechar"}</Button>
+                        
                         {Object.keys(addressSelected).length > 0 &&
-                            < Button type="button" className="btnExcluirEndereco" buttonClickEvent={handleDeleteAdress}>Excluir Endereço</Button>
+                            < Button type="button" className="btnCancelarPedido" buttonClickEvent={handleDeleteAdress}>Excluir Endereço</Button>
                         }
                     </div>
-                </div>
-                <div className='pedidosPerfilUsuario'>
-                    <h2 className='tituloSection meusPedidosh2'>Meus Pedidos: </h2>
-                    {
-                        orders.map((order, index) =>
-                            order.idCliente == getId() &&
-                            <div class="dropdown-center dropPerfil">
-                                <button className="btn btn-secondary dropdown-toggle drop dropPerfilButton" id="dropdownProduto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Pedido {index + 1} - {formatDate(order.data)} <br/>
-                                    Status: <span className='spanOrder'>{order.status}</span>
-                                </button>
-                                <ul className="dropdown-menu dropdownMenuItens">
-                                    {
-                                        order.cartItems.map(item =>
-                                            <div className='divItensPedidoPerfil'>
-                                                <p className="nomeProdutoPerfil">{item.nome}</p>
-                                                <p><span className='spanPedido'>Sabor: </span>{item.sabor}</p>
-                                                <p><span className="spanPedido">Quantidade: </span>{item.quantidade}</p>
-                                                <p><span className="spanPedido">R$</span>{item.precoTotal}</p>
-                                            </div>
-                                        )
-                                    }
-                                </ul>
-                                <div className='divButtonCancelarPedido'>                               
-                                    <button className='buttonCancelarPedido' onClick={() => handleCancelPedido(order.address, order.cartItems, order.data, order.idCliente, order.payment ,  order.total, order._id)}>Cancelar</button>
+                    
+                    <div className='pedidosPerfilUsuario'>
+                        <h2 className='tituloSection meusPedidosh2'>Meus Pedidos: </h2>
+                        { isLoading ?
+                            <Loading />
+                            :
+                            orders.map((order, index) => (
+                                <div className="teste">
+                                    <CollapseElement isOpened={ dropdown[index] }
+                                        buttonClickEvent={() => dropdownConfig({ index: index })}
+                                        text={
+                                            <InfosPedidos status={ order.status }
+                                                codStatus={ order.codStatus }
+                                                pagamento={ order.payment }
+                                                total={ order.total }
+                                                dataPedido={ order.dataPedido }/>
+                                        }>
+                                            {
+                                                larguraTela  >= 700 &&
+                                                    <ItensPedido status={ order.status }
+                                                        endereco={ order.address }
+                                                        entrega={ order.entrega }
+                                                        cartItems={order.cartItems}
+                                                        cancelar={ () => handleCancelPedido(order) }
+                                                        larguraTela={ larguraTela } />
+                                                // :
+                                                //     <ItensPedidoMobile endereco={ order.address } entrega={ order.entrega } itens={order.cartItems} />
+                                            }
+                                    </CollapseElement>
                                 </div>
-                            </div>
-                        )
-                    }
+                            ))
+                        }
+                    </div>
+                    </div>
                 </div>
-            </div>
         </>
     )
 }

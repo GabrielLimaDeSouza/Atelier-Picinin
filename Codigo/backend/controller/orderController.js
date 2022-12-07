@@ -44,17 +44,17 @@ module.exports = {
         }
     },
 
-    async getOrderById(req, res) {
+    async getOrderByIdClient(req, res) {
         const id = req.query.id
-        const order = await Pedidos.findById(id)
+        const orders = await Pedidos.find({ idCliente: id})
 
-        if (!order) {
+        if (!orders) {
             res.status(422).json({ message: "Pedido não encontrado" })
             return
         }
 
         try {
-            res.status(200).json(order)
+            res.status(200).json(orders)
         } catch (err) {
             res.status(500).json({ error: err })
         }
@@ -62,7 +62,7 @@ module.exports = {
 
     async updateOrder(req, res) {
         const id = req.query.id
-        const { cartItems, address, total, payment, codStatus, status } = req.body
+        const { cartItems, address, total, payment, codStatus, status, entrega } = req.body
 
         const order = {
             cartItems,
@@ -71,6 +71,7 @@ module.exports = {
             payment,
             status,
             codStatus,
+            entrega
         }
 
         try {

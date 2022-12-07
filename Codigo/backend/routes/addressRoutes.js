@@ -9,7 +9,7 @@ const controller = require('../controller/addressController')
 
 // Rotas GET
 router.get('/getAllAdresses', controller.getAllAdresses)
-router.get('/getAddressById', controller.getAddressById)
+router.get('/getAddressById', controller.getAddressByIdClient)
 
 // Rota PATCH
 router.patch('/registerAddress', controller.registerAddress)

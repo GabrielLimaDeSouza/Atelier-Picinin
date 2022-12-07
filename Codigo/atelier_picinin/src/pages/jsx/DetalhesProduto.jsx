@@ -55,10 +55,10 @@ const DetalhesProduto = () => {
                 'Content-Type': 'application/json'
             }
         }).then(resp => resp.json())
-            .then(data => setAvaliacoes(data))
-            .catch(err => console.error(err))
+        .then(data => setAvaliacoes(data))
+        .catch(err => console.error(err))
 
-        if(location.state.message) {
+        if(location.state) {
             setMessage(location.state.message)
             setTypeMessage("success")
             setShowMessage(true)
@@ -278,7 +278,7 @@ const DetalhesProduto = () => {
                     <div>{produto.descricaoProduto}</div>
                 </div>
 
-                {showMessage && <Message type={typeMessage} message={message} showMessage={setShowMessage} />}
+                { showMessage && <Message type={ typeMessage } message={ message } showMessage={setShowMessage} /> }
 
                 {media ?
                     <div className="div-avaliacao">

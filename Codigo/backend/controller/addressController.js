@@ -3,7 +3,7 @@ const Usuario = require('../models/Usuario')
 
 var mongoObjectId = () => {
     var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
-    return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+    return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, () => {
         return (Math.random() * 16 | 0).toString(16);
     }).toLowerCase();
 }
@@ -60,7 +60,7 @@ module.exports = {
         }
     },
 
-    async getAddressById(req, res) {
+    async getAddressByIdClient(req, res) {
         const id = req.query.id
         const user = await Usuario.findById(id)
 

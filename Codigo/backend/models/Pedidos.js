@@ -6,6 +6,7 @@ const Pedido = mongoose.model('Pedido', {
     cartItems: [],
     address: {},
     total: Number,
+    entrega: Number,
     payment: String,
     status: String,
     codStatus: String,

@@ -9,7 +9,7 @@ const controller = require('../controller/orderController')
 
 // Rotas GET
 router.get('/getAllOrders', controller.getAllOrders)
-router.get('/getOrderById', controller.getOrderById)
+router.get('/getOrderById', controller.getOrderByIdClient)
 
 // Rota POST
 router.post('/createOrder', controller.createOrder)

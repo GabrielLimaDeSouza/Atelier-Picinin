@@ -1,20 +1,32 @@
+div.body-perfil > div.content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
 .nomeUsuarioPerfil {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin-bottom: 2rem;
+}
+
+.pedidosPerfilUsuario {
+    width: 70%;
 }
 
 .nomeUsuarioPerfil h1 {
     font-size: 30px;
 }
 
-.formAdress {
-    width: 50% !important;
-}
-
-.pedidosPerfilUsuario {
-    width: 50% !important;
+div.content > div.formAddress {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    row-gap: 20px;
 }
 
 .selectAdressPerfil {
@@ -41,10 +53,6 @@
     color: #F36961;
     font-size: 20px;
     font-weight: 600;
-}
-
-.pedidosPerfilUsuario {
-    margin-top: 80px;
 }
 
 .imgProdutoPerfil {
@@ -92,4 +100,22 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+@media (min-width: 1001px) {
+    div.body-perfil {
+        padding-left: 5rem !important;
+        padding-right: 5rem !important;
+    }
+}
+
+@media (max-width: 1000px) {
+    div.body-perfil {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    div.body-perfil > div.content {
+        flex-direction: column !important;
+    }
 }
