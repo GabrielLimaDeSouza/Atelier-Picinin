@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const Pedido = mongoose.model('Pedido', {
     idCliente: String,
     nomeCliente: String,
-    cartItems: [],
-    address: {},
+    cartItems: Array,
+    address: Object,
     total: Number,
     entrega: Number,
     payment: String,

@@ -2,16 +2,16 @@ import "../css/visualizarPedidos/visualizarPedidos.css"
 
 import Message from '../../components/layout/Message'
 import Loading from '../../components/layout/Loading'
+import Dropdown from '../../components/layout/Dropdown'
 
 import { AiOutlineShoppingCart } from "react-icons/ai"
-import { BiTrash, BiPencil } from "react-icons/bi"
+import { BiTrash } from "react-icons/bi"
 import { useState, useEffect } from "react"
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const url = "http://localhost:3000"
 
 const VisualizarPedidos = () => {
-    var tamanhoTela = window.innerWidth
 
     const [message, setMessage] = useState('')
     const [showMessage, setShowMessage] = useState(false)
@@ -19,15 +19,10 @@ const VisualizarPedidos = () => {
     const [pedidos, setPedidos] = useState([])
     const [users, setUsers] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [filterDropdownParams, setFilterDropdownParams] = useState("")
+    const [status, setStatus] = useState([])
 
-    const navigate = useNavigate()
     const location = useLocation()
-
-    var prioridade = []
-    var expirado = []
-    var vencendo = []
-    var pago = []
-    var cancelado = []
 
     useEffect(() => {
         fetch(`${url}/api/order/getAllOrders`, {
@@ -57,35 +52,42 @@ const VisualizarPedidos = () => {
         setTimeout(() => setIsLoading(false), 1200)
     }, [])
 
-    if (pedidos.length != 0) {
-        for (let i = 0; i < pedidos.length; i++) {
-            if (pedidos[i].status == "Expirado") {
-                expirado.push(pedidos[i]);
-            } else {
-                if (pedidos[i].status == "Vencendo") {
-                    vencendo.push(pedidos[i]);
-                } else {
-                    pago.push(pedidos[i]);
-                }
-                if (pedidos[i].status == "Cancelado") {
-                    cancelado.push(pedidos[i]);
-                }
+    useEffect(() => {
+        pedidos.sort((pedido1, pedido2) => {
+            if (pedido2.dataEntrega > pedido1.dataEntrega) {
+                return 1
+            } else if (pedido2.dataEntrega < pedido1.dataEntrega) {
+                return -1
             }
-        }
 
-        if (expirado.length != 0) {
-            prioridade.push(expirado);
-        }
-        if (vencendo.length != 0) {
-            prioridade.push(vencendo);
-        }
-        if (pago.length != 0) {
-            prioridade.push(pago);
-        }
+            return 0
+        })
 
-        if (cancelado.length != 0) {
-            prioridade.push(cancelado);
-        }
+        let arrayStatus = []
+        pedidos.forEach(pedido => arrayStatus.push(pedido.status))
+        arrayStatus = filterDuplicateItemInArray(arrayStatus)
+
+        setStatus(arrayStatus)
+    }, [pedidos])
+
+    function filterDuplicateItemInArray(array) {
+        var filteredArray = array.filter((item, index) => {
+            return array.indexOf(item) === index
+        })
+
+        return filteredArray
+    }
+
+    function searchStatusInItems(orders) {
+        if(filterDropdownParams != "")
+            return orders.filter(order => order.status == filterDropdownParams)
+        else
+            return orders
+    }
+
+    function handleFilterOrdersByStatus(e) {
+        const value = e.target.value
+        setFilterDropdownParams(value)
     }
 
     function findCliente(id) {
@@ -171,6 +173,11 @@ const VisualizarPedidos = () => {
         <div className="divTabela">
             <div className="titleButton">
                 <h1 className="pedidos-title">Pedidos ({ pedidos.length })</h1>
+
+                <Dropdown options={ status }
+                    textDefault="Selecione um status"
+                    handleOnChange={ handleFilterOrdersByStatus }
+                    notSwitchValue />
             </div>
 
             { isLoading ?
@@ -180,85 +187,84 @@ const VisualizarPedidos = () => {
                 { showMessage && <Message type={ typeMessage } message={ message } showMessage={ setShowMessage } /> }
                     <table className="table">
                         <thead>
-                        <tr>
-                            <th>CLIENTE</th>
-                            <th>PEDIDO</th>
-                            <th>DATA DE ENTREGA</th>
+                            <tr>
+                                <th>CLIENTE</th>
+                                <th>PEDIDO</th>
+                                <th>DATA DE ENTREGA</th>
 
-                            <th>STATUS</th>
-                            <th>EXCLUIR</th>
-                        </tr>
+                                <th>STATUS</th>
+                                <th>EXCLUIR</th>
+                            </tr>
                         </thead>
+
                         <tbody>
-                        {prioridade.map((teste) =>
-                            teste.map((element) => (
-                            <>
-                                <tr>
-                                <td>{findCliente(element.idCliente)}</td>
-                                <td>
-                                    <button
-                                    className="carrinho"
-                                    type="button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target={"#exampleModal" + element._id}
-                                    >
-                                    <AiOutlineShoppingCart />
-                                    </button>
-                                </td>
-                                <td>{formatarData(element.dataEntrega)}</td>
-                                <td><span className={ element.codStatus }>{ element.status }</span></td>
-                                <td>
-                                    <button classname="btn-delete-pedido" onClick={() => deleteOrder(element._id)}><BiTrash /></button>
-                                </td>
-                                </tr>
-                                <div
-                                className="modal fade"
-                                id={"exampleModal" + element._id}
-                                tabindex="-1"
-                                aria-labelledby="exampleModalLabel"
-                                aria-hidden="true"
-                                >
-                                <div className="modal-dialog">
-                                    <div className="modal-content">
-                                    <div className="modal-header">
-                                        <h1 className="modal-title fs-5" id="exampleModalLabel">
-                                        Itens do pedido:
-                                        </h1>
-                                        <button
-                                        type="button"
-                                        className="btn-close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                        ></button>
-                                    </div>
-                                    <div className="modal-body">
-                                        {element.cartItems.map((itensCarrinho) => (
-                                        <>
-                                            <div className="cardVisualizar">
-                                            <div className="teste75">
-                                                <div>
-                                                Produto: {itensCarrinho.nome} x
-                                                {itensCarrinho.quantidade} <br />{" "}
-                                                <p className="small">
-                                                    {itensCarrinho.sabor}
-                                                </p>
+                            { searchStatusInItems(pedidos).map(pedido => (
+                                <>
+                                    <tr>
+                                        <td>{ findCliente(pedido.idCliente) }</td>
+                                        <td>
+                                            <button className="carrinho"
+                                                type="button"
+                                                data-bs-toggle="modal"
+                                                data-bs-target={ "#exampleModal" + pedido._id } >
+
+                                                <AiOutlineShoppingCart />
+                                            </button>
+                                        </td>
+                                        <td>{ formatarData(pedido.dataEntrega) }</td>
+                                        <td><span className={ pedido.codStatus }>{ pedido.status }</span></td>
+                                        <td>
+                                            <button className="btn-delete-pedido" onClick={ () => deleteOrder(pedido._id) }><BiTrash /></button>
+                                        </td>
+                                    </tr>
+
+                                    <div className="modal fade"
+                                        id={ "exampleModal" + pedido._id }
+                                        tabIndex="-1"
+                                        aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true" >
+
+                                        <div className="modal-dialog">
+                                            <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h1 className="modal-title fs-5" id="exampleModalLabel">
+                                                    Itens do pedido:
+                                                </h1>
+                                                <button type="button"
+                                                    className="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close" >
+                                                </button>
+                                            </div>
+                                            
+                                            <div className="modal-body">
+                                                { pedido.cartItems.map(itensCarrinho => (
+                                                    <>
+                                                        <div className="cardVisualizar">
+                                                        <div className="teste75">
+                                                            <div>
+                                                                Produto: { itensCarrinho.nome } x
+                                                                { itensCarrinho.quantidade } <br />
+                                                                <p className="small">
+                                                                    { itensCarrinho.sabor }
+                                                                </p>
+                                                            </div>
+
+                                                            <div>Preço: { itensCarrinho.preco }</div>
+                                                        </div>
+                                                        </div>
+                                                    </>
+                                                ))}
+                                                { switchButton(pedido) }
+                                            </div>
+                                                <div className="modal-footer">
+                                                    Preço total: { pedido.total }
                                                 </div>
-                                                <div>Preço: {itensCarrinho.preco}</div>
                                             </div>
-                                            </div>
-                                        </>
-                                        ))}
-                                        { switchButton(element) }
+                                        </div>
                                     </div>
-                                    <div className="modal-footer">
-                                        Preço total: {element.total}
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </>
-                            ))
-                        )}
+                                </>
+                            ))}
                         </tbody>
                     </table>
                 </>

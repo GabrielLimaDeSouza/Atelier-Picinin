@@ -8,7 +8,7 @@ module.exports = {
         var totalFloat = parseFloat(total)
         const dataPedido = new Date().toISOString()
         const dataEntregaManipulation = new Date()
-        dataEntregaManipulation.setDate(dataEntregaManipulation.getDay() + 10)
+        dataEntregaManipulation.setDate(dataEntregaManipulation.getDate() + 10)
         let dataEntrega = dataEntregaManipulation.toDateString()
 
         const order = {
@@ -20,6 +20,7 @@ module.exports = {
             payment,
             status: "Pagamento pendente",
             codStatus: "status-0",
+            entrega: 0,
             dataPedido,
             dataEntrega
         }

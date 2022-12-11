@@ -4,11 +4,10 @@ import Button from '../../layout/Button'
 import CartItemNoEditable from '../../cart/modules/CartItemNoEditable'
 import CartItemMobileNoEditable from '../../cart/modules/CartItemMobileNoEditable'
 
-const ItensPedido = ({ status, endereco, entrega, cartItems, cancelar, larguraTela }) => {
-    console.log(endereco)
-    console.log(entrega)
-    console.log(cartItems)
-    console.log(larguraTela)
+const ItensPedido = ({ status, endereco, entrega, dataEntrega, cartItems, cancelar, larguraTela }) => {
+    function formatDate(data) {
+        return new Date(data).toLocaleDateString();
+    }
 
     return (
         <div className={ style.itensPedido }>
@@ -22,7 +21,8 @@ const ItensPedido = ({ status, endereco, entrega, cartItems, cancelar, larguraTe
 
                     <div className={ style.entrega }>
                         <h5>Entrega:</h5>
-                        { entrega == 0 ? <span className={style.gratis}>Gratis</span> : <span>R$ { entrega }</span> }
+                        { entrega == 0 ? <span className={ style.gratis }>Gratis</span> : <span>R$ { entrega }</span> }
+                        <span>{ formatDate(dataEntrega) }</span>
                     </div>
                 </div>
                 { status == "Pagamento pendente" && 

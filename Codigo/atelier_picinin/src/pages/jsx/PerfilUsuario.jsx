@@ -228,7 +228,7 @@ const PerfilUsuario = () => {
                         <Button type="button" className="btnCadastrar" buttonClickEvent={handleSaveAddress}>{!saveAddress ? "Adicionar Endereço" : "Fechar"}</Button>
                         
                         {Object.keys(addressSelected).length > 0 &&
-                            < Button type="button" className="btnCancelarPedido" buttonClickEvent={handleDeleteAdress}>Excluir Endereço</Button>
+                            <Button type="button" className="btnExcluirEndereco" buttonClickEvent={handleDeleteAdress}>Excluir Endereço</Button>
                         }
                     </div>
                     
@@ -253,6 +253,7 @@ const PerfilUsuario = () => {
                                                     <ItensPedido status={ order.status }
                                                         endereco={ order.address }
                                                         entrega={ order.entrega }
+                                                        dataEntrega={ order.dataEntrega }
                                                         cartItems={order.cartItems}
                                                         cancelar={ () => handleCancelPedido(order) }
                                                         larguraTela={ larguraTela } />
