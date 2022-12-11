@@ -54,9 +54,9 @@ const VisualizarPedidos = () => {
 
     useEffect(() => {
         pedidos.sort((pedido1, pedido2) => {
-            if (pedido2.dataEntrega > pedido1.dataEntrega) {
+            if (pedido2.dataPedido > pedido1.dataPedido) {
                 return 1
-            } else if (pedido2.dataEntrega < pedido1.dataEntrega) {
+            } else if (pedido2.dataPedido < pedido1.dataPedido) {
                 return -1
             }
 
@@ -214,7 +214,8 @@ const VisualizarPedidos = () => {
                                         <td>{ formatarData(pedido.dataEntrega) }</td>
                                         <td><span className={ pedido.codStatus }>{ pedido.status }</span></td>
                                         <td>
-                                            <button className="btn-delete-pedido" onClick={ () => deleteOrder(pedido._id) }><BiTrash /></button>
+                                            { (pedido.codStatus == "status-2" || pedido.codStatus == "status-3") &&
+                                                 <button className="btn-delete-pedido" onClick={ () => deleteOrder(pedido._id) }><BiTrash /></button> }
                                         </td>
                                     </tr>
 
