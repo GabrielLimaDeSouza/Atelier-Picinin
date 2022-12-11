@@ -89,3 +89,19 @@
 .btn-drop {
     background-color: black !important;
 }
+
+.componente {
+
+    border: 5px solid black !important;
+    margin: 2px 2px 2px 2px;
+}
+
+.componenteSelecionado {
+
+    border: 5px solid greenyellow !important;
+    margin: 2px 2px 2px 2px;
+}
+
+.btnCadastrar{
+    padding-top: 20px;
+}

@@ -2,7 +2,6 @@ import '../css/Products/CadastrarProduto.css'
 import styles from '../../components/css_components/Form.module.css'
 
 
-import Avaliacao from "../../components/layout/Avaliação"
 import Form from "../../components/products/FormCadastroProdutos"
 import Button from "../../components/layout/Button"
 import Message from "../../components/layout/Message"
@@ -17,6 +16,7 @@ var lenghtSabor = 0
 var contadorSabor = 0
 const CadastrarProduto = () => {
     const [produtos, setProdutos] = useState([])
+    const [arrayFotos, setArrayFotos] = useState([])
     const [sabor, setSabor] = useState([])
     const [id, setId] = useState({})
     const [message, setMessage] = useState('')
@@ -49,12 +49,10 @@ const CadastrarProduto = () => {
     }, [])
 
     var dadosJson
-    var arreyFotos = []
-    var arreyFotosNovas = []
     var controle = 0
 
     useEffect(() => {
-        const token = "IGQVJVTDd5dnpzWlhnWVAwTlR4cFZAvTEY1MnNKci1oczBnRDFDejhrSGRSOEJFQUc4Q1lQZAHBCOTBqS25YMm5QcS1qSC1GZAXRFSVdxNlJ1cm5IUzU2THAyaW53UDh4eE5Ea2FtRGN3X3AteFZAnQURZAagZDZD"
+        const token = ""
         const urlInsta = "https://graph.instagram.com/me/media?access_token=" + token + "&fields=media_url,media_type,caption,permalink"
 
         fetch(urlInsta, {
@@ -65,29 +63,40 @@ const CadastrarProduto = () => {
         })
             .then((resp) => resp.json())
             .then((data) => {
+
+                let controle2 = 0;
                 if (controle == 0) {
                     dadosJson = data.data
+                    for (let i = 0; i < dadosJson.length && controle2 <= 11; i++) {
+                        if (dadosJson[i].media_type == "IMAGE") {
+                            var feed = dadosJson[i]
+                            if(document.getElementById("div" + i) != null){
+                                var node = document.getElementById("div" + i);
+                            if (node.parentNode) {
+                                node.parentNode.removeChild(node);
+                            }
+                            }
+                            
 
-                    for (let i = 0; i < dadosJson.length && i < 10; i++) {
-                        var feed = dadosJson[0]
 
-                        var oImg = document.createElement("img")
-                        oImg.setAttribute("src", feed.media_url)
-                        oImg.setAttribute("alt", "na")
-                        oImg.setAttribute("height", "100px")
-                        oImg.setAttribute("width", "100px")
-                        oImg.addEventListener("click", salvaImg.bind(null, feed.media_url))
-                        document.getElementById("instas").appendChild(oImg)
-                        var oImg = document.createElement("img")
-                        oImg.setAttribute("src", feed.media_url)
-                        oImg.setAttribute("alt", "na")
-                        oImg.setAttribute("height", "100px")
-                        oImg.setAttribute("width", "100px")
-                        oImg.addEventListener("click", updateImg.bind(null, feed.media_url))
-                        document.getElementById("instasUpdate").appendChild(oImg)
+                            var oImg = document.createElement("img")
+                            var div = document.createElement("div")
+                            div.id = "div" + i
+                            div.className = "componente " + feed.media_url
+                            oImg.setAttribute("src", feed.media_url)
+                            oImg.setAttribute("alt", "na")
+                            oImg.setAttribute("height", "100px")
+                            oImg.setAttribute("width", "100px")
+                            oImg.addEventListener("click", salvaImg.bind(null, feed.media_url, i))
+                            div.appendChild(oImg)
+                            document.getElementById("instas").appendChild(div)
+
+                            var oImg = document.createElement("img")
+
+                            controle2++;
+                        }
                     }
                 }
-
                 controle = 1
             })
             .catch((err) => console.error(err))
@@ -130,11 +139,11 @@ const CadastrarProduto = () => {
             setTypeMessage("success")
             setShowMessage(true)
         })
-        .catch(() => {
-            setMessage("Houve um erro ao cadastrar um novo produto")
-            setTypeMessage("error")
-            setShowMessage(true)
-        })
+            .catch(() => {
+                setMessage("Houve um erro ao cadastrar um novo produto")
+                setTypeMessage("error")
+                setShowMessage(true)
+            })
     }
     function updateProduto(e) {
         e.preventDefault()
@@ -158,11 +167,11 @@ const CadastrarProduto = () => {
             setTypeMessage("success")
             setShowMessage(true)
         })
-        .catch(() => {
-            setMessage("Houve um erro ao atualizar o produto")
-            setTypeMessage("error")
-            setShowMessage(true)
-        })
+            .catch(() => {
+                setMessage("Houve um erro ao atualizar o produto")
+                setTypeMessage("error")
+                setShowMessage(true)
+            })
 
         setMessage("Produto atualizado com sucesso!")
     }
@@ -186,11 +195,11 @@ const CadastrarProduto = () => {
             setTypeMessage("success")
             setShowMessage(true)
         })
-        .catch(() => {
-            setMessage("Houve um erro ao atualizar o sabor")
-            setTypeMessage("error")
-            setShowMessage(true)
-        })
+            .catch(() => {
+                setMessage("Houve um erro ao atualizar o sabor")
+                setTypeMessage("error")
+                setShowMessage(true)
+            })
     }
 
     function createSabor() {
@@ -210,23 +219,15 @@ const CadastrarProduto = () => {
             setTypeMessage("success")
             setShowMessage(true)
         })
-        .catch(() => {
-            setMessage("Houve um erro ao criar um novo sabor")
-            setTypeMessage("error")
-            setShowMessage(true)
-        })
+            .catch(() => {
+                setMessage("Houve um erro ao criar um novo sabor")
+                setTypeMessage("error")
+                setShowMessage(true)
+            })
 
-        
+
     }
-    // Identificar a linha da tabela clicada
-    function idTrClicada(e) {
-        const tr = e.target
-        var element = tr.parentNode
-        while (element.id == false) {
-            element = element.parentNode
-            return element.id
-        }
-    }
+
 
     function deletProduct(id) {
         fetch(`http://localhost:3000/produto/deleteProduct/${id}`, {
@@ -270,23 +271,46 @@ const CadastrarProduto = () => {
                 setShowMessage(true)
             })
     }
-    function salvaImg(imgLink) {
-        if (arreyFotos.indexOf(imgLink) == null) {
-            arreyFotos.splice(arreyFotos.indexOf(imgLink), 1)
+    function salvaImg(imgLink, i) {
+        let clicada = document.getElementById("div" + i)
+        if (arrayFotos.includes(imgLink)) {
+            clicada.className = "componente"
+            arrayFotos.splice(arrayFotos.indexOf(imgLink), 1)
+            if (document.getElementById(`foto1`).value == imgLink) {
+                document.getElementById(`foto1`).value = ""
+            }
+            if (document.getElementById(`foto2`).value == imgLink) {
+                document.getElementById(`foto2`).value = ""
+            }
+            if (document.getElementById(`foto3`).value == imgLink) {
+                document.getElementById(`foto3`).value = ""
+            }
         } else {
-            arreyFotos.push(imgLink)
-            document.getElementById(`foto${arreyFotos.length}`).value = imgLink
+            if (arrayFotos.length <= 2) {
+                arrayFotos.push(imgLink)
+                clicada.className = "componenteSelecionado"
+                if (document.getElementById(`foto1`).value == "") {
+                    console.log("foto1")
+                    document.getElementById(`foto1`).value = imgLink
+                } else {
+                    if (document.getElementById(`foto2`).value == "") {
+                        console.log("foto2")
+                        document.getElementById(`foto2`).value = imgLink
+                    }
+                    else
+                        if (document.getElementById(`foto3`).value == "") {
+                            console.log("foto3")
+                            document.getElementById(`foto3`).value = imgLink
+                        }
+                }
+
+
+            }
+
         }
+        console.log(arrayFotos)
     }
 
-    function updateImg(imgLink) {
-        if (arreyFotosNovas.indexOf(imgLink) == null) {
-            arreyFotosNovas.splice(arreyFotosNovas.indexOf(imgLink), 1)
-        } else {
-            arreyFotosNovas.push(imgLink)
-            document.getElementById(`foto${arreyFotosNovas.length}`).value = imgLink
-        }
-    }
 
     function idProduto(id) {
         for (let i = 0; i < produtos.length; i++) {
