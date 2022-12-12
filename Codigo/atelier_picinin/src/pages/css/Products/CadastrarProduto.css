@@ -37,12 +37,14 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 30px;
 }
-
-.btn-primary {
-    font-size: 14px;
+.btnEstilo{
+font-size: 14px;
     border-radius: 70px;
     width: 170px;
     margin-left: 60%;
+}
+.btn-primary {
+    
 }
 
 .btnAdicionar {
@@ -101,7 +103,24 @@
     border: 5px solid greenyellow !important;
     margin: 2px 2px 2px 2px;
 }
+.componenteUpdate {
 
+    border: 5px solid black !important;
+    margin: 2px 2px 2px 2px;
+}
+
+.componenteUpdateSelecionado {
+
+    border: 5px solid greenyellow !important;
+    margin: 2px 2px 2px 2px;
+}
 .btnCadastrar{
     padding-top: 20px;
+}
+.instasUpdate{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 10px;
 }

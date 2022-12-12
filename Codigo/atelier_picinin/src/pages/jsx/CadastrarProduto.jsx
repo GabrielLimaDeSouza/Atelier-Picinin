@@ -17,6 +17,7 @@ var contadorSabor = 0
 const CadastrarProduto = () => {
     const [produtos, setProdutos] = useState([])
     const [arrayFotos, setArrayFotos] = useState([])
+    const [arrayFotosUpdate, setArrayFotosUpdate] = useState([])
     const [sabor, setSabor] = useState([])
     const [id, setId] = useState({})
     const [message, setMessage] = useState('')
@@ -70,13 +71,13 @@ const CadastrarProduto = () => {
                     for (let i = 0; i < dadosJson.length && controle2 <= 11; i++) {
                         if (dadosJson[i].media_type == "IMAGE") {
                             var feed = dadosJson[i]
-                            if(document.getElementById("div" + i) != null){
+                            if (document.getElementById("div" + i) != null) {
                                 var node = document.getElementById("div" + i);
-                            if (node.parentNode) {
-                                node.parentNode.removeChild(node);
+                                if (node.parentNode) {
+                                    node.parentNode.removeChild(node);
+                                }
                             }
-                            }
-                            
+
 
 
                             var oImg = document.createElement("img")
@@ -90,6 +91,20 @@ const CadastrarProduto = () => {
                             oImg.addEventListener("click", salvaImg.bind(null, feed.media_url, i))
                             div.appendChild(oImg)
                             document.getElementById("instas").appendChild(div)
+
+                            var oImg = document.createElement("img")
+
+                            var oImg = document.createElement("img")
+                            var div = document.createElement("div2")
+                            div.id = "div2" + i
+                            div.className = "componenteUpdate " + feed.media_url
+                            oImg.setAttribute("src", feed.media_url)
+                            oImg.setAttribute("alt", "na")
+                            oImg.setAttribute("height", "100px")
+                            oImg.setAttribute("width", "100px")
+                            oImg.addEventListener("click", salvaImgUpdate.bind(null, feed.media_url, i))
+                            div.appendChild(oImg)
+                            document.getElementById("instasUpdate").appendChild(div)
 
                             var oImg = document.createElement("img")
 
@@ -308,21 +323,77 @@ const CadastrarProduto = () => {
             }
 
         }
-        console.log(arrayFotos)
+
+    }
+    function salvaImgUpdate(imgLink, i) {
+        let clicada = document.getElementById("div2" + i)
+        if (arrayFotosUpdate.includes(imgLink)) {
+            
+            arrayFotosUpdate.splice(arrayFotosUpdate.indexOf(imgLink), 1)
+            if (document.getElementById(`updateFoto1`).value == imgLink) {
+                clicada.className = "componenteUpdate " + imgLink
+                document.getElementById(`updateFoto1`).value = ""
+            }
+            if (document.getElementById(`updateFoto2`).value == imgLink) {
+                clicada.className = "componenteUpdate " + imgLink
+                document.getElementById(`updateFoto2`).value = ""
+            }
+            if (document.getElementById(`updateFoto3`).value == imgLink) {
+                clicada.className = "componenteUpdate " + imgLink
+                document.getElementById(`updateFoto3`).value = ""
+            }
+        } else {
+            if (arrayFotosUpdate.length <= 2) {
+                arrayFotosUpdate.push(imgLink)
+                clicada.className = "componenteUpdateSelecionado"
+                if (document.getElementById(`updateFoto1`).value == "") {
+                    console.log("updateFoto1")
+                    clicada.className = "componenteUpdateSelecionado " + imgLink
+                    document.getElementById(`updateFoto1`).value = imgLink
+                } else {
+                    if (document.getElementById(`updateFoto2`).value == "") {
+                        console.log("updateFoto2")
+                        clicada.className = "componenteUpdateSelecionado " + imgLink
+                        document.getElementById(`updateFoto2`).value = imgLink
+                    }
+                    else
+                        if (document.getElementById(`updateFoto3`).value == "") {
+                            console.log("updateFoto3")
+                            clicada.className = "componenteUpdateSelecionado " + imgLink
+                            document.getElementById(`updateFoto3`).value = imgLink
+                        }
+                }
+
+
+            }
+
+        }
     }
 
-
     function idProduto(id) {
+        console.log(dadosJson)
         for (let i = 0; i < produtos.length; i++) {
             if (produtos[i]._id == id) {
                 document.getElementById("updateNome").setAttribute("value", produtos[i].nomeProduto)
                 document.getElementById("updateDescricao").setAttribute("value", produtos[i].descricaoProduto)
-
                 document.getElementById("updatePreco").value = produtos[i].preco
                 document.getElementById("updatePedidoMinProduto").value = produtos[i].pedidoMinProduto
-                document.getElementById("updateFoto1").value = produtos[i].foto1
-                document.getElementById("updateFoto2").value = produtos[i].foto2
-                document.getElementById("updateFoto3").value = produtos[i].foto3
+                document.getElementById("updateFoto1").value = ""
+                document.getElementById("updateFoto2").value = ""
+                document.getElementById("updateFoto3").value = ""
+
+                arrayFotosUpdate.forEach(selecionado =>{
+                    let divs = document.getElementsByClassName("componenteUpdateSelecionado")
+                    console.log(divs)
+                    for(let j=0; j<divs.length; j++){
+                        divs[j].className = "componenteUpdate " + selecionado
+                    }
+                    }
+                    )
+                
+                    
+                
+                
             }
         }
     }
@@ -344,9 +415,9 @@ const CadastrarProduto = () => {
         <>
             <div className="body-product">
 
-                <div id="insta"></div>
 
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+
+                <button type="button" className="btn btn-primary btnEstilo" data-bs-toggle="modal" data-bs-target="#exampleModal" >
                     Inserir Novo Produto
                 </button>
 
@@ -410,11 +481,11 @@ const CadastrarProduto = () => {
                                                         <td>{sabores.preco}</td>
                                                         <td>{number.pedidoMinProduto}</td>
 
-                                                        <td><button type="button" className="btn btn-secondary btnAlterar" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onClick={() => { setIndiceSabor(indice), setId(number._id) }}>
-                                                            Alterar
-                                                        </button></td>
+                                                        <td> <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => { setIndiceSabor(indice), setId(number._id) }}>
+                                                            Alterar</button>
+                                                        </td>
+                                                        
                                                         <td>
-
                                                             <button onClick={() => { deletarSabor(number._id, indice) }}>{<BiTrash className="excluir" />}</button>
                                                         </td>
 
@@ -425,7 +496,7 @@ const CadastrarProduto = () => {
 
                                             <tr >
                                                 <td ><Button type="button" className="btnTrash" buttonClickEvent={() => { deletProduct(number._id) }}>{<BiTrash className="excluir" />}</Button></td>
-                                                <td><button type="button" className="btn btn-secondary btnAlterarBaixo" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => { setId(number._id), idProduto(number._id) }}>
+                                                <td><button type="button" className="btn btn-secondary btnAlterar" data-bs-toggle="modal" data-bs-target="#exampleModal1" onClick={() => { setId(number._id), idProduto(number._id) }}>
                                                     Alterar
                                                 </button></td>
                                                 <td colSpan="2"><button type="button" className="btn btn-secondary btnAdicionar" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onClick={() => { setId(number._id) }}>
@@ -440,16 +511,56 @@ const CadastrarProduto = () => {
                         </div>
                     )
                 }
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Alterar produto</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+
+                
+
+                <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-scrollable">
+                        <div className="modal-content">
+
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">
+                                    Alterando sabor
+                                </h5>
+
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
+
                             <div class="modal-body">
                                 <div>
                                     {message && <Message type="success" message={message} />}
+                                    <form id="form" className={styles.form} onSubmit={updateSabor}>
+                                        <label htmlFor="nome">Sabor: </label>
+                                        <input type="text" name="updateSabor" id="updateSabor" />
+                                        <label htmlFor="descricao">Preço:</label>
+                                        <input type="number" name="updatePrecoSabor" id="updatePrecoSabor" />
+
+                                        <button type="submit" className="btn btn-warning " id='cadastrar' >Atualizar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div className="modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-scrollable">
+                        <div className="modal-content">
+
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">
+                                    Alterando prouto
+                                </h5>
+
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div className="modal-body">
+                            {message && <Message type="success" message={message} />}
                                     <form id="form" className={styles.form} onSubmit={updateProduto}>
                                         <label htmlFor="nome">Nome do Produto: </label>
                                         <input type="text" name="updatenome" id="updateNome" />
@@ -465,59 +576,14 @@ const CadastrarProduto = () => {
                                         <input type="text" name="updatefoto2" id="updateFoto2" />
                                         <label htmlFor="foto3">Terceira foto:</label>
                                         <input type="text" name="updatefoto3" id="updateFoto3" />
-                                        <div id='instasUpdate'></div>
+                                        <div id='instasUpdate' className='instasUpdate'></div>
                                         <button type="submit" className="btn btn-warning" id='cadastrar' data-bs-dismiss="modal">Atualizar</button>
                                     </form>
-                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-            </div>
-            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Update Sabor</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div>
-                                {message && <Message type="success" message={message} />}
-                                <form id="form" className={styles.form} onSubmit={updateSabor}>
-                                    <label htmlFor="nome">Sabor: </label>
-                                    <input type="text" name="updateSabor" id="updateSabor" />
-                                    <label htmlFor="descricao">Preço:</label>
-                                    <input type="number" name="updatePrecoSabor" id="updatePrecoSabor" />
-                                    <button type="submit" className="btn btn-warning " id='cadastrar' >Atualizar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Adicionar Sabor</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div>
-                                {message && <Message type="success" message={message} />}
-                                <form id="form" className={styles.form} onSubmit={createSabor}>
-                                    <label htmlFor="nome">Sabor: </label>
-                                    <input type="text" name="createSabor" id="createSabor" />
-                                    <label htmlFor="descricao">Preço:</label>
-                                    <input type="number" name="createPreco" id="createPrecoSabor" />
-                                    <button type="submit" className="btn btn-warning " id='cadastrar' >Atualizar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </>
     )
 }
