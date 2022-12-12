@@ -167,6 +167,18 @@ const PerfilUsuario = () => {
         })
     }
 
+    function ordernarPedidos(arr) {
+        return arr.sort((pedido1, pedido2) => {
+            if (pedido2.dataPedido > pedido1.dataPedido) {
+                return 1
+            } else if (pedido2.dataPedido < pedido1.dataPedido) {
+                return -1
+            }
+
+            return 0
+        })
+    }
+
     function handleCancelPedido(order) {
         order.status = "Cancelado"
         order.codStatus = "status-3"
@@ -227,8 +239,8 @@ const PerfilUsuario = () => {
 
                         <Button type="button" className="btnCadastrar" buttonClickEvent={handleSaveAddress}>{!saveAddress ? "Adicionar Endereço" : "Fechar"}</Button>
                         
-                        {Object.keys(addressSelected).length > 0 &&
-                            < Button type="button" className="btnCancelarPedido" buttonClickEvent={handleDeleteAdress}>Excluir Endereço</Button>
+                        { Object.keys(addressSelected).length > 0 &&
+                            <Button type="button" className="btnExcluirEndereco" buttonClickEvent={handleDeleteAdress}>Excluir Endereço</Button>
                         }
                     </div>
                     
@@ -237,7 +249,7 @@ const PerfilUsuario = () => {
                         { isLoading ?
                             <Loading />
                             :
-                            orders.map((order, index) => (
+                            ordernarPedidos(orders).map((order, index) => (
                                 <div className="teste">
                                     <CollapseElement isOpened={ dropdown[index] }
                                         buttonClickEvent={() => dropdownConfig({ index: index })}
@@ -253,11 +265,10 @@ const PerfilUsuario = () => {
                                                     <ItensPedido status={ order.status }
                                                         endereco={ order.address }
                                                         entrega={ order.entrega }
+                                                        dataEntrega={ order.dataEntrega }
                                                         cartItems={order.cartItems}
                                                         cancelar={ () => handleCancelPedido(order) }
                                                         larguraTela={ larguraTela } />
-                                                // :
-                                                //     <ItensPedidoMobile endereco={ order.address } entrega={ order.entrega } itens={order.cartItems} />
                                             }
                                     </CollapseElement>
                                 </div>

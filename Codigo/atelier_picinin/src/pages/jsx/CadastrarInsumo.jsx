@@ -26,13 +26,14 @@ const CadastrarInsumo = () => {
       body: JSON.stringify(input)
     })
     .then(resp => resp.json())
-    .then(navigate('/estoque', { state: { message: "Insumo cadastrado com sucesso", type: "success" } }))
+    .then(navigate('/adm/estoque', { state: { message: "Insumo cadastrado com sucesso", type: "success" } }))
     .catch(err => console.error(err))
   }
 
   return (
     <div className="body-input-register">
         <h1 className="register-title">Cadastrar Insumo</h1>
+
         <Form id="form"
           handleSubmit={createSupplies}
           btnText="Cadastrar"

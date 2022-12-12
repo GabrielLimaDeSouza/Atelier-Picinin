@@ -22,23 +22,24 @@ const EditInvetory = () => {
     const location = useLocation()
 
     useEffect(() => {
-        setTimeout(() => {
-            fetch(`${url}/api/viewInputById?id=${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(resp => resp.json())
-            .then(data => {
-                data.emEstoque = parseInt(data.emEstoque)
-                data.quantidadeMin = parseInt(data.quantidadeMin)
-                setInsumo(data)
-            })
-            .catch(err => console.error(err))
-    
+        fetch(`${url}/api/viewInputById?id=${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json())
+        .then(data => {
+            data.emEstoque = parseInt(data.emEstoque)
+            data.quantidadeMin = parseInt(data.quantidadeMin)
+            setInsumo(data)
+        })
+        .catch(err => console.error(err))
+
+        if(location.state) {
             setCategories(location.state.categories)
-            setIsLoading(false)
-        }, 1200)
+        }
+
+        setTimeout(() => setIsLoading(false), 600)
     }, [])
 
     function handleEditInput(editedInput){
@@ -56,7 +57,7 @@ const EditInvetory = () => {
             },
             body: JSON.stringify(editedInput)
         }).then(resp => resp.json())
-        .then(navigate('/estoque', { state: { message: "Insumo atualizado com sucesso!", type: "success" } }))
+        .then(navigate('/adm/estoque', { state: { message: "Insumo atualizado com sucesso!", type: "success" } }))
         .catch(() => {
             setTypeMessage("error")
             setMessage("Houve um erro atualizar o insumo")
@@ -74,11 +75,11 @@ const EditInvetory = () => {
                 <Loading />
                 :
                 <Form id="form"
-                    content={insumo}
+                    content={ insumo }
                     handleSubmit={handleEditInput}
                     btnText="Alterar"
                     classNameButton="btnCadastrar"
-                    selectOptions={categories}
+                    selectOptions={ categories }
                     selectTextDefault="Selecione uma categoria"
                     btnVoltar="/adm/estoque"
                 />

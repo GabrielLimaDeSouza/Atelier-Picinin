@@ -31,7 +31,7 @@ const InputCardMobile = ({ item, buttonClickEvent, categories }) => {
                 </div>
 
                 <div className={styles.edit_data}>
-                    <LinkButton to={`/estoque/${item._id}`}
+                    <LinkButton to={`/adm/estoque/${item._id}`}
                         type="button"
                         classNameButton="btnEdit"
                         state={ { categories: categories } }>

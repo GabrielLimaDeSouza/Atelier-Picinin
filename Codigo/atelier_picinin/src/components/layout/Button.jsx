@@ -6,7 +6,8 @@ const Button = ({ type, children, className, buttonClickEvent, buttonSubmitEvent
                 className={ styles[className] }
                 onClick={ buttonClickEvent && (buttonClickEvent) }
                 onSubmit={ buttonSubmitEvent && (buttonSubmitEvent) }
-                disabled={ disabled }   
+                disabled={ disabled }
+                title="button"  
             >
                     
                 { children }
