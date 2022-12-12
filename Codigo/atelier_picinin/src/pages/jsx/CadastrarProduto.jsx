@@ -26,6 +26,7 @@ const CadastrarProduto = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const url = 'http://localhost:3000'
+
     useEffect(() => {
         fetch(`${url}/produto/getAllProducts`, {
             method: "GET",
@@ -61,45 +62,44 @@ const CadastrarProduto = () => {
                 "Content-Type": "application/json"
             }
         })
-            .then((resp) => resp.json())
-            .then((data) => {
+        .then((resp) => resp.json())
+        .then((data) => {
 
-                let controle2 = 0;
-                if (controle == 0) {
-                    dadosJson = data.data
-                    for (let i = 0; i < dadosJson.length && controle2 <= 11; i++) {
-                        if (dadosJson[i].media_type == "IMAGE") {
-                            var feed = dadosJson[i]
-                            if(document.getElementById("div" + i) != null){
-                                var node = document.getElementById("div" + i);
+            let controle2 = 0;
+            if (controle == 0) {
+                dadosJson = data.data
+                for (let i = 0; i < dadosJson.length && controle2 <= 11; i++) {
+                    if (dadosJson[i].media_type == "IMAGE") {
+                        var feed = dadosJson[i]
+
+                        if(document.getElementById("div" + i) != null) {
+                            var node = document.getElementById("div" + i);
                             if (node.parentNode) {
                                 node.parentNode.removeChild(node);
                             }
-                            }
-                            
-
-
-                            var oImg = document.createElement("img")
-                            var div = document.createElement("div")
-                            div.id = "div" + i
-                            div.className = "componente " + feed.media_url
-                            oImg.setAttribute("src", feed.media_url)
-                            oImg.setAttribute("alt", "na")
-                            oImg.setAttribute("height", "100px")
-                            oImg.setAttribute("width", "100px")
-                            oImg.addEventListener("click", salvaImg.bind(null, feed.media_url, i))
-                            div.appendChild(oImg)
-                            document.getElementById("instas").appendChild(div)
-
-                            var oImg = document.createElement("img")
-
-                            controle2++;
                         }
+
+                        var oImg = document.createElement("img")
+                        var div = document.createElement("div")
+                        div.id = "div" + i
+                        div.className = "componente " + feed.media_url
+                        oImg.setAttribute("src", feed.media_url)
+                        oImg.setAttribute("alt", "na")
+                        oImg.setAttribute("height", "100px")
+                        oImg.setAttribute("width", "100px")
+                        oImg.addEventListener("click", salvaImg.bind(null, feed.media_url, i))
+                        div.appendChild(oImg)
+                        document.getElementById("instas").appendChild(div)
+
+                        var oImg = document.createElement("img")
+
+                        controle2++;
                     }
                 }
-                controle = 1
-            })
-            .catch((err) => console.error(err))
+            }
+            controle = 1
+        })
+        .catch((err) => console.error(err))
     }, [])
 
     function handleSaboresProduto(sabor) {
@@ -167,18 +167,15 @@ const CadastrarProduto = () => {
             setTypeMessage("success")
             setShowMessage(true)
         })
-            .catch(() => {
-                setMessage("Houve um erro ao atualizar o produto")
-                setTypeMessage("error")
-                setShowMessage(true)
-            })
-
-        setMessage("Produto atualizado com sucesso!")
+        .catch(() => {
+            setMessage("Houve um erro ao atualizar o produto")
+            setTypeMessage("error")
+            setShowMessage(true)
+        })
     }
 
 
     function updateSabor() {
-
         fetch(`http://localhost:3000/produto/updateSabor/${id}`, {
             method: 'PATCH',
             headers: {
@@ -195,15 +192,14 @@ const CadastrarProduto = () => {
             setTypeMessage("success")
             setShowMessage(true)
         })
-            .catch(() => {
-                setMessage("Houve um erro ao atualizar o sabor")
-                setTypeMessage("error")
-                setShowMessage(true)
-            })
+        .catch(() => {
+            setMessage("Houve um erro ao atualizar o sabor")
+            setTypeMessage("error")
+            setShowMessage(true)
+        })
     }
 
     function createSabor() {
-
         fetch(`http://localhost:3000/produto/createSabor/${id}`, {
             method: 'PATCH',
             headers: {
@@ -218,14 +214,15 @@ const CadastrarProduto = () => {
             setMessage("Sabor criado com sucesso!")
             setTypeMessage("success")
             setShowMessage(true)
+
+            document.getElementById("createSabor").value = ""
+            document.getElementById("createPrecoSabor").value = ""
         })
-            .catch(() => {
-                setMessage("Houve um erro ao criar um novo sabor")
-                setTypeMessage("error")
-                setShowMessage(true)
-            })
-
-
+        .catch(() => {
+            setMessage("Houve um erro ao criar um novo sabor")
+            setTypeMessage("error")
+            setShowMessage(true)
+        })
     }
 
 
@@ -290,16 +287,13 @@ const CadastrarProduto = () => {
                 arrayFotos.push(imgLink)
                 clicada.className = "componenteSelecionado"
                 if (document.getElementById(`foto1`).value == "") {
-                    console.log("foto1")
                     document.getElementById(`foto1`).value = imgLink
                 } else {
                     if (document.getElementById(`foto2`).value == "") {
-                        console.log("foto2")
                         document.getElementById(`foto2`).value = imgLink
                     }
                     else
                         if (document.getElementById(`foto3`).value == "") {
-                            console.log("foto3")
                             document.getElementById(`foto3`).value = imgLink
                         }
                 }
@@ -308,7 +302,6 @@ const CadastrarProduto = () => {
             }
 
         }
-        console.log(arrayFotos)
     }
 
 
@@ -329,17 +322,15 @@ const CadastrarProduto = () => {
     function deletarSabor(id, indice) {
         setId(id)
         setIndiceSabor(indice)
-        console.log(id)
-        console.log(indice)
         deleteSabor(id, indice)
     }
+
     function deletarProduto(id) {
         setId(id)
         setIndiceSabor(indice)
-        console.log(id)
-        console.log(indice)
         deleteSabor(id, indice)
     }
+    
     return (
         <>
             <div className="body-product">

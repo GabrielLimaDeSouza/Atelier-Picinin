@@ -30,11 +30,19 @@ a {
     padding: 20px;
 }
 
-.card p {
-    font-weight: bold;
+p.notaCardHome {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: .5rem;
 }
 
-.card span {
-    font-weight: normal !important;
-    font-size: 12px;
+p.precoProduto {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+span.mediaNota {
+    display: flex;
+    align-items: center;
 }

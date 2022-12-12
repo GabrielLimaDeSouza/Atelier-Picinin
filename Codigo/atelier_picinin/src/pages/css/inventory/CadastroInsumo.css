@@ -6,17 +6,18 @@
     gap: 30px;
     margin: 0 auto;
     padding: 0 auto;
-    width: 65%;
+    max-width: 60rem;
 }
 
-h1.register-title{
+h1.register-title {
     font-size: 25px;
     text-align: center;
     width: 80%;
 }
 
-input{
+input {
     background-color: #f7f7f7 !important;
     padding: 5px 15px !important;
     border-radius: 50px !important;
+    text-align: left !important;
 }

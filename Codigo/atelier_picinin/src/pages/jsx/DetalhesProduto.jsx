@@ -66,8 +66,8 @@ const DetalhesProduto = () => {
     }, [])
 
     useEffect(() => {
-        if (mediaNotas() != "NaN") {
-            setMedia(mediaNotas)
+        if (avaliacoes.length) {
+            setMedia(mediaNotas(avaliacoes).toFixed(1))
         }
     }, [avaliacoes])
 
@@ -165,14 +165,8 @@ const DetalhesProduto = () => {
             setQuantidade(quantidade - produto.pedidoMinProduto)
     }
 
-    function mediaNotas() {
-        var media = 0
-
-        avaliacoes.forEach(avaliacao => {
-            media += avaliacao.nota
-        })
-
-        return (media / avaliacoes.length).toFixed(1)
+    function mediaNotas(arr) {
+        return arr.map(({ nota }) => nota).reduce((total, nota) => total + nota, 0) / arr.length
     }
 
     function isFloat(x) {
@@ -202,6 +196,11 @@ const DetalhesProduto = () => {
         estrelas[Math.floor(media)] = <li className="star"><IoStarHalf className="star" /></li>
     }
 
+    function menorValor(arr) {
+        const precos = arr.map(({ preco }) => preco)
+        return Math.min(...precos)
+    }
+    
     return (
         !isLoading ?
             <div className='body-detalhes-produto'>
@@ -209,42 +208,56 @@ const DetalhesProduto = () => {
                     <div className="carrosel">
                         <Carousel>
                             <Carousel.Item>
-                                <img className="d-block w-0 img-produto" src={produto.foto1} alt="First slide" />
+                                <img className="d-block w-0 img-produto" src={ produto.foto1 } alt="First slide" />
                             </Carousel.Item>
 
                             <Carousel.Item>
-                                <img className="d-block w-0 img-produto" src={produto.foto2} alt="Second slide" />
+                                <img className="d-block w-0 img-produto" src={ produto.foto2 } alt="Second slide" />
                             </Carousel.Item>
 
                             <Carousel.Item>
-                                <img className="d-block w-0 img-produto" src={produto.foto3} alt="Third slide" />
+                                <img className="d-block w-0 img-produto" src={ produto.foto3 } alt="Third slide" />
                             </Carousel.Item>
                         </Carousel>
                     </div>
 
                     <div className="infos-produto">
                         <div className="tite">
-                            <h1>{produto.nomeProduto}</h1>
-
-                            <div className="spans-infos">
-                                <div className="span-review">
-                                    <span className="star-review"> {media}</span>
-                                    <span className="ponto"></span>
-                                    <span>{avaliacoes.length} reviews</span>
-                                </div>
+                            <h1>{ produto.nomeProduto }</h1>
+                            
+                            <div className="span-review">
+                                { avaliacoes.length > 0 &&
+                                    <>  
+                                        <div>
+                                            <span>{ media }</span>
+                                            <span className="star-review"></span>
+                                        </div>
+                                            
+                                        <span className="ponto"></span>
+                                    </>
+                                }
+                                <span>{ avaliacoes.length } reviews</span>
                             </div>
                         </div>
 
                         <div className="preco-produto">
-                            <span className="preco-produto">R$ {produto.preco}</span>
-                            <span>por Unidade</span>
+                            <span className="preco-produtoTotal">
+                                { sabores.length > 0 ?
+                                    <>R$ { sabores.reduce((precoTotal, sabor) => precoTotal + sabor.preco, 0).toFixed(2) }</>
+                                    :
+                                    <><span className="aPartirDe">A partir de</span> R$ { menorValor(produto.sabores).toFixed(2) }</>
+                                }
+                            </span>
                         </div>
 
                         <div className="sabor-quantidade">
                             <div className="div-sabores">
                                 <span className="label-sabores">Sabores</span>
                                 <div className="options">
-                                    {produto.sabores.map(sabor => <span className="option-sabor" onClick={() => handleAddSabores(sabor)}>{sabor.sabor}</span>)}
+                                    { produto.sabores.map(sabor => 
+                                        <span className="option-sabor"
+                                            onClick={() => handleAddSabores(sabor)}>{ sabor.sabor }</span>
+                                    )}
                                 </div>
                             </div>
 
@@ -264,10 +277,10 @@ const DetalhesProduto = () => {
                         </div>
 
                         <div>
-                            {quantidade != 0 ?
-                                <Button type="button" buttonClickEvent={addProdutoCarrinho} className='btnAdicionarCarrinho'>Adicionar no Carrinho</Button>
+                            {quantidade != 0 && sabores.length > 0 ?
+                                <Button type="button" buttonClickEvent={ addProdutoCarrinho } className='btnAdicionarCarrinho'>Adicionar no Carrinho</Button>
                                 :
-                                <Button disabled>Adicionar no Carrinho</Button>
+                                <Button className='disabled' disabled>Adicionar no Carrinho</Button>
                             }
                         </div>
                     </div>

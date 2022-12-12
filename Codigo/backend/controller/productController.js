@@ -22,7 +22,6 @@ module.exports = {
         }
 
         const sabores = req.body.sabores
-        console.log(sabores)
 
         const produto = {
             nomeProduto: nomeProduto,

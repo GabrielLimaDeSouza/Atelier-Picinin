@@ -17,11 +17,17 @@
 }
 
 .btnAdicionarCarrinho {
+    padding: 5px 15px;
     background-color: var(--btn-azul);
-    width: 200px;
     border-radius: 50px;
-    height: 30px;
     color: white;
+    transition: all .2s;
+}
+
+.btnAdicionarCarrinho:hover {
+    color: var(--btn-azul);
+    background-color: white;
+    box-shadow: var(--box-shadow);
 }
 
 .btnTrash,
@@ -208,4 +214,12 @@
         width: 35px;
         padding: 0;
     }
+}
+
+.disabled {
+    padding: 5px 15px;
+    background-color: var(--gray);
+    color: white;
+    border: none;
+    border-radius: 20px;
 }

@@ -4,11 +4,13 @@ import Card from '../../components/home/module/CardHome'
 import { useState, useEffect } from 'react'
 import { BsWhatsapp, BsInstagram } from 'react-icons/bs'
 
+const url = "http://localhost:3000"
+
 const Home = () => {
   const [produtos, setProdutos] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3000/produto/getAllProducts', {
+    fetch(`${ url }/produto/getAllProducts`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -39,8 +41,8 @@ const Home = () => {
           <p className='pCardapio'>Todos os produtos são por encomenda</p>
           <div className='cards'>
             {
-              produtos.map(produto =>
-                <Card id={produto.id} key={produto.id} produtos={produto} />
+              produtos.map(produto => 
+                <Card id={ produto.id } produto={ produto } />
               )
             }
           </div>

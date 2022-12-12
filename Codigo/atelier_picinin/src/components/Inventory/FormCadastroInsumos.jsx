@@ -8,15 +8,17 @@ import { useState, useEffect } from "react"
 import { BiX } from 'react-icons/bi'
 
 const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptions, selectTextDefault, btnVoltar }) => {
-    const [insumo, setInsumo] = useState({ name: "", emEstoque: 0, quantidadeMin: 0, validade: "", categoria: "" })
-    const date = new Date().toISOString().split('T')[0]
+    const [insumo, setInsumo] = useState({})
+    const dataAtual = new Date().toISOString().split('T')[0]
 
+    
     useEffect(() => {
         if(content){
             setInsumo(content)
-    
-            if(content.validade)
+            
+            if(content.validade) {
                 content.validade = content.validade.split('T')[0]
+            }
         }
     }, [content])
 
@@ -39,14 +41,14 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptio
     }
         
     return (
-        <form id={id && (id)} className={styles.form} onSubmit={submit}>
+        <form id={ id && (id) } className={ styles.form } onSubmit={ submit }>
             <Input type="text"
                 name="name"
                 id="nome"
                 htmlFor="nome"
                 textLabel={"Nome:"}
-                value={content && content.name}
-                handleOnChange={handleChange}
+                value={ content && content.name }
+                handleOnChange={ handleChange }
                 required
             />
             <Input type="number"
@@ -54,9 +56,9 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptio
                 id="quantidade_inicial"
                 min="0"
                 htmlFor="quantidade_inicial"
-                textLabel={"Quantidade em estoque:"}
-                value={content && content.emEstoque}
-                handleOnChange={handleChange}
+                textLabel={ "Quantidade em estoque:" }
+                value={ content && content.emEstoque }
+                handleOnChange={ handleChange }
                 required
             />
             <Input type="number"
@@ -64,43 +66,43 @@ const Form = ({ id, handleSubmit, content, btnText, classNameButton, selectOptio
                 id="quantidade_minima"
                 min="0"
                 htmlFor="quantidade_minima"
-                textLabel={"Quantidade Mínima:"}
-                value={content && content.quantidadeMin}
-                handleOnChange={handleChange}
+                textLabel={ "Quantidade Mínima:" }
+                value={ content && content.quantidadeMin }
+                handleOnChange={ handleChange }
                 required
             />
-            <div className={styles.dateInput}>
+            <div className={ styles.dateInput }>
                 <Input type="date"
                     name="validade"
                     id="validade"
                     htmlFor="validade"
-                    textLabel={"Validade:"}
-                    value={content && content.validade}
-                    min={date}
-                    handleOnChange={handleChange}
+                    textLabel={ "Validade:" }
+                    value={ content && content.validade }
+                    min={ dataAtual }
+                    handleOnChange={ handleChange }
                 />
 
-                <Button type="button" className="btnClear" buttonClickEvent={deleteDate}>
-                    {<BiX />}
+                <Button type="button" className="btnClear" buttonClickEvent={ deleteDate }>
+                    <BiX />
                 </Button>
             </div>
-            <Dropdown options={selectOptions}
-                handleOnChange={handleChange}
-                textDefault={selectTextDefault}
-                optionSelected={content && content.categoria}
+            <Dropdown options={ selectOptions }
+                handleOnChange={ handleChange }
+                textDefault={ selectTextDefault }
+                optionSelected={ content && content.categoria }
                 textSwitchValue="Adicionar Categoria"
                 allowLabel
                 label="Categorias"
                 name="categoria"
             />
-            <div className={styles.hudBtn}>
-                <LinkButton to={btnVoltar} classNameButton="btnBack">Voltar</LinkButton>
+            <div className={ styles.hudBtn }>
+                <LinkButton to={ btnVoltar } classNameButton="btnBack">Voltar</LinkButton>
                 <Button
                     type="submit"
-                    className={classNameButton}
-                    buttonSubmitEvent={submit}>
+                    className={ classNameButton }
+                    buttonSubmitEvent= {submit }>
                         
-                    {btnText}
+                    { btnText }
                 </Button>
             </div>
         </form>
