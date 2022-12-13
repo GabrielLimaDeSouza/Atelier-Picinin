@@ -76,7 +76,7 @@ function App() {
     var data = new Date(2010, 1, 1)
     document.cookie = '_id=; expires=' + data + '; path=/'
     setIsLogged(false)
-    navigate("/")
+    location.reload()
   }
 
   return (
