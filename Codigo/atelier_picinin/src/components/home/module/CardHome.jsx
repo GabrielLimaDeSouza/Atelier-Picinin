@@ -11,18 +11,13 @@ const CardHome = ({ produto }) => {
   const [avaliacoes, setAvaliacoes] = useState([])
 
   useEffect(() => {
-    console.log(produto)
-
     fetch(`${ url }/rating/viewRatingById?id=${ produto._id }`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
     }).then(resp => resp.json())
-      .then(data => {
-        setAvaliacoes(data)
-        console.log(data)
-      })
+      .then(data => setAvaliacoes(data))
       .catch(err => console.error(err))
   }, [])
 

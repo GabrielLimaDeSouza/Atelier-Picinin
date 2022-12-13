@@ -256,7 +256,7 @@ const DetalhesProduto = () => {
                                 <div className="options">
                                     { produto.sabores.map(sabor => 
                                         <span className="option-sabor"
-                                            onClick={() => handleAddSabores(sabor)}>{ sabor.sabor }</span>
+                                            onClick={ () => handleAddSabores(sabor) }>{ sabor.sabor }</span>
                                     )}
                                 </div>
                             </div>
@@ -269,7 +269,7 @@ const DetalhesProduto = () => {
 
                                     <div className="quantityManipulation">
                                         <Button type="button" className="remove-quantity" buttonClickEvent={decrementQuantity}>-</Button>
-                                        <span className="quantity">{quantidade}</span>
+                                        <span className="quantity">{ quantidade }</span>
                                         <Button type="button" className="add-quantity" buttonClickEvent={addQuantity}>+</Button>
                                     </div>
                                 </div>
@@ -277,7 +277,7 @@ const DetalhesProduto = () => {
                         </div>
 
                         <div>
-                            {quantidade != 0 && sabores.length > 0 ?
+                            { quantidade != 0 && sabores.length > 0 ?
                                 <Button type="button" buttonClickEvent={ addProdutoCarrinho } className='btnAdicionarCarrinho'>Adicionar no Carrinho</Button>
                                 :
                                 <Button className='disabled' disabled>Adicionar no Carrinho</Button>
@@ -288,41 +288,54 @@ const DetalhesProduto = () => {
 
                 <div className="descricao-produto">
                     <h3>Informações do Produto</h3>
-                    <div>{produto.descricaoProduto}</div>
+                    <div>{ produto.descricaoProduto }</div>
                 </div>
 
                 { showMessage && <Message type={ typeMessage } message={ message } showMessage={setShowMessage} /> }
 
-                {media ?
+                { media ?
                     <div className="div-avaliacao">
                         <div className="media-avaliacao">
-                            <span className="media">{media}</span>
+                            <span className="media">{ media }</span>
                             <span className="nota-maxima">de 5.0</span>
 
                             <ul className="ulavaliacao media-nota">
-                                {estrelas}
+                                { estrelas }
                             </ul>
                         </div>
 
                         <div className="total-avaliacao">
-                            <span className="total">Total de avaliações ({avaliacoes.length})</span>
+                            <span className="total">Total de avaliações ({ avaliacoes.length })</span>
                         </div>
+                        
                         <div className="div-btn-avaliar">
-                            <Button className="btnAvaliar" variant="primary" buttonClickEvent={handleShow}>
-                                Avaliar
-                            </Button>
+                            <Button className="btnAvaliar"
+                                    variant="primary"
+                                    buttonClickEvent={ handleShow }>
+                                    Avaliar
+                                </Button>
 
+                            { avaliacoes.map(avaliacao =>
+                                <Compavaliacao nota={ avaliacao.nota }
+                                    comentario={ avaliacao.comentario }
+                                    avaliador={ avaliacao.cliente }
+                                    data={ avaliacao.data } />
+                            )}
                         </div>
-
-                        {avaliacoes.map(avaliacao =>
-                            <Compavaliacao nota={avaliacao.nota} comentario={avaliacao.comentario} avaliador={avaliacao.cliente} data={avaliacao.data} />
-                        )}
                     </div>
                     :
-                    <div className="sem-media">Este produto ainda não possui avaliações</div>
+                    <div className='btn-avaliar-sem-media'>
+                        <div className="sem-media">Este produto ainda não possui avaliações</div>
+
+                        <Button className="btnAvaliar"
+                                variant="primary"
+                                buttonClickEvent={ handleShow }>
+                                Avaliar
+                            </Button>
+                    </div>
                 }
 
-                <Modal show={show} onHide={handleClose} centered>
+                <Modal show={ show } onHide={ handleClose } centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Realizar Avaliação</Modal.Title>
                     </Modal.Header>
@@ -351,9 +364,7 @@ const DetalhesProduto = () => {
                 </Modal>
             </div>
             :
-            <div>
-                <Loading />
-            </div>
+            <Loading />
     )
 }
 

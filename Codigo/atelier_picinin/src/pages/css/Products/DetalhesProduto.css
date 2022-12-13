@@ -214,8 +214,6 @@ span.selected {
     color: white;
 }
 
-
-
 div.sabor-quantidade {
     display: flex;
     column-gap: 1rem;
@@ -249,6 +247,12 @@ div.quantityManipulation button {
 
 .remove-button {
     cursor: pointer;
+}
+
+div.btn-avaliar-sem-media {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Fim Escolha sabor e quantidade */
