@@ -2,23 +2,22 @@ cff-version: 1.0.1
 message: Please cite this software using these metadata.
 title: Atelier Picinin
 authors:
-  - family-names: Souza
-    given-names: Gabriel de Souza
+  - family-names: de Souza
+    given-names: Gabriel
   - family-names: Lima de Souza
-    given-names: Gabriel Lima de Souza
+    given-names: Gabriel
   - family-names: Picinin Campos Lutti
-    given-names: Lucas Picinin Campos Lutti
+    given-names: Lucas
   - family-names: Vieira Louret
-    given-names: Nikolas Augusto Vieira Louret
- 
+    given-names: Nikolas Augusto
   - name-suffix: Professor
     affiliation: PUC Minas
     family-names: Alonso Veloso
-    given-names: Eveline Alonso Veloso
+    given-names: Eveline
   - name-suffix: Professor
     affiliation: PUC Minas
     family-names: Baroni de Carvalho
-    given-names: Juliana Amaral Baroni de Carvalho
+    given-names: Juliana Amaral
 keywords:
   - Atelier de doces
   - Atelier Picinin
