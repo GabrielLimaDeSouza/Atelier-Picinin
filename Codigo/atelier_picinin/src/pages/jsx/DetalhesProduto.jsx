@@ -314,6 +314,7 @@ const DetalhesProduto = () => {
                                     buttonClickEvent={ handleShow }>
                                     Avaliar
                                 </Button>
+                        </div>
 
                             { avaliacoes.map(avaliacao =>
                                 <Compavaliacao nota={ avaliacao.nota }
@@ -321,7 +322,6 @@ const DetalhesProduto = () => {
                                     avaliador={ avaliacao.cliente }
                                     data={ avaliacao.data } />
                             )}
-                        </div>
                     </div>
                     :
                     <div className='btn-avaliar-sem-media'>
@@ -364,7 +364,9 @@ const DetalhesProduto = () => {
                 </Modal>
             </div>
             :
-            <Loading />
+            <div>
+                <Loading />
+            </div>
     )
 }
 

@@ -1,19 +1,16 @@
 import '../css/Products/CadastrarProduto.css'
 import styles from '../../components/css_components/Form.module.css'
 
-
 import Form from "../../components/products/FormCadastroProdutos"
 import Button from "../../components/layout/Button"
 import Message from "../../components/layout/Message"
 
-import { useLocation, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { AiOutlinePlus } from "react-icons/ai"
 import { BiTrash } from "react-icons/bi"
 
 var sabores = []
 var lenghtSabor = 0
-var contadorSabor = 0
+
 const CadastrarProduto = () => {
     const [produtos, setProdutos] = useState([])
     const [arrayFotos, setArrayFotos] = useState([])
@@ -24,9 +21,9 @@ const CadastrarProduto = () => {
     const [typeMessage, setTypeMessage] = useState('')
     const [showMessage, setShowMessage] = useState(false)
     const [indiceSabor, setIndiceSabor] = useState('')
-    const location = useLocation()
-    const navigate = useNavigate()
+
     const url = 'http://localhost:3000'
+
     useEffect(() => {
         fetch(`${url}/produto/getAllProducts`, {
             method: "GET",
@@ -53,7 +50,7 @@ const CadastrarProduto = () => {
     var controle = 0
 
     useEffect(() => {
-        const token = ""
+        const token = "IGQVJYb192MUJ3ZAmExTUp4bnlMRWRZAUVNKV3dnWjRwSk0zbHZACUXRpUF84N3M5MVJTR1hoUUhBZA3dGZAURZASmNySEpvVXd1dUdyV0ZAYRmY0RlVmempGdmZAxRkpnUnhxRU16UkJvVkZAod0JVRVhSWmU4OAZDZD"
         const urlInsta = "https://graph.instagram.com/me/media?access_token=" + token + "&fields=media_url,media_type,caption,permalink"
 
         fetch(urlInsta, {
@@ -400,15 +397,11 @@ const CadastrarProduto = () => {
     function deletarSabor(id, indice) {
         setId(id)
         setIndiceSabor(indice)
-        console.log(id)
-        console.log(indice)
         deleteSabor(id, indice)
     }
     function deletarProduto(id) {
         setId(id)
         setIndiceSabor(indice)
-        console.log(id)
-        console.log(indice)
         deleteSabor(id, indice)
     }
     return (
@@ -510,11 +503,7 @@ const CadastrarProduto = () => {
                             </ul>
                         </div>
                     )
-                }
-
-
-
-                
+                }                
 
                 <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-scrollable">
@@ -582,8 +571,29 @@ const CadastrarProduto = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
+                    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Adicionar Sabor</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        {message && <Message type="success" message={message} />}
+                                        <form id="form" className={styles.form} onSubmit={createSabor}>
+                                            <label htmlFor="nome">Sabor: </label>
+                                            <input type="text" name="createSabor" id="createSabor" />
+                                            <label htmlFor="descricao">Preço:</label>
+                                            <input type="number" name="createPreco" id="createPrecoSabor" />
+                                            <button type="submit" className="btn btn-warning " id='cadastrar' >Adicionar sabor</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
         </>
     )
 }
