@@ -107,9 +107,20 @@ const CadastrarInsumo = () => {
         return insumo.status
     }
 
+    // Identificar a linha da tabela clicada
+    function idTrClicada(e) {
+        const tr = e.target
+        var element = tr.parentNode
+        while(element.id == false)
+            element = element.parentNode
+
+        return element.id
+    }
+
     // Delete de insumos
     function deleteInput(e) {
         e.preventDefault()
+        console.log(idTrClicada(e))
         const id = idTrClicada(e)
 
         fetch(`${url}/api/deleteInput?id=${id}`, {

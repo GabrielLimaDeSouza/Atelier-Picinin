@@ -35,6 +35,7 @@ const InputComponentTable = ({ item, buttonClickEvent, categories }) => {
                         </LinkButton>
 
                         <Button type="button"
+                            id={ item._id }
                             className="btnTrash"
                             buttonClickEvent={ buttonClickEvent }>
 
