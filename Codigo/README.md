@@ -1,3 +1,3 @@
 # Código do Projeto
 
-Mantenha neste diretório todo o código do projeto. Se necessário, descreva neste arquivo aspectos relevantes da estrutura de diretórios criada para organização do código.
+Diretório contendo o código-fonte do projeto, dividido em uma pasta com os artefatos do frontend e outra com os do backend.
