@@ -1,3 +1,3 @@
 # Documentação do Projeto
 
-Inclua documentação do projeto, como relatórios da PROEX.
+Diretório contendo a documentação do sistema.
